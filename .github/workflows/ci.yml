@@ -178,14 +178,6 @@ jobs:
       
     - name: Build application
       run: npm run build
-      
-    - name: Deploy to Vercel Preview
-      uses: amondnet/vercel-action@v25
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        scope: ${{ secrets.VERCEL_ORG_ID }}
 
   deploy-production:
     name: Deploy to Production
@@ -208,40 +200,3 @@ jobs:
       
     - name: Build application
       run: npm run build
-      
-    - name: Deploy to Vercel Production
-      uses: amondnet/vercel-action@v25
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        vercel-args: '--prod'
-        scope: ${{ secrets.VERCEL_ORG_ID }}
-
-  notify-success:
-    name: Notify Success
-    runs-on: ubuntu-latest
-    needs: [deploy-production]
-    if: success()
-    
-    steps:
-    - name: Notify Discord
-      uses: Ilshidur/action-discord@master
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      with:
-        args: '🚀 DK24 website has been successfully deployed to production!'
-
-  notify-failure:
-    name: Notify Failure
-    runs-on: ubuntu-latest
-    needs: [lint-and-type-check, build-and-test, security-scan, accessibility-test, deploy-production]
-    if: failure()
-    
-    steps:
-    - name: Notify Discord
-      uses: Ilshidur/action-discord@master
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      with:
-        args: '❌ DK24 website deployment failed. Please check the logs.'
