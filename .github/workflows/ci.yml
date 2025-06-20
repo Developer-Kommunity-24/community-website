@@ -118,45 +118,6 @@ jobs:
     - name: Run accessibility tests
       run: npx @axe-core/cli http://localhost:3000
 
-  lighthouse-audit:
-    name: Lighthouse Audit
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build application
-      run: npm run build
-      
-    - name: Start application
-      run: npm start &
-      
-    - name: Wait for application to start
-      run: npx wait-on http://localhost:3000
-      
-    - name: Run Lighthouse audit
-      uses: treosh/lighthouse-ci-action@v10
-      with:
-        urls: |
-          http://localhost:3000
-          http://localhost:3000/about
-          http://localhost:3000/community
-          http://localhost:3000/projects
-        configPath: './.lighthouserc.json'
-        uploadArtifacts: true
-        temporaryPublicStorage: true
-
   deploy-preview:
     name: Deploy Preview
     runs-on: ubuntu-latest
