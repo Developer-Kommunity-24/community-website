@@ -73,9 +73,7 @@ This Code of Conduct applies within all community spaces, and also applies when 
 ### How to Report
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at:
 
-- **Primary Contact**: conduct@dk24.org
-- **Alternative Contact**: leadership@dk24.org
-- **Anonymous Reporting**: [Anonymous Form](https://forms.dk24.org/report)
+- **Primary Contact**: deveeshshetty@gmail.com
 
 ### What to Include
 When reporting, please include:
@@ -120,7 +118,7 @@ Community leaders will follow these Community Impact Guidelines in determining t
 
 If you believe you have been falsely or unfairly accused of violating this Code of Conduct, you may appeal the decision by:
 
-1. **Submitting an appeal** to appeals@dk24.org within 30 days
+1. **Submitting an appeal** to deveeshshetty@gmail.com within 30 days
 2. **Providing additional context** or evidence
 3. **Requesting a review** by a different set of community leaders
 
@@ -147,10 +145,7 @@ Appeals will be reviewed by community leaders who were not involved in the origi
 ## Resources
 
 ### Getting Help
-- **Community Support**: community@dk24.org
-- **Technical Help**: tech@dk24.org
-- **Mental Health Resources**: [Local counseling services]
-- **Academic Support**: Connect with mentors in your field
+- **Community Support**: deveeshshetty@gmail.com
 
 ### Community Guidelines
 - [Contributing Guidelines](.github/CONTRIBUTING.md)
@@ -169,5 +164,5 @@ For answers to common questions about this code of conduct, see the FAQ at [http
 
 **Last Updated**: December 2024  
 **Version**: 1.0  
-**Contact**: conduct@dk24.org
+**Contact**: deveeshshetty@gmail
 ```

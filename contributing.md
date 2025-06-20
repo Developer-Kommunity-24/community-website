@@ -17,7 +17,7 @@ First off, thank you for considering contributing to DK24! 🎉 It's people like
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to conduct@dk24.org.
+This project and everyone participating in it is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to deveeshshetty@gmail.
 
 ## Getting Started
 
@@ -381,7 +381,7 @@ By contributing to DK24, you agree that your contributions will be licensed unde
 Your contributions make DK24 better for everyone. Whether you're fixing a typo, adding a feature, or helping other contributors, every contribution matters.
 
 **Questions?** Don't hesitate to reach out:
-- **Email**: contribute@dk24.org
+- **Email**: deveeshshetty@gmail
 - **GitHub**: Create an issue or discussion
 - **Community**: Join our community channels
 

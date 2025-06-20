@@ -25,7 +25,7 @@ export function HeroSection() {
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground">{siteConfig.tagline}</p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col justify-center sm:flex-row gap-4">
             <Button size="lg" asChild>
               <Link href="/join">Join the Community</Link>
             </Button>

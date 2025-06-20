@@ -20,7 +20,7 @@ The DK24 community takes security seriously. We appreciate your efforts to respo
 **Please do NOT report security vulnerabilities through public GitHub issues.**
 
 Instead, please report security vulnerabilities to:
-- **Email**: security@dk24.org
+- **Email**: deveeshshetty@gmail
 - **Subject**: [SECURITY] Brief description of the issue
 
 ### 📋 What to Include
@@ -53,7 +53,7 @@ Potential for malicious script execution, data theft, session hijacking.
 Suggested Fix:
 Implement proper input sanitization and validation on both client and server side.
 
-Contact: researcher@example.com
+Contact: deveeshshetty@gmail
 ```
 
 ## ⏱️ Response Timeline
@@ -138,12 +138,12 @@ We will notify the community of security updates through:
 ## 📞 Contact Information
 
 ### Security Team
-- **Email**: security@dk24.org
+- **Email**: deveeshshetty@gmail
 - **PGP Key**: Available upon request
 
 ### General Contact
-- **Website**: [dk24.org](https://dk24.netlify.app)
-- **Email**: info@dk24.org
+- **Website**: [dk24.netflify.app](https://dk24.netlify.app)
+- **Email**: deveeshshetty@gmail
 
 ## 🔒 Encryption
 

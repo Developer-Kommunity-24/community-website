@@ -266,7 +266,7 @@ For detailed guidelines, see our [Contributing Guide](.github/CONTRIBUTING.md).
 
 ### 🌐 Connect With Us
 
-- **🌍 Website**: [dk24.org](https://dk24.netlify.app)
+- **🌍 Website**: [dk24.netflify.app](https://dk24.netlify.app)
 - **📱 Twitter**: [@dk24community](https://twitter.com/dk24community)
 - **💼 LinkedIn**: [DK24 Community](https://linkedin.com/company/dk24community)
 - **📷 Instagram**: [@dk24community](https://instagram.com/dk24community)
@@ -274,10 +274,7 @@ For detailed guidelines, see our [Contributing Guide](.github/CONTRIBUTING.md).
 
 ### 📧 Contact Information
 
-- **General Inquiries**: info@dk24.org
-- **Partnerships**: partnerships@dk24.org
-- **Technical Support**: tech@dk24.org
-- **Media Inquiries**: media@dk24.org
+- **General Inquiries**: deveeshshetty@gmail
 
 ### 🏫 Member Colleges
 
@@ -345,7 +342,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 🔒 Security
 
-If you discover a security vulnerability, please send an e-mail to security@dk24.org. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability, please send an e-mail to deveeshshetty@gmail. All security vulnerabilities will be promptly addressed.
 
 ## 📈 Analytics and Monitoring
 
