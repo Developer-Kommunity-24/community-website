@@ -270,7 +270,7 @@ For detailed guidelines, see our [Contributing Guide](.github/CONTRIBUTING.md).
 - **📱 Twitter**: [@dk24community](https://twitter.com/dk24community)
 - **💼 LinkedIn**: [DK24 Community](https://linkedin.com/company/dk24community)
 - **📷 Instagram**: [@dk24community](https://instagram.com/dk24community)
-- **💻 GitHub**: [github.com/dk24](https://github.com/dk24)
+- **💻 GitHub**: [github.com/dk24](https://github.com/Developer-Kommunity-24)
 
 ### 📧 Contact Information
 
