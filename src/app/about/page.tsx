@@ -4,15 +4,15 @@ import { Card } from "@/components/ui/card"
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-6 py-16 md:px-12 lg:px-24">
       <PageHeader
         title="About DK24"
         description="Learn about our vision, mission, and journey to connect college tech communities"
       />
 
-      <div className="grid gap-12 mt-12">
+      <div className="grid gap-16 mt-16">
         <section>
-          <h2 className="text-3xl font-bold mb-6">Our Vision & Mission</h2>
+          <h2 className="text-3xl font-bold mb-8">Our Vision & Mission</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="p-6">
               <h3 className="text-xl font-semibold mb-4">Vision</h3>
@@ -33,7 +33,7 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="text-3xl font-bold mb-6">Long-term Goals</h2>
+          <h2 className="text-3xl font-bold mb-8">Long-term Goals</h2>
           <Card className="p-6">
             <h3 className="text-xl font-semibold mb-4">10-Year Tech Ecosystem Vision</h3>
             <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
@@ -47,7 +47,7 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="text-3xl font-bold mb-6">Core Values & Principles</h2>
+          <h2 className="text-3xl font-bold mb-8">Core Values & Principles</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               {
@@ -76,11 +76,10 @@ export default function AboutPage() {
         </section>
 
         <section>
-          <h2 className="text-3xl font-bold mb-6">Our Journey</h2>
+          <h2 className="text-3xl font-bold mb-8">Our Journey</h2>
           <Timeline />
         </section>
       </div>
     </div>
   )
 }
-

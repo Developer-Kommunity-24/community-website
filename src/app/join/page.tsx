@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function JoinUsPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12 max-w-7xl">
       <PageHeader
         title="Join DK24"
         description="Be a part of the growing tech ecosystem in Mangalore"

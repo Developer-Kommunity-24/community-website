@@ -82,4 +82,3 @@ export function ProjectCard({ project, isCompleted }: ProjectCardProps) {
     </Card>
   )
 }
-

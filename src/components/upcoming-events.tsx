@@ -11,8 +11,8 @@ export function UpcomingEvents() {
   const events = siteConfig.events.upcoming
 
   return (
-    <section className="container mx-auto px-4 py-12 bg-muted/50 rounded-lg">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+    <section className="container mx-auto py-12 max-w-7xl justify-center">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 px-4">
         <div>
           <h2 className="text-3xl font-bold mb-2">Upcoming Events</h2>
           <p className="text-muted-foreground max-w-2xl">Join us for workshops, hackathons, and community gatherings</p>
@@ -22,7 +22,7 @@ export function UpcomingEvents() {
         </Button>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
         {events.map((event, index) => (
           <motion.div
             key={index}
@@ -62,4 +62,3 @@ export function UpcomingEvents() {
     </section>
   )
 }
-

@@ -9,7 +9,7 @@ export default function ProjectsPage() {
       title: "Mangalore Transit",
       description:
         "A mobile app that provides real-time information about public transportation in Mangalore, including bus routes, timings, and crowdedness.",
-      image: "/images/projects/mangalore-transit.jpg",
+      image: "/placeholder.svg",
       tags: ["Mobile App", "Public Service", "React Native"],
       contributors: [
         { name: "Rahul Sharma", college: "SOSC", role: "Project Lead" },
@@ -24,7 +24,7 @@ export default function ProjectsPage() {
       title: "Coastal Cleanup Tracker",
       description:
         "A platform to organize and track beach cleanup activities along the Mangalore coast, with features for volunteer management and impact visualization.",
-      image: "/images/projects/coastal-cleanup.jpg",
+      image: "/placeholder.svg",
       tags: ["Web App", "Environmental", "Next.js"],
       contributors: [
         { name: "Akshay Rao", college: "FiniteLoop", role: "Project Lead" },
@@ -39,7 +39,7 @@ export default function ProjectsPage() {
       title: "Student-Mentor Connect",
       description:
         "A platform connecting students with industry mentors based on their interests, career goals, and technical skills.",
-      image: "/images/projects/student-mentor.jpg",
+      image: "/placeholder.svg",
       tags: ["Web App", "Education", "React"],
       contributors: [
         { name: "Divya Hegde", college: "SOSC", role: "Project Lead" },
@@ -57,7 +57,7 @@ export default function ProjectsPage() {
       title: "College Events Aggregator",
       description:
         "A centralized platform that aggregates and displays technical events from all colleges in Mangalore, helping students discover opportunities.",
-      image: "/images/projects/college-events.jpg",
+      image: "/placeholder.svg",
       tags: ["Web App", "Community", "Vue.js"],
       contributors: [
         { name: "Varun Shenoy", college: "SOSC", role: "Project Lead" },
@@ -74,7 +74,7 @@ export default function ProjectsPage() {
       title: "Local Artisans Marketplace",
       description:
         "An e-commerce platform for local artisans in Mangalore to showcase and sell their products, helping preserve traditional crafts.",
-      image: "/images/projects/local-marketplace.jpg",
+      image: "/placeholder.svg",
       tags: ["Web App", "E-commerce", "MERN Stack"],
       contributors: [
         { name: "Shreya Nayak", college: "Sceptix", role: "Project Lead" },
@@ -88,7 +88,7 @@ export default function ProjectsPage() {
   ]
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-6 py-12 max-w-7xl">
       <PageHeader title="Projects" description="Explore the collaborative projects built by the DK24 community" />
 
       <Tabs defaultValue="ongoing" className="mt-12">
@@ -98,7 +98,7 @@ export default function ProjectsPage() {
         </TabsList>
 
         <TabsContent value="ongoing" className="mt-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {ongoingProjects.map((project, index) => (
               <ProjectCard key={index} project={project} />
             ))}
@@ -106,7 +106,7 @@ export default function ProjectsPage() {
         </TabsContent>
 
         <TabsContent value="completed" className="mt-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {completedProjects.map((project, index) => (
               <ProjectCard key={index} project={project} isCompleted />
             ))}
@@ -116,4 +116,3 @@ export default function ProjectsPage() {
     </div>
   )
 }
-

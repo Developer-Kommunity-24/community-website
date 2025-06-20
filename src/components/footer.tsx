@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site"
 export default function Footer() {
   return (
     <footer className="border-t bg-muted/40">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-12 justiy-center max-w-7xl">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
           <div className="space-y-4">
             <Link href="/" className="inline-block">
@@ -118,4 +118,3 @@ export default function Footer() {
     </footer>
   )
 }
-

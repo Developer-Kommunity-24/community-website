@@ -30,4 +30,3 @@ export function RoleDescription({ role, years, description, responsibilities }: 
     </Card>
   )
 }
-

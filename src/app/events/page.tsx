@@ -12,7 +12,7 @@ export default function EventsPage() {
       location: "Sahyadri College of Engineering & Management",
       description:
         "The inaugural summit that brought together tech communities from 6 colleges across Mangalore to establish DK24 and set the vision for the future.",
-      images: ["/images/events/summit-2023-1.jpg", "/images/events/summit-2023-2.jpg"],
+      images: ["/placeholder.svg", "/placeholder.svg"],
       outcomes: [
         "Established the TEAM model for community structure",
         "Identified 3 collaborative projects to work on",
@@ -26,7 +26,7 @@ export default function EventsPage() {
       location: "NMAM Institute of Technology",
       description:
         "A 36-hour hackathon focused on building solutions for local problems in Mangalore. Over 200 students from all member colleges participated.",
-      images: ["/images/events/hackathon-2024-1.jpg", "/images/events/hackathon-2024-2.jpg"],
+      images: ["/placeholder.svg", "/placeholder.svg"],
       outcomes: [
         "20 projects addressing local challenges",
         "5 projects selected for further development with mentorship",
@@ -66,7 +66,7 @@ export default function EventsPage() {
   ]
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12 max-w-7xl">
       <PageHeader title="Events" description="Discover past and upcoming events from the DK24 community" />
 
       <Tabs defaultValue="upcoming" className="mt-12">
@@ -94,7 +94,7 @@ export default function EventsPage() {
 
         <TabsContent value="past" className="mt-6">
           <h2 className="text-2xl font-bold mb-6">Past Events</h2>
-          <div className="space-y-12">
+          <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {pastEvents.map((event, index) => (
               <EventCard key={index} event={event} />
             ))}
@@ -104,4 +104,3 @@ export default function EventsPage() {
     </div>
   )
 }
-
