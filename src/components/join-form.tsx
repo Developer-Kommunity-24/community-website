@@ -93,14 +93,21 @@ function IndividualForm() {
       const response = await fetch("https://formcarry.com/s/tfkkggHgbkY", {
         method: "POST",
         body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       })
-
-      if (!response.ok) {
-        throw new Error("Form submission failed")
+      
+      const responseText = await response.text()
+      console.log("FormCarry response:", response.status, responseText)
+      
+      if (response.status >= 200 && response.status < 300) {
+        setSubmitSuccess(true)
+        reset()
+      } else {
+        console.error("FormCarry error:", response.status, responseText)
+        throw new Error(`Submission failed with status ${response.status}`)
       }
-
-      setSubmitSuccess(true)
-      reset()
     } catch (error: unknown) {
       console.error("Form submission error:", error)
       setSubmitError("An error occurred while submitting the form. Please try again.")
@@ -273,7 +280,6 @@ function CollegeForm() {
     setSubmitSuccess(false)
 
     try {
-      // Prepare form data for FormCarry
       const formData = new FormData()
       formData.append("_captcha", "false")
       formData.append("_subject", "New College Application - DK24")
@@ -293,14 +299,21 @@ function CollegeForm() {
       const response = await fetch("https://formcarry.com/s/tfkkggHgbkY", {
         method: "POST",
         body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       })
-
-      if (!response.ok) {
-        throw new Error("Form submission failed")
+      
+      const responseText = await response.text()
+      console.log("FormCarry response:", response.status, responseText)
+      
+      if (response.status >= 200 && response.status < 300) {
+        setSubmitSuccess(true)
+        reset()
+      } else {
+        console.error("FormCarry error:", response.status, responseText)
+        throw new Error(`Submission failed with status ${response.status}`)
       }
-
-      setSubmitSuccess(true)
-      reset()
     } catch (error) {
       console.error("Form submission error:", error)
       setSubmitError("An error occurred while submitting the form. Please try again.")
