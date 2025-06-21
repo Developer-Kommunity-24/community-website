@@ -136,4 +136,3 @@ export function TeamStructure() {
     </div>
   )
 }
-

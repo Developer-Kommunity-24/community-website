@@ -42,14 +42,14 @@ export function VisionSection() {
   ]
 
   return (
-    <section className="container mx-auto px-4 py-12">
+    <section className="container mx-auto px-6 py-12">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-4">Our Vision</h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{siteConfig.vision}</p>
         <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{siteConfig.visionDetail}</p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
         {visionPoints.map((point, index) => (
           <motion.div
             key={index}
@@ -72,4 +72,3 @@ export function VisionSection() {
     </section>
   )
 }
-

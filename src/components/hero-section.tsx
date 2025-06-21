@@ -8,8 +8,8 @@ import { siteConfig } from "@/config/site"
 
 export function HeroSection() {
   return (
-    <section className="container mx-auto px-4 py-12 md:py-24">
-      <div className="grid lg:grid-cols-2 gap-8 items-center">
+    <section className="container justify-center text-center flex mx-auto px-4 py-12 md:py-24 lg:py-32">
+      <div className="grid lg:grid-cols-2 max-w-7xl gap-8 items-center lg:gap-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -23,11 +23,9 @@ export function HeroSection() {
                 Tech Communities
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground">
-              {siteConfig.tagline}
-            </p>
+            <p className="text-xl md:text-2xl text-muted-foreground">{siteConfig.tagline}</p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col justify-center sm:flex-row gap-4">
             <Button size="lg" asChild>
               <Link href="/join">Join the Community</Link>
             </Button>
@@ -47,6 +45,9 @@ export function HeroSection() {
             alt="DK24 Logo"
             fill
             className="object-contain p-8"
+            onError={(e) => {
+              console.error("Image failed to load:", e)
+            }}
           />
         </motion.div>
       </div>

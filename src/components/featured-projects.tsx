@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -13,8 +12,8 @@ export function FeaturedProjects() {
   const projects = siteConfig.projects.ongoing
 
   return (
-    <section className="container mx-auto px-4 py-12">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+    <section className="container mx-auto py-12 justify-center max-w-7xl">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 px-4">
         <div>
           <h2 className="text-3xl font-bold mb-2">Featured Projects</h2>
           <p className="text-muted-foreground max-w-2xl">
@@ -26,15 +25,9 @@ export function FeaturedProjects() {
         </Button>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
         {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <div key={index}>
             <Card className="h-full flex flex-col overflow-hidden">
               <div className="relative h-48 w-full">
                 <Image
@@ -70,10 +63,9 @@ export function FeaturedProjects() {
                 </Button>
               </CardFooter>
             </Card>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>
   )
 }
-

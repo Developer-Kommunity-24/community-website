@@ -5,22 +5,24 @@ import Link from "next/link"
 import Image from "next/image"
 import { Github, ExternalLink } from "lucide-react"
 
+export interface Project {
+  id: string
+  title: string
+  description: string
+  image: string
+  tags: string[]
+  contributors: {
+    name: string
+    college: string
+    role: string
+  }[]
+  github: string
+  demo: string
+  outcome?: string
+}
+
 interface ProjectCardProps {
-  project: {
-    id: string
-    title: string
-    description: string
-    image: string
-    tags: string[]
-    contributors: {
-      name: string
-      college: string
-      role: string
-    }[]
-    github: string
-    demo: string
-    outcome?: string
-  }
+  project: Project
   isCompleted?: boolean
 }
 
@@ -82,4 +84,3 @@ export function ProjectCard({ project, isCompleted }: ProjectCardProps) {
     </Card>
   )
 }
-

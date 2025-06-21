@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function JoinUsPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12 max-w-7xl">
       <PageHeader
         title="Join DK24"
         description="Be a part of the growing tech ecosystem in Mangalore"
@@ -132,7 +132,7 @@ export default function JoinUsPage() {
                 <p className="text-muted-foreground mb-2">
                   For general questions about DK24:
                 </p>
-                <p className="font-medium">info@dk24.org</p>
+                <p className="font-medium">deveeshshetty@gmail.com</p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-4">
@@ -141,7 +141,7 @@ export default function JoinUsPage() {
                 <p className="text-muted-foreground mb-2">
                   For collaboration and partnership inquiries:
                 </p>
-                <p className="font-medium">partnerships@dk24.org</p>
+                <p className="font-medium">deveeshshetty@gmail</p>
               </div>
             </div>
           </CardContent>

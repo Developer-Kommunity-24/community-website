@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from "@/lib/utils"
 
 interface Event {
@@ -29,13 +29,11 @@ export function EventCalendar({ events }: EventCalendarProps) {
   const prevMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))
   }
-
-  // Get days in month
+  
   const getDaysInMonth = (year: number, month: number) => {
     return new Date(year, month + 1, 0).getDate()
   }
-
-  // Get day of week for first day of month (0 = Sunday, 6 = Saturday)
+  
   const getFirstDayOfMonth = (year: number, month: number) => {
     return new Date(year, month, 1).getDay()
   }
@@ -44,11 +42,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
   const month = currentMonth.getMonth()
   const daysInMonth = getDaysInMonth(year, month)
   const firstDayOfMonth = getFirstDayOfMonth(year, month)
-
-  // Parse event dates and create a map of events by day
+  
   const eventsByDay = events.reduce((acc: Record<string, Event[]>, event) => {
     const eventDate = new Date(event.date)
-    // Only include events from the current month
     if (eventDate.getMonth() === month && eventDate.getFullYear() === year) {
       const day = eventDate.getDate()
       if (!acc[day]) {
@@ -58,16 +54,13 @@ export function EventCalendar({ events }: EventCalendarProps) {
     }
     return acc
   }, {})
-
-  // Create calendar days array
+  
   const calendarDays = []
-
-  // Add empty cells for days before the first day of the month
+  
   for (let i = 0; i < firstDayOfMonth; i++) {
     calendarDays.push(null)
   }
-
-  // Add days of the month
+  
   for (let day = 1; day <= daysInMonth; day++) {
     calendarDays.push(day)
   }
@@ -135,17 +128,25 @@ export function EventCalendar({ events }: EventCalendarProps) {
         <div className="mt-4 space-y-2">
           <h4 className="text-sm font-medium">Upcoming Events:</h4>
           <ul className="space-y-1">
-            {Object.values(eventsByDay)
-              .flat()
-              .map((event, index) => (
-                <li key={index} className="text-xs">
-                  <span className="font-medium">{event.date}:</span> {event.title}
-                </li>
-              ))}
+            {Object.entries(eventsByDay)
+              .sort(([dayA], [dayB]) => Number(dayA) - Number(dayB))
+              .flatMap(([, events]) => events)
+              .map((event, index) => {
+                const eventDate = new Date(event.date);
+                const formattedDate = eventDate.toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                });
+
+                return (
+                  <li key={index} className="text-xs">
+                    <span className="font-medium">{formattedDate}:</span> {event.title}
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </CardContent>
     </Card>
   )
 }
-

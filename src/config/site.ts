@@ -3,9 +3,7 @@ export const siteConfig = {
   tagline: "We are connecting college tech communities to learn and build together in public.",
   description:
     "DK24 is a community initiative connecting college tech communities in Mangalore to learn and build together in public.",
-  url: "https://dk24.org",
-
-  // Vision and mission
+  url: "https://dk24.netlify.app",
   vision:
     "DK24 is not a replacement for existing college communities, it's a medium for the college communities to interact in a larger scale with other existing communities in other colleges.",
   visionDetail:
@@ -13,10 +11,8 @@ export const siteConfig = {
   mission:
     "The core and the ultimate purpose of DK24 is to foster the learning and building environment among our peers and juniors, where we aim toward project-based learning, which will give rise to the next generation of engineers and tech entrepreneurs.",
 
-  // Long-term goal
   goal: "Our goal is to have a tech ecosystem in Mangalore in the next 10 years, where we will be having a diverse network, that any student who has an idea or the spark to do something, will have the best resource he/she can access in the city.",
 
-  // TEAM structure
   teamStructure: {
     techie: {
       letter: "T",
@@ -72,14 +68,13 @@ export const siteConfig = {
     },
   },
 
-  // Founding college communities
   colleges: [
     {
       name: "Sahyadri Open Source Community (SOSC)",
       college: "Sahyadri College of Engineering & Management",
       description:
         "A student-driven open source community focused on promoting open source culture and fostering technical growth through workshops, events, and projects.",
-      logo: "/images/colleges/sosc-logo.svg",
+      logo: "/placeholder.svg",
       representatives: [{ name: "Suhan Acharya", role: "Community Lead", email: "suhan@sosc.org.in" }],
       website: "https://sosc.org.in",
     },
@@ -88,7 +83,7 @@ export const siteConfig = {
       college: "A J Institute of Engineering and Technology",
       description:
         "A community of developers working on innovative projects and organizing technical events to enhance coding skills and promote collaboration.",
-      logo: "/images/colleges/devnation-logo.svg",
+      logo: "/placeholder.svg",
       representatives: [{ name: "Rakshith Shetty", role: "Community Lead", email: "rakshith@devnation.org" }],
       website: "https://devnation.org",
     },
@@ -97,7 +92,7 @@ export const siteConfig = {
       college: "Nitte engineering (NMAIT)",
       description:
         "A coding community focused on algorithmic problem solving, competitive programming, and building practical applications.",
-      logo: "/images/colleges/finiteloop-logo.svg",
+      logo: "/placeholder.svg",
       representatives: [{ name: "Priya Sharma", role: "Community Lead", email: "priya@finiteloop.club" }],
       website: "https://finiteloop.club",
     },
@@ -106,7 +101,7 @@ export const siteConfig = {
       college: "St. Joseph College of Engineering and Technology",
       description:
         "A technical club that organizes workshops, hackathons, and technical competitions to enhance students' technical skills.",
-      logo: "/images/colleges/sceptix-logo.svg",
+      logo: "/placeholder.svg",
       representatives: [{ name: "Aditya Nayak", role: "Community Lead", email: "aditya@sceptix.org" }],
       website: "https://sceptix.org",
     },
@@ -115,7 +110,7 @@ export const siteConfig = {
       college: "Srinivas Institute of Engineering and Technology",
       description:
         "A student-run open source community that promotes open source contribution and technical skill development.",
-      logo: "/images/colleges/ssosc-logo.svg",
+      logo: "/placeholder.svg",
       representatives: [{ name: "Karthik Rao", role: "Community Lead", email: "karthik@ssosc.in" }],
       website: "https://ssosc.in",
     },
@@ -124,13 +119,12 @@ export const siteConfig = {
       college: "Vivekananda College of Engineering and Technology",
       description:
         "Community of Research and Engineering that focuses on research-oriented projects and technical skill enhancement.",
-      logo: "/images/colleges/core-logo.svg",
+      logo: "/placeholder.svg",
       representatives: [{ name: "Nikhil Kumar", role: "Community Lead", email: "nikhil@core-cec.org" }],
       website: "https://core-cec.org",
     },
   ],
 
-  // Events
   events: {
     upcoming: [
       {
@@ -161,7 +155,7 @@ export const siteConfig = {
         location: "Sahyadri College of Engineering & Management",
         description:
           "The inaugural summit that brought together tech communities from 6 colleges across Mangalore to establish DK24 and set the vision for the future.",
-        images: ["/images/events/summit-2023-1.jpg", "/images/events/summit-2023-2.jpg"],
+        images: ["/placeholder.svg", "/placeholder.svg"],
         outcomes: [
           "Established the TEAM model for community structure",
           "Identified 3 collaborative projects to work on",
@@ -171,7 +165,6 @@ export const siteConfig = {
     ],
   },
 
-  // Projects
   projects: {
     ongoing: [
       {
@@ -179,7 +172,7 @@ export const siteConfig = {
         title: "Mangalore Transit",
         description:
           "A mobile app that provides real-time information about public transportation in Mangalore, including bus routes, timings, and crowdedness.",
-        image: "/images/projects/mangalore-transit.jpg",
+        image: "/placeholder.svg",
         tags: ["Mobile App", "Public Service", "React Native"],
         contributors: [
           { name: "Rahul Sharma", college: "SOSC", role: "Project Lead" },
@@ -194,7 +187,7 @@ export const siteConfig = {
         title: "Coastal Cleanup Tracker",
         description:
           "A platform to organize and track beach cleanup activities along the Mangalore coast, with features for volunteer management and impact visualization.",
-        image: "/images/projects/coastal-cleanup.jpg",
+        image: "/placeholder.svg",
         tags: ["Web App", "Environmental", "Next.js"],
         contributors: [
           { name: "Akshay Rao", college: "FiniteLoop", role: "Project Lead" },
@@ -211,7 +204,7 @@ export const siteConfig = {
         title: "College Events Aggregator",
         description:
           "A centralized platform that aggregates and displays technical events from all colleges in Mangalore, helping students discover opportunities.",
-        image: "/images/projects/college-events.jpg",
+        image: "/placeholder.svg",
         tags: ["Web App", "Community", "Vue.js"],
         contributors: [
           { name: "Varun Shenoy", college: "SOSC", role: "Project Lead" },
@@ -226,32 +219,30 @@ export const siteConfig = {
     ],
   },
 
-  // Testimonials
   testimonials: [
     {
       quote:
         "Being part of DK24 has completely transformed my college experience. I've made connections across different colleges and worked on projects I never thought I could.",
       name: "Rahul Sharma",
       role: "Explorer, SOSC",
-      avatar: "/images/testimonials/rahul.jpg",
+      avatar: "/placeholder.svg",
     },
     {
       quote:
         "As a mentor, it's incredibly rewarding to see students from different colleges collaborate and build amazing projects. DK24 is creating the tech ecosystem that Mangalore has needed for years.",
       name: "Priya Nayak",
       role: "Mentor, DevNation Alumni",
-      avatar: "/images/testimonials/priya.jpg",
+      avatar: "/placeholder.svg",
     },
     {
       quote:
         "The TEAM model has given me a clear path for growth. Starting as a Techie and now as an Explorer, I've learned so much from peers across different colleges.",
       name: "Akshay Rao",
       role: "Explorer, FiniteLoop",
-      avatar: "/images/testimonials/akshay.jpg",
+      avatar: "/placeholder.svg",
     },
   ],
 
-  // Social media links
   social: {
     twitter: "https://twitter.com/dk24community",
     github: "https://github.com/dk24",
