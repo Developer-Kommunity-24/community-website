@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { siteConfig } from "@/config/site"
 import type { Metadata } from "next"
+import Image from "next/image"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -43,11 +44,12 @@ function ErrorBoundary({ children }: { children: ReactNode }) {
 
 function Loading() {
   return <div className="flex flex-col items-center justify-center min-h-[60vh]">
-    <img
+    <Image
+      width={1080}
+      height={1080}
       src="/logo.svg"
       alt="DK24 Logo"
       className="w-20 h-20 mb-6 animate-pulse"
-      style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" }}
     />
     <div className="text-lg font-medium text-muted-foreground">Loading...</div>
   </div>

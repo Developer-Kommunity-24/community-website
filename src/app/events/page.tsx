@@ -1,14 +1,14 @@
 import { PageHeader } from "@/components/page-header"
-import { EventCard } from "@/components/event-card"
+import { EventCard, Event } from "@/components/event-card"
 import { EventCalendar } from "@/components/event-calendar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 
 export default function EventsPage() {
-  const pastEvents: any[] = []
+  const pastEvents: Array<Event> = []
 
-  const upcomingEvents: any[] = []
+  const upcomingEvents: Array<Event> = []
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-7xl">

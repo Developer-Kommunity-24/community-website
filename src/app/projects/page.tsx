@@ -1,12 +1,12 @@
 import { PageHeader } from "@/components/page-header"
-import { ProjectCard } from "@/components/project-card"
+import { Project, ProjectCard } from "@/components/project-card"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Image from "next/image"
 
 export default function ProjectsPage() {
-  const ongoingProjects: any[] = []
-  const completedProjects: any[] = []
+  const ongoingProjects: Array<Project> = []
+  const completedProjects: Array<Project> = []
 
   return (
     <div className="container mx-auto px-6 py-12 max-w-7xl">
