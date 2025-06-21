@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { useForm, type SubmitHandler } from "react-hook-form"
+import { Controller, useForm, type SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 
@@ -48,15 +48,25 @@ type CollegeFormValues = z.infer<typeof collegeSchema>
 function IndividualForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
 
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors },
     reset,
   } = useForm<IndividualFormValues>({
     resolver: zodResolver(individualSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      college: "",
+      year: "",
+      interests: "",
+      motivation: "",
       terms: false,
     },
   })
@@ -64,10 +74,14 @@ function IndividualForm() {
   const onSubmit: SubmitHandler<IndividualFormValues> = async (data) => {
     setIsSubmitting(true)
     setSubmitError(null)
+    setSubmitSuccess(false)
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
       console.log("Individual Form Data:", data)
+      
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      setSubmitSuccess(true)
       reset()
     } catch (error: unknown) {
       console.error("Form submission error:", error)
@@ -78,13 +92,23 @@ function IndividualForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} action="https://formsubmit.co/deveeshshetty@gmail.com" method="POST">
       <CardContent className="space-y-4">
         {submitError && (
           <div className="rounded-md border border-destructive bg-destructive/15 p-3 text-sm text-destructive">
             {submitError}
           </div>
         )}
+
+        {submitSuccess && (
+          <div className="rounded-md border border-green-500 bg-green-50 p-3 text-sm text-green-700">
+            Form submitted successfully! Thank you for your application.
+          </div>
+        )}
+
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="text" name="_honey" style={{ display: "none" }} />
+        <input type="hidden" name="_subject" value="New Individual Application - DK24" />
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
@@ -117,51 +141,74 @@ function IndividualForm() {
           {errors.college && <p className="text-sm text-destructive">{errors.college.message}</p>}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="year">Year of Study</Label>
-          <Select {...register("year")}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select year" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="1">1st Year</SelectItem>
-              <SelectItem value="2">2nd Year</SelectItem>
-              <SelectItem value="3">3rd Year</SelectItem>
-              <SelectItem value="4">4th Year</SelectItem>
-              <SelectItem value="alumni">Alumni</SelectItem>
-              <SelectItem value="professional">Working Professional</SelectItem>
-            </SelectContent>
-          </Select>
-          {errors.year && <p className="text-sm text-destructive">{errors.year.message}</p>}
-        </div>
+        <Controller
+          control={control}
+          name="year"
+          render={({ field }) => (
+            <div className="space-y-2">
+              <Label htmlFor="year">Year of Study</Label>
+              <Select onValueChange={field.onChange} value={field.value || undefined}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select year" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1st Year</SelectItem>
+                  <SelectItem value="2">2nd Year</SelectItem>
+                  <SelectItem value="3">3rd Year</SelectItem>
+                  <SelectItem value="4">4th Year</SelectItem>
+                  <SelectItem value="alumni">Alumni</SelectItem>
+                  <SelectItem value="professional">Working Professional</SelectItem>
+                </SelectContent>
+              </Select>
+              {errors.year && <p className="text-sm text-destructive">{errors.year.message}</p>}
+            </div>
+          )}
+        />
 
         <div className="space-y-2">
           <Label htmlFor="interests">Technical Interests</Label>
-          <Textarea
-            id="interests"
-            placeholder="Web Development, Machine Learning, Open Source, etc."
+          <Textarea 
+            id="interests" 
+            placeholder="Tell us about your technical interests, programming languages you know, projects you've worked on, etc. (minimum 10 characters)"
             {...register("interests")}
           />
-          {errors.interests && <p className="text-sm text-destructive">{errors.interests.message}</p>}
+          {errors.interests && (
+            <p className="text-sm text-destructive">{errors.interests.message}</p>
+          )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="motivation">Why do you want to join DK24?</Label>
-          <Textarea
-            id="motivation"
-            placeholder="Tell us why you're interested in joining our community..."
+          <Textarea 
+            id="motivation" 
+            placeholder="Tell us what motivates you to join DK24, what you hope to learn, and how you plan to contribute to the community. (minimum 20 characters)"
             {...register("motivation")}
           />
-          {errors.motivation && <p className="text-sm text-destructive">{errors.motivation.message}</p>}
+          {errors.motivation && (
+            <p className="text-sm text-destructive">{errors.motivation.message}</p>
+          )}
         </div>
 
-        <div className="flex items-center space-x-2">
-          <Checkbox id="terms" {...register("terms")} />
-          <label htmlFor="terms" className="text-sm font-medium leading-none">
-            I agree to the terms and conditions
-          </label>
-          {errors.terms && <p className="text-sm text-destructive">{errors.terms.message}</p>}
-        </div>
+        <Controller
+          control={control}
+          name="terms"
+          render={({ field }) => (
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="terms"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                <label htmlFor="terms" className="text-sm font-medium leading-none">
+                  I agree to the terms and conditions
+                </label>
+              </div>
+              {errors.terms && <p className="text-sm text-destructive">{errors.terms.message}</p>}
+            </div>
+          )}
+        />
+
       </CardContent>
 
       <CardFooter className="py-4">
@@ -176,15 +223,28 @@ function IndividualForm() {
 function CollegeForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
 
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors },
     reset,
   } = useForm<CollegeFormValues>({
     resolver: zodResolver(collegeSchema),
     defaultValues: {
+      collegeName: "",
+      communityName: "",
+      repName: "",
+      repPosition: "",
+      repEmail: "",
+      repPhone: "",
+      facultyName: "",
+      facultyEmail: "",
+      communitySize: "",
+      communityActivities: "",
+      expectations: "",
       terms: false,
     },
   })
@@ -192,12 +252,16 @@ function CollegeForm() {
   const onSubmit: SubmitHandler<CollegeFormValues> = async (data) => {
     setIsSubmitting(true)
     setSubmitError(null)
+    setSubmitSuccess(false)
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
       console.log("College Form Data:", data)
+      
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      setSubmitSuccess(true)
       reset()
-    } catch (error: unknown) {
+    } catch (error) {
       console.error("Form submission error:", error)
       setSubmitError("An error occurred while submitting the form. Please try again.")
     } finally {
@@ -206,17 +270,24 @@ function CollegeForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off"
-      action="https://formsubmit.co/deveeshshetty@gmail"
-      method="POST">
+    <form onSubmit={handleSubmit(onSubmit)} action="https://formsubmit.co/deveeshshetty@gmail.com" method="POST">
       <CardContent className="space-y-4">
         {submitError && (
           <div className="rounded-md border border-destructive bg-destructive/15 p-3 text-sm text-destructive">
             {submitError}
           </div>
         )}
-        <input title="captcha" type="hidden" name="_captcha" value="false"></input>
-        <input title="honey" type="text" name="_honey" style={{ display: "none" }}></input>
+
+        {submitSuccess && (
+          <div className="rounded-md border border-green-500 bg-green-50 p-3 text-sm text-green-700">
+            Form submitted successfully! Thank you for your application.
+          </div>
+        )}
+
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="text" name="_honey" style={{ display: "none" }} />
+        <input type="hidden" name="_subject" value="New College Application - DK24" />
+
         <div className="space-y-2">
           <Label htmlFor="collegeName">College Name</Label>
           <Input
@@ -299,13 +370,25 @@ function CollegeForm() {
           {errors.expectations && <p className="text-sm text-destructive">{errors.expectations.message}</p>}
         </div>
 
-        <div className="flex items-center space-x-2">
-          <Checkbox id="terms" {...register("terms")} />
-          <label htmlFor="terms" className="text-sm font-medium leading-none">
-            I agree to the terms and conditions
-          </label>
-          {errors.terms && <p className="text-sm text-destructive">{errors.terms.message}</p>}
-        </div>
+        <Controller
+          control={control}
+          name="terms"
+          render={({ field }) => (
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2">
+                <Checkbox 
+                  id="terms" 
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                <label htmlFor="terms" className="text-sm font-medium leading-none">
+                  I agree to the terms and conditions
+                </label>
+              </div>
+              {errors.terms && <p className="text-sm text-destructive">{errors.terms.message}</p>}
+            </div>
+          )}
+        />
       </CardContent>
 
       <CardFooter className="py-4">
