@@ -92,7 +92,7 @@ function IndividualForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} action="https://formsubmit.co/deveeshshetty+dk24@gmail.com" method="POST">
+    <form onSubmit={handleSubmit(onSubmit)} action="https://formcarry.com/s/tfkkggHgbkY" method="POST">
       <CardContent className="space-y-4">
         {submitError && (
           <div className="rounded-md border border-destructive bg-destructive/15 p-3 text-sm text-destructive">
@@ -270,7 +270,7 @@ function CollegeForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} action="https://formsubmit.co/deveeshshetty+dk24@gmail.com" method="POST">
+    <form onSubmit={handleSubmit(onSubmit)} action="https://formcarry.com/s/tfkkggHgbkY" method="POST">
       <CardContent className="space-y-4">
         {submitError && (
           <div className="rounded-md border border-destructive bg-destructive/15 p-3 text-sm text-destructive">
