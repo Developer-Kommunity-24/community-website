@@ -9,4 +9,4 @@ permissions:
 
 jobs:
   uneditable:
-    uses: gaureshpai/cprm-prototype/.github/workflows/pull-requests.yml@main
+    uses: Developer-Kommunity-24/community-website/.github/workflows/pull-requests.yml@main

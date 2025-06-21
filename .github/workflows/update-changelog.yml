@@ -10,4 +10,4 @@ jobs:
   update:
     permissions:
       contents: write
-    uses: gaureshpai/cprm-prototype/.github/workflows/update-changelog.yml@main
+    uses: Developer-Kommunity-24/community-website/.github/workflows/update-changelog.yml@main
