@@ -206,14 +206,17 @@ function CollegeForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete="off"
+      action="https://formsubmit.co/deveeshshetty@gmail"
+      method="POST">
       <CardContent className="space-y-4">
         {submitError && (
           <div className="rounded-md border border-destructive bg-destructive/15 p-3 text-sm text-destructive">
             {submitError}
           </div>
         )}
-
+        <input title="captcha" type="hidden" name="_captcha" value="false"></input>
+        <input title="honey" type="text" name="_honey" style={{ display: "none" }}></input>
         <div className="space-y-2">
           <Label htmlFor="collegeName">College Name</Label>
           <Input
