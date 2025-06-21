@@ -266,7 +266,7 @@ For detailed guidelines, see our [Contributing Guide](.github/CONTRIBUTING.md).
 
 ### 🌐 Connect With Us
 
-- **🌍 Website**: [dk24.netflify.app](https://dk24.netlify.app)
+- **🌍 Website**: [dk24.netlify.app](https://dk24.netlify.app)
 - **📱 Twitter**: [@dk24community](https://twitter.com/dk24community)
 - **💼 LinkedIn**: [DK24 Community](https://linkedin.com/company/dk24community)
 - **📷 Instagram**: [@dk24community](https://instagram.com/dk24community)

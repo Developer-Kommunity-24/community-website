@@ -144,9 +144,6 @@ Appeals will be reviewed by community leaders who were not involved in the origi
 
 ## Resources
 
-### Getting Help
-- **Community Support**: deveeshshetty@gmail.com
-
 ### Community Guidelines
 - [Contributing Guidelines](.github/CONTRIBUTING.md)
 - [Project Guidelines](docs/PROJECT_GUIDELINES.md)
