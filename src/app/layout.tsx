@@ -42,7 +42,15 @@ function ErrorBoundary({ children }: { children: ReactNode }) {
 }
 
 function Loading() {
-  return <div>Loading...</div>
+  return <div className="flex flex-col items-center justify-center min-h-[60vh]">
+    <img
+      src="/logo.svg"
+      alt="DK24 Logo"
+      className="w-20 h-20 mb-6 animate-pulse"
+      style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" }}
+    />
+    <div className="text-lg font-medium text-muted-foreground">Loading...</div>
+  </div>
 }
 
 const { Suspense } = React

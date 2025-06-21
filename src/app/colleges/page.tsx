@@ -14,11 +14,11 @@ export default function MemberCollegesPage() {
     },
     {
       name: "DevNation",
-      college: "NMAM Institute of Technology",
+      college: "AJ Institute of Engineering and Technology",
       description:
         "A community of developers working on innovative projects and organizing technical events to enhance coding skills and promote collaboration.",
       logo: "/placeholder.svg",
-      representatives: [{ name: "Rakshith Shetty", role: "Community Lead", email: "rakshith@devnation.org" }],
+      representatives: [{ name: "Jnanesh", role: "Community Lead", email: "jtuluve@gmail.com" }],
       website: "https://devnation.org",
     },
     {

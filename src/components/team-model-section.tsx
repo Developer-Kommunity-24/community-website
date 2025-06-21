@@ -33,7 +33,7 @@ export function TeamModelSection() {
     {
       letter: siteConfig.teamStructure.mentor.letter,
       title: siteConfig.teamStructure.mentor.title,
-      description: `${siteConfig.teamStructure.mentor.years} who provide industry insights and connections`,
+      description: `${siteConfig.teamStructure.mentor.years} who provide industry insights and connections to students`,
       icon: <GraduationCap className="h-6 w-6" />,
       color: "bg-green-100 dark:bg-green-900/30",
       textColor: "text-green-600 dark:text-green-400",
@@ -51,9 +51,9 @@ export function TeamModelSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {teamRoles.map((role, index) => (
-          <div key={index}>
-            <Card className="h-full">
-              <CardContent className="p-4 md:p-6">
+          <div key={index} className="h-full">
+            <Card className="h-full flex flex-col">
+              <CardContent className="p-4 md:p-6 flex flex-col flex-1">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className={`p-3 rounded-full ${role.color}`}>{role.icon}</div>
                   <div>
@@ -63,7 +63,9 @@ export function TeamModelSection() {
                     </div>
                   </div>
                 </div>
-                <p className="text-muted-foreground">{role.description}</p>
+                <div className="flex-1 flex items-end">
+                  <p className="text-muted-foreground">{role.description}</p>
+                </div>
               </CardContent>
             </Card>
           </div>
