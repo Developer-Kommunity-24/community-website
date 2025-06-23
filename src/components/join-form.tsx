@@ -5,45 +5,21 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Controller, useForm, type SubmitHandler } from "react-hook-form"
+import { useForm, type SubmitHandler } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import {
+  individualSchema,
+  collegeSchema,
+  individualInitialValues,
+  collegeInitialValues,
+  type IndividualFormValues,
+  type CollegeFormValues,
+} from "@/lib/forms-config"
+import { submitFormData } from "@/lib/form-submission"
 
 interface JoinFormProps {
   type: "individual" | "college"
 }
-
-const individualSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters."),
-  lastName: z.string().min(2, "Last name must be at least 2 characters."),
-  email: z.string().email("Please enter a valid email address."),
-  phone: z.string().regex(/^(\+?\d{1,4}[\s-])?(?!0+\s)(?!0+$)\d{8,12}$/, "Please enter a valid phone number."),
-  college: z.string().min(2, "College name must be at least 2 characters."),
-  year: z.string().min(1, "Please select a year of study."),
-  interests: z.string().min(10, "Please tell us about your interests."),
-  motivation: z.string().min(20, "Please tell us why you want to join DK24."),
-  terms: z.boolean().refine((val) => val === true, "You must accept the terms and conditions."),
-})
-
-const collegeSchema = z.object({
-  collegeName: z.string().min(2, "College name must be at least 2 characters."),
-  communityName: z.string().min(2, "Community name must be at least 2 characters."),
-  repName: z.string().min(2, "Representative name must be at least 2 characters."),
-  repPosition: z.string().min(2, "Position must be at least 2 characters."),
-  repEmail: z.string().email("Please enter a valid email address."),
-  repPhone: z.string().regex(/^(\+?\d{1,4}[\s-])?(?!0+\s)(?!0+$)\d{8,12}$/, "Please enter a valid phone number."),
-  facultyName: z.string().min(2, "Faculty name must be at least 2 characters."),
-  facultyEmail: z.string().email("Please enter a valid email address."),
-  communitySize: z.string().regex(/^[0-9]*$/, "Please enter a valid number."),
-  communityActivities: z.string().min(20, "Please describe the current activities."),
-  expectations: z.string().min(20, "Please tell us what you expect from joining DK24."),
-  terms: z.boolean().refine((val) => val === true, "You must accept the terms and conditions."),
-})
-
-type IndividualFormValues = z.infer<typeof individualSchema>
-type CollegeFormValues = z.infer<typeof collegeSchema>
 
 function IndividualForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -53,63 +29,46 @@ function IndividualForm() {
   const {
     handleSubmit,
     register,
-    control,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
+    trigger,
   } = useForm<IndividualFormValues>({
     resolver: zodResolver(individualSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      college: "",
-      year: "",
-      interests: "",
-      motivation: "",
-      terms: false,
-    },
+    defaultValues: individualInitialValues,
+    mode: "onChange",
   })
 
   const onSubmit: SubmitHandler<IndividualFormValues> = async (data) => {
+    const isFormValid = await trigger()
+    if (!isFormValid) {
+      setSubmitError("Please fix all validation errors before submitting.")
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitError(null)
     setSubmitSuccess(false)
 
     try {
-      const formData = new FormData()
-      formData.append("_captcha", "false")
-      formData.append("_subject", "New Individual Application - DK24")
-      formData.append("firstName", data.firstName)
-      formData.append("lastName", data.lastName)
-      formData.append("email", data.email)
-      formData.append("phone", data.phone)
-      formData.append("college", data.college)
-      formData.append("year", data.year)
-      formData.append("interests", data.interests)
-      formData.append("motivation", data.motivation)
-      formData.append("terms", data.terms.toString())
-
-      const response = await fetch("https://formcarry.com/s/tfkkggHgbkY", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
+      const response = await submitFormData("https://formcarry.com/s/tfkkggHgbkY", {
+        _subject: "New Individual Application - DK24",
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        college: data.college,
+        year: data.year,
+        interests: data.interests,
+        motivation: data.motivation,
       })
-      
-      const responseText = await response.text()
-      console.log("FormCarry response:", response.status, responseText)
-      
+
       if (response.status >= 200 && response.status < 300) {
         setSubmitSuccess(true)
         reset()
       } else {
-        console.error("FormCarry error:", response.status, responseText)
         throw new Error(`Submission failed with status ${response.status}`)
       }
-    } catch (error: unknown) {
-      console.error("Form submission error:", error)
+    } catch {
       setSubmitError("An error occurred while submitting the form. Please try again.")
     } finally {
       setIsSubmitting(false)
@@ -173,35 +132,17 @@ function IndividualForm() {
           {errors.college && <p className="text-sm text-destructive">{errors.college.message}</p>}
         </div>
 
-        <Controller
-          control={control}
-          name="year"
-          render={({ field }) => (
-            <div className="space-y-2">
-              <Label htmlFor="year">Year of Study</Label>
-              <Select onValueChange={field.onChange} value={field.value || undefined} disabled={isSubmitting}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select year" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">1st Year</SelectItem>
-                  <SelectItem value="2">2nd Year</SelectItem>
-                  <SelectItem value="3">3rd Year</SelectItem>
-                  <SelectItem value="4">4th Year</SelectItem>
-                  <SelectItem value="alumni">Alumni</SelectItem>
-                  <SelectItem value="professional">Working Professional</SelectItem>
-                </SelectContent>
-              </Select>
-              {errors.year && <p className="text-sm text-destructive">{errors.year.message}</p>}
-            </div>
-          )}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="year">Year of Study</Label>
+          <Input id="year" placeholder="Select year" {...register("year")} disabled={isSubmitting} />
+          {errors.year && <p className="text-sm text-destructive">{errors.year.message}</p>}
+        </div>
 
         <div className="space-y-2">
           <Label htmlFor="interests">Technical Interests</Label>
           <Textarea
             id="interests"
-            placeholder="Tell us about your technical interests, programming languages you know, projects you've worked on, etc. (minimum 10 characters)"
+            placeholder="Tell us about your technical interests, programming languages you know, projects you've worked on, etc."
             {...register("interests")}
             disabled={isSubmitting}
           />
@@ -212,32 +153,16 @@ function IndividualForm() {
           <Label htmlFor="motivation">Why do you want to join DK24?</Label>
           <Textarea
             id="motivation"
-            placeholder="Tell us what motivates you to join DK24, what you hope to learn, and how you plan to contribute to the community. (minimum 20 characters)"
+            placeholder="Tell us what motivates you to join DK24, what you hope to learn, and how you plan to contribute to the community."
             {...register("motivation")}
             disabled={isSubmitting}
           />
           {errors.motivation && <p className="text-sm text-destructive">{errors.motivation.message}</p>}
         </div>
-
-        <Controller
-          control={control}
-          name="terms"
-          render={({ field }) => (
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <Checkbox id="terms" checked={field.value} onCheckedChange={field.onChange} disabled={isSubmitting} />
-                <label htmlFor="terms" className="text-sm font-medium leading-none">
-                  I agree to the terms and conditions
-                </label>
-              </div>
-              {errors.terms && <p className="text-sm text-destructive">{errors.terms.message}</p>}
-            </div>
-          )}
-        />
       </CardContent>
 
-      <CardFooter className="py-4">
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
+      <CardFooter className="py-4 cursor-pointer">
+        <Button type="submit" className="w-full" disabled={isSubmitting || !isValid}>
           {isSubmitting ? "Submitting..." : "Submit Application"}
         </Button>
       </CardFooter>
@@ -253,69 +178,49 @@ function CollegeForm() {
   const {
     handleSubmit,
     register,
-    control,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
+    trigger,
   } = useForm<CollegeFormValues>({
     resolver: zodResolver(collegeSchema),
-    defaultValues: {
-      collegeName: "",
-      communityName: "",
-      repName: "",
-      repPosition: "",
-      repEmail: "",
-      repPhone: "",
-      facultyName: "",
-      facultyEmail: "",
-      communitySize: "",
-      communityActivities: "",
-      expectations: "",
-      terms: false,
-    },
+    defaultValues: collegeInitialValues,
+    mode: "onChange",
   })
 
   const onSubmit: SubmitHandler<CollegeFormValues> = async (data) => {
+    const isFormValid = await trigger()
+    if (!isFormValid) {
+      setSubmitError("Please fix all validation errors before submitting.")
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitError(null)
     setSubmitSuccess(false)
 
     try {
-      const formData = new FormData()
-      formData.append("_captcha", "false")
-      formData.append("_subject", "New College Application - DK24")
-      formData.append("collegeName", data.collegeName)
-      formData.append("communityName", data.communityName)
-      formData.append("repName", data.repName)
-      formData.append("repPosition", data.repPosition)
-      formData.append("repEmail", data.repEmail)
-      formData.append("repPhone", data.repPhone)
-      formData.append("facultyName", data.facultyName)
-      formData.append("facultyEmail", data.facultyEmail)
-      formData.append("communitySize", data.communitySize)
-      formData.append("communityActivities", data.communityActivities)
-      formData.append("expectations", data.expectations)
-      formData.append("terms", data.terms.toString())
-
-      const response = await fetch("https://formcarry.com/s/tfkkggHgbkY", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json",
-        },
+      const response = await submitFormData("https://formcarry.com/s/tfkkggHgbkY", {
+        _subject: "New College Application - DK24",
+        collegeName: data.collegeName,
+        communityName: data.communityName,
+        repName: data.repName,
+        repPosition: data.repPosition,
+        repEmail: data.repEmail,
+        repPhone: data.repPhone,
+        facultyName: data.facultyName,
+        facultyEmail: data.facultyEmail,
+        communitySize: data.communitySize,
+        communityActivities: data.communityActivities,
+        expectations: data.expectations,
       })
-      
-      const responseText = await response.text()
-      console.log("FormCarry response:", response.status, responseText)
-      
+
       if (response.status >= 200 && response.status < 300) {
         setSubmitSuccess(true)
         reset()
       } else {
-        console.error("FormCarry error:", response.status, responseText)
         throw new Error(`Submission failed with status ${response.status}`)
       }
-    } catch (error) {
-      console.error("Form submission error:", error)
+    } catch {
       setSubmitError("An error occurred while submitting the form. Please try again.")
     } finally {
       setIsSubmitting(false)
@@ -450,26 +355,10 @@ function CollegeForm() {
           />
           {errors.expectations && <p className="text-sm text-destructive">{errors.expectations.message}</p>}
         </div>
-
-        <Controller
-          control={control}
-          name="terms"
-          render={({ field }) => (
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <Checkbox id="terms" checked={field.value} onCheckedChange={field.onChange} disabled={isSubmitting} />
-                <label htmlFor="terms" className="text-sm font-medium leading-none">
-                  I agree to the terms and conditions
-                </label>
-              </div>
-              {errors.terms && <p className="text-sm text-destructive">{errors.terms.message}</p>}
-            </div>
-          )}
-        />
       </CardContent>
 
-      <CardFooter className="py-4">
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
+      <CardFooter className="py-4 cursor-pointer">
+        <Button type="submit" className="w-full" disabled={isSubmitting || !isValid}>
           {isSubmitting ? "Submitting..." : "Submit Application"}
         </Button>
       </CardFooter>

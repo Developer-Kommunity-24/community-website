@@ -60,7 +60,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
@@ -83,7 +82,6 @@ export default function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center space-x-4 cursor-pointer">
             <ModeToggle />
             <Button className="cursor-pointer" variant="ghost" size="icon" onClick={toggleMenu} aria-label={isOpen ? "Close menu" : "Open menu"}>
@@ -93,7 +91,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
