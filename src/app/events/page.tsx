@@ -1,18 +1,23 @@
-import { PageHeader } from "@/components/page-header"
-import { EventCard, Event } from "@/components/event-card"
-import { EventCalendar } from "@/components/event-calendar"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent } from "@/components/ui/card"
-import Image from "next/image"
+import { PageHeader } from "@/components/page-header";
+import { EventCard } from "@/components/event-card";
+import { EventCalendar } from "@/components/event-calendar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
+import { getEvents } from "@/lib/get-events";
 
-export default function EventsPage() {
-  const pastEvents: Array<Event> = []
+export default async function EventsPage() {
+  const events = await getEvents();
 
-  const upcomingEvents: Array<Event> = []
+  const upcomingEvents = events.filter((e) => new Date(e.date) > new Date());
+  const pastEvents = events.filter((e) => new Date(e.date) <= new Date());
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-7xl">
-      <PageHeader title="Events" description="Discover past and upcoming events from the DK24 community" />
+      <PageHeader
+        title="Events"
+        description="Discover past and upcoming events from the DK24 community"
+      />
 
       <Tabs defaultValue="upcoming" className="mt-12">
         <TabsList className="grid w-full md:w-auto grid-cols-2">
@@ -21,39 +26,40 @@ export default function EventsPage() {
         </TabsList>
 
         <TabsContent value="upcoming" className="mt-6">
-          <div className="grid lg:grid-cols-2 gap-8">
-            <div>
-              <h2 className="text-2xl font-bold mb-6">Upcoming Events</h2>
-              <div className="space-y-6">
-                {upcomingEvents.length === 0 ? (
-                  <Card className="overflow-hidden flex flex-col h-full col-span-full">
-                    <div className="relative h-48 w-full bg-muted flex items-center justify-center">
-                      <Image
-                        src="/placeholder.svg"
-                        alt="No events"
-                        fill
-                        className="object-cover opacity-60"
-                        style={{ zIndex: 0 }}
-                      />
-                      <div className="absolute inset-0 bg-muted/60" />
-                    </div>
-                    <CardContent className="p-6 flex-1 flex flex-col items-center justify-center">
-                      <h3 className="text-xl font-semibold mb-2 text-center">No Upcoming Events</h3>
-                      <p className="text-muted-foreground text-center">
-                        Events will appear here once they are added by the community.
-                      </p>
-                    </CardContent>
-                  </Card>
-                ) : (
-                  upcomingEvents.map((event, index) => (
-                    <EventCard key={index} event={event} isUpcoming />
-                  ))
-                )}
-              </div>
-            </div>
-            <div className="mt-8 lg:mt-0">
-              <h2 className="text-2xl font-bold mb-6">Events Calendar</h2>
-              <EventCalendar events={[...upcomingEvents]} />
+          <div className="mt-8 lg:mt-0">
+            <h2 className="text-2xl font-bold mb-6">Events Calendar</h2>
+            <EventCalendar events={[...upcomingEvents]} />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold my-6">Upcoming Events</h2>
+            <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {upcomingEvents.length === 0 ? (
+                <Card className="overflow-hidden flex flex-col h-full col-span-full">
+                  <div className="relative h-48 w-full bg-muted flex items-center justify-center">
+                    <Image
+                      src="/placeholder.svg"
+                      alt="No events"
+                      fill
+                      className="object-cover opacity-60"
+                      style={{ zIndex: 0 }}
+                    />
+                    <div className="absolute inset-0 bg-muted/60" />
+                  </div>
+                  <CardContent className="p-6 flex-1 flex flex-col items-center justify-center">
+                    <h3 className="text-xl font-semibold mb-2 text-center">
+                      No Upcoming Events
+                    </h3>
+                    <p className="text-muted-foreground text-center">
+                      Events will appear here once they are added by the
+                      community.
+                    </p>
+                  </CardContent>
+                </Card>
+              ) : (
+                upcomingEvents.map((event, index) => (
+                  <EventCard key={index} event={event} isUpcoming />
+                ))
+              )}
             </div>
           </div>
         </TabsContent>
@@ -74,9 +80,12 @@ export default function EventsPage() {
                   <div className="absolute inset-0 bg-muted/60" />
                 </div>
                 <CardContent className="p-6 flex-1 flex flex-col items-center justify-center">
-                  <h3 className="text-xl font-semibold mb-2 text-center">No Past Events</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-center">
+                    No Past Events
+                  </h3>
                   <p className="text-muted-foreground text-center">
-                    Events will appear here once they are added by the community.
+                    Events will appear here once they are added by the
+                    community.
                   </p>
                 </CardContent>
               </Card>
@@ -89,5 +98,5 @@ export default function EventsPage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
