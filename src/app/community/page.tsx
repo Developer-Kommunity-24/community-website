@@ -7,12 +7,10 @@ export default function CommunityStructurePage() {
     <div className="container mx-auto px-6 py-12 max-w-7xl">
       <PageHeader title="Community Structure" description="Understanding the TEAM model that powers our community" />
 
-      {/* Team Structure Section */}
       <div className="mt-16">
         <TeamStructure />
       </div>
 
-      {/* Role Descriptions Section */}
       <div className="mt-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Role Descriptions</h2>
@@ -72,7 +70,6 @@ export default function CommunityStructurePage() {
         </div>
       </div>
 
-      {/* Progression Path Section */}
       <div className="mt-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Progression Path</h2>
