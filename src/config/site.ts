@@ -1,6 +1,7 @@
 export const siteConfig = {
   name: "DK24",
-  tagline: "We are connecting college tech communities to learn and build together in public.",
+  tagline:
+    "We are connecting college tech communities to learn and build together in public.",
   description:
     "DK24 is a community initiative connecting college tech communities in Mangalore to learn and build together in public.",
   url: "https://dk24.netlify.app",
@@ -75,7 +76,13 @@ export const siteConfig = {
       description:
         "A student-driven open source community focused on promoting open source culture and fostering technical growth through workshops, events, and projects.",
       logo: "/placeholder.svg",
-      representatives: [{ name: "Suhan Acharya", role: "Community Lead", email: "suhan@sosc.org.in" }],
+      representatives: [
+        {
+          name: "Suhan Acharya",
+          role: "Community Lead",
+          email: "suhan@sosc.org.in",
+        },
+      ],
       website: "https://sosc.org.in",
     },
     {
@@ -84,7 +91,13 @@ export const siteConfig = {
       description:
         "A community of developers working on innovative projects and organizing technical events to enhance coding skills and promote collaboration.",
       logo: "/placeholder.svg",
-      representatives: [{ name: "Rakshith Shetty", role: "Community Lead", email: "rakshith@devnation.org" }],
+      representatives: [
+        {
+          name: "Rakshith Shetty",
+          role: "Community Lead",
+          email: "rakshith@devnation.org",
+        },
+      ],
       website: "https://devnation.org",
     },
     {
@@ -93,7 +106,13 @@ export const siteConfig = {
       description:
         "A coding community focused on algorithmic problem solving, competitive programming, and building practical applications.",
       logo: "/placeholder.svg",
-      representatives: [{ name: "Priya Sharma", role: "Community Lead", email: "priya@finiteloop.club" }],
+      representatives: [
+        {
+          name: "Priya Sharma",
+          role: "Community Lead",
+          email: "priya@finiteloop.club",
+        },
+      ],
       website: "https://finiteloop.club",
     },
     {
@@ -102,7 +121,13 @@ export const siteConfig = {
       description:
         "A technical club that organizes workshops, hackathons, and technical competitions to enhance students' technical skills.",
       logo: "/placeholder.svg",
-      representatives: [{ name: "Aditya Nayak", role: "Community Lead", email: "aditya@sceptix.org" }],
+      representatives: [
+        {
+          name: "Aditya Nayak",
+          role: "Community Lead",
+          email: "aditya@sceptix.org",
+        },
+      ],
       website: "https://sceptix.org",
     },
     {
@@ -111,7 +136,13 @@ export const siteConfig = {
       description:
         "A student-run open source community that promotes open source contribution and technical skill development.",
       logo: "/placeholder.svg",
-      representatives: [{ name: "Karthik Rao", role: "Community Lead", email: "karthik@ssosc.in" }],
+      representatives: [
+        {
+          name: "Karthik Rao",
+          role: "Community Lead",
+          email: "karthik@ssosc.in",
+        },
+      ],
       website: "https://ssosc.in",
     },
     {
@@ -120,7 +151,13 @@ export const siteConfig = {
       description:
         "Community of Research and Engineering that focuses on research-oriented projects and technical skill enhancement.",
       logo: "/placeholder.svg",
-      representatives: [{ name: "Nikhil Kumar", role: "Community Lead", email: "nikhil@core-cec.org" }],
+      representatives: [
+        {
+          name: "Nikhil Kumar",
+          role: "Community Lead",
+          email: "nikhil@core-cec.org",
+        },
+      ],
       website: "https://core-cec.org",
     },
   ],
@@ -136,15 +173,6 @@ export const siteConfig = {
         description:
           "The annual summit bringing together all member communities to showcase projects, share learnings, and plan for the upcoming year. Hosted by Sahyadri Open Source Community.",
         registrationLink: "/events/register/summit-2024",
-      },
-      {
-        id: "summit-2025",
-        title: "DK24 Summit 2025",
-        date: "August 12, 2025",
-        time: "9:00 AM - 5:00 PM",
-        location: "AJ Institute of Technology",
-        description: "The second annual summit of DK24, hosted by DevNation at AJ Institute of Technology.",
-        registrationLink: "/events/register/summit-2025",
       },
     ],
     past: [
@@ -176,7 +204,11 @@ export const siteConfig = {
         tags: ["Mobile App", "Public Service", "React Native"],
         contributors: [
           { name: "Rahul Sharma", college: "SOSC", role: "Project Lead" },
-          { name: "Priya Nayak", college: "Sceptix", role: "Backend Developer" },
+          {
+            name: "Priya Nayak",
+            college: "Sceptix",
+            role: "Backend Developer",
+          },
           { name: "Karthik M", college: "DevNation", role: "UI/UX Designer" },
         ],
         github: "https://github.com/dk24/mangalore-transit",
@@ -191,7 +223,11 @@ export const siteConfig = {
         tags: ["Web App", "Environmental", "Next.js"],
         contributors: [
           { name: "Akshay Rao", college: "FiniteLoop", role: "Project Lead" },
-          { name: "Shreya D'Souza", college: "SSOSC", role: "Frontend Developer" },
+          {
+            name: "Shreya D'Souza",
+            college: "SSOSC",
+            role: "Frontend Developer",
+          },
           { name: "Nikhil Kumar", college: "CoRE", role: "Backend Developer" },
         ],
         github: "https://github.com/dk24/coastal-cleanup",
@@ -208,7 +244,11 @@ export const siteConfig = {
         tags: ["Web App", "Community", "Vue.js"],
         contributors: [
           { name: "Varun Shenoy", college: "SOSC", role: "Project Lead" },
-          { name: "Meghana Rao", college: "FiniteLoop", role: "Frontend Developer" },
+          {
+            name: "Meghana Rao",
+            college: "FiniteLoop",
+            role: "Frontend Developer",
+          },
           { name: "Arjun Kamath", college: "CoRE", role: "Backend Developer" },
         ],
         github: "https://github.com/dk24/college-events",
@@ -249,5 +289,4 @@ export const siteConfig = {
     linkedin: "https://linkedin.com/company/dk24community",
     instagram: "https://instagram.com/dk24community",
   },
-}
-
+};
