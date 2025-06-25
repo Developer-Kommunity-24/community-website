@@ -8,7 +8,9 @@ import { EventCard } from "./event-card";
 export async function UpcomingEvents() {
   const events = await getEvents();
 
-  const upcomingEvents = events.filter((e) => new Date(e.date) > new Date());
+  const upcomingEvents = events
+    .filter((e) => new Date(e.date) > new Date())
+    .slice(0, 3);
 
   return (
     <section className="container mx-auto py-12 max-w-7xl justify-center">

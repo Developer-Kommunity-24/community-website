@@ -30,8 +30,8 @@ export default async function EventsPage() {
             <h2 className="text-2xl font-bold mb-6">Events Calendar</h2>
             <EventCalendar events={[...upcomingEvents]} />
           </div>
-          <div>
-            <h2 className="text-2xl font-bold my-6">Upcoming Events</h2>
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold mb-6">Upcoming Events</h2>
             <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {upcomingEvents.length === 0 ? (
                 <Card className="overflow-hidden flex flex-col h-full col-span-full">
@@ -65,7 +65,7 @@ export default async function EventsPage() {
         </TabsContent>
 
         <TabsContent value="past" className="mt-6">
-          <h2 className="text-2xl font-bold mb-6">Past Events</h2>
+          <h2 className="text-2xl font-bold mb-6 mt-8 lg:mt-0">Past Events</h2>
           <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {pastEvents.length === 0 ? (
               <Card className="overflow-hidden flex flex-col h-full col-span-full">
