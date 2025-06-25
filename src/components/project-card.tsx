@@ -4,33 +4,23 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import Image from "next/image"
 import { Github, ExternalLink } from "lucide-react"
-
-export interface Project {
-  id: string
-  title: string
-  description: string
-  image: string
-  tags: string[]
-  contributors: {
-    name: string
-    college: string
-    role: string
-  }[]
-  github: string
-  demo: string
-  outcome?: string
-}
+import { Project } from "@/types"
 
 interface ProjectCardProps {
   project: Project
   isCompleted?: boolean
 }
 
-export function ProjectCard({ project, isCompleted }: ProjectCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Card className="overflow-hidden flex flex-col h-full">
       <div className="relative h-48 w-full">
-        <Image src={project.image || "/placeholder.svg"} alt={project.title} fill className="object-cover" />
+        <Image
+          src={project.image || "/placeholder.svg"}
+          alt={project.title}
+          fill
+          className="object-cover"
+        />
       </div>
       <CardContent className="p-6 flex-1">
         <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
@@ -58,13 +48,6 @@ export function ProjectCard({ project, isCompleted }: ProjectCardProps) {
             ))}
           </ul>
         </div>
-
-        {isCompleted && project.outcome && (
-          <div className="mt-4">
-            <h4 className="text-sm font-semibold mb-2">Outcome:</h4>
-            <p className="text-sm text-muted-foreground">{project.outcome}</p>
-          </div>
-        )}
       </CardContent>
 
       <CardFooter className="p-6 pt-0 flex justify-between">
