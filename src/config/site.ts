@@ -140,7 +140,7 @@ export const siteConfig = {
       {
         id: "summit-2025",
         title: "DK24 Summit 2025",
-        date: "April 12, 2025",
+        date: "August 12, 2025",
         time: "9:00 AM - 5:00 PM",
         location: "AJ Institute of Technology",
         description: "The second annual summit of DK24, hosted by DevNation at AJ Institute of Technology.",
