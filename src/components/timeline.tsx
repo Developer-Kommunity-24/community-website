@@ -65,7 +65,6 @@ export function Timeline({ timelineEvents }: { timelineEvents: Event[] }) {
 
   return (
     <div className="relative">
-      {/* Timeline line */}
       <div className="absolute left-0 md:left-1/2 h-full w-0.5 bg-border transform -translate-x-1/2"></div>
 
       <div className="space-y-12">
@@ -80,7 +79,6 @@ export function Timeline({ timelineEvents }: { timelineEvents: Event[] }) {
               index % 2 === 0 ? "md:flex-row-reverse" : ""
             }`}
           >
-            {/* Timeline dot */}
             <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary transform -translate-x-1/2 mt-1.5"></div>
 
             {/* Content */}
@@ -102,7 +100,6 @@ export function Timeline({ timelineEvents }: { timelineEvents: Event[] }) {
               </Card>
             </div>
 
-            {/* Spacer for alternating layout */}
             <div className="hidden md:block md:w-1/2"></div>
           </motion.div>
         ))}
