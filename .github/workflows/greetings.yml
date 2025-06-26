@@ -15,14 +15,14 @@ jobs:
           issue-message: |
             👋 Hello @${{ github.actor }}!
 
-            Thank you for opening an issue in the **DK24 - Community website** repository 🏥. Your input helps us improve this healthcare platform built for **Wenlock Hospital** under the **UDAL Fellowship Project**.
+            Thank you for opening an issue in the **DK24 - Community website** repository 🏥. Your input helps us improve this healthcare platform built for **DK24 Community website**.
 
             Please ensure you’ve checked for duplicate issues and added relevant labels such as `bug`, `enhancement`, or `documentation`. We appreciate your contribution to better patient care and resource management! 💡
 
           pr-message: |
             🙌 Welcome @${{ github.actor }}!
 
-            Thank you for contributing to **DK24 - Community website** 💻. This project is a comprehensive hospital management platform designed for **Wenlock Hospital** under the **UDAL Fellowship** initiative.
+            Thank you for contributing to **DK24 - Community website** 💻. This project is a comprehensive hospital management platform designed for **DK24 Community website**.
 
             Your pull request will be reviewed shortly. Please ensure it aligns with our contribution guidelines and includes appropriate labels such as `feature`, `fix`, or `refactor`.
 

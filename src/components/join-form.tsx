@@ -35,7 +35,7 @@ function IndividualForm() {
   } = useForm<IndividualFormValues>({
     resolver: zodResolver(individualSchema),
     defaultValues: individualInitialValues,
-    mode: "onChange",
+    mode: "onBlur",
   })
 
   const onSubmit: SubmitHandler<IndividualFormValues> = async (data) => {
@@ -184,7 +184,7 @@ function CollegeForm() {
   } = useForm<CollegeFormValues>({
     resolver: zodResolver(collegeSchema),
     defaultValues: collegeInitialValues,
-    mode: "onChange",
+    mode: "onBlur",
   })
 
   const onSubmit: SubmitHandler<CollegeFormValues> = async (data) => {
