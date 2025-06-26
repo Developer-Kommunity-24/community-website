@@ -19,9 +19,12 @@ export default function CommunityStructurePage() {
 
       <div className="mt-24">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold tracking-tight">Role Descriptions</h2>
+          <h2 className="text-4xl font-bold tracking-tight">
+            Role Descriptions
+          </h2>
           <p className="mt-4 text-xl text-muted-foreground max-w-3xl mx-auto">
-            Each role in our community represents a step in your journey, from learning the basics to becoming a leader.
+            Each role in our community represents a step in your journey, from
+            learning the basics to becoming a leader.
           </p>
         </div>
 
@@ -81,9 +84,13 @@ export default function CommunityStructurePage() {
       </div>
 
       <div className="mt-24 text-center">
-        <h2 className="text-4xl font-bold tracking-tight mb-4">Join Our Thriving Community</h2>
+        <h2 className="text-4xl font-bold tracking-tight mb-4">
+          Join Our Thriving Community
+        </h2>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-          Whether you're just starting or looking to lead, there's a place for you here. Grow your skills, build your network, and make an impact.
+          Whether you&apos;re just starting or looking to lead, there&apos;s a
+          place for you here. Grow your skills, build your network, and make an
+          impact.
         </p>
         <Link href="/join">
           <Button size="lg">Become a Member</Button>
