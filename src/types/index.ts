@@ -1,15 +1,15 @@
-export interface CollegeRepresentative {
+export interface CommunityRepresentative {
   name: string
   role: string
   email: string
 }
 
-export interface College {
+export interface Community {
   name: string
   college: string
   description: string
   logo: string
-  representatives: CollegeRepresentative[]
+  representatives: CommunityRepresentative[]
   website: string
 }
 

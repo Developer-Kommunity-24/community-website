@@ -1,6 +1,6 @@
-import { College } from "@/types"
+import { Community } from "@/types"
 
-export const colleges: College[] = [
+export const communities: Community[] = [
   {
     name: "Sahyadri Open Source Community (SOSC)",
     college: "Sahyadri College of Engineering & Management",
