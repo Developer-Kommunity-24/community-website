@@ -26,7 +26,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
         <p className="text-muted-foreground mb-4">{project.description}</p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mb-8">
           {project.tags.map((tag, i) => (
             <Badge key={i} variant="secondary">
               {tag}
@@ -40,10 +40,18 @@ export function ProjectCard({ project }: ProjectCardProps) {
             {project.contributors.map((contributor, index) => (
               <li key={index} className="text-sm">
                 <span className="font-medium">{contributor.name}</span>
-                <span className="text-muted-foreground">
-                  {" "}
-                  - {contributor.role}, {contributor.college}
-                </span>
+                {contributor.company && (
+                  <span className="text-muted-foreground">
+                    {" "}
+                    - {contributor.role}, {contributor.company}
+                  </span>
+                )}
+                {contributor.college && (
+                  <span className="text-muted-foreground">
+                    {" "}
+                    - {contributor.college}
+                  </span>
+                )}
               </li>
             ))}
           </ul>
@@ -51,14 +59,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </CardContent>
 
       <CardFooter className="p-6 pt-0 flex justify-between">
-        <Button variant="outline" size="sm" asChild>
-          <Link href={project.github} target="_blank" rel="noopener noreferrer">
-            <Github className="h-4 w-4 mr-2" />
-            Code
-          </Link>
-        </Button>
-        <Button size="sm" asChild>
-          <Link href={project.demo} target="_blank" rel="noopener noreferrer">
+        {project.github && (
+          <Button variant="outline" size="sm" asChild>
+            <Link
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github className="h-4 w-4 mr-2" />
+              Code
+            </Link>
+          </Button>
+        )}
+        <Button size="sm" asChild className="ml-auto">
+          <Link href={project.link} target="_blank" rel="noopener noreferrer">
             <ExternalLink className="h-4 w-4 mr-2" />
             Demo
           </Link>

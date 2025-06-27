@@ -21,11 +21,13 @@ export interface Project {
   tags: string[]
   contributors: {
     name: string
-    college: string
-    role: string
+    year?: string
+    college?: string
+    company?: string
+    role?: string
   }[]
   github: string
-  demo: string
+  link: string
 }
 
 export interface Testimonial {
