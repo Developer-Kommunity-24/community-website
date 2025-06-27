@@ -6,10 +6,10 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import Image from "next/image"
 import { Github, ExternalLink } from "lucide-react"
-import { siteConfig } from "@/config/site"
+import { projects } from "@/constants/projects"
 
 export function FeaturedProjects() {
-  const projects = siteConfig.projects.ongoing
+  if (projects.length === 0) return null
 
   return (
     <section className="container mx-auto py-12 justify-center max-w-7xl">
@@ -39,7 +39,9 @@ export function FeaturedProjects() {
               </div>
               <CardContent className="p-6 flex-1">
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">{project.description}</p>
+                <p className="text-muted-foreground mb-4">
+                  {project.description}
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, i) => (
                     <Badge key={i} variant="secondary">
@@ -50,13 +52,21 @@ export function FeaturedProjects() {
               </CardContent>
               <CardFooter className="p-6 pt-0 flex justify-between">
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={project.github} target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <Github className="h-4 w-4 mr-2" />
                     Code
                   </Link>
                 </Button>
                 <Button size="sm" asChild>
-                  <Link href={project.demo} target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <ExternalLink className="h-4 w-4 mr-2" />
                     Demo
                   </Link>
