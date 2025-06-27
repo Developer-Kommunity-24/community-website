@@ -14,7 +14,9 @@ export default function Footer() {
                 {siteConfig.name}
               </span>
             </Link>
-            <p className="text-base text-muted-foreground max-w-xs">{siteConfig.tagline}</p>
+            <p className="text-base text-muted-foreground max-w-xs">
+              {siteConfig.tagline}
+            </p>
             <div className="flex space-x-3 mt-4">
               <Button
                 variant="ghost"
@@ -22,7 +24,11 @@ export default function Footer() {
                 asChild
                 className="transition hover:bg-green-100 hover:text-green-600"
               >
-                <Link href={siteConfig.social.twitter} target="_blank" rel="noopener noreferrer">
+                <Link
+                  href={siteConfig.social.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Twitter className="h-5 w-5" />
                   <span className="sr-only">Twitter</span>
                 </Link>
@@ -33,7 +39,11 @@ export default function Footer() {
                 asChild
                 className="transition hover:bg-gray-100 hover:text-gray-900"
               >
-                <Link href={siteConfig.social.github} target="_blank" rel="noopener noreferrer">
+                <Link
+                  href={siteConfig.social.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Github className="h-5 w-5" />
                   <span className="sr-only">GitHub</span>
                 </Link>
@@ -44,7 +54,11 @@ export default function Footer() {
                 asChild
                 className="transition hover:bg-blue-100 hover:text-blue-700"
               >
-                <Link href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer">
+                <Link
+                  href={siteConfig.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Linkedin className="h-5 w-5" />
                   <span className="sr-only">LinkedIn</span>
                 </Link>
@@ -55,7 +69,11 @@ export default function Footer() {
                 asChild
                 className="transition hover:bg-pink-100 hover:text-pink-600"
               >
-                <Link href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer">
+                <Link
+                  href={siteConfig.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Instagram className="h-5 w-5" />
                   <span className="sr-only">Instagram</span>
                 </Link>
@@ -63,7 +81,9 @@ export default function Footer() {
             </div>
           </div>
           <div className="space-y-6">
-            <h3 className="text-base font-semibold tracking-wide text-foreground">Quick Links</h3>
+            <h3 className="text-base font-semibold tracking-wide text-foreground">
+              Quick Links
+            </h3>
             <ul className="space-y-3 text-base">
               <li>
                 <Link
@@ -83,10 +103,10 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/colleges"
+                  href="/communities"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-150"
                 >
-                  Member Colleges
+                  Member Communities
                 </Link>
               </li>
               <li>
@@ -110,7 +130,8 @@ export default function Footer() {
         </div>
         <div className="mt-16 pt-8 border-t border-muted-foreground/10 text-center text-sm text-muted-foreground">
           <p>
-            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights
+            reserved.
           </p>
         </div>
       </div>

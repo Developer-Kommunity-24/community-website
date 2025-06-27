@@ -39,7 +39,7 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/community", label: "Community" },
-    { href: "/colleges", label: "Colleges" },
+    { href: "/communities", label: "Communities" },
     { href: "/events", label: "Events" },
     { href: "/projects", label: "Projects" },
   ]
@@ -49,7 +49,9 @@ export default function Navbar() {
       ref={headerRef}
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-200",
-        isScrolled ? "bg-background/80 backdrop-blur-md border-b" : "bg-transparent",
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md border-b"
+          : "bg-transparent"
       )}
     >
       <div className="container mx-auto px-4 max-w-7xl">
@@ -67,7 +69,9 @@ export default function Navbar() {
                 href={link.href}
                 className={cn(
                   "text-sm font-medium transition-colors hover:text-primary",
-                  pathname === link.href ? "text-primary" : "text-muted-foreground",
+                  pathname === link.href
+                    ? "text-primary"
+                    : "text-muted-foreground"
                 )}
               >
                 {link.label}
@@ -84,8 +88,18 @@ export default function Navbar() {
 
           <div className="flex md:hidden items-center space-x-4 cursor-pointer">
             <ModeToggle />
-            <Button className="cursor-pointer" variant="ghost" size="icon" onClick={toggleMenu} aria-label={isOpen ? "Close menu" : "Open menu"}>
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <Button
+              className="cursor-pointer"
+              variant="ghost"
+              size="icon"
+              onClick={toggleMenu}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+            >
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>
@@ -106,7 +120,9 @@ export default function Navbar() {
                   href={link.href}
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-primary p-3 rounded-md",
-                    pathname === link.href ? "bg-muted text-primary" : "text-muted-foreground",
+                    pathname === link.href
+                      ? "bg-muted text-primary"
+                      : "text-muted-foreground"
                   )}
                 >
                   {link.label}
