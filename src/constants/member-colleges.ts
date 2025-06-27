@@ -5,13 +5,28 @@ export const colleges: College[] = [
     name: "Sahyadri Open Source Community (SOSC)",
     college: "Sahyadri College of Engineering & Management",
     description:
-      "A student-driven open source community focused on promoting open source culture and fostering technical growth through workshops, events, and projects.",
-    logo: "/placeholder.svg",
+      "SOSC is a vibrant community of tech enthusiasts and open-source contributors dedicated to upskilling students through peer-to-peer learning, hands-on workshops, and real-world project experience.",
+    logo: "/community-logos/sosc.png",
     representatives: [
       {
-        name: "Suhan Acharya",
-        role: "Community Lead",
-        email: "suhan@sosc.org.in",
+        name: "Amrithraj N",
+        role: "Community Organizer",
+        email: "amrithraj.ai22@sahyadri.edu.in",
+      },
+      {
+        name: "Pratheek G Shetty",
+        role: "Community Organizer",
+        email: "",
+      },
+      {
+        name: "Himanshu Shetty",
+        role: "Community Organizer",
+        email: "",
+      },
+      {
+        name: "Shreelakshmi Pai",
+        role: "Community Organizer",
+        email: "",
       },
     ],
     website: "https://sosc.org.in",
@@ -32,57 +47,62 @@ export const colleges: College[] = [
     college: "NMIT Bangalore",
     description:
       "A coding community focused on algorithmic problem solving, competitive programming, and building practical applications.",
-    logo: "/placeholder.svg",
+    logo: "/community-logos/finiteloop.png",
     representatives: [
       {
-        name: "Priya Sharma",
-        role: "Community Lead",
-        email: "priya@finiteloop.club",
+        name: "Nandan R Pai",
+        role: "President",
+        email: "nandan@finiteloop.club",
       },
     ],
     website: "https://finiteloop.club",
   },
   {
-    name: "Sceptix",
+    name: "The Sceptix Club",
     college: "St Joseph Engineering College",
     description:
       "A technical club that organizes workshops, hackathons, and technical competitions to enhance students' technical skills.",
     logo: "/placeholder.svg",
     representatives: [
       {
-        name: "Aditya Nayak",
+        name: "Pratham V Bhat",
+        role: "Co-founder",
+        email: "21a36.pratham@sjec.ac.in",
+      },
+      {
+        name: "Nihaal Y K",
         role: "Community Lead",
-        email: "aditya@sceptix.org",
+        email: "",
       },
     ],
     website: "https://sceptix.org",
   },
   {
-    name: "SSOSC",
-    college: "Shri Madhwa Vadiraja Institute of Technology",
+    name: "Srinivas Student Open Source Community (SSOSC)",
+    college: "Srinivas Institute of Technology",
     description:
-      "A student-run open source community that promotes open source contribution and technical skill development.",
+      "We are actively working to promote open-source culture within our campus by organizing workshops, hackathons, hands-on sessions, and community-building events. We encourage students to collaborate on open-source projects, contribute to public repositories, and develop leadership skills through active participation and teamwork.",
     logo: "/placeholder.svg",
     representatives: [
       {
-        name: "Karthik Rao",
-        role: "Community Lead",
-        email: "karthik@ssosc.in",
+        name: "Keerthik D U",
+        role: "President",
+        email: "keerthikcoorgdu@gmail.com",
       },
     ],
     website: "https://ssosc.in",
   },
   {
     name: "CoRE",
-    college: "Canara Engineering College",
+    college: "Vivekananda College of Engineering and Technology, Puttur",
     description:
-      "Community of Research and Engineering that focuses on research-oriented projects and technical skill enhancement.",
+      "CoRE (Center of Research Excellency) is a community of engineering students who are passionate about learning, growing, and exploring various fields of engineering. Our aim is to provide a platform for students to come together, share their ideas, and work on projects that challenge and inspire them.",
     logo: "/placeholder.svg",
     representatives: [
       {
-        name: "Nikhil Kumar",
-        role: "Community Lead",
-        email: "nikhil@core-cec.org",
+        name: "Karthika Krishna K",
+        role: "Coordinator",
+        email: "core@vcetputtur.ac.in",
       },
     ],
     website: "https://core-cec.org",

@@ -69,37 +69,6 @@ export const siteConfig = {
     },
   },
 
-  events: {
-    upcoming: [
-      {
-        id: "summit-2024",
-        title: "DK24 Summit 2024",
-        date: "November 8, 2024",
-        time: "9:00 AM - 5:00 PM",
-        location: "Sahyadri College of Engineering & Management",
-        description:
-          "The annual summit bringing together all member communities to showcase projects, share learnings, and plan for the upcoming year. Hosted by Sahyadri Open Source Community.",
-        registrationLink: "/events/register/summit-2024",
-      },
-    ],
-    past: [
-      {
-        id: "summit-2023",
-        title: "DK24 Summit 2023",
-        date: "December 15, 2023",
-        location: "Sahyadri College of Engineering & Management",
-        description:
-          "The inaugural summit that brought together tech communities from 6 colleges across Mangalore to establish DK24 and set the vision for the future.",
-        images: ["/placeholder.svg", "/placeholder.svg"],
-        outcomes: [
-          "Established the TEAM model for community structure",
-          "Identified 3 collaborative projects to work on",
-          "Created a roadmap for the first year of DK24",
-        ],
-      },
-    ],
-  },
-
   social: {
     twitter: "https://twitter.com/dk24community",
     github: "https://github.com/dk24",

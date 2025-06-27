@@ -34,3 +34,13 @@ export interface Testimonial {
   role: string
   avatar: string
 }
+
+export interface Event {
+  id: string
+  title: string
+  date: string
+  time: string
+  location: string
+  description: string
+  registrationLink: string
+}
