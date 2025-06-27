@@ -63,7 +63,7 @@ export function FeaturedProjects() {
                 </Button>
                 <Button size="sm" asChild>
                   <Link
-                    href={project.demo}
+                    href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
