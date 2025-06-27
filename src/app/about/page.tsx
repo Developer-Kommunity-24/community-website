@@ -1,8 +1,11 @@
 import { PageHeader } from "@/components/page-header"
 import { Timeline } from "@/components/timeline"
 import { Card } from "@/components/ui/card"
+import { getEvents } from "@/lib/get-events";
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const timelineEvents = await getEvents();
+
   return (
     <div className="container mx-auto px-6 py-16 md:px-12 lg:px-24">
       <PageHeader
@@ -77,7 +80,7 @@ export default function AboutPage() {
 
         <section>
           <h2 className="text-3xl font-bold mb-8">Our Journey</h2>
-          <Timeline />
+          <Timeline timelineEvents={timelineEvents}/>
         </section>
       </div>
     </div>

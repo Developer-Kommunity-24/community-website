@@ -81,16 +81,6 @@ export const siteConfig = {
           "The annual summit bringing together all member communities to showcase projects, share learnings, and plan for the upcoming year. Hosted by Sahyadri Open Source Community.",
         registrationLink: "/events/register/summit-2024",
       },
-      {
-        id: "summit-2025",
-        title: "DK24 Summit 2025",
-        date: "April 12, 2025",
-        time: "9:00 AM - 5:00 PM",
-        location: "AJ Institute of Technology",
-        description:
-          "The second annual summit of DK24, hosted by DevNation at AJ Institute of Technology.",
-        registrationLink: "/events/register/summit-2025",
-      },
     ],
     past: [
       {

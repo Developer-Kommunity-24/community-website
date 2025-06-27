@@ -5,15 +5,8 @@ body:
     attributes:
       value: |
         <div align="center">
-          <img src="public/logo.png" alt="DK24 Logo" width="128" height="128" />
-
           <h2>🐛 DK24 Community Website — Bug Report</h2>
           <p><em>Thanks for taking the time to help us improve the platform!</em></p>
-
-          [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-          [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-          [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-          [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Latest-000000?style=for-the-badge)](https://ui.shadcn.com/)
         </div>
 
         > [!IMPORTANT]
