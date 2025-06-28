@@ -8,10 +8,12 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { BackgroundPattern } from "@/components/background-pattern"
 
 export default function JoinUsPage() {
   return (
-    <div className="container mx-auto px-4 py-12 max-w-7xl">
+    <BackgroundPattern variant="default">
+      <div className="container mx-auto px-4 py-12 max-w-7xl">
       <PageHeader
         title="Join DK24"
         description="Be a part of the growing tech ecosystem in Mangalore"
@@ -147,6 +149,7 @@ export default function JoinUsPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+      </div>
+    </BackgroundPattern>
   )
 }

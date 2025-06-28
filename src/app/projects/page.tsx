@@ -2,6 +2,7 @@ import { PageHeader } from "@/components/page-header"
 import { Project, ProjectCard } from "@/components/project-card"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { BackgroundPattern } from "@/components/background-pattern"
 import Image from "next/image"
 
 export default function ProjectsPage() {
@@ -9,7 +10,8 @@ export default function ProjectsPage() {
   const completedProjects: Array<Project> = []
 
   return (
-    <div className="container mx-auto px-6 py-12 max-w-7xl">
+    <BackgroundPattern variant="default">
+      <div className="container mx-auto px-6 py-12 max-w-7xl">
       <PageHeader title="Projects" description="Explore the collaborative projects built by the DK24 community" />
 
       <Tabs defaultValue="ongoing" className="mt-12">
@@ -76,6 +78,7 @@ export default function ProjectsPage() {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+      </div>
+    </BackgroundPattern>
   )
 }

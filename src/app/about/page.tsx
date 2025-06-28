@@ -1,10 +1,12 @@
 import { PageHeader } from "@/components/page-header"
 import { Timeline } from "@/components/timeline"
 import { Card } from "@/components/ui/card"
+import { BackgroundPattern } from "@/components/background-pattern"
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-6 py-16 md:px-12 lg:px-24">
+    <BackgroundPattern variant="default">
+      <div className="container mx-auto px-6 py-16 md:px-12 lg:px-24">
       <PageHeader
         title="About DK24"
         description="Learn about our vision, mission, and journey to connect college tech communities"
@@ -80,6 +82,7 @@ export default function AboutPage() {
           <Timeline />
         </section>
       </div>
-    </div>
+      </div>
+    </BackgroundPattern>
   )
 }

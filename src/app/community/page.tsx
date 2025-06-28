@@ -1,10 +1,12 @@
 import { PageHeader } from "@/components/page-header"
 import { TeamStructure } from "@/components/team-structure"
 import { RoleDescription } from "@/components/role-description"
+import { BackgroundPattern } from "@/components/background-pattern"
 
 export default function CommunityStructurePage() {
   return (
-    <div className="container mx-auto px-6 py-12 max-w-7xl">
+    <BackgroundPattern variant="default">
+      <div className="container mx-auto px-6 py-12 max-w-7xl">
       <PageHeader title="Community Structure" description="Understanding the TEAM model that powers our community" />
 
       {/* Team Structure Section */}
@@ -124,6 +126,7 @@ export default function CommunityStructurePage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </BackgroundPattern>
   )
 }
