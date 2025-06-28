@@ -1,13 +1,13 @@
-import { PageHeader } from "@/components/page-header"
-import { JoinForm } from "@/components/join-form"
+import { JoinForm } from "@/components/join-form";
+import { PageHeader } from "@/components/page-header";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function JoinUsPage() {
   return (
@@ -148,5 +148,5 @@ export default function JoinUsPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Quote } from "lucide-react"
-import { siteConfig } from "@/config/site"
-import { testimonials } from "@/constants/testimonials"
+import { Quote } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { siteConfig } from "@/config/site";
+import { testimonials } from "@/constants/testimonials";
 
 export function Testimonials() {
   return (
@@ -48,5 +48,5 @@ export function Testimonials() {
         ))}
       </div>
     </section>
-  )
+  );
 }

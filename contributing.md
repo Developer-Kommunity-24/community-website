@@ -99,8 +99,7 @@ Help make DK24 accessible to more people:
 - **ES7+ React/Redux/React-Native snippets**
 - **Tailwind CSS IntelliSense**
 - **TypeScript Importer**
-- **Prettier - Code formatter**
-- **ESLint**
+- **Biome**
 
 ### Environment Variables
 Create a \`.env.local\` file in the root directory:
@@ -114,8 +113,10 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 npm run dev          # Start development server
 npm run build        # Build for production
 npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run lint:fix     # Fix ESLint issues
+npm run format       # Run Biome format check
+npm run format:write # Write Biome formatted files
+npm run lint         # Run Biome lint
+npm run lint:fix     # Fix Biome lint issues
 npm run type-check   # Run TypeScript checks
 ```
 
@@ -176,7 +177,7 @@ interface ButtonProps {
 
 export function Button({ children, variant = 'primary', onClick }: ButtonProps) {
   return (
-    <button 
+    <button
       className={\`btn btn-\${variant}\`}
       onClick={onClick}
     >

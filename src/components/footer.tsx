@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Github, Twitter, Linkedin, Instagram } from "lucide-react"
-import { siteConfig } from "@/config/site"
+import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 
 export default function Footer() {
   return (
@@ -136,5 +136,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

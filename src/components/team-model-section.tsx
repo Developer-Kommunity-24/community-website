@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { GraduationCap, Lightbulb, Compass, Users } from "lucide-react"
-import { siteConfig } from "@/config/site"
+import { Compass, GraduationCap, Lightbulb, Users } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { siteConfig } from "@/config/site";
 
 export function TeamModelSection() {
   const teamRoles = [
@@ -38,14 +38,15 @@ export function TeamModelSection() {
       color: "bg-green-100 dark:bg-green-900/30",
       textColor: "text-green-600 dark:text-green-400",
     },
-  ]
+  ];
 
   return (
     <section className="container justify-center max-w-7xl mx-auto py-10 md:py-12 px-4 md:px-6 bg-muted/50 rounded-lg">
       <div className="text-center mb-8 md:mb-12">
         <h2 className="text-3xl font-bold mb-4">Community Structure</h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Our TEAM model creates a sustainable structure for knowledge sharing and growth
+          Our TEAM model creates a sustainable structure for knowledge sharing
+          and growth
         </p>
       </div>
 
@@ -55,11 +56,17 @@ export function TeamModelSection() {
             <Card className="h-full flex flex-col">
               <CardContent className="p-4 md:p-6 flex flex-col flex-1">
                 <div className="flex items-center space-x-4 mb-4">
-                  <div className={`p-3 rounded-full ${role.color}`}>{role.icon}</div>
+                  <div className={`p-3 rounded-full ${role.color}`}>
+                    {role.icon}
+                  </div>
                   <div>
                     <div className="flex items-baseline space-x-2">
-                      <span className={`text-3xl font-bold ${role.textColor}`}>{role.letter}</span>
-                      <span className="text-xl font-semibold">{role.title}</span>
+                      <span className={`text-3xl font-bold ${role.textColor}`}>
+                        {role.letter}
+                      </span>
+                      <span className="text-xl font-semibold">
+                        {role.title}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -72,5 +79,5 @@ export function TeamModelSection() {
         ))}
       </div>
     </section>
-  )
+  );
 }

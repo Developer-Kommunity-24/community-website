@@ -1,30 +1,36 @@
-"use client"
-import { useState } from "react"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { useForm, type SubmitHandler } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
-  individualSchema,
-  collegeSchema,
-  individualInitialValues,
-  collegeInitialValues,
-  type IndividualFormValues,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { submitFormData } from "@/lib/form-submission";
+import {
   type CollegeFormValues,
-} from "@/lib/forms-config"
-import { submitFormData } from "@/lib/form-submission"
+  collegeInitialValues,
+  collegeSchema,
+  type IndividualFormValues,
+  individualInitialValues,
+  individualSchema,
+} from "@/lib/forms-config";
 
 interface JoinFormProps {
-  type: "individual" | "college"
+  type: "individual" | "college";
 }
 
 function IndividualForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
-  const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const {
     handleSubmit,
@@ -36,44 +42,49 @@ function IndividualForm() {
     resolver: zodResolver(individualSchema),
     defaultValues: individualInitialValues,
     mode: "onBlur",
-  })
+  });
 
   const onSubmit: SubmitHandler<IndividualFormValues> = async (data) => {
-    const isFormValid = await trigger()
+    const isFormValid = await trigger();
     if (!isFormValid) {
-      setSubmitError("Please fix all validation errors before submitting.")
-      return
+      setSubmitError("Please fix all validation errors before submitting.");
+      return;
     }
 
-    setIsSubmitting(true)
-    setSubmitError(null)
-    setSubmitSuccess(false)
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
 
     try {
-      const response = await submitFormData("https://formcarry.com/s/tfkkggHgbkY", {
-        _subject: "New Individual Application - DK24",
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
-        college: data.college,
-        year: data.year,
-        interests: data.interests,
-        motivation: data.motivation,
-      })
+      const response = await submitFormData(
+        "https://formcarry.com/s/tfkkggHgbkY",
+        {
+          _subject: "New Individual Application - DK24",
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          college: data.college,
+          year: data.year,
+          interests: data.interests,
+          motivation: data.motivation,
+        },
+      );
 
       if (response.status >= 200 && response.status < 300) {
-        setSubmitSuccess(true)
-        reset()
+        setSubmitSuccess(true);
+        reset();
       } else {
-        throw new Error(`Submission failed with status ${response.status}`)
+        throw new Error(`Submission failed with status ${response.status}`);
       }
     } catch {
-      setSubmitError("An error occurred while submitting the form. Please try again.")
+      setSubmitError(
+        "An error occurred while submitting the form. Please try again.",
+      );
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -93,13 +104,31 @@ function IndividualForm() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="firstName">First Name</Label>
-            <Input id="firstName" placeholder="John" {...register("firstName")} disabled={isSubmitting} />
-            {errors.firstName && <p className="text-sm text-destructive">{errors.firstName.message}</p>}
+            <Input
+              id="firstName"
+              placeholder="John"
+              {...register("firstName")}
+              disabled={isSubmitting}
+            />
+            {errors.firstName && (
+              <p className="text-sm text-destructive">
+                {errors.firstName.message}
+              </p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="lastName">Last Name</Label>
-            <Input id="lastName" placeholder="Doe" {...register("lastName")} disabled={isSubmitting} />
-            {errors.lastName && <p className="text-sm text-destructive">{errors.lastName.message}</p>}
+            <Input
+              id="lastName"
+              placeholder="Doe"
+              {...register("lastName")}
+              disabled={isSubmitting}
+            />
+            {errors.lastName && (
+              <p className="text-sm text-destructive">
+                {errors.lastName.message}
+              </p>
+            )}
           </div>
         </div>
 
@@ -112,13 +141,23 @@ function IndividualForm() {
             {...register("email")}
             disabled={isSubmitting}
           />
-          {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-sm text-destructive">{errors.email.message}</p>
+          )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="phone">Phone Number</Label>
-          <Input id="phone" type="tel" placeholder="+91 9876543210" {...register("phone")} disabled={isSubmitting} />
-          {errors.phone && <p className="text-sm text-destructive">{errors.phone.message}</p>}
+          <Input
+            id="phone"
+            type="tel"
+            placeholder="+91 9876543210"
+            {...register("phone")}
+            disabled={isSubmitting}
+          />
+          {errors.phone && (
+            <p className="text-sm text-destructive">{errors.phone.message}</p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -129,13 +168,22 @@ function IndividualForm() {
             {...register("college")}
             disabled={isSubmitting}
           />
-          {errors.college && <p className="text-sm text-destructive">{errors.college.message}</p>}
+          {errors.college && (
+            <p className="text-sm text-destructive">{errors.college.message}</p>
+          )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="year">Year of Study</Label>
-          <Input id="year" placeholder="Select year" {...register("year")} disabled={isSubmitting} />
-          {errors.year && <p className="text-sm text-destructive">{errors.year.message}</p>}
+          <Input
+            id="year"
+            placeholder="Select year"
+            {...register("year")}
+            disabled={isSubmitting}
+          />
+          {errors.year && (
+            <p className="text-sm text-destructive">{errors.year.message}</p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -146,7 +194,11 @@ function IndividualForm() {
             {...register("interests")}
             disabled={isSubmitting}
           />
-          {errors.interests && <p className="text-sm text-destructive">{errors.interests.message}</p>}
+          {errors.interests && (
+            <p className="text-sm text-destructive">
+              {errors.interests.message}
+            </p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -157,23 +209,31 @@ function IndividualForm() {
             {...register("motivation")}
             disabled={isSubmitting}
           />
-          {errors.motivation && <p className="text-sm text-destructive">{errors.motivation.message}</p>}
+          {errors.motivation && (
+            <p className="text-sm text-destructive">
+              {errors.motivation.message}
+            </p>
+          )}
         </div>
       </CardContent>
 
       <CardFooter className="py-4 cursor-pointer">
-        <Button type="submit" className="w-full" disabled={isSubmitting || !isValid}>
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={isSubmitting || !isValid}
+        >
           {isSubmitting ? "Submitting..." : "Submit Application"}
         </Button>
       </CardFooter>
     </form>
-  )
+  );
 }
 
 function CollegeForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
-  const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const {
     handleSubmit,
@@ -185,47 +245,52 @@ function CollegeForm() {
     resolver: zodResolver(collegeSchema),
     defaultValues: collegeInitialValues,
     mode: "onBlur",
-  })
+  });
 
   const onSubmit: SubmitHandler<CollegeFormValues> = async (data) => {
-    const isFormValid = await trigger()
+    const isFormValid = await trigger();
     if (!isFormValid) {
-      setSubmitError("Please fix all validation errors before submitting.")
-      return
+      setSubmitError("Please fix all validation errors before submitting.");
+      return;
     }
 
-    setIsSubmitting(true)
-    setSubmitError(null)
-    setSubmitSuccess(false)
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
 
     try {
-      const response = await submitFormData("https://formcarry.com/s/tfkkggHgbkY", {
-        _subject: "New College Application - DK24",
-        collegeName: data.collegeName,
-        communityName: data.communityName,
-        repName: data.repName,
-        repPosition: data.repPosition,
-        repEmail: data.repEmail,
-        repPhone: data.repPhone,
-        facultyName: data.facultyName,
-        facultyEmail: data.facultyEmail,
-        communitySize: data.communitySize,
-        communityActivities: data.communityActivities,
-        expectations: data.expectations,
-      })
+      const response = await submitFormData(
+        "https://formcarry.com/s/tfkkggHgbkY",
+        {
+          _subject: "New College Application - DK24",
+          collegeName: data.collegeName,
+          communityName: data.communityName,
+          repName: data.repName,
+          repPosition: data.repPosition,
+          repEmail: data.repEmail,
+          repPhone: data.repPhone,
+          facultyName: data.facultyName,
+          facultyEmail: data.facultyEmail,
+          communitySize: data.communitySize,
+          communityActivities: data.communityActivities,
+          expectations: data.expectations,
+        },
+      );
 
       if (response.status >= 200 && response.status < 300) {
-        setSubmitSuccess(true)
-        reset()
+        setSubmitSuccess(true);
+        reset();
       } else {
-        throw new Error(`Submission failed with status ${response.status}`)
+        throw new Error(`Submission failed with status ${response.status}`);
       }
     } catch {
-      setSubmitError("An error occurred while submitting the form. Please try again.")
+      setSubmitError(
+        "An error occurred while submitting the form. Please try again.",
+      );
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -250,7 +315,11 @@ function CollegeForm() {
             {...register("collegeName")}
             disabled={isSubmitting}
           />
-          {errors.collegeName && <p className="text-sm text-destructive">{errors.collegeName.message}</p>}
+          {errors.collegeName && (
+            <p className="text-sm text-destructive">
+              {errors.collegeName.message}
+            </p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -261,19 +330,41 @@ function CollegeForm() {
             {...register("communityName")}
             disabled={isSubmitting}
           />
-          {errors.communityName && <p className="text-sm text-destructive">{errors.communityName.message}</p>}
+          {errors.communityName && (
+            <p className="text-sm text-destructive">
+              {errors.communityName.message}
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="repName">Representative Name</Label>
-            <Input id="repName" placeholder="John Doe" {...register("repName")} disabled={isSubmitting} />
-            {errors.repName && <p className="text-sm text-destructive">{errors.repName.message}</p>}
+            <Input
+              id="repName"
+              placeholder="John Doe"
+              {...register("repName")}
+              disabled={isSubmitting}
+            />
+            {errors.repName && (
+              <p className="text-sm text-destructive">
+                {errors.repName.message}
+              </p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="repPosition">Position</Label>
-            <Input id="repPosition" placeholder="Community Lead" {...register("repPosition")} disabled={isSubmitting} />
-            {errors.repPosition && <p className="text-sm text-destructive">{errors.repPosition.message}</p>}
+            <Input
+              id="repPosition"
+              placeholder="Community Lead"
+              {...register("repPosition")}
+              disabled={isSubmitting}
+            />
+            {errors.repPosition && (
+              <p className="text-sm text-destructive">
+                {errors.repPosition.message}
+              </p>
+            )}
           </div>
         </div>
 
@@ -287,7 +378,11 @@ function CollegeForm() {
               {...register("repEmail")}
               disabled={isSubmitting}
             />
-            {errors.repEmail && <p className="text-sm text-destructive">{errors.repEmail.message}</p>}
+            {errors.repEmail && (
+              <p className="text-sm text-destructive">
+                {errors.repEmail.message}
+              </p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="repPhone">Phone Number</Label>
@@ -298,14 +393,27 @@ function CollegeForm() {
               {...register("repPhone")}
               disabled={isSubmitting}
             />
-            {errors.repPhone && <p className="text-sm text-destructive">{errors.repPhone.message}</p>}
+            {errors.repPhone && (
+              <p className="text-sm text-destructive">
+                {errors.repPhone.message}
+              </p>
+            )}
           </div>
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="facultyName">Faculty Coordinator Name</Label>
-          <Input id="facultyName" placeholder="Dr. Jane Smith" {...register("facultyName")} disabled={isSubmitting} />
-          {errors.facultyName && <p className="text-sm text-destructive">{errors.facultyName.message}</p>}
+          <Input
+            id="facultyName"
+            placeholder="Dr. Jane Smith"
+            {...register("facultyName")}
+            disabled={isSubmitting}
+          />
+          {errors.facultyName && (
+            <p className="text-sm text-destructive">
+              {errors.facultyName.message}
+            </p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -317,11 +425,17 @@ function CollegeForm() {
             {...register("facultyEmail")}
             disabled={isSubmitting}
           />
-          {errors.facultyEmail && <p className="text-sm text-destructive">{errors.facultyEmail.message}</p>}
+          {errors.facultyEmail && (
+            <p className="text-sm text-destructive">
+              {errors.facultyEmail.message}
+            </p>
+          )}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="communitySize">Community Size (approx. number of active members)</Label>
+          <Label htmlFor="communitySize">
+            Community Size (approx. number of active members)
+          </Label>
           <Input
             id="communitySize"
             type="number"
@@ -329,11 +443,17 @@ function CollegeForm() {
             {...register("communitySize")}
             disabled={isSubmitting}
           />
-          {errors.communitySize && <p className="text-sm text-destructive">{errors.communitySize.message}</p>}
+          {errors.communitySize && (
+            <p className="text-sm text-destructive">
+              {errors.communitySize.message}
+            </p>
+          )}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="communityActivities">Current Activities & Initiatives</Label>
+          <Label htmlFor="communityActivities">
+            Current Activities & Initiatives
+          </Label>
           <Textarea
             id="communityActivities"
             placeholder="Describe the current activities and initiatives of your community..."
@@ -341,38 +461,54 @@ function CollegeForm() {
             disabled={isSubmitting}
           />
           {errors.communityActivities && (
-            <p className="text-sm text-destructive">{errors.communityActivities.message}</p>
+            <p className="text-sm text-destructive">
+              {errors.communityActivities.message}
+            </p>
           )}
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="expectations">What do you expect from joining DK24?</Label>
+          <Label htmlFor="expectations">
+            What do you expect from joining DK24?
+          </Label>
           <Textarea
             id="expectations"
             placeholder="Tell us what your community hopes to gain from joining DK24..."
             {...register("expectations")}
             disabled={isSubmitting}
           />
-          {errors.expectations && <p className="text-sm text-destructive">{errors.expectations.message}</p>}
+          {errors.expectations && (
+            <p className="text-sm text-destructive">
+              {errors.expectations.message}
+            </p>
+          )}
         </div>
       </CardContent>
 
       <CardFooter className="py-4 cursor-pointer">
-        <Button type="submit" className="w-full" disabled={isSubmitting || !isValid}>
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={isSubmitting || !isValid}
+        >
           {isSubmitting ? "Submitting..." : "Submit Application"}
         </Button>
       </CardFooter>
     </form>
-  )
+  );
 }
 
 export function JoinForm({ type }: JoinFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{type === "individual" ? "Join as an Individual" : "Join as a College Community"}</CardTitle>
+        <CardTitle>
+          {type === "individual"
+            ? "Join as an Individual"
+            : "Join as a College Community"}
+        </CardTitle>
       </CardHeader>
       {type === "individual" ? <IndividualForm /> : <CollegeForm />}
     </Card>
-  )
+  );
 }

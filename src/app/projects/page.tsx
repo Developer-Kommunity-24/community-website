@@ -1,8 +1,8 @@
-import { PageHeader } from "@/components/page-header"
-import { ProjectCard } from "@/components/project-card"
-import { Card, CardContent } from "@/components/ui/card"
-import { projects } from "@/constants/projects"
-import Image from "next/image"
+import Image from "next/image";
+import { PageHeader } from "@/components/page-header";
+import { ProjectCard } from "@/components/project-card";
+import { Card, CardContent } from "@/components/ui/card";
+import { projects } from "@/constants/projects";
 
 export default function ProjectsPage() {
   return (
@@ -43,5 +43,5 @@ export default function ProjectsPage() {
         )}
       </div>
     </div>
-  )
+  );
 }

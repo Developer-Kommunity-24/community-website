@@ -1,6 +1,6 @@
-import { CommunityCard } from "@/components/community-card"
-import { PageHeader } from "@/components/page-header"
-import { communities } from "@/constants/member-colleges"
+import { CommunityCard } from "@/components/community-card";
+import { PageHeader } from "@/components/page-header";
+import { communities } from "@/constants/member-colleges";
 
 export default function MemberCollegesPage() {
   return (
@@ -11,10 +11,10 @@ export default function MemberCollegesPage() {
       />
 
       <div className="grid md:grid-cols-2 gap-12 mt-12">
-        {communities.map((community, index) => (
-          <CommunityCard key={index} community={community} />
+        {communities.map((community) => (
+          <CommunityCard key={community.id} community={community} />
         ))}
       </div>
     </div>
-  )
+  );
 }

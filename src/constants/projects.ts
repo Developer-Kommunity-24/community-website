@@ -1,4 +1,4 @@
-import { Project } from "@/types"
+import type { Project } from "@/types";
 
 export const projects: Project[] = [
   {
@@ -34,4 +34,4 @@ export const projects: Project[] = [
     github: "",
     link: "https://filetailored.com",
   },
-]
+];

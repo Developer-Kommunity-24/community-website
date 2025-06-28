@@ -75,4 +75,4 @@ export const siteConfig = {
     linkedin: "https://linkedin.com/company/dk24community",
     instagram: "https://instagram.com/dk24community",
   },
-}
+};

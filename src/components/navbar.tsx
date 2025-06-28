@@ -1,39 +1,40 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { ModeToggle } from "@/components/mode-toggle"
-import { Menu, X } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
-import { siteConfig } from "@/config/site"
+import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const pathname = usePathname()
-  const headerRef = useRef<HTMLElement>(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
 
-  const toggleMenu = () => setIsOpen(!isOpen)
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
-        setIsScrolled(true)
+        setIsScrolled(true);
       } else {
-        setIsScrolled(false)
+        setIsScrolled(false);
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: only run on pathname change
   useEffect(() => {
-    setIsOpen(false)
-  }, [pathname])
+    setIsOpen(false);
+  }, [pathname]);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -42,7 +43,7 @@ export default function Navbar() {
     { href: "/communities", label: "Communities" },
     { href: "/events", label: "Events" },
     { href: "/projects", label: "Projects" },
-  ]
+  ];
 
   return (
     <header
@@ -51,7 +52,7 @@ export default function Navbar() {
         "sticky top-0 z-50 w-full transition-all duration-200",
         isScrolled
           ? "bg-background/80 backdrop-blur-md border-b"
-          : "bg-transparent"
+          : "bg-transparent",
       )}
     >
       <div className="container mx-auto px-4 max-w-7xl">
@@ -71,7 +72,7 @@ export default function Navbar() {
                   "text-sm font-medium transition-colors hover:text-primary",
                   pathname === link.href
                     ? "text-primary"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               >
                 {link.label}
@@ -122,7 +123,7 @@ export default function Navbar() {
                     "text-sm font-medium transition-colors hover:text-primary p-3 rounded-md",
                     pathname === link.href
                       ? "bg-muted text-primary"
-                      : "text-muted-foreground"
+                      : "text-muted-foreground",
                   )}
                 >
                   {link.label}
@@ -136,5 +137,5 @@ export default function Navbar() {
         </motion.div>
       )}
     </header>
-  )
+  );
 }

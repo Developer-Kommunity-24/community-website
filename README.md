@@ -2,7 +2,7 @@
 
 <div align="center">
   <img src="public/logo.png" alt="DK24 Logo" width="200" height="200">
-  
+
   <h3>🌐 Connecting College Tech Communities</h3>
   <p><em>We are connecting college tech communities to learn and build together in public.</em></p>
 
@@ -100,7 +100,7 @@ As independent college communities, we are just small pockets of resources sprea
 - **[@hookform/resolvers](https://github.com/react-hook-form/resolvers)** - Validation resolvers
 
 ### **Development Tools**
-- **[ESLint](https://eslint.org/)** - Code linting and formatting
+- **[BiomeJs](https://biomejs.dev/)** - Code linting and formatting
 - **[next-themes](https://github.com/pacocoursey/next-themes)** - Theme management
 - **[class-variance-authority](https://cva.style/)** - Component variant management
 
@@ -155,7 +155,7 @@ DK24 operates on a unique **TEAM** structure that ensures sustainable growth and
 
 ### 🔧 **T - Techie** (1st & 2nd Year)
 - **Role**: Foundation builders and eager learners
-- **Responsibilities**: 
+- **Responsibilities**:
   - Learn fundamental technologies and concepts
   - Contribute to community projects under guidance
   - Participate in hackathons and coding challenges
@@ -198,17 +198,18 @@ DK24 operates on a unique **TEAM** structure that ensures sustainable growth and
 npm run dev          # Start development server
 npm run build        # Build for production
 npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run lint:fix     # Fix ESLint issues
+npm run format       # Run Biome format check
+npm run format:write # Write Biome formatted files
+npm run lint         # Run Biome lint
+npm run lint:fix     # Fix Biome lint issues
 npm run type-check   # Run TypeScript checks
 ```
 
 ### Code Quality Standards
 
 - **TypeScript**: Strict mode enabled for better type safety
-- **ESLint**: Configured with Next.js and TypeScript rules
-- **Prettier**: Consistent code formatting
-- **Husky**: Pre-commit hooks for code quality
+- **Biome JS**: Unified linter & formatter(Substitute of ESLint + Prettier)
+- **Husky + lint-staged**: Pre-commit hooks for code quality
 
 ### Component Development Guidelines
 
@@ -355,12 +356,12 @@ We use privacy-focused analytics to understand how our community uses the platfo
       <img src="https://img.shields.io/badge/Join_DK24-Get_Started-green?style=for-the-badge" alt="Join DK24">
     </a>
   </p>
-  
+
   <hr>
-  
+
   <p>Made with ❤️ by the DK24 Community</p>
   <p><em>"Connecting college tech communities to learn and build together in public"</em></p>
-  
+
   <p>
     <a href="#-table-of-contents">⬆️ Back to Top</a>
   </p>

@@ -1,4 +1,4 @@
-import { Event } from "@/types"
+import type { Event } from "@/types";
 
 export const events: Event[] = [
   {
@@ -11,4 +11,4 @@ export const events: Event[] = [
       "The annual summit bringing together all member communities to showcase projects, share learnings, and plan for the upcoming year. Hosted by Sahyadri Open Source Community.",
     registrationLink: "/events/register/summit-2024",
   },
-]
+];

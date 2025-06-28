@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 interface PageHeaderProps {
-  title: string
-  description: string
+  title: string;
+  description: string;
 }
 
 export function PageHeader({ title, description }: PageHeaderProps) {
@@ -27,5 +27,5 @@ export function PageHeader({ title, description }: PageHeaderProps) {
         {description}
       </motion.p>
     </div>
-  )
+  );
 }

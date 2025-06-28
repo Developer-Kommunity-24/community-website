@@ -1,8 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { getEvents } from "@/lib/get-events";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { getEvents } from "@/lib/get-events";
 import { EventCard } from "./event-card";
 
 export async function UpcomingEvents() {

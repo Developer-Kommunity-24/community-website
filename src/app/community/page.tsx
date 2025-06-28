@@ -1,9 +1,9 @@
-import { PageHeader } from "@/components/page-header"
-import { TeamStructure } from "@/components/team-structure"
-import { RoleDescription } from "@/components/role-description"
-import { CommunityGuideline } from "@/components/community-guideline" // Corrected import path
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import Link from "next/link";
+import { CommunityGuideline } from "@/components/community-guideline"; // Corrected import path
+import { PageHeader } from "@/components/page-header";
+import { RoleDescription } from "@/components/role-description";
+import { TeamStructure } from "@/components/team-structure";
+import { Button } from "@/components/ui/button";
 
 export default function CommunityStructurePage() {
   return (
@@ -29,6 +29,7 @@ export default function CommunityStructurePage() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
+          {/** biome-ignore lint/a11y/useValidAriaRole: it's a visual card */}
           <RoleDescription
             role="T - Techie"
             years="1st & 2nd year students"
@@ -41,6 +42,7 @@ export default function CommunityStructurePage() {
             ]}
           />
 
+          {/** biome-ignore lint/a11y/useValidAriaRole: it's a visual card */}
           <RoleDescription
             role="E - Explorer"
             years="2nd & 3rd year students"
@@ -53,6 +55,7 @@ export default function CommunityStructurePage() {
             ]}
           />
 
+          {/** biome-ignore lint/a11y/useValidAriaRole: it's a visual card */}
           <RoleDescription
             role="A - Advisor"
             years="4th year students"
@@ -65,6 +68,7 @@ export default function CommunityStructurePage() {
             ]}
           />
 
+          {/** biome-ignore lint/a11y/useValidAriaRole: it's a visual card */}
           <RoleDescription
             role="M - Mentor"
             years="Alumni & Professionals"
@@ -97,5 +101,5 @@ export default function CommunityStructurePage() {
         </Link>
       </div>
     </div>
-  )
+  );
 }
