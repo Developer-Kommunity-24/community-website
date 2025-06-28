@@ -21,7 +21,7 @@
 		"**/(*.ts|*.tsx)": [
 			"biome format --write",
 			"biome lint",
-			"cd .. & tsc --noEmit"
+			"cd .. && tsc --noEmit"
 		]
 	},
 	"dependencies": {
