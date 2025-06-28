@@ -13,17 +13,25 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           issue-message: |
-            👋 Hello @${{ github.actor }}!
+            👋 Hello @${{ github.actor }}!  
 
-            Thank you for opening an issue in the **DK24 - Community website** repository 🏥. Your input helps us improve this healthcare platform built for **DK24 Community website**.
+            Thank you for raising an issue in the **DK24 - Community Website** repository. 
 
-            Please ensure you’ve checked for duplicate issues and added relevant labels such as `bug`, `enhancement`, or `documentation`. We appreciate your contribution to better patient care and resource management! 💡
+            We’re excited to have you contribute to our mission of **Connecting College Tech Communities** — fostering collaboration, learning, and building together in public. 
 
+            ---
+
+            ### Before You Proceed:  
+            1. **Check for Duplicates**: Ensure this issue hasn't already been reported or addressed.  
+            2. **Add Relevant Labels**: Use appropriate labels like `bug`, `enhancement`, or `documentation` to categorize the issue.  
+            3. **Assign a Responsible Member**: Tag a team member to facilitate quick resolution.  
+            
+            Happy coding! 😊
           pr-message: |
-            🙌 Welcome @${{ github.actor }}!
+            🙌 Welcome @${{ github.actor }}!  
 
-            Thank you for contributing to **DK24 - Community website** 💻. This project is a comprehensive hospital management platform designed for **DK24 Community website**.
+            Thank you for contributing to the **DK24 - Community Website** 💻. This platform connects college tech communities to learn and grow together.  
 
-            Your pull request will be reviewed shortly. Please ensure it aligns with our contribution guidelines and includes appropriate labels such as `feature`, `fix`, or `refactor`.
+            Your pull request will be reviewed soon. Please ensure it follows our **guidelines** and includes appropriate labels like `feature`, `fix`, or `refactor`.  
 
-            Together, let’s enhance digital healthcare for everyone! 🚑📈
+            Together, let’s build something amazing! 🚀  
