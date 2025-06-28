@@ -6,14 +6,14 @@ import { UpcomingEvents } from "@/components/upcoming-events";
 import { VisionSection } from "@/components/vision-section";
 
 export default function Home() {
-	return (
-		<div className="flex flex-col gap-16 py-8">
-			<HeroSection />
-			<VisionSection />
-			<TeamModelSection />
-			<FeaturedProjects />
-			<UpcomingEvents />
-			<Testimonials />
-		</div>
-	);
+  return (
+    <div className="flex flex-col gap-16 py-8">
+      <HeroSection />
+      <VisionSection />
+      <TeamModelSection />
+      <FeaturedProjects />
+      <UpcomingEvents />
+      <Testimonials />
+    </div>
+  );
 }
