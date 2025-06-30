@@ -6,9 +6,9 @@
   <h3>🌐 Connecting College Tech Communities</h3>
   <p><em>We are connecting college tech communities to learn and build together in public.</em></p>
 
-  [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+  [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
   [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Latest-000000?style=for-the-badge)](https://ui.shadcn.com/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -84,12 +84,12 @@ As independent college communities, we are just small pockets of resources sprea
 ## 🛠️ Tech Stack
 
 ### **Frontend Framework**
-- **[Next.js 14](https://nextjs.org/)** - React framework with App Router
+- **[Next.js 15](https://nextjs.org/)** - React framework with App Router
 - **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript
-- **[React 18](https://reactjs.org/)** - UI library with latest features
+- **[React 19](https://reactjs.org/)** - UI library with latest features
 
 ### **Styling & UI**
-- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
+- **[Tailwind CSS 4](https://tailwindcss.com/)** - Utility-first CSS framework
 - **[shadcn/ui](https://ui.shadcn.com/)** - High-quality React components
 - **[Framer Motion](https://www.framer.com/motion/)** - Production-ready motion library
 - **[Lucide React](https://lucide.dev/)** - Beautiful & consistent icons
@@ -363,6 +363,8 @@ We use privacy-focused analytics to understand how our community uses the platfo
   <p><em>"Connecting college tech communities to learn and build together in public"</em></p>
 
   <p>
-    <a href="#-table-of-contents">⬆️ Back to Top</a>
+    <a href="#-table-of-contents">
+      <img src="https://img.shields.io/badge/⬆️_Back_To_Top-black?style=for-the-badge" alt="⬆️ Back to Top">
+    </a>
   </p>
 </div>
