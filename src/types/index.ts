@@ -1,3 +1,5 @@
+import type { iconsMap } from "@/constants";
+
 export interface CommunityRepresentative {
   name: string;
   role: string;
@@ -46,4 +48,6 @@ export interface Event {
   location: string;
   description: string;
   registrationLink: string;
+  icon: keyof typeof iconsMap;
+  highlight: boolean;
 }

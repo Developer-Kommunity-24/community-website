@@ -22,8 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
           disableTransitionOnChange
         >
           <div className="flex min-h-screen flex-col">
