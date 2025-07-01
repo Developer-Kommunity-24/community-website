@@ -1,9 +1,9 @@
-import { PageHeader } from "@/components/page-header";
-import { EventCard } from "@/components/event-card";
-import { EventCalendar } from "@/components/event-calendar";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import { EventCalendar } from "@/components/event-calendar";
+import { EventCard } from "@/components/event-card";
+import { PageHeader } from "@/components/page-header";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getEvents } from "@/lib/get-events";
 
 export default async function EventsPage() {

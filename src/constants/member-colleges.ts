@@ -1,7 +1,8 @@
-import { Community } from "@/types"
+import type { Community } from "@/types";
 
 export const communities: Community[] = [
   {
+    id: 1,
     name: "Sahyadri Open Source Community (SOSC)",
     college: "Sahyadri College of Engineering & Management",
     description:
@@ -32,6 +33,7 @@ export const communities: Community[] = [
     website: "https://sosc.org.in",
   },
   {
+    id: 2,
     name: "DevNation",
     college: "AJ Institute of Engineering and Technology",
     description:
@@ -43,6 +45,7 @@ export const communities: Community[] = [
     website: "https://devnation.org",
   },
   {
+    id: 3,
     name: "FiniteLoop",
     college: "NMIT Bangalore",
     description:
@@ -58,6 +61,7 @@ export const communities: Community[] = [
     website: "https://finiteloop.club",
   },
   {
+    id: 4,
     name: "The Sceptix Club",
     college: "St Joseph Engineering College",
     description:
@@ -78,6 +82,7 @@ export const communities: Community[] = [
     website: "https://sceptix.org",
   },
   {
+    id: 5,
     name: "Srinivas Student Open Source Community (SSOSC)",
     college: "Srinivas Institute of Technology",
     description:
@@ -93,6 +98,7 @@ export const communities: Community[] = [
     website: "https://ssosc.in",
   },
   {
+    id: 6,
     name: "CoRE",
     college: "Vivekananda College of Engineering and Technology, Puttur",
     description:
@@ -107,4 +113,4 @@ export const communities: Community[] = [
     ],
     website: "https://core-cec.org",
   },
-]
+];

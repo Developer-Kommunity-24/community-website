@@ -1,4 +1,4 @@
-import { Testimonial } from "@/types"
+import type { Testimonial } from "@/types";
 
 export const testimonials: Testimonial[] = [
   {
@@ -22,4 +22,4 @@ export const testimonials: Testimonial[] = [
     role: "Explorer, FiniteLoop",
     avatar: "/placeholder.svg",
   },
-]
+];

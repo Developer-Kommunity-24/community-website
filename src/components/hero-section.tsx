@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { siteConfig } from "@/config/site"
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 
 export function HeroSection() {
   return (
@@ -23,7 +23,9 @@ export function HeroSection() {
                 Tech Communities
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground">{siteConfig.tagline}</p>
+            <p className="text-xl md:text-2xl text-muted-foreground">
+              {siteConfig.tagline}
+            </p>
           </div>
           <div className="flex flex-col justify-center sm:flex-row gap-4">
             <Button size="lg" asChild>
@@ -46,11 +48,11 @@ export function HeroSection() {
             fill
             className="object-contain p-8"
             onError={(e) => {
-              console.error("Image failed to load:", e)
+              console.error("Image failed to load:", e);
             }}
           />
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

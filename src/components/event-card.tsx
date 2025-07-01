@@ -1,24 +1,24 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import Image from "next/image"
-import { Calendar, MapPin, Clock } from "lucide-react"
+import { Calendar, Clock, MapPin } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 export interface Event {
-  id: string
-  title: string
-  date: string
-  location: string
-  description: string
-  images?: string[]
-  outcomes?: string[]
-  registrationLink?: string
-  time?: string
+  id: string;
+  title: string;
+  date: string;
+  location: string;
+  description: string;
+  images?: string[];
+  outcomes?: string[];
+  registrationLink?: string;
+  time?: string;
 }
 
 export interface EventCardProps {
-  event: Event
-  isUpcoming?: boolean
+  event: Event;
+  isUpcoming?: boolean;
 }
 
 export function EventCard({ event, isUpcoming }: EventCardProps) {
@@ -26,7 +26,12 @@ export function EventCard({ event, isUpcoming }: EventCardProps) {
     <Card className="overflow-hidden">
       {!isUpcoming && event?.images && (
         <div className="relative h-48 w-full">
-          <Image src={event.images[0] || "/placeholder.svg"} alt={event.title} fill className="object-cover" />
+          <Image
+            src={event.images[0] || "/placeholder.svg"}
+            alt={event.title}
+            fill
+            className="object-cover"
+          />
         </div>
       )}
       <CardContent className="p-6">
@@ -69,6 +74,5 @@ export function EventCard({ event, isUpcoming }: EventCardProps) {
         </CardFooter>
       )}
     </Card>
-  )
+  );
 }
-

@@ -1,0 +1,82 @@
+name: Existing Feature Enhancement
+description: Suggest improvements to an existing feature on the DK24 Community Website.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        <div align="center">
+          <h2>DK24 Community Website — Existing Feature Enhancement</h2>
+          <p><em>Thanks for helping us improve existing features!</em></p>
+        </div>
+
+        > [!NOTE]
+        > - Use this form for modifying or improving an existing feature.
+        > - Be clear and detailed about the current behavior and your suggested improvement.
+        > - Include visuals, reproduction steps, or references if possible.
+
+  - type: checkboxes
+    id: prechecks
+    attributes:
+      label: Preliminary Checks
+      description: Please confirm the following before submitting.
+      options:
+        - label: I have read the instructions above.
+          required: true
+        - label: I have searched existing issues to ensure this is not a duplicate.
+          required: true
+        - label: This is an **enhancement request**, not a new feature or bug report.
+          required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: Enhancement Title
+      description: A short and clear title for the enhancement.
+      placeholder: e.g. Improve responsiveness of the Community Directory section
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component/Feature Affected
+      options:
+        - Other
+        - Homepage
+        - Projects Section
+        - Join Platform
+        - Community Directory
+        - TEAM Model
+        - Event Registration
+        - User Onboarding
+        - Dashboard
+        - Responsive Layout
+        - Authentication
+        - Forms
+        - Dark Mode
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefit
+    attributes:
+      label: Impact or Benefit
+      description: How does this improvement help users or the platform?
+      placeholder: e.g. This enhancement will improve mobile usability for contributors viewing the dashboard.
+    validations:
+      required: true
+
+  - type: textarea
+    id: enhancement_details
+    attributes:
+      label: Enhancement Details
+      description: Describe exactly what should be improved or changed.
+      placeholder: Include the current behavior, proposed change, and any reasoning.
+    validations:
+      required: true
+
+  - type: textarea
+    id: visuals
+    attributes:
+      label: Screenshots or Examples (Optional)
+      description: Include any supporting visuals or URLs.

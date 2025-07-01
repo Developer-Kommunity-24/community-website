@@ -1,9 +1,12 @@
-export async function submitFormData(url: string, data: Record<string, string>) {
-  const formData = new FormData()
+export async function submitFormData(
+  url: string,
+  data: Record<string, string>,
+) {
+  const formData = new FormData();
 
   Object.entries(data).forEach(([key, value]) => {
-    formData.append(key, value)
-  })
+    formData.append(key, value);
+  });
 
   const response = await fetch(url, {
     method: "POST",
@@ -11,7 +14,7 @@ export async function submitFormData(url: string, data: Record<string, string>) 
     headers: {
       Accept: "application/json",
     },
-  })
+  });
 
-  return response
+  return response;
 }

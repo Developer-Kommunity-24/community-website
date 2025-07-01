@@ -1,14 +1,14 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
-import Image from "next/image"
-import { Github, ExternalLink } from "lucide-react"
-import { Project } from "@/types"
+import { ExternalLink, Github } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import type { Project } from "@/types";
 
 interface ProjectCardProps {
-  project: Project
-  isCompleted?: boolean
+  project: Project;
+  isCompleted?: boolean;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
@@ -79,5 +79,5 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

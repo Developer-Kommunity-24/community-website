@@ -1,12 +1,12 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import Image from "next/image"
-import { ExternalLink } from "lucide-react"
-import { Community } from "@/types"
+import { ExternalLink } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import type { Community } from "@/types";
 
 interface CommunityCardProps {
-  community: Community
+  community: Community;
 }
 
 export function CommunityCard({ community }: CommunityCardProps) {
@@ -53,5 +53,5 @@ export function CommunityCard({ community }: CommunityCardProps) {
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

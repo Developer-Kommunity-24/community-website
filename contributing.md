@@ -18,14 +18,14 @@ Welcome, developer! 🙌 Whether you're fixing a bug, improving UI, or updating 
 
 ---
 
-## Code of Conduct
+## 📜 Code of Conduct
 
 All contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 Please report unacceptable behavior to [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com).
 
 ---
 
-## Prerequisites & Setup
+## 🧰 Prerequisites & Setup
 
 ### Requirements
 
@@ -55,66 +55,89 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## Development Guidelines
+### 🧠 Recommended VS Code Extensions
 
-### Must Follow
+* **ES7+ React/Redux/React-Native snippets**
+* **Tailwind CSS IntelliSense**
+* **TypeScript Importer**
+* **Biome**
 
-* **Use TypeScript** for all components
-* **Avoid `any`** unless absolutely needed
-* **Use consistent file naming** (`kebab-case`, `PascalCase`, etc.)
-* **Modularize components** – keep them small and reusable
-* **Use Tailwind CSS classes** – avoid inline styles
+### 🌱 Environment Variables
 
-### Component Example
+Create a `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+# Add other environment variables as needed
+```
+
+---
+
+## 🛠️ Development Guidelines
+
+### ✅ Must Follow
+
+* Use **TypeScript**
+* Avoid `any` unless absolutely necessary
+* Follow consistent naming conventions (`kebab-case` for files, `PascalCase` for components)
+* Modular, reusable components
+* Use **Tailwind CSS** classes instead of inline styles
+
+### ✅ Good Component Example
 
 ```tsx
-// ✅ Good
 interface ButtonProps {
-  children: React.ReactNode
-  variant?: 'primary' | 'secondary'
+  children: React.ReactNode;
+  variant?: 'primary' | 'secondary';
+  onClick?: () => void;
 }
 
-export function Button({ children, variant = 'primary' }: ButtonProps) {
-  return <button className={`btn btn-${variant}`}>{children}</button>
+export function Button({ children, variant = 'primary', onClick }: ButtonProps) {
+  return (
+    <button className={`btn btn-${variant}`} onClick={onClick}>
+      {children}
+    </button>
+  );
 }
 ```
 
+### ❌ Avoid This
+
 ```tsx
-// ❌ Avoid
 export function Button(props: any) {
-  return <button {...props} />
+  return <button {...props} />;
 }
 ```
 
-### Tailwind Usage
+### ✅ Tailwind Usage
 
 ```tsx
-// ✅
 <div className="p-4 rounded-md bg-white shadow-sm text-gray-900">
   Hello, DK24!
 </div>
+```
 
-// ❌
+### ❌ Avoid Inline Styling
+
+```tsx
 <div style={{ padding: '1rem', backgroundColor: '#fff' }}>
   Hello
 </div>
 ```
 
-### Testing Before Push
+### 🔍 Testing Before Push
 
 ```bash
 npm run lint         # Linting
-npm run type-check   # TypeScript
-npm run build        # Build check
+npm run type-check   # TypeScript checks
+npm run build        # Build test
 ```
 
 ---
 
-## File Structure & Conventions
+## 📂 File Structure & Conventions
 
-We follow a standard `src/` structure with the Next.js App Router:
-
-```
+```bash
 src/
 ├── app/          # Pages and layouts
 ├── components/   # Shared React components
@@ -125,7 +148,7 @@ src/
 └── types/        # TypeScript types
 ```
 
-### Naming Conventions
+### Naming Rules
 
 * Files: `event-card.tsx`
 * Interfaces: `EventCardProps`
@@ -133,63 +156,60 @@ src/
 
 ---
 
-## Contributing Workflow
+## 🚦 Contributing Workflow
 
-> 🛑 **Do not start coding directly!**
-> Always follow this process to avoid conflicts or wasted work.
+> 🛑 Don’t start coding without an issue and assignment!
 
-### ✅ Steps to Contribute
+### ✅ Step-by-Step
 
 1. **Find or Create an Issue**
 
-   * Check the [Issues tab](https://github.com/Developer-Kommunity-24/community-website/issues).
-   * If **no issue exists**, [create a new one](https://github.com/Developer-Kommunity-24/community-website/issues/new/choose) describing the problem or feature.
+   * Look for open issues: [Issues](https://github.com/Developer-Kommunity-24/community-website/issues)
+   * If it doesn’t exist, create a new one.
 
-2. **Get It Assigned**
+2. **Ask to Be Assigned**
 
-   * Comment on the issue:
+   * Comment:
 
-     > `Hey, I’d like to work on this. Can you assign it to me?`
-   * Wait for a maintainer to assign it to you before you begin.
+     > "Hey, I’d like to work on this. Can you assign it to me?"
+   * Wait until you’re assigned before starting.
 
-3. **Create a Branch**
+3. **Create a New Branch**
 
-   ```bash
-   git checkout -b feat/your-feature
-   # or
-   git checkout -b fix/your-bug
-   ```
+```bash
+git checkout -b feat/your-feature-name
+# or
+git checkout -b fix/your-bug
+```
 
-4. **Code, Lint, Type-Check & Build**
+4. **Code, Lint, Type Check, Build**
 
-   ```bash
-   npm run lint && npm run type-check && npm run build
-   ```
+```bash
+npm run lint && npm run type-check && npm run build
+```
 
-5. **Commit Changes**
+5. **Commit Your Work**
 
-   ```bash
-   git add .
-   git commit -m "feat: add login form"
-   ```
+```bash
+git add .
+git commit -m "feat: add login form"
+```
 
 6. **Push & Create Pull Request**
 
-   ```bash
-   git push origin your-branch-name
-   ```
+```bash
+git push origin your-branch-name
+```
 
-   Then [open a PR](https://github.com/Developer-Kommunity-24/community-website/pulls) from your fork.
+Then open a PR and link the issue like:
 
-   Mention related issues with:
-
-   ```md
-   Closes #issue_number
-   ```
+```md
+Closes #12
+```
 
 ---
 
-## Commit & PR Guidelines
+## ✅ Commit & PR Guidelines
 
 Use [Conventional Commits](https://www.conventionalcommits.org):
 
@@ -199,47 +219,48 @@ fix: fix nav layout issue on mobile
 docs: update README setup section
 ```
 
-Include in PR:
+Make sure your PR includes:
 
-* Clear description
-* Screenshots (for UI changes)
-* Testing info (if applicable)
-
----
-
-## Ways to Contribute
-
-* **🐛 Report Bugs** – [File a bug](https://github.com/Developer-Kommunity-24/community-website/issues/new?assignees=&labels=bug&template=bug_report.md)
-* **✨ Request Features** – [Suggest an idea](https://github.com/Developer-Kommunity-24/community-website/issues/new?assignees=&labels=enhancement&template=feature_request.md)
-* **💻 Code Contributions** – Pick [`good first issue`](https://github.com/Developer-Kommunity-24/community-website/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
-* **📚 Improve Docs** – Fix typos, missing info, or clarity
-* **🎨 UI/UX** – Help polish components or accessibility
-* **🌍 Translations** – Help localize the platform
+* Clear title and description
+* UI screenshots (if applicable)
+* Lint, type-check, and build passed
 
 ---
 
-## Getting Help
+## 🌟 Ways to Contribute
 
-* **GitHub Discussions** – Ask questions or share ideas
-* **GitHub Issues** – Report bugs and request features
-* **Email** – [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com)
-* **Community Channels** – See main README
+* 🐛 Bug Fixes
+* ✨ New Features
+* 📚 Documentation
+* 🎨 Design / UI Polish
+* 🌍 Translations
 
 ---
 
-## Recognition
+## ❓ Getting Help
 
-Every contributor is valued. You'll be recognized through:
+* **GitHub Discussions**
+* **Issues tab**
+* **Email**: [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com)
+* **See README for social links**
 
-* GitHub contributors list
-* Community event shout-outs
-* [Contributors page](https://dk24.netlify.app) (coming soon)
+---
+
+## 🏆 Recognition
+
+You’ll be recognized via:
+
+* GitHub contributors graph
+* Community shout-outs
+* Acknowledgement in DK24 events
+* Featured on [dk24.netlify.app](https://dk24.netlify.app) (soon!)
 
 ---
 
 ## Thank You!
 
-Every line of code, bug fix, and idea moves us forward.
-We're building DK24 together — and we're glad you're here.
+Every contribution counts – no matter how small.
+We’re building DK24 together. Glad to have you onboard!
 
-**Happy Contributing!**
+**Happy Contributing! 🚀**
+*Made with ❤️ by the DK24 Community*

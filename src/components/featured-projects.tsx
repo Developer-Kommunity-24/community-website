@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
-import Image from "next/image"
-import { Github, ExternalLink } from "lucide-react"
-import { projects } from "@/constants/projects"
+import { ExternalLink, Github } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { projects } from "@/constants/projects";
 
 export function FeaturedProjects() {
-  if (projects.length === 0) return null
+  if (projects.length === 0) return null;
 
   return (
     <section className="container mx-auto py-12 justify-center max-w-7xl">
@@ -77,5 +77,5 @@ export function FeaturedProjects() {
         ))}
       </div>
     </section>
-  )
+  );
 }

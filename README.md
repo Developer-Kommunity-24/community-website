@@ -2,13 +2,13 @@
 
 <div align="center">
   <img src="public/logo.png" alt="DK24 Logo" width="200" height="200">
-  
+
   <h3>🌐 Connecting College Tech Communities</h3>
   <p><em>We are connecting college tech communities to learn and build together in public.</em></p>
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge\&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge\&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge\&logo=tailwind-css)](https://tailwindcss.com/)
 [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Latest-000000?style=for-the-badge)](https://ui.shadcn.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -16,14 +16,19 @@
 
 </div>
 
+---
+
 ## 📖 Table of Contents
 
-- [About DK24](#-about-dk24)
-- [Quick Start](#-quick-start)
-- [Tech Stack](#️-tech-stack)
-- [Contributing](#-contributing)
-- [Community](#-community)
-- [License](#-license)
+* [About DK24](#-about-dk24)
+* [Quick Start](#-quick-start)
+* [Tech Stack](#️-tech-stack)
+* [Development](#-development)
+* [Contributing](#-contributing)
+* [Community](#-community)
+* [License](#-license)
+
+---
 
 ## 🌟 About DK24
 
@@ -31,171 +36,184 @@ DK24 is a revolutionary community initiative that bridges the gap between colleg
 
 ### 🎯 Our Mission
 
-> _"The core and ultimate purpose of DK24 is to foster the learning and building environment among our peers and juniors, where we aim toward project-based learning, which will give rise to the next generation of engineers and tech entrepreneurs."_
+> *"The core and ultimate purpose of DK24 is to foster the learning and building environment among our peers and juniors, where we aim toward project-based learning, which will give rise to the next generation of engineers and tech entrepreneurs."*
 
 ### 🔮 Our Vision
 
-> _"Our goal is to have a tech ecosystem in Mangalore in the next 10 years, where we will be having a diverse network, that any student who has an idea or the spark to do something, will have the best resource he/she can access in the city."_
+> *"Our goal is to have a tech ecosystem in Mangalore in the next 10 years, where we will be having a diverse network, that any student who has an idea or the spark to do something, will have the best resource he/she can access in the city."*
 
 ### 🤔 Why DK24?
 
 As independent college communities, we are just small pockets of resources spread over various places. We can utilize maximum power when there is sharing of resources and knowledge between these pockets, and **DK24 is the bridge connecting all of them together**.
 
+---
+
 ### 🎭 TEAM Model
 
-DK24 operates on a unique **TEAM** structure that ensures sustainable growth and knowledge transfer. To know more visit: [https://dk24.netlify.app/community](https://dk24.netlify.app/community)
+DK24 operates on a unique **TEAM** structure that ensures sustainable growth and knowledge transfer. To know more, visit: [https://dk24.netlify.app/community](https://dk24.netlify.app/community)
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- **Node.js** 18.0 or later
-- **npm**, **yarn**, or **pnpm**
-- **Git** for version control
+* **Node.js** 18.0 or later
+* **npm**, **yarn**, or **pnpm**
+* **Git** for version control
 
 ### Installation
 
-1. **Clone the repository**
+```bash
+git clone https://github.com/Developer-Kommunity-24/community-website.git
+cd community-website
+npm install
+```
 
-   ```bash
-   git clone https://github.com/Developer-Kommunity-24/community-website.git
-   cd community-website
-   ```
+### Environment Setup
 
-2. **Install dependencies**
+Create a `.env.local` file in the root directory:
 
-   ```bash
-   npm install
-   # or
-   yarn install
-   # or
-   pnpm install
-   ```
+```env
+# Add your environment variables here
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
 
-3. **Environment setup**
-  
-   Create a \`.env.local\` file in the root directory:
+### Run the Dev Server
 
-   ```env
-   # Add your environment variables here
-   NEXT_PUBLIC_SITE_URL=http://localhost:3000
-   ```
+```bash
+npm run dev
+```
 
-4. **Run the development server**
+Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   ```
+---
 
-5. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+## 🛠️ Development
 
 ### Available Scripts
 
 ```bash
-# Development
 npm run dev          # Start development server
 npm run build        # Build for production
 npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # Run TypeScript checks
+npm run lint         # Run Biome lint
+npm run lint:fix     # Fix lint issues
+npm run format       # Check code format
+npm run format:write # Auto-format files
+npm run type-check   # Run TypeScript type checks
 ```
 
+---
 
-## 🛠️ Tech Stack
+## 🧰 Tech Stack
 
 ### **Frontend Framework**
 
-- **[Next.js 14](https://nextjs.org/)** - React framework with App Router
-- **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript
-- **[React 18](https://reactjs.org/)** - UI library with latest features
+* **Next.js 14** – App Router with SSR support
+* **TypeScript** – Strongly-typed JavaScript
+* **React 18** – Latest concurrent features
 
 ### **Styling & UI**
 
-- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
-- **[shadcn/ui](https://ui.shadcn.com/)** - High-quality React components
-- **[Framer Motion](https://www.framer.com/motion/)** - Production-ready motion library
-- **[Lucide React](https://lucide.dev/)** - Beautiful & consistent icons
+* **Tailwind CSS** – Utility-first styling
+* **shadcn/ui** – Prebuilt component library
+* **Framer Motion** – For animations
+* **Lucide Icons** – Open-source icon library
 
 ### **Form & Validation**
 
-- **[React Hook Form](https://react-hook-form.com/)** - Performant forms with easy validation
-- **[Zod](https://zod.dev/)** - TypeScript-first schema validation
-- **[@hookform/resolvers](https://github.com/react-hook-form/resolvers)** - Validation resolvers
+* **React Hook Form** – Form state & validation
+* **Zod** – Schema-based validation
+* **@hookform/resolvers** – Zod integration
 
 ### **Development Tools**
 
-- **[ESLint](https://eslint.org/)** - Code linting and formatting
-- **[next-themes](https://github.com/pacocoursey/next-themes)** - Theme management
-- **[class-variance-authority](https://cva.style/)** - Component variant management
+* **Biome.js** – Linter + Formatter (replacement for ESLint + Prettier)
+* **Husky + lint-staged** – Git hooks
+* **next-themes** – Dark/light mode support
+* **class-variance-authority** – Variant-based styling
+
+---
 
 ## 🤝 Contributing
 
-We welcome contributions from everyone! Whether you're a student, professional, or just passionate about community building, there's a place for you here.
+We welcome contributions from everyone — whether you're reporting bugs, fixing code, or improving docs.
 
-For detailed contribution steps, see [contributing.md](contributing.md).
+### ✅ Start with an Issue
+
+> 💡 If you're planning to contribute:
+>
+> * First **check existing issues**
+> * If not found, **create a new issue**
+> * Ask to be **assigned to avoid conflict**
+>
+> > *“Can I work on this? Please assign me.”*
+
+### 📚 Contribution Guide
+
+For setup, naming conventions, file structure, and code standards:
+➡️ See [contributing.md](contributing.md)
+
+---
 
 ## 💬 Community
 
 ### 🌐 Connect With Us
 
-- **🌍 Website**: [dk24.netlify.app](https://dk24.netlify.app)
-- **📱 Twitter**: [@dk24community](https://twitter.com/dk24community)
-- **💼 LinkedIn**: [DK24 Community](https://linkedin.com/company/dk24community)
-- **📷 Instagram**: [@dk24community](https://instagram.com/dk24community)
-- **💻 GitHub**: [github.com/Developer-Kommunity-24](https://github.com/Developer-Kommunity-24)
+* **Website**: [dk24.netlify.app](https://dk24.netlify.app)
+* **Twitter**: [@dk24community](https://twitter.com/dk24community)
+* **LinkedIn**: [DK24 Community](https://linkedin.com/company/dk24community)
+* **Instagram**: [@dk24community](https://instagram.com/dk24community)
+* **GitHub**: [Developer-Kommunity-24](https://github.com/Developer-Kommunity-24)
 
-### 📧 Contact Information
+### 📧 Contact
 
-- **General Inquiries**: [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com)
+* [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com)
 
-### 🏫 Member Colleges
-
-- **SOSC** - Sahyadri College of Engineering & Management
-- **DevNation** - AJ Institute of Engineering and Technology
-- **FiniteLoop** - Nitte Engineering (NMAIT)
-- **Sceptix** - St. Joseph College of Engineering and Technology
-- **SSOSC** - Srinivas Institute of Engineering and Technology
-- **CoRE** - Vivekananda College of Engineering and Technology
+---
 
 ## 📊 Project Stats
 
-- **🏫 Member Colleges**: 6 active communities
-- **👥 Active Members**: 500+ students and professionals
-- **🚀 Projects**: 10+ collaborative projects
-- **📅 Events**: 20+ events organized
-- **🌟 GitHub Stars**: Help us reach our goal!
+* **🏫 Member Colleges**: 6+
+* **👥 Active Members**: 500+
+* **🚀 Projects**: 10+
+* **📅 Events**: 20+
+* **🌟 GitHub Stars**: Help us grow!
+
+---
 
 ## 👥 Contributors
 
-Thanks to everyone who has contributed to this project 💜
-
+Thanks to all contributors 💜
 [![contributers](https://contrib.rocks/image?repo=Developer-Kommunity-24/community-website)](https://github.com/Developer-Kommunity-24/community-website/graphs/contributors)
+
+---
 
 ## 📄 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+Licensed under the [MIT License](LICENSE)
 
-### What this means:
+```
+✅ Commercial Use
+✅ Modification
+✅ Distribution
+✅ Private Use
+❌ Warranty
+❌ Liability
+```
 
-- ✅ Commercial use
-- ✅ Modification
-- ✅ Distribution
-- ✅ Private use
-- ❌ Liability
-- ❌ Warranty
+---
 
 ## 🔒 Security
 
-If you discover a security vulnerability, please send an e-mail to [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com). All security vulnerabilities will be promptly addressed.
+If you find a security issue, email [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com) — we’ll handle it promptly.
 
-## 📈 Analytics and Monitoring
+---
 
-We use privacy-focused analytics to understand how our community uses the platform. No personal data is collected without consent.
+## 📈 Analytics
+
+We use privacy-focused analytics. No personal data is collected without consent.
+
+---
 
 <div align="center">
   <h3>🚀 Ready to join the revolution?</h3>
@@ -204,12 +222,12 @@ We use privacy-focused analytics to understand how our community uses the platfo
       <img src="https://img.shields.io/badge/Join_DK24-Get_Started-green?style=for-the-badge" alt="Join DK24">
     </a>
   </p>
-  
+
   <hr>
-  
+
   <p>Made with ❤️ by the DK24 Community</p>
   <p><em>"Connecting college tech communities to learn and build together in public"</em></p>
-  
+
   <p>
     <a href="#-table-of-contents">⬆️ Back to Top</a>
   </p>

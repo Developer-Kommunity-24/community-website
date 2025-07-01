@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface Event {
@@ -24,13 +24,13 @@ export function EventCalendar({ events }: EventCalendarProps) {
 
   const nextMonth = () => {
     setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1),
     );
   };
 
   const prevMonth = () => {
     setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1),
     );
   };
 
@@ -120,7 +120,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
                     day === null
                       ? "text-muted-foreground/30"
                       : "hover:bg-muted rounded-md",
-                    eventsByDay[day as number] && "font-bold text-primary"
+                    eventsByDay[day as number] && "font-bold text-primary",
                   )}
                 >
                   {day !== null && (
@@ -158,7 +158,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
                       {
                         month: "short",
                         day: "numeric",
-                      }
+                      },
                     );
 
                     return (

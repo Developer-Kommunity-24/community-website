@@ -1,10 +1,7 @@
 {
   "ci": {
     "collect": {
-      "url": [
-        "http://localhost:3000",
-        "http://localhost:3000/join",
-      ],
+      "url": ["http://localhost:3000", "http://localhost:3000/join"],
       "numberOfRuns": 3,
       "settings": {
         "chromeFlags": "--no-sandbox --disable-dev-shm-usage"
