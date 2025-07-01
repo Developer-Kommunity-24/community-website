@@ -3,7 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Quote, Sparkles } from "lucide-react";
-import { motion, Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import { testimonials } from "@/constants/testimonials";
 

@@ -1,16 +1,8 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Lightbulb,
-  Users,
-  Code,
-  Globe,
-  Sparkles,
-  ArrowRight,
-  Target,
-} from "lucide-react";
+import { Lightbulb, Users, Code, Globe, Sparkles, Target } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export function VisionSection() {

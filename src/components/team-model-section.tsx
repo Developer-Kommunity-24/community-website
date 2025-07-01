@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { GraduationCap, Lightbulb, Compass, Users } from "lucide-react";
 import { siteConfig } from "@/config/site";

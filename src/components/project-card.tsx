@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import type { Project } from "@/types";
-import { motion, Variants } from "framer-motion";
 
 interface ProjectCardProps {
   project: Project;

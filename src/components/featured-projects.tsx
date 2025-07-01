@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Code2 } from "lucide-react";
 import { projects } from "@/constants/projects";
 import { ProjectCard } from "@/components/project-card";
