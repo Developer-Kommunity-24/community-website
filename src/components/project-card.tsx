@@ -1,86 +1,92 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
-import Image from "next/image"
-import { Github, ExternalLink } from "lucide-react"
-
-export interface Project {
-  id: string
-  title: string
-  description: string
-  image: string
-  tags: string[]
-  contributors: {
-    name: string
-    college: string
-    role: string
-  }[]
-  github: string
-  demo: string
-  outcome?: string
-}
+import { ExternalLink, Github } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import type { Project } from "@/types";
+import { motion, Variants } from "framer-motion";
 
 interface ProjectCardProps {
-  project: Project
-  isCompleted?: boolean
+  project: Project;
+  isCompleted?: boolean;
 }
 
-export function ProjectCard({ project, isCompleted }: ProjectCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card className="overflow-hidden flex flex-col h-full">
-      <div className="relative h-48 w-full">
-        <Image src={project.image || "/placeholder.svg"} alt={project.title} fill className="object-cover" />
-      </div>
-      <CardContent className="p-6 flex-1">
-        <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-        <p className="text-muted-foreground mb-4">{project.description}</p>
+    <div className="group">
+      <Card className="h-full relative overflow-hidden bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-50 dark:border-green-900/30 shadow-lg hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300">
+        {/* Top Accent - consistent with vision cards */}
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-100/40 via-green-200/50 to-green-100/40 group-hover:from-green-200/60 group-hover:via-green-300/70 group-hover:to-green-200/60 transition-colors duration-300" />
 
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tags.map((tag, i) => (
-            <Badge key={i} variant="secondary">
-              {tag}
-            </Badge>
-          ))}
+        {/* Image Section */}
+        <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 overflow-hidden flex items-center justify-center p-4">
+          <Image
+            src={project.image || "/placeholder.svg?height=200&width=400"}
+            alt={project.title}
+            fill
+            className="object-contain group-hover:scale-101 transition-transform duration-500"
+          />
+          {/* Overlay for better contrast */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div>
-          <h4 className="text-sm font-semibold mb-2">Contributors:</h4>
-          <ul className="space-y-1">
-            {project.contributors.map((contributor, index) => (
-              <li key={index} className="text-sm">
-                <span className="font-medium">{contributor.name}</span>
-                <span className="text-muted-foreground">
-                  {" "}
-                  - {contributor.role}, {contributor.college}
-                </span>
-              </li>
+        <CardContent className="relative px-6 py-4 flex-1">
+          {/* Project Title */}
+          <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-gray-200 group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors duration-300">
+            {project.title}
+          </h3>
+
+          {/* Project Description */}
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4 text-sm">
+            {project.description}
+          </p>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tags.map((tag, i) => (
+              <Badge
+                key={i}
+                variant="secondary"
+                className="bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800 text-xs"
+              >
+                {tag}
+              </Badge>
             ))}
-          </ul>
-        </div>
-
-        {isCompleted && project.outcome && (
-          <div className="mt-4">
-            <h4 className="text-sm font-semibold mb-2">Outcome:</h4>
-            <p className="text-sm text-muted-foreground">{project.outcome}</p>
           </div>
-        )}
-      </CardContent>
+        </CardContent>
 
-      <CardFooter className="p-6 pt-0 flex justify-between">
-        <Button variant="outline" size="sm" asChild>
-          <Link href={project.github} target="_blank" rel="noopener noreferrer">
-            <Github className="h-4 w-4 mr-2" />
-            Code
-          </Link>
-        </Button>
-        <Button size="sm" asChild>
-          <Link href={project.demo} target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="h-4 w-4 mr-2" />
-            Demo
-          </Link>
-        </Button>
-      </CardFooter>
-    </Card>
-  )
+        <CardFooter className="px-6 pb-6 pt-0 flex justify-between gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex-1 border-green-200 dark:border-green-800 hover:bg-green-50 dark:hover:bg-green-900/20"
+            asChild
+          >
+            <Link
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github className="h-4 w-4 mr-2" />
+              Github
+            </Link>
+          </Button>
+          <Button
+            size="sm"
+            className="flex-1 bg-gradient-to-r from-green-500 to-green-400 hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400"
+            asChild
+          >
+            <Link href={project.link} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="h-4 w-4 mr-2" />
+              Visit Project
+            </Link>
+          </Button>
+        </CardFooter>
+
+        {/* Subtle Bottom Accent */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-300/50 to-transparent group-hover:via-green-400 transition-colors duration-300" />
+      </Card>
+    </div>
+  );
 }

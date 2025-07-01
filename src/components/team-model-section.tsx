@@ -1,12 +1,9 @@
-"use client"
+"use client";
 
-<<<<<<< HEAD
-import { motion, Variants } from "framer-motion"
-=======
->>>>>>> 0ce54b8 (Pushed all major UI changes! Make sure to check the new features and updates.)
-import { Card, CardContent } from "@/components/ui/card"
-import { GraduationCap, Lightbulb, Compass, Users } from "lucide-react"
-import { siteConfig } from "@/config/site"
+import { motion, Variants } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { GraduationCap, Lightbulb, Compass, Users } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 export function TeamModelSection() {
   const containerVariants: Variants = {
@@ -15,22 +12,22 @@ export function TeamModelSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  }
+        delayChildren: 0.2,
+      },
+    },
+  };
 
   const cardVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.5,
-        ease: [0.4, 0, 0.2, 1]
-      }
-    }
-  }
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
+  };
 
   const teamRoles = [
     {
@@ -55,24 +52,17 @@ export function TeamModelSection() {
       letter: siteConfig.teamStructure.mentor.letter,
       title: siteConfig.teamStructure.mentor.title,
       description: `${siteConfig.teamStructure.mentor.years} who provide industry insights and connections to students`,
-<<<<<<< HEAD
       icon: <GraduationCap className="h-5 w-5" />,
-=======
-      icon: <GraduationCap className="h-6 w-6" />,
-      color: "bg-green-100 dark:bg-green-900/30",
-      textColor: "text-green-600 dark:text-green-400",
->>>>>>> 0ce54b8 (Pushed all major UI changes! Make sure to check the new features and updates.)
     },
-  ]
+  ];
 
   return (
-<<<<<<< HEAD
     <section className="relative py-16 overflow-hidden">
       {/* Subtle Background Elements - matching vision section */}
       <div className="absolute inset-0 bg-gradient-to-br from-green-50/20 via-white to-green-50/10 dark:from-green-950/5 dark:via-background dark:to-green-950/5" />
       <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl translate-x-32 -translate-y-32" />
       <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full blur-3xl -translate-x-28 translate-y-28" />
-      
+
       <div className="container relative mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -85,7 +75,8 @@ export function TeamModelSection() {
             Community Structure
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Our TEAM model creates a sustainable structure for knowledge sharing and growth
+            Our TEAM model creates a sustainable structure for knowledge sharing
+            and growth
           </p>
         </motion.div>
 
@@ -100,16 +91,16 @@ export function TeamModelSection() {
             <motion.div
               key={index}
               variants={cardVariants}
-              whileHover={{ 
+              whileHover={{
                 y: -8,
-                transition: { duration: 0.3 }
+                transition: { duration: 0.3 },
               }}
               className="group h-full"
             >
               <Card className="h-full relative overflow-hidden bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-50 dark:border-green-900/30 shadow-lg hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300">
                 {/* Top Accent - consistent with vision cards */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-100/40 via-green-200/50 via-green-200/50 to-green-100/40 group-hover:from-green-200/60 group-hover:via-green-300/70 group-hover:via-green-300/70 group-hover:to-green-200/60 transition-colors duration-300" />
-                
+
                 <CardContent className="relative p-5 flex flex-col items-center text-center h-full">
                   {/* Icon with Subtle Background */}
                   <div className="relative mb-4">
@@ -119,19 +110,23 @@ export function TeamModelSection() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Content */}
                   <div className="space-y-2 mb-4">
-                    <h3 className="text-2xl font-bold text-green-600 dark:text-green-400">{role.letter}</h3>
-                    <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">{role.title}</p>
+                    <h3 className="text-2xl font-bold text-green-600 dark:text-green-400">
+                      {role.letter}
+                    </h3>
+                    <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                      {role.title}
+                    </p>
                   </div>
-                  
+
                   <div className="mt-auto">
                     <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                       {role.description}
                     </p>
                   </div>
-                  
+
                   {/* Subtle Bottom Accent */}
                   <div className="mt-6 w-8 h-px bg-gradient-to-r from-transparent via-green-300/50 to-transparent group-hover:via-green-400 transition-colors duration-300" />
                 </CardContent>
@@ -139,38 +134,7 @@ export function TeamModelSection() {
             </motion.div>
           ))}
         </motion.div>
-=======
-    <section className="container justify-center max-w-7xl mx-auto py-10 md:py-12 px-4 md:px-6 bg-muted/50 rounded-lg">
-      <div className="text-center mb-8 md:mb-12">
-        <h2 className="text-3xl font-bold mb-4">Community Structure</h2>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Our TEAM model creates a sustainable structure for knowledge sharing and growth
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        {teamRoles.map((role, index) => (
-          <div key={index} className="h-full">
-            <Card className="h-full flex flex-col">
-              <CardContent className="p-4 md:p-6 flex flex-col flex-1">
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className={`p-3 rounded-full ${role.color}`}>{role.icon}</div>
-                  <div>
-                    <div className="flex items-baseline space-x-2">
-                      <span className={`text-3xl font-bold ${role.textColor}`}>{role.letter}</span>
-                      <span className="text-xl font-semibold">{role.title}</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex-1 flex items-end">
-                  <p className="text-muted-foreground">{role.description}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        ))}
->>>>>>> 0ce54b8 (Pushed all major UI changes! Make sure to check the new features and updates.)
       </div>
     </section>
-  )
+  );
 }

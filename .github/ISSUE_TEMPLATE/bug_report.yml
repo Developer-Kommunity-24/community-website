@@ -1,0 +1,131 @@
+name: Bug Report
+description: File a bug report for the DK24 Community Website
+body:
+  - type: markdown
+    attributes:
+      value: |
+        <div align="center">
+          <h2>🐛 DK24 Community Website — Bug Report</h2>
+          <p><em>Thanks for taking the time to help us improve the platform!</em></p>
+        </div>
+
+        > [!IMPORTANT]
+        > - Provide clear, descriptive titles.
+        > - Search existing issues to avoid duplicates.
+        > - Use this form for bugs only — feature requests go to GitHub Discussions.
+        > - Include reproduction steps and visuals if possible.
+        > - Be as specific as you can!
+
+  - type: checkboxes
+    id: prechecks
+    attributes:
+      label: Preliminary Checks
+      description: Please confirm the following before submitting.
+      options:
+        - label: I have read the instructions above.
+          required: true
+        - label: I have searched the existing issues to ensure this is not a duplicate.
+          required: true
+        - label: This is a **bug report**, not a feature request.
+          required: true
+        - label: I have confirmed this issue is not caused by browser extensions or custom modifications.
+          required: true
+        - label: I can reproduce this bug consistently.
+          required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Clearly describe the issue you're facing.
+      placeholder: Tell us what’s going wrong!
+    validations:
+      required: true
+
+  - type: input
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: input
+    id: actual-behavior
+    attributes:
+      label: Actual behavior
+      description: What actually happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Please provide clear, numbered steps so we can reproduce this issue.
+        Example:
+        1. Go to the homepage
+        2. Click on 'Join'
+        3. Observe error
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or Videos
+      description: If applicable, please attach visuals to illustrate the issue.
+
+  - type: input
+    id: version
+    attributes:
+      label: DK24 Website Version
+      description: Provide the version if visible (e.g., `1.0.0-beta`). Leave blank if unknown.
+      placeholder: e.g. 1.0.0-beta
+    validations:
+      required: false
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Where did the bug occur?
+      multiple: true
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Android
+        - iOS
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component/Feature Affected
+      options:
+        - Other
+        - Homepage
+        - Projects Section
+        - Join Platform
+        - Community Directory
+        - TEAM Model
+        - Event Registration
+        - User Onboarding
+        - Dashboard
+        - Responsive Layout
+        - Authentication
+        - Forms
+        - Dark Mode
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Console or Network Logs (if any)
+      description: Paste any error messages or logs from your browser's developer tools.
+      render: shell

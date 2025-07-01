@@ -6,9 +6,23 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "format": "biome format",
+    "format:write": "biome format --write",
+    "lint": "biome lint",
+    "lint:write": "biome lint --write",
     "type-check": "tsc --noEmit",
-    "test": "echo \"No tests specified\" && exit 0"
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/!(*.ts|*.tsx)": [
+      "biome format --write",
+      "biome lint"
+    ],
+    "**/(*.ts|*.tsx)": [
+      "biome format --write",
+      "biome lint",
+      "cd .. && tsc --noEmit"
+    ]
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -34,13 +48,13 @@
     "zod": "^3.25.67"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
+    "@biomejs/biome": "2.0.6",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "tailwindcss": "^4.1.10",
     "typescript": "^5"
   }

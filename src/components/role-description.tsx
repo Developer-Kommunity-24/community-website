@@ -1,13 +1,18 @@
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card";
 
 interface RoleDescriptionProps {
-  role: string
-  years: string
-  description: string
-  responsibilities: string[]
+  role: string;
+  years: string;
+  description: string;
+  responsibilities: string[];
 }
 
-export function RoleDescription({ role, years, description, responsibilities }: RoleDescriptionProps) {
+export function RoleDescription({
+  role,
+  years,
+  description,
+  responsibilities,
+}: RoleDescriptionProps) {
   return (
     <Card>
       <CardContent className="p-6">
@@ -28,5 +33,5 @@ export function RoleDescription({ role, years, description, responsibilities }: 
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

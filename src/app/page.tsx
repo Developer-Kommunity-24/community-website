@@ -1,10 +1,10 @@
-import { HeroSection } from "@/components/hero-section"
-import { VisionSection } from "@/components/vision-section"
-import { TeamModelSection } from "@/components/team-model-section"
-import { FeaturedProjects } from "@/components/featured-projects"
-import { UpcomingEvents } from "@/components/upcoming-events"
-import { Testimonials } from "@/components/testimonials"
-import { BackgroundPattern } from "@/components/background-pattern"
+import { HeroSection } from "@/components/hero-section";
+import { VisionSection } from "@/components/vision-section";
+import { TeamModelSection } from "@/components/team-model-section";
+import { FeaturedProjects } from "@/components/featured-projects";
+import { UpcomingEvents } from "@/components/upcoming-events";
+import { Testimonials } from "@/components/testimonials";
+import { BackgroundPattern } from "@/components/background-pattern";
 
 export default function Home() {
   return (
@@ -18,6 +18,5 @@ export default function Home() {
         <Testimonials />
       </div>
     </BackgroundPattern>
-  )
+  );
 }
-
