@@ -2,72 +2,14 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import type { Event } from "@/types";
+import { iconsMap } from "@/constants";
 
-import {
-  Calendar,
-  Users,
-  Trophy,
-  Rocket,
-  Code,
-  Network,
-  TrendingUp,
-} from "lucide-react";
+interface TimelineProps {
+  timelineEvents: Event[];
+}
 
-export function Timeline() {
-  const timelineEvents = [
-    {
-      date: "October 2023",
-      title: "Initial Discussions",
-      description:
-        "Representatives from SOSC, DevNation, and FiniteLoop met to discuss the possibility of a unified tech community across colleges in Mangalore.",
-      icon: Users,
-    },
-    {
-      date: "November 2023",
-      title: "Community Planning",
-      description:
-        "The TEAM model was conceptualized, and the vision for DK24 was drafted with input from student leaders and faculty advisors.",
-      icon: Calendar,
-    },
-    {
-      date: "December 2023",
-      title: "DK24 Summit 2023",
-      description:
-        "The inaugural summit brought together tech communities from 6 colleges to officially establish DK24 and set the vision for the future.",
-      highlight: true,
-      icon: Trophy,
-    },
-    {
-      date: "January 2024",
-      title: "First Collaborative Projects",
-      description:
-        "Three collaborative projects were initiated with students from different colleges working together in mixed teams.",
-      icon: Code,
-    },
-    {
-      date: "February 2024",
-      title: "Build for Mangalore Hackathon",
-      description:
-        "The first major event organized by DK24, bringing together over 200 students to build solutions for local problems.",
-      highlight: true,
-      icon: Rocket,
-    },
-    {
-      date: "March 2024",
-      title: "Mentor Network Launch",
-      description:
-        "A network of industry professionals and alumni was established to mentor students and provide guidance on projects.",
-      icon: Network,
-    },
-    {
-      date: "April 2024",
-      title: "Community Growth",
-      description:
-        "DK24 expanded to include two more college communities, bringing the total to 8 member colleges across Mangalore.",
-      icon: TrendingUp,
-    },
-  ];
-
+export function Timeline({ timelineEvents }: TimelineProps) {
   return (
     <div className="relative py-12">
       {/* Timeline line with gradient */}
@@ -75,7 +17,7 @@ export function Timeline() {
 
       <div className="space-y-16">
         {timelineEvents.map((event, index) => {
-          const IconComponent = event.icon;
+          const IconComponent = iconsMap[event.icon];
           return (
             <motion.div
               key={index}
