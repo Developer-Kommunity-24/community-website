@@ -1,37 +1,42 @@
-"use client"
-import { Github, ArrowUp } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { siteConfig } from "@/config/site"
+"use client";
+import { Github, ArrowUp } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { siteConfig } from "@/config/site";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
-}
+};
 
 export default function Footer() {
-  const [isVisible, setIsVisible] = useState(false)
-  const router = useRouter()
+  const [isVisible, setIsVisible] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { threshold: 0.1 })
-    const footer = document.querySelector("#footer")
-    if (footer) observer.observe(footer)
-    return () => observer.disconnect()
-  }, [])
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.1 },
+    );
+    const footer = document.querySelector("#footer");
+    if (footer) observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
 
   const handleNavClick = (href: string) => {
-    const element = document.querySelector(href)
-    element ? element.scrollIntoView({ behavior: "smooth" }) : router.push(`/${href}`)
-  }
+    const element = document.querySelector(href);
+    element
+      ? element.scrollIntoView({ behavior: "smooth" })
+      : router.push(`/${href}`);
+  };
 
   const links = {
     quick: [
       { href: "/about", label: "About Us" },
-      { href: "/community", label: "Community" },
+      { href: "/structure", label: "Structure" },
       { href: "/communities", label: "Member Communities" },
       { href: "/events", label: "Events" },
       { href: "/projects", label: "Projects" },
@@ -39,19 +44,28 @@ export default function Footer() {
     nav: [
       { href: "#vision", label: "Vision" },
       { href: "#team", label: "Team" },
-      { href: "#featured-projects", label: "Featured Projects" },
       { href: "#upcoming-events", label: "Upcoming Events" },
       { href: "#testimonials", label: "Testimonials" },
     ],
-  }
+  };
 
-  const contactItems = [{ href: "https://github.com/Developer-Kommunity-24", icon: Github, label: "DK24" }]
+  const contactItems = [
+    {
+      href: "https://github.com/Developer-Kommunity-24",
+      icon: Github,
+      label: "DK24",
+    },
+  ];
 
   const LinkSection = ({
     title,
     items,
     isNav = false,
-  }: { title: string; items: typeof links.quick; isNav?: boolean }) => (
+  }: {
+    title: string;
+    items: typeof links.quick;
+    isNav?: boolean;
+  }) => (
     <div className="space-y-6">
       <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 relative">
         {title}
@@ -86,10 +100,13 @@ export default function Footer() {
         ))}
       </ul>
     </div>
-  )
+  );
 
   return (
-    <footer id="footer" className="border-t bg-gradient-to-br from-muted/60 via-muted/40 to-muted/60 shadow-inner">
+    <footer
+      id="footer"
+      className="border-t bg-gradient-to-br from-muted/60 via-muted/40 to-muted/60 shadow-inner"
+    >
       <div className="relative container mx-auto px-4 py-20 max-w-7xl">
         <motion.div
           initial="hidden"
@@ -97,13 +114,18 @@ export default function Footer() {
           transition={{ staggerChildren: 0.1, duration: 0.6 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-10"
         >
-          <motion.div variants={fadeInUp} className="md:col-span-2 lg:col-span-2 space-y-8">
+          <motion.div
+            variants={fadeInUp}
+            className="md:col-span-2 lg:col-span-2 space-y-8"
+          >
             <Link href="/" className="inline-block group">
               <span className="text-4xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 hover:scale-105 transition-transform">
                 {siteConfig.name}
               </span>
             </Link>
-            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-md leading-relaxed">{siteConfig.tagline}</p>
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-md leading-relaxed">
+              {siteConfig.tagline}
+            </p>
             <div className="space-y-4">
               {contactItems.map((item) => (
                 <div key={item.label}>
@@ -139,7 +161,8 @@ export default function Footer() {
           className="border-t border-slate-200 dark:border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-6"
         >
           <p className="text-sm text-slate-500 dark:text-slate-400 text-center md:text-left">
-            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights
+            reserved.
           </p>
 
           <Button
@@ -154,5 +177,5 @@ export default function Footer() {
         </motion.div>
       </div>
     </footer>
-  )
+  );
 }

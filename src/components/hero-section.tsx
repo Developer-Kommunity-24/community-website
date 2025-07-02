@@ -43,7 +43,7 @@ export function HeroSection() {
           className="relative h-[400px] rounded-lg overflow-hidden bg-[#0E0E0E]"
         >
           <Image
-            src="/logo.png"
+            src="/logo_new.png"
             alt="DK24 Logo"
             fill
             className="object-contain p-8"

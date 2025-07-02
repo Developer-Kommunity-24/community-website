@@ -10,5 +10,7 @@ export const events: Event[] = [
     description:
       "The annual summit bringing together all member communities to showcase projects, share learnings, and plan for the upcoming year. Hosted by Sahyadri Open Source Community.",
     registrationLink: "/events/register/summit-2024",
+    icon: "calendar",
+    highlight: true,
   },
 ];

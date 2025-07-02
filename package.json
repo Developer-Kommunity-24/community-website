@@ -1,6 +1,6 @@
 {
   "name": "dk24",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,17 +11,15 @@
     "lint": "biome lint",
     "lint:write": "biome lint --write",
     "type-check": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "format-git": "biome format --write .",
+    "lint-git": "biome lint .",
+    "lint-git:fix": "biome lint --write ."
   },
   "lint-staged": {
-    "**/!(*.ts|*.tsx)": [
+    "*.{js,jsx,ts,tsx,json}": [
       "biome format --write",
       "biome lint"
-    ],
-    "**/(*.ts|*.tsx)": [
-      "biome format --write",
-      "biome lint",
-      "tsc --noEmit"
     ]
   },
   "dependencies": {
@@ -34,6 +32,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.12",
     "class-variance-authority": "^0.7.1",
+    "cloudflared": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.18.1",
     "lucide-react": "^0.518.0",
