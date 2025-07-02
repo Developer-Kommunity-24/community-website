@@ -1,5 +1,5 @@
 "use client";
-import { Github, ArrowUp } from "lucide-react";
+import { Github, ArrowUp, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -54,6 +54,17 @@ export default function Footer() {
       href: "https://github.com/Developer-Kommunity-24",
       icon: Github,
       label: "DK24",
+      clickable: true,
+    },
+    {
+      icon: Mail,
+      label: "deveeshshetty@gmail.com",
+      clickable: false,
+    },
+    {
+      icon: MapPin,
+      label: "Mangaluru, DK",
+      clickable: false,
     },
   ];
 
@@ -129,17 +140,26 @@ export default function Footer() {
             <div className="space-y-4">
               {contactItems.map((item) => (
                 <div key={item.label}>
-                  <Link
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-slate-600 dark:text-slate-300 group cursor-pointer hover:translate-x-1 transition-transform"
-                  >
-                    <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30 transition-colors">
-                      <item.icon className="h-4 w-4 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
+                  {item.clickable && item.href ? (
+                    <Link
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-slate-600 dark:text-slate-300 group cursor-pointer hover:translate-x-1 transition-transform"
+                    >
+                      <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30 transition-colors">
+                        <item.icon className="h-4 w-4 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
+                      </div>
+                      <span className="text-sm font-medium">{item.label}</span>
+                    </Link>
+                  ) : (
+                    <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300 group hover:translate-x-1 transition-transform">
+                      <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30 transition-colors">
+                        <item.icon className="h-4 w-4 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors"/>
+                      </div>
+                      <span className="text-sm font-medium">{item.label}</span>
                     </div>
-                    <span className="text-sm font-medium">{item.label}</span>
-                  </Link>
+                  )}
                 </div>
               ))}
             </div>
@@ -169,7 +189,7 @@ export default function Footer() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             variant="ghost"
             size="sm"
-            className="group bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-200 dark:hover:border-emerald-700 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300 rounded-xl hover:scale-105"
+            className="group bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-200 dark:hover:border-emerald-700 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300 rounded-xl hover:scale-105 hover:cursor-pointer"
           >
             <ArrowUp className="h-4 w-4 mr-2" />
             Back to Top
