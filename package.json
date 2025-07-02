@@ -14,14 +14,12 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "**/!(*.ts|*.tsx)": [
+    "*.{js,jsx,ts,tsx}": [
       "biome format --write",
-      "biome lint"
+      "biome lint --write"
     ],
-    "**/(*.ts|*.tsx)": [
-      "biome format --write",
-      "biome lint",
-      "cd .. && tsc --noEmit"
+    "*.{json,jsonc,md,html,css}": [
+      "biome format --write"
     ]
   },
   "dependencies": {
