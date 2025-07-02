@@ -41,7 +41,7 @@ export function TeamModelSection() {
   ];
 
   return (
-    <section className="container justify-center max-w-7xl mx-auto py-10 md:py-12 px-4 md:px-6 bg-muted/50 rounded-lg">
+    <section id="team" className="container justify-center max-w-7xl mx-auto py-10 md:py-12 px-4 md:px-6 bg-muted/50 rounded-lg scroll-mt-16">
       <div className="text-center mb-8 md:mb-12">
         <h2 className="text-3xl font-bold mb-4">Community Structure</h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

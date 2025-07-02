@@ -12,7 +12,7 @@ export function FeaturedProjects() {
   if (projects.length === 0) return null;
 
   return (
-    <section className="container mx-auto py-12 justify-center max-w-7xl">
+    <section id="featured-projects" className="container mx-auto py-12 justify-center max-w-7xl scroll-mt-16">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 px-4">
         <div>
           <h2 className="text-3xl font-bold mb-2">Featured Projects</h2>
