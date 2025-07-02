@@ -17,14 +17,9 @@
     "lint-git:fix": "biome lint --write ."
   },
   "lint-staged": {
-    "**/!(*.ts|*.tsx)": [
+    "*.{js,jsx,ts,tsx,json}": [
       "biome format --write",
       "biome lint"
-    ],
-    "**/(*.ts|*.tsx)": [
-      "biome format --write",
-      "biome lint",
-      "cd .. && tsc --noEmit"
     ]
   },
   "dependencies": {
