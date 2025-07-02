@@ -1,6 +1,6 @@
 {
   "name": "dk24",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,15 +11,15 @@
     "lint": "biome lint",
     "lint:write": "biome lint --write",
     "type-check": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "format-git": "biome format --write .",
+    "lint-git": "biome lint .",
+    "lint-git:fix": "biome lint --write ."
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "*.{js,jsx,ts,tsx,json}": [
       "biome format --write",
-      "biome lint --write"
-    ],
-    "*.{json,jsonc,md,html,css}": [
-      "biome format --write"
+      "biome lint"
     ]
   },
   "dependencies": {
