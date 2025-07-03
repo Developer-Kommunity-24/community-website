@@ -31,7 +31,7 @@ export function Testimonials() {
   };
 
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section id="testimonials" className="relative py-20 overflow-hidden">
       {/* Background Elements */}
       <div className="container relative mx-auto px-6 py-12 justify-center max-w-7xl">
         <motion.div
