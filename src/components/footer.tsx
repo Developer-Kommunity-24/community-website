@@ -95,7 +95,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/community"
+                  href="/structure"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-150"
                 >
                   Community Structure
