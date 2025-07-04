@@ -6,11 +6,11 @@
   <h3>🌐 Connecting College Tech Communities</h3>
   <p><em>We are connecting college tech communities to learn and build together in public.</em></p>
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge\&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge\&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge\&logo=tailwind-css)](https://tailwindcss.com/)
-[![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Latest-000000?style=for-the-badge)](https://ui.shadcn.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+  [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+  [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Latest-000000?style=for-the-badge)](https://ui.shadcn.com/)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 [🌐 Live Demo](https://dk24.netlify.app) • [🤝 Contributing](#-contributing) • [💬 Community](#-community)
 
@@ -108,9 +108,9 @@ npm run type-check   # Run TypeScript type checks
 
 ### **Frontend Framework**
 
-* **Next.js 14** – App Router with SSR support
+* **Next.js 15** – App Router with SSR support
 * **TypeScript** – Strongly-typed JavaScript
-* **React 18** – Latest concurrent features
+* **React 19** – Latest concurrent features
 
 ### **Styling & UI**
 
@@ -229,6 +229,8 @@ We use privacy-focused analytics. No personal data is collected without consent.
   <p><em>"Connecting college tech communities to learn and build together in public"</em></p>
 
   <p>
-    <a href="#-table-of-contents">⬆️ Back to Top</a>
+    <a href="#-table-of-contents">
+      <img src="https://img.shields.io/badge/⬆️_Back_To_Top-black?style=for-the-badge" alt="⬆️ Back to Top">
+    </a>
   </p>
 </div>

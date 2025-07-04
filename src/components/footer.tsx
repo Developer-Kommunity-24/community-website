@@ -155,7 +155,7 @@ export default function Footer() {
                   ) : (
                     <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300 group hover:translate-x-1 transition-transform">
                       <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30 transition-colors">
-                        <item.icon className="h-4 w-4 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors"/>
+                        <item.icon className="h-4 w-4 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
                       </div>
                       <span className="text-sm font-medium">{item.label}</span>
                     </div>
