@@ -1,80 +1,65 @@
 "use client";
 
-import { ExternalLink, Github } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { motion, type Variants } from "framer-motion";
+import { Code2 } from "lucide-react";
 import { projects } from "@/constants/projects";
+import { ProjectCard } from "@/components/project-card";
 
 export function FeaturedProjects() {
-  if (projects.length === 0) return null;
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
 
   return (
-    <section className="container mx-auto py-12 justify-center max-w-7xl">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 px-4">
-        <div>
-          <h2 className="text-3xl font-bold mb-2">Featured Projects</h2>
-          <p className="text-muted-foreground max-w-2xl">
+    <section id="featured-projects" className="relative py-16 overflow-hidden">
+      {/* Subtle Background Elements - matching vision section */}
+      <div className="absolute inset-0 bg-gradient-to-br from-green-50/20 via-white to-green-50/10 dark:from-green-950/5 dark:via-background dark:to-green-950/5" />
+      <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl translate-x-32 -translate-y-32" />
+      <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full blur-3xl -translate-x-28 translate-y-28" />
+
+      <div className="container relative mx-auto px-6">
+        {/* Header Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/50 mb-5">
+            <Code2 className="h-3.5 w-3.5 text-green-500 dark:text-green-400" />
+            <span className="text-xs font-medium text-green-600 dark:text-green-300">
+              Featured Projects
+            </span>
+          </div>
+
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-gray-200">
+            Featured Projects
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
             Collaborative projects built by students across different colleges
           </p>
-        </div>
-        <Button asChild className="mt-4 md:mt-0">
-          <Link href="/projects">View All Projects</Link>
-        </Button>
-      </div>
+        </motion.div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-        {projects.map((project, index) => (
-          <div key={index}>
-            <Card className="h-full flex flex-col overflow-hidden">
-              <div className="relative h-48 w-full">
-                <Image
-                  src={project.image || "/placeholder.svg?height=200&width=400"}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <CardContent className="p-6 flex-1">
-                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, i) => (
-                    <Badge key={i} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-              <CardFooter className="p-6 pt-0 flex justify-between">
-                <Button variant="outline" size="sm" asChild>
-                  <Link
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github className="h-4 w-4 mr-2" />
-                    Code
-                  </Link>
-                </Button>
-                <Button size="sm" asChild>
-                  <Link
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Demo
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        ))}
+        {/* Projects Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+        >
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </motion.div>
       </div>
     </section>
   );

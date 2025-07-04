@@ -1,16 +1,5 @@
 import { events } from "@/constants/events";
-
-export interface Event {
-  id: string;
-  title: string;
-  date: string;
-  location: string;
-  description: string;
-  images?: string[];
-  outcomes?: string[];
-  registrationLink?: string;
-  time?: string;
-}
+import type { Event } from "@/types";
 
 export async function getEvents(): Promise<Event[]> {
   // TODO: Add DB Logic here :D

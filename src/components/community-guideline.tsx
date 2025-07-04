@@ -29,7 +29,7 @@ export function CommunityGuideline() {
       </h3>
       <div className="relative">
         <div
-          className="absolute left-1/2 -translate-x-1/2 top-4 bottom-4 w-1 bg-border rounded-full md:left-4 md:top-1/2 md:-translate-y-1/2 md:h-1 md:w-auto md:bottom-auto"
+          className="absolute left-3.5 top-5 bottom-10 w-1 bg-border rounded-full md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:h-1 md:w-auto md:bottom-auto"
           aria-hidden="true"
         />
         <div className="flex flex-col justify-between gap-8 md:flex-row">
