@@ -108,9 +108,9 @@ npm run type-check   # Run TypeScript type checks
 
 ### **Frontend Framework**
 
-* **Next.js 14** – App Router with SSR support
+* **Next.js 15** – App Router with SSR support
 * **TypeScript** – Strongly-typed JavaScript
-* **React 18** – Latest concurrent features
+* **React 19** – Latest concurrent features
 
 ### **Styling & UI**
 
