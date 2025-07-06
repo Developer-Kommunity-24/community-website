@@ -38,7 +38,7 @@ export const communities: Community[] = [
     college: "AJ Institute of Engineering and Technology",
     description:
       "A community of developers working on innovative projects and organizing technical events to enhance coding skills and promote collaboration.",
-    logo: "/placeholder.svg",
+    logo: "/community-logos/devnation.jpeg",
     representatives: [
       { name: "Jnanesh", role: "Community Lead", email: "jtuluve@gmail.com" },
     ],
@@ -47,7 +47,7 @@ export const communities: Community[] = [
   {
     id: 3,
     name: "FiniteLoop",
-    college: "NMIT Bangalore",
+    college: "NMAMIT NITTE",
     description:
       "A coding community focused on algorithmic problem solving, competitive programming, and building practical applications.",
     logo: "/community-logos/finiteloop.png",
@@ -58,7 +58,7 @@ export const communities: Community[] = [
         email: "nandan@finiteloop.club",
       },
     ],
-    website: "https://finiteloop.club",
+    website: "https://www.finiteloop.co.in",
   },
   {
     id: 4,
@@ -66,7 +66,7 @@ export const communities: Community[] = [
     college: "St Joseph Engineering College",
     description:
       "A technical club that organizes workshops, hackathons, and technical competitions to enhance students' technical skills.",
-    logo: "/placeholder.svg",
+    logo: "/community-logos/spectix.jpeg",
     representatives: [
       {
         name: "Pratham V Bhat",
@@ -79,7 +79,7 @@ export const communities: Community[] = [
         email: "",
       },
     ],
-    website: "https://sceptix.org",
+    website: "https://www.sceptix.in",
   },
   {
     id: 5,
@@ -87,7 +87,7 @@ export const communities: Community[] = [
     college: "Srinivas Institute of Technology",
     description:
       "We are actively working to promote open-source culture within our campus by organizing workshops, hackathons, hands-on sessions, and community-building events. We encourage students to collaborate on open-source projects, contribute to public repositories, and develop leadership skills through active participation and teamwork.",
-    logo: "/placeholder.svg",
+    logo: "/community-logos/ssosc.jpeg",
     representatives: [
       {
         name: "Keerthik D U",
