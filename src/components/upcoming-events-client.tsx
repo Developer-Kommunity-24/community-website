@@ -5,13 +5,15 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Calendar, MapPin, Clock, CalendarDays } from "lucide-react";
+import type { Event } from "@/types";
 
-interface EventProps {
-  upcomingEvents: any[];
-  pastEvents: any[];
-}
-
-const UpcomingEventsClient = ({ upcomingEvents, pastEvents }: EventProps) => {
+const UpcomingEventsClient = ({
+  upcomingEvents,
+  pastEvents,
+}: {
+  upcomingEvents: Event[];
+  pastEvents: Event[];
+}) => {
   const isUpcomingtrue = upcomingEvents.length > 0;
   const displayEvents = isUpcomingtrue ? upcomingEvents : pastEvents;
   const containerVariants: Variants = {
