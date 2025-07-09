@@ -71,3 +71,15 @@ body:
       label: Relevant Console or Network Logs (if any)
       description: Paste any error messages or logs from your browser's developer tools.
       render: shell
+
+  - type: dropdown
+    id: willing-to-contribute
+    attributes:
+      label: Willing to Contribute?
+      description: Are you willing to implement this feature?
+      options:
+        - Yes, I can implement it.
+        - No, I just want to report it.
+    validations:
+      required: true
+

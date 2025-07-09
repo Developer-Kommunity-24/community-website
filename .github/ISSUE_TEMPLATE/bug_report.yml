@@ -129,3 +129,14 @@ body:
       label: Relevant Console or Network Logs (if any)
       description: Paste any error messages or logs from your browser's developer tools.
       render: shell
+
+  - type: dropdown
+    id: willing-to-contribute
+    attributes:
+      label: Willing to Contribute?
+      description: Are you willing to fix this bug?
+      options:
+        - Yes, I can fix it.
+        - No, I just want to report it.
+    validations:
+      required: true

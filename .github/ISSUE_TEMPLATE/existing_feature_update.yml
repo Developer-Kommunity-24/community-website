@@ -80,3 +80,14 @@ body:
     attributes:
       label: Screenshots or Examples (Optional)
       description: Include any supporting visuals or URLs.
+
+  - type: dropdown
+    id: willing-to-contribute
+    attributes:
+      label: Willing to Contribute?
+      description: Are you willing to update this feature?
+      options:
+        - Yes, I can update it.
+        - No, I just want to report it.
+    validations:
+      required: true
