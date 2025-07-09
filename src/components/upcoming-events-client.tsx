@@ -92,7 +92,9 @@ const UpcomingEventsClient = ({
                 {/* Top Accent - consistent with other cards */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-100/40 via-green-200/50 to-green-100/40 group-hover:from-green-200/60 group-hover:via-green-300/70 group-hover:to-green-200/60 transition-colors duration-300" />
 
-                <CardContent className="relative pt-8 px-6 pb-4 flex-1">
+                <CardContent
+                  className={`relative pt-8 px-6 ${isUpcomingtrue && "pb-4"} flex-1`}
+                >
                   {/* Event Title */}
                   <h3 className="text-xl font-semibold mb-6 text-gray-800 dark:text-gray-200 group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors duration-300">
                     {event.title}
@@ -126,13 +128,15 @@ const UpcomingEventsClient = ({
                   </p>
                 </CardContent>
 
-                <CardFooter className="px-6 pb-6 pt-0">
-                  <Button
-                    className="w-full bg-gradient-to-r from-green-400 to-green-500 hover:bg-gradient-to-r hover:from-green-300 hover:to-green-400"
-                    asChild
-                  >
-                    <Link href={event.registrationLink}>Register Now</Link>
-                  </Button>
+                <CardFooter className={`px-6 pt-0`}>
+                  {isUpcomingtrue && (
+                    <Button
+                      className="w-full bg-gradient-to-r from-green-400 to-green-500 hover:bg-gradient-to-r hover:from-green-300 hover:to-green-400"
+                      asChild
+                    >
+                      <Link href={event.registrationLink}>Register now</Link>
+                    </Button>
+                  )}
                 </CardFooter>
 
                 {/* Subtle Bottom Accent */}
