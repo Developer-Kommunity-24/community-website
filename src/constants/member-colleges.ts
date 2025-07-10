@@ -103,7 +103,7 @@ export const communities: Community[] = [
     college: "Vivekananda College of Engineering and Technology, Puttur",
     description:
       "CoRE (Center of Research Excellency) is a community of engineering students who are passionate about learning, growing, and exploring various fields of engineering. Our aim is to provide a platform for students to come together, share their ideas, and work on projects that challenge and inspire them.",
-    logo: "/placeholder.svg",
+    logo: "/community-logos/core.png",
     representatives: [
       {
         name: "Karthika Krishna K",
@@ -111,6 +111,6 @@ export const communities: Community[] = [
         email: "core@vcetputtur.ac.in",
       },
     ],
-    website: "https://core-cec.org",
+    website: "https://corevcet.wixsite.com/core",
   },
 ];
