@@ -17,8 +17,15 @@ export default function Footer() {
   const router = useRouter();
 
   useEffect(() => {
+    let triggered = false;
     const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
+      ([entry]) => {
+        if (entry.isIntersecting && !triggered) {
+          triggered = true;
+          setIsVisible(true);
+          observer.disconnect(); 
+        }
+      },
       { threshold: 0.1 },
     );
     const footer = document.querySelector("#footer");
