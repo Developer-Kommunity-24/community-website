@@ -56,26 +56,22 @@ function IndividualForm() {
     setSubmitSuccess(false);
 
     try {
-      const response = await submitFormData(
-        "https://formcarry.com/s/tfkkggHgbkY",
-        {
-          _subject: "New Individual Application - DK24",
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          phone: data.phone,
-          college: data.college,
-          year: data.year,
-          interests: data.interests,
-          motivation: data.motivation,
-        },
-      );
+      const response = await submitFormData("individual", {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        college: data.college,
+        year: data.year,
+        interests: data.interests,
+        motivation: data.motivation,
+      });
 
-      if (response.status >= 200 && response.status < 300) {
+      if (response) {
         setSubmitSuccess(true);
         reset();
       } else {
-        throw new Error(`Submission failed with status ${response.status}`);
+        throw new Error(`Submission failed!`);
       }
     } catch {
       setSubmitError(
@@ -259,29 +255,25 @@ function CollegeForm() {
     setSubmitSuccess(false);
 
     try {
-      const response = await submitFormData(
-        "https://formcarry.com/s/tfkkggHgbkY",
-        {
-          _subject: "New College Application - DK24",
-          collegeName: data.collegeName,
-          communityName: data.communityName,
-          repName: data.repName,
-          repPosition: data.repPosition,
-          repEmail: data.repEmail,
-          repPhone: data.repPhone,
-          facultyName: data.facultyName,
-          facultyEmail: data.facultyEmail,
-          communitySize: data.communitySize,
-          communityActivities: data.communityActivities,
-          expectations: data.expectations,
-        },
-      );
+      const response = await submitFormData("community", {
+        collegeName: data.collegeName,
+        communityName: data.communityName,
+        repName: data.repName,
+        repPosition: data.repPosition,
+        repEmail: data.repEmail,
+        repPhone: data.repPhone,
+        facultyName: data.facultyName,
+        facultyEmail: data.facultyEmail,
+        communitySize: data.communitySize,
+        communityActivities: data.communityActivities,
+        expectations: data.expectations,
+      });
 
-      if (response.status >= 200 && response.status < 300) {
+      if (response) {
         setSubmitSuccess(true);
         reset();
       } else {
-        throw new Error(`Submission failed with status ${response.status}`);
+        throw new Error(`Submission failed!`);
       }
     } catch {
       setSubmitError(
