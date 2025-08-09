@@ -167,7 +167,7 @@ For setup, naming conventions, file structure, and code standards:
 
 ### 📧 Contact
 
-* [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com)
+* [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com)
 
 ---
 
@@ -205,7 +205,7 @@ Licensed under the [MIT License](LICENSE)
 
 ## 🔒 Security
 
-If you find a security issue, email [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com) — we’ll handle it promptly.
+If you find a security issue, email [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com) — we’ll handle it promptly.
 
 ---
 

@@ -23,7 +23,7 @@ export default function Footer() {
         if (entry.isIntersecting && !triggered) {
           triggered = true;
           setIsVisible(true);
-          observer.disconnect(); 
+          observer.disconnect();
         }
       },
       { threshold: 0.1 },
@@ -65,8 +65,9 @@ export default function Footer() {
     },
     {
       icon: Mail,
-      label: "deveeshshetty@gmail.com",
+      label: "dk24consortium@gmail.com",
       clickable: false,
+      href: "mailto:dk24consortium@gmail.com",
     },
     {
       icon: MapPin,

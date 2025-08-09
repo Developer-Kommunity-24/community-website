@@ -22,7 +22,7 @@ We commit to providing a welcoming, safe, and inclusive environment for everyone
 
 ## Reporting Issues
 
-Report violations by emailing **[deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com)**. Include:
+Report violations by emailing **[dk24consortium@gmail.com](mailto:dk24consortium@gmail.com)**. Include:
 
 - Description of the incident
 - Names (optional)
@@ -46,4 +46,4 @@ Appeals can be sent via email.
 Following these guidelines helps maintain a professional, scalable, and welcoming space for all contributors. Thank you for keeping DK24 awesome!
 
 *Last Updated: July 2025*
-*Contact: [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com)*
+*Contact: [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com)*
