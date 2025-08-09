@@ -21,7 +21,7 @@ Welcome, developer! 🙌 Whether you're fixing a bug, improving UI, or updating 
 ## 📜 Code of Conduct
 
 All contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
-Please report unacceptable behavior to [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com).
+Please report unacceptable behavior to [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com).
 
 ---
 
@@ -241,7 +241,7 @@ Make sure your PR includes:
 
 * **GitHub Discussions**
 * **Issues tab**
-* **Email**: [deveeshshetty@gmail.com](mailto:deveeshshetty@gmail.com)
+* **Email**: [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com)
 * **See README for social links**
 
 ---

@@ -142,7 +142,12 @@ export default function JoinUsPage() {
                   <p className="text-muted-foreground mb-2">
                     For general questions about DK24:
                   </p>
-                  <p className="font-medium">deveeshshetty@gmail.com</p>
+                  <a
+                    className="font-medium"
+                    href="mailto:dk24consortium@gmail.com"
+                  >
+                    dk24consortium@gmail.com
+                  </a>
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-4">
