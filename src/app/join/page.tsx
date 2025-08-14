@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BackgroundPattern } from "@/components/background-pattern";
+import { Linkedin, Youtube } from "lucide-react";
+import Link from "next/link";
 
 export default function JoinUsPage() {
   return (
@@ -137,10 +139,11 @@ export default function JoinUsPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="text-xl font-semibold mb-4">
-                    General Inquiries
+                    General & Partnership Inquiries
                   </h3>
                   <p className="text-muted-foreground mb-2">
-                    For general questions about DK24:
+                    For general questions, collaborations, and partnership
+                    opportunities:
                   </p>
                   <a
                     className="font-medium"
@@ -149,19 +152,31 @@ export default function JoinUsPage() {
                     dk24consortium@gmail.com
                   </a>
                 </div>
+
                 <div>
                   <h3 className="text-xl font-semibold mb-4">
-                    Partnership Opportunities
+                    Connect With Us
                   </h3>
-                  <p className="text-muted-foreground mb-2">
-                    For collaboration and partnership inquiries:
-                  </p>
-                  <a
-                    className="font-medium"
-                    href="mailto:dk24consortium@gmail.com"
-                  >
-                    dk24consortium@gmail.com
-                  </a>
+                  <div className="flex flex-col gap-3">
+                    <Link
+                      href="https://www.linkedin.com/company/dk24-consortium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 font-medium hover:underline"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                      DK24-Consortium
+                    </Link>
+                    <Link
+                      href="https://www.youtube.com/@dk24-consortium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 font-medium hover:underline"
+                    >
+                      <Youtube className="w-5 h-5" />
+                      DK24 Consortium
+                    </Link>
+                  </div>
                 </div>
               </div>
             </CardContent>
