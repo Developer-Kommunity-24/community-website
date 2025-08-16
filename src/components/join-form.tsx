@@ -41,7 +41,7 @@ function IndividualForm() {
   } = useForm<IndividualFormValues>({
     resolver: zodResolver(individualSchema),
     defaultValues: individualInitialValues,
-    mode: "onBlur",
+    mode: "onChange",
   });
 
   const onSubmit: SubmitHandler<IndividualFormValues> = async (data) => {
@@ -60,7 +60,8 @@ function IndividualForm() {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
-        phone: data.phone,
+        //Added for sheets problem. DO NOT REMOVE
+        phone: "'" + data.phone,
         college: data.college,
         year: data.year,
         interests: data.interests,
