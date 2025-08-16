@@ -13,4 +13,16 @@ export const events: Event[] = [
     icon: "calendar",
     highlight: true,
   },
+  {
+    id: "mcp-intro-2025",
+    title: "Everything about Model Context Protocol (MCP)",
+    date: "August 9, 2025",
+    time: "7:30 PM IST",
+    location: "Google Meet",
+    description:
+      "This session introduced the Model Context Protocol (MCP), an open-source standard that allows LLM-based agents to securely connect with external tools, data, and services to deliver live, structured context. We explored what MCP is, why it’s needed, and looked at real-world examples and use-cases. The discussion also covered ways to enhance coding workflows using MCP servers such as GitHub and Figma. The event was open to students, developers, and tech enthusiasts, welcoming participants without any prior experience.",
+    registrationLink: "https://meet.google.com/cxj-vzoe-fbu",
+    icon: "calendar",
+    highlight: true,
+  },
 ];
