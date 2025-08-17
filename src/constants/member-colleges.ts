@@ -41,8 +41,23 @@ export const communities: Community[] = [
     logo: "/community-logos/devnation.jpeg",
     representatives: [
       { name: "Jnanesh", role: "Community Lead", email: "jtuluve@gmail.com" },
+      {
+        name: "Gauresh G Pai",
+        role: "Community Organizer",
+        email: "",
+      },
+      {
+        name: "Himanshu Hegde",
+        role: "Community Organizer",
+        email: "",
+      },
+      {
+        name: "Milan C I",
+        role: "Community Organizer",
+        email: "",
+      },
     ],
-    website: "https://devnation.org",
+    website: "https://www.ajiet.edu.in/student-clubs.php",
   },
   {
     id: 3,

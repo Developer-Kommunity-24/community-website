@@ -48,7 +48,7 @@ export const projects: Project[] = [
       "A self-hostable test platform for competitive programming and assessments with MCQs, coding questions, and customizable features for evaluation and monitoring.",
     tags: ["Flutter", "Django", "PostgreSQL"],
     image: "",
-    github: "#",
+    github: "https://github.com/so-sc/scem-evMan",
     contributors: [],
     link: "",
   },

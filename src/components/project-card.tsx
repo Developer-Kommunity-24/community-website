@@ -56,31 +56,39 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </CardContent>
 
         <CardFooter className="px-6 pb-6 pt-0 flex justify-between gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex-1 border-green-200 dark:border-green-800 hover:bg-green-50 dark:hover:bg-green-900/20"
-            asChild
-          >
-            <Link
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
+          {project.github && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="flex-1 border-green-200 dark:border-green-800 hover:bg-green-50 dark:hover:bg-green-900/20"
+              asChild
             >
-              <Github className="h-4 w-4 mr-2" />
-              Github
-            </Link>
-          </Button>
-          <Button
-            size="sm"
-            className="flex-1 bg-gradient-to-r from-green-500 to-green-400 hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400"
-            asChild
-          >
-            <Link href={project.link} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Visit Project
-            </Link>
-          </Button>
+              <Link
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="h-4 w-4 mr-2" />
+                Github
+              </Link>
+            </Button>
+          )}
+          {project.link && (
+            <Button
+              size="sm"
+              className="flex-1 bg-gradient-to-r from-green-500 to-green-400 hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400"
+              asChild
+            >
+              <Link
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Visit Project
+              </Link>
+            </Button>
+          )}
         </CardFooter>
 
         {/* Subtle Bottom Accent */}

@@ -50,4 +50,5 @@ export interface Event {
   registrationLink: string;
   icon: keyof typeof iconsMap;
   highlight: boolean;
+  youtubeLink?: string;
 }
