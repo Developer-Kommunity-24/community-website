@@ -9,7 +9,8 @@ export const events: Event[] = [
     location: "Sahyadri College of Engineering & Management",
     description:
       "The annual summit bringing together all member communities to showcase projects, share learnings, and plan for the upcoming year. Hosted by Sahyadri Open Source Community.",
-    registrationLink: "/events/register/summit-2024",
+    registrationLink: "",
+    youtubeLink: "https://www.youtube.com/watch?v=SN4vZegGcts",
     icon: "calendar",
     highlight: true,
   },
