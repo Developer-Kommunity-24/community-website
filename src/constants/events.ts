@@ -26,4 +26,17 @@ export const events: Event[] = [
     icon: "calendar",
     highlight: true,
   },
+  {
+    id: "devtools-discussion-2025",
+    title: "DevTools: Building Performant Web Apps",
+    date: "August 24, 2025",
+    time: "7:30 PM IST",
+    location: "Online",
+    description:
+      "A community discussion on Chrome DevTools and best practices for building performant web applications.",
+    registrationLink: "https://forms.gle/Q8VziJdxnyJLFYH5A",
+    youtubeLink: "https://www.youtube.com/watch?v=7O3dfNva1xU",
+    icon: "calendar",
+    highlight: true
+  }
 ];
