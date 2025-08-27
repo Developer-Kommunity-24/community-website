@@ -24,7 +24,7 @@ export async function submitFormData(
         name === "individual" ? 0 : name === "community" ? 1 : -1
       ];
     if (!sheet) throw new Error("Sheet not found or invalid name");
-    await sheet.addRow(data);
+    await sheet.addRow({ ...data, responded: "No" });
     return true;
   } catch (error) {
     console.error("Error submitting to Google Sheet:", error);
