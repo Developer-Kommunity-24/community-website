@@ -39,5 +39,18 @@ export const events: Event[] = [
     youtubeLink: "https://www.youtube.com/watch?v=7O3dfNva1xU",
     icon: "calendar",
     highlight: true
+  },
+  {
+    id: "n8n-discussion-2025",
+    title: "Building AI workflows using n8n",
+    date: "Spetember 7, 2025",
+    time: "7:30 PM IST",
+    location: "Online",
+    description:
+      "A community discussion on Chrome DevTools and best practices for building performant web applications.",
+    registrationLink: "https://forms.gle/Yo7BM3QWhwBLeoDL7",
+    youtubeLink: "",
+    icon: "calendar",
+    highlight: true
   }
 ];
