@@ -43,7 +43,7 @@ export const events: Event[] = [
   {
     id: "n8n-discussion-2025",
     title: "Building AI workflows using n8n",
-    date: "Spetember 7, 2025",
+    date: "September 7, 2025",
     time: "7:30 PM IST",
     location: "Online",
     description:
