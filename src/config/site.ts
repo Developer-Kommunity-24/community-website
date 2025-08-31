@@ -4,7 +4,7 @@ export const siteConfig = {
     "We are connecting college tech communities to learn and build together in public.",
   description:
     "DK24 is a community initiative connecting college tech communities in Mangalore to learn and build together in public.",
-  url: "https://dk24.netlify.app",
+  url: "https://dk24.org",
   vision:
     "DK24 is not a replacement for existing college communities, it's a medium for the college communities to interact in a larger scale with other existing communities in other colleges.",
   visionDetail:

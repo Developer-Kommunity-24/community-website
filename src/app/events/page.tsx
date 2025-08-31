@@ -28,10 +28,10 @@ export default async function EventsPage() {
           </TabsList>
 
           <TabsContent value="upcoming" className="mt-6">
-            <div className="grid lg:grid-cols-2 gap-8">
-              <div>
+            <div className="grid lg:grid-cols-2 gap-8 h-full">
+              <div className="flex flex-col h-full">
                 <h2 className="text-2xl font-bold mb-6">Upcoming Events</h2>
-                <div className="space-y-6">
+                <div className="space-y-6 flex-1 overflow-auto">
                   {upcomingEvents.length === 0 ? (
                     <Card className="overflow-hidden flex flex-col h-full col-span-full bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-50 dark:border-green-900/30 shadow-lg hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300">
                       <div className="relative h-48 w-full bg-gradient-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 flex items-center justify-center">
@@ -58,12 +58,12 @@ export default async function EventsPage() {
                     </Card>
                   ) : (
                     upcomingEvents.map((event, index) => (
-                      <EventCard key={index} event={event} isUpcoming />
+                      <EventCard key={index} event={event} />
                     ))
                   )}
                 </div>
               </div>
-              <div className="mt-8 lg:mt-0">
+              <div className="mt-8 lg:mt-0 h-full">
                 <h2 className="text-2xl font-bold mb-6">Events Calendar</h2>
                 <EventCalendar events={[...upcomingEvents]} />
               </div>
