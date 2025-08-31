@@ -3,7 +3,7 @@ import type { Event } from "@/types";
 /* 
 For those handling posters and recap images:
 Save each poster in the public/events/posters folder, using the poster's {id} as the filename.
-Save recap images in the public/events folder, naming each file with {id} followed by the appropriate number of spaces.
+Save recap images in the public/events/{id} folder
 */
 
 export const events: Event[] = [
