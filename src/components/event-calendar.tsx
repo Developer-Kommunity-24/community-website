@@ -22,6 +22,10 @@ interface EventCalendarProps {
 export function EventCalendar({ events }: EventCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonthIndex = today.getMonth();
+
   const nextMonth = () => {
     setCurrentMonth(
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1),
@@ -29,9 +33,18 @@ export function EventCalendar({ events }: EventCalendarProps) {
   };
 
   const prevMonth = () => {
-    setCurrentMonth(
-      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1),
+    const newMonth = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() - 1,
+      1,
     );
+    if (
+      newMonth.getFullYear() > currentYear ||
+      (newMonth.getFullYear() === currentYear &&
+        newMonth.getMonth() >= currentMonthIndex)
+    ) {
+      setCurrentMonth(newMonth);
+    }
   };
 
   const getDaysInMonth = (year: number, month: number) => {
@@ -46,6 +59,9 @@ export function EventCalendar({ events }: EventCalendarProps) {
   const month = currentMonth.getMonth();
   const daysInMonth = getDaysInMonth(year, month);
   const firstDayOfMonth = getFirstDayOfMonth(year, month);
+
+  const canGoPrevious =
+    year > currentYear || (year === currentYear && month > currentMonthIndex);
 
   const eventsByDay = events.reduce((acc: Record<string, Event[]>, event) => {
     const eventDate = new Date(event.date);
@@ -92,7 +108,11 @@ export function EventCalendar({ events }: EventCalendarProps) {
             variant="outline"
             size="icon"
             onClick={prevMonth}
-            className="hover:bg-green-50 hover:border-green-300 dark:hover:bg-green-900/20 dark:hover:border-green-700"
+            disabled={!canGoPrevious}
+            className={cn(
+              "hover:bg-green-50 hover:border-green-300 dark:hover:bg-green-900/20 dark:hover:border-green-700",
+              !canGoPrevious && "opacity-50 cursor-not-allowed",
+            )}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>

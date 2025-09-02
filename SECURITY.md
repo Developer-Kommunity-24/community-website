@@ -142,7 +142,7 @@ We will notify the community of security updates through:
 - **PGP Key**: Available upon request
 
 ### General Contact
-- **Website**: [dk24.netlify.app](https://dk24.netlify.app)
+- **Website**: [dk24.org](https://dk24.org)
 - **Email**: dk24consortium@gmail.com
 
 ## 🔒 Encryption

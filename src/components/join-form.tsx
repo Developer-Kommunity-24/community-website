@@ -61,7 +61,7 @@ function IndividualForm() {
         lastName: data.lastName,
         email: data.email,
         //Added for sheets problem. DO NOT REMOVE
-        phone: "'" + data.phone,
+        phone: `'${data.phone}`,
         college: data.college,
         year: data.year,
         interests: data.interests,
