@@ -51,7 +51,7 @@ export const events: Event[] = [
     title: "Building AI workflows using n8n",
     date: "September 7, 2025",
     time: "7:30 PM IST",
-    location: "Google Meet",
+    location: "Discord",
     description:
       "Join us for a hands-on session on n8n, the powerful open-source automation tool that lets you connect apps, APIs, and services with ease. In this session, you'll learn about n8n's core functionality, discover how to link websites, build automated workflows step by step, and witness practical demonstrations. The session is open to students, developers & tech enthusiasts.",
     registrationLink: "https://forms.gle/Yo7BM3QWhwBLeoDL7",
