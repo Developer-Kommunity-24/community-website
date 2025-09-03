@@ -48,6 +48,7 @@ export interface Event {
   location: string;
   description: string;
   registrationLink: string;
+  joinLink: string;
   icon: keyof typeof iconsMap;
   highlight: boolean;
   youtubeLink?: string;
