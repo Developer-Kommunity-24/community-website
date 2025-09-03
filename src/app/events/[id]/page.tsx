@@ -140,7 +140,7 @@ export default async function EventPage({
               </p>
               
               {isUpcoming && (
-                <div className="mt-8 space-y-3">
+                <div className="mt-8 space-y-3 flex gap-4">
                   {event.registrationLink && (
                     <Button asChild>
                       <Link
