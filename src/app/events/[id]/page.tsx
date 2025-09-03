@@ -138,19 +138,35 @@ export default async function EventPage({
               <p className="text-muted-foreground mb-4 leading-relaxed">
                 {event?.description}
               </p>
-              {isUpcoming && event.registrationLink && (
-                <div className="mt-8">
-                  <Button asChild>
-                    <Link
-                      href={event.registrationLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Register Now
-                    </Link>
-                  </Button>
+              
+              {isUpcoming && (
+                <div className="mt-8 space-y-3">
+                  {event.registrationLink && (
+                    <Button asChild>
+                      <Link
+                        href={event.registrationLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Register Now
+                      </Link>
+                    </Button>
+                  )}
+              
+                  {event.joinLink && (
+                    <Button asChild variant="secondary">
+                      <Link
+                        href={event.joinLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Join Event
+                      </Link>
+                    </Button>
+                  )}
                 </div>
               )}
+              
             </div>
           </div>
         </div>
