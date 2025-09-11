@@ -57,7 +57,10 @@ export function TeamModelSection() {
   ];
 
   return (
-    <section id="team" className="relative py-16 overflow-hidden">
+    <section
+      id="team"
+      className="relative py-16 overflow-hidden max-w-7xl mx-auto"
+    >
       {/* Subtle Background Elements - matching vision section */}
       <div className="absolute inset-0 bg-gradient-to-br from-green-50/20 via-white to-green-50/10 dark:from-green-950/5 dark:via-background dark:to-green-950/5" />
       <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl translate-x-32 -translate-y-32" />
