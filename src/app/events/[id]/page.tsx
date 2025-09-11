@@ -138,9 +138,9 @@ export default async function EventPage({
               <p className="text-muted-foreground mb-4 leading-relaxed">
                 {event?.description}
               </p>
-              
+
               {isUpcoming && (
-                <div className="mt-8 space-y-3">
+                <div className="mt-8 space-y-3 flex gap-4">
                   {event.registrationLink && (
                     <Button asChild>
                       <Link
@@ -152,7 +152,7 @@ export default async function EventPage({
                       </Link>
                     </Button>
                   )}
-              
+
                   {event.joinLink && (
                     <Button asChild variant="secondary">
                       <Link
@@ -166,7 +166,6 @@ export default async function EventPage({
                   )}
                 </div>
               )}
-              
             </div>
           </div>
         </div>
@@ -196,7 +195,7 @@ export default async function EventPage({
               >
                 <Image
                   src={src || "/placeholder.svg"}
-                  alt={`Event recap image ${index + 1}`}
+                  alt={`${event.title} Recap Image ${index + 1}`}
                   width={600}
                   height={600}
                   className="object-contain"

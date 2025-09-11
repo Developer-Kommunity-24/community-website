@@ -46,13 +46,13 @@ const UpcomingEventsClient = ({
           ))}
         </div>
 
-        {isUpcoming && (
-          <div className="mt-10 text-center">
-            <Button variant="link">
-              <Link href="/events">View All Events →</Link>
-            </Button>
-          </div>
-        )}
+        <div className="mt-10 text-center">
+          <Button variant="link">
+            <Link href={isUpcoming ? "/events" : "/events?tab=past"}>
+              View All Events →
+            </Link>
+          </Button>
+        </div>
       </div>
     </section>
   );

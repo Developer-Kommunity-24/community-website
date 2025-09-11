@@ -3,7 +3,7 @@ import type { Event } from "@/types";
 /* 
 For those handling posters and recap images:
 Save each poster in the public/events/posters folder, using the poster's {id} as the filename.
-Save recap images in the public/events/{id} folder
+Save recap images in the public/events/{id} folder with any names you prefer.
 */
 
 export const events: Event[] = [
@@ -56,9 +56,9 @@ export const events: Event[] = [
     time: "7:30 PM IST",
     location: "Discord",
     description:
-      "Join us for a hands-on session on n8n, the powerful open-source automation tool that lets you connect apps, APIs, and services with ease. In this session, you'll learn about n8n's core functionality, discover how to link websites, build automated workflows step by step, and witness practical demonstrations. The session is open to students, developers & tech enthusiasts.",
+      "The DK24 Consortium presented a hands-on session on building AI workflows using n8n, the open-source automation tool that seamlessly connects apps, APIs, and services. In this recorded event, viewers explored what n8n is, how it works, how to link a website to n8n, and saw a step-by-step workflow building with a live demo. This session was perfect for students, developers, and tech enthusiasts eager to automate and streamline their processes.",
     registrationLink: "https://forms.gle/Yo7BM3QWhwBLeoDL7",
-    youtubeLink: "",
+    youtubeLink: "https://youtu.be/5dV6nKQXiis",
     joinLink: "https://discord.gg/qU7HCcTM?event=1412492054168207512",
     icon: "calendar",
     highlight: true,

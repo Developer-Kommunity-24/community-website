@@ -9,6 +9,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { DiscordJoinBar } from "./discord-join-bar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +56,7 @@ export default function Navbar() {
           : "bg-transparent",
       )}
     >
+      <DiscordJoinBar />
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">

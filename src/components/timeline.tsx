@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Event } from "@/types";
 import { iconsMap } from "@/constants";
+import Link from "next/link";
 
 interface TimelineProps {
   timelineEvents: Event[];
@@ -66,40 +67,41 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                   >
                     {event.date}
                   </Badge>
+                  <Link href={`/events/${event.id}`}>
+                    <Card
+                      className={`backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${
+                        event.highlight
+                          ? "border-green-300 dark:border-green-600 bg-gradient-to-br from-green-50/50 to-white dark:from-green-900/20 dark:to-background shadow-green-100 dark:shadow-green-900/20"
+                          : "border-green-100 dark:border-green-800/50 bg-white/80 dark:bg-background/80 hover:border-green-200 dark:hover:border-green-700"
+                      }`}
+                    >
+                      <CardContent className="p-6">
+                        <h3
+                          className={`text-xl font-semibold mb-3 ${
+                            event.highlight
+                              ? "text-green-800 dark:text-green-200"
+                              : "text-gray-800 dark:text-gray-200"
+                          }`}
+                        >
+                          {event.title}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                          {event.description}
+                        </p>
 
-                  <Card
-                    className={`backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${
-                      event.highlight
-                        ? "border-green-300 dark:border-green-600 bg-gradient-to-br from-green-50/50 to-white dark:from-green-900/20 dark:to-background shadow-green-100 dark:shadow-green-900/20"
-                        : "border-green-100 dark:border-green-800/50 bg-white/80 dark:bg-background/80 hover:border-green-200 dark:hover:border-green-700"
-                    }`}
-                  >
-                    <CardContent className="p-6">
-                      <h3
-                        className={`text-xl font-semibold mb-3 ${
-                          event.highlight
-                            ? "text-green-800 dark:text-green-200"
-                            : "text-gray-800 dark:text-gray-200"
-                        }`}
-                      >
-                        {event.title}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                        {event.description}
-                      </p>
-
-                      {/* Subtle accent line */}
-                      <div
-                        className={`mt-4 h-px w-12 ${
-                          index % 2 === 0 ? "md:ml-auto" : ""
-                        } ${
-                          event.highlight
-                            ? "bg-gradient-to-r from-green-400 to-green-500"
-                            : "bg-gradient-to-r from-green-200 to-green-300 dark:from-green-700 dark:to-green-600"
-                        }`}
-                      ></div>
-                    </CardContent>
-                  </Card>
+                        {/* Subtle accent line */}
+                        <div
+                          className={`mt-4 h-px w-12 ${
+                            index % 2 === 0 ? "md:ml-auto" : ""
+                          } ${
+                            event.highlight
+                              ? "bg-gradient-to-r from-green-400 to-green-500"
+                              : "bg-gradient-to-r from-green-200 to-green-300 dark:from-green-700 dark:to-green-600"
+                          }`}
+                        ></div>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 </motion.div>
               </div>
 
