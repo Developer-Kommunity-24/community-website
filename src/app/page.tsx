@@ -14,7 +14,7 @@ export default function Home() {
         <TeamModelSection />
         {/* <FeaturedProjects /> */}
         <UpcomingEvents />
-        <Testimonials />
+        {/* <Testimonials /> */}
       </div>
     </BackgroundPattern>
   );
