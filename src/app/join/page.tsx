@@ -178,7 +178,7 @@ export default function JoinUsPage() {
                       DK24 Consortium
                     </Link>
                     <Link
-                      href="https://discord.gg/NHvRH3DC"
+                      href="https://discord.gg/65MJZ2eDNp"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 font-medium hover:underline"
