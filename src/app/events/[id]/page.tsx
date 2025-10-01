@@ -1,11 +1,11 @@
+import { promises as fs } from "node:fs";
+import path from "node:path";
+import { Calendar, Clock, MapPin, Youtube } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { events } from "@/constants/events";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Calendar, Clock, MapPin, Youtube } from "lucide-react";
-import { promises as fs } from "node:fs";
-import path from "node:path";
 
 export async function generateStaticParams() {
   return events.map((event) => ({

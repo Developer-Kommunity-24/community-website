@@ -1,11 +1,11 @@
 import {
   Calendar,
-  Network,
   Code,
+  Network,
   Rocket,
+  TrendingUp,
   Trophy,
   Users,
-  TrendingUp,
 } from "lucide-react";
 
 export const iconsMap = {
