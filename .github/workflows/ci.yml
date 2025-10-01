@@ -54,10 +54,23 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Upload build artifacts
-        if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+  pr-status-comment:
+    name: PR Status Comment
+    runs-on: ubuntu-latest
+    needs: [lint-and-type-check, build]
+    if: always() && github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Post PR Status Comment
+        uses: peter-evans/commit-comment@v3
         with:
-          name: build-files
-          path: .next/
-          retention-days: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          sha: ${{ github.event.pull_request.head.sha }}
+          body: |
+            ## Workflow Status
+            This workflow has completed.
+            **Lint and Type Check:** ${{ needs.lint-and-type-check.result }}
+            **Build:** ${{ needs.build.result }}
+            Overall status: ${{ job.status }}
