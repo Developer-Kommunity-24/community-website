@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ '**' ]
 
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   lint-and-type-check:
     name: Lint and Type Check
