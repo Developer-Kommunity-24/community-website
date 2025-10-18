@@ -63,4 +63,18 @@ export const events: Event[] = [
     icon: "calendar",
     highlight: true,
   },
+  {
+    id: "the-web-in-3-dimensions",
+    title: "The Web in Three Dimensions",
+    date: "October 19, 2025",
+    time: "7:00 PM IST",
+    location: "Google Meet",
+    description:
+      "Join us for an introductory session on Three.js, a JavaScript library that brings 3D graphics to the web. Learn how modern browsers render 3D scenes and how developers create interactive visual experiences online. In this session you’ll learn how browsers access the GPU using WebGL and the upcoming WebGPU API, core concepts of Three.js including scenes, cameras, lights, meshes, and animations, how to build interactive 3D experiences on the web, and a quick look at React Three Fiber (R3F) for building 3D scenes with React components. Open to students, developers and tech enthusiasts.",
+    registrationLink: "https://forms.gle/iUxCeN9U4QTmccX26",
+    youtubeLink: "",
+    joinLink: "https://meet.google.com/cxj-vzoe-fbu",
+    icon: "calendar",
+    highlight: false,
+  },
 ];
