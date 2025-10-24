@@ -7,8 +7,19 @@ import { Suspense } from "react";
 export default async function EventsPage() {
   const events = await getEvents();
 
-  const upcomingEvents = events.filter((e) => new Date(e.date) > new Date());
-  const pastEvents = events.filter((e) => new Date(e.date) <= new Date());
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Normalize today's date to the start of the day
+
+  const upcomingEvents = events.filter((e) => {
+    const eventDate = new Date(e.date);
+    eventDate.setHours(0, 0, 0, 0); // Normalize event date to the start of the day
+    return eventDate >= today;
+  });
+  const pastEvents = events.filter((e) => {
+    const eventDate = new Date(e.date);
+    eventDate.setHours(0, 0, 0, 0); // Normalize event date to the start of the day
+    return eventDate < today;
+  });
 
   return (
     <BackgroundPattern variant="default">
