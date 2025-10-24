@@ -84,7 +84,7 @@ export const events: Event[] = [
     time: "7:30 PM IST",
     location: "Google Meet",
     description:
-      "Join us on November 1 for an engaging session on DevOps, a modern approach that bridges software development and IT operations to deliver faster, more reliable applications. Discover how collaboration, automation, and continuous integration/deployment drive innovation in today’s tech landscape. The session will cover the DevOps lifecycle — from planning and coding to deployment and monitoring — along with popular tools like Git, Jenkins, Docker, Kubernetes, and GitHub Actions. Don’t miss a live demonstration of a simple CI/CD pipeline that shows how code changes automatically trigger testing and deployment, ensuring seamless software delivery!",
+      "Join us on November 1 for an engaging session on DevOps, a modern approach that bridges software development and IT operations to deliver faster, more reliable applications. Discover how collaboration, automation, and continuous integration/deployment drive innovation in today’s tech landscape. The session will cover the DevOps lifecycle — from planning and coding to deployment and monitoring — along with popular tools like Git, Jenkins, Docker, and GitHub Actions. Don’t miss a live demonstration of a simple CI/CD pipeline that shows how code changes automatically trigger testing and deployment, ensuring seamless software delivery!",
     registrationLink: "https://forms.gle/FKKth4CAguLR6n6w6",
     youtubeLink: "",
     joinLink: "https://meet.google.com/gkg-pgiu-rjk",
