@@ -1,4 +1,4 @@
-import { Calendar, Clock, MapPin } from "lucide-react";
+import { Calendar, Clock, MapPin, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ export interface Event {
   outcomes?: string[];
   registrationLink?: string;
   time?: string;
+  youtubeLink?: string;
 }
 
 export interface EventCardProps {
@@ -66,6 +67,30 @@ export function EventCard({ event, isUpcoming }: EventCardProps) {
               {event?.location}
             </span>
           </div>
+          {event.youtubeLink ? (
+            <Link
+              href={event.youtubeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start group"
+            >
+              <div className="p-1.5 rounded-full bg-red-100 dark:bg-red-900/40 mr-3 group-hover:bg-red-200 dark:group-hover:bg-red-800/60 transition-colors">
+                <Youtube className="h-4 w-4 text-red-600 dark:text-red-400" />
+              </div>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Watch Recording
+              </span>
+            </Link>
+          ) : (
+            <div className="flex items-start group cursor-not-allowed">
+              <div className="p-1.5 rounded-full bg-gray-100 dark:bg-gray-900/40 mr-3">
+                <Youtube className="h-4 w-4 text-gray-400 dark:text-gray-600" />
+              </div>
+              <span className="text-sm font-medium text-gray-400 dark:text-gray-600">
+                No Recording
+              </span>
+            </div>
+          )}
         </div>
         <p className="text-muted-foreground mb-4 leading-relaxed">
           {event?.description}
