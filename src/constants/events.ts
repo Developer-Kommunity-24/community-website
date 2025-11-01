@@ -84,11 +84,11 @@ export const events: Event[] = [
     time: "7:30 PM IST",
     location: "Google Meet",
     description:
-      "Join us on November 1 for an engaging session on DevOps, a modern approach that bridges software development and IT operations to deliver faster, more reliable applications. Discover how collaboration, automation, and continuous integration/deployment drive innovation in today’s tech landscape. The session will cover the DevOps lifecycle — from planning and coding to deployment and monitoring — along with popular tools like Git, Jenkins, Docker, and GitHub Actions. Don’t miss a live demonstration of a simple CI/CD pipeline that shows how code changes automatically trigger testing and deployment, ensuring seamless software delivery!",
+      "This session provided an introduction to DevOps, a modern approach that bridges software development and IT operations to deliver faster, more reliable applications. We explored the DevOps lifecycle from planning and coding to deployment and monitoring and discussed popular tools like Git, Jenkins, Docker, and GitHub Actions. The session focused on the theoretical discussion of the CI/CD pipeline flow and its components, emphasizing how code changes can automatically trigger testing and deployment to ensure seamless software delivery. The session was open to developers, IT professionals, and tech enthusiasts.",
     registrationLink: "https://forms.gle/FKKth4CAguLR6n6w6",
-    youtubeLink: "",
+    youtubeLink: "https://youtu.be/UFksTmxROMM",
     joinLink: "https://meet.google.com/gkg-pgiu-rjk",
     icon: "calendar",
-    highlight: false,
+    highlight: true,
   },
 ];
