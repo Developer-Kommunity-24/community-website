@@ -1,5 +1,5 @@
 "use client";
-import { Github, ArrowUp, Mail, MapPin, Linkedin, Youtube } from "lucide-react";
+import { Github, ArrowUp, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";

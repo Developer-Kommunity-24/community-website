@@ -10,6 +10,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BackgroundPattern } from "@/components/background-pattern";
 import { Linkedin, Youtube } from "lucide-react";
+import { DiscordIcon } from "@/components/discord-icon";
 import Link from "next/link";
 
 export default function JoinUsPage() {
@@ -168,13 +169,22 @@ export default function JoinUsPage() {
                       DK24-Consortium
                     </Link>
                     <Link
-                      href="https://www.youtube.com/@dk24-consortium"
+                      href="https://www.youtube.com/playlist?list=PLpQlHw5SaxvBAt4SiO476Vh8lH5sHGLFO"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 font-medium hover:underline"
                     >
                       <Youtube className="w-5 h-5" />
                       DK24 Consortium
+                    </Link>
+                    <Link
+                      href="https://discord.gg/65MJZ2eDNp"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 font-medium hover:underline"
+                    >
+                      <DiscordIcon className="w-5 h-5" />
+                      Join our Discord
                     </Link>
                   </div>
                 </div>

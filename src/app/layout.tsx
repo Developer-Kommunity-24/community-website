@@ -48,7 +48,7 @@ function Loading() {
       <Image
         width={1080}
         height={1080}
-        src="/logo.svg"
+        src="/logo.png"
         alt="DK24 Logo"
         className="w-20 h-20 mb-6 animate-pulse"
       />

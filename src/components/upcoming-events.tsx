@@ -6,7 +6,10 @@ export async function UpcomingEvents() {
   const events = await getEvents();
 
   const upcomingEvents = events.filter((e) => new Date(e.date) > new Date());
-  const pastEvents = events.filter((e) => new Date(e.date) <= new Date());
+  const pastEvents = events
+    .filter((e) => new Date(e.date) <= new Date())
+    .slice(-3)
+    .reverse();
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

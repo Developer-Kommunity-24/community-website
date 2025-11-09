@@ -253,7 +253,7 @@ You’ll be recognized via:
 * GitHub contributors graph
 * Community shout-outs
 * Acknowledgement in DK24 events
-* Featured on [dk24.netlify.app](https://dk24.netlify.app) (soon!)
+* Featured on [dk24.org](https://dk24.org) (soon!)
 
 ---
 

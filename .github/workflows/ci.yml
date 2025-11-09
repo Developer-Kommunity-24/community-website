@@ -2,9 +2,14 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ '**' ]
   pull_request:
-    branches: [ main ]
+    branches: [ '**' ]
+
+permissions:
+  pull-requests: write
+  contents: write
+  issues: write
 
 jobs:
   lint-and-type-check:
@@ -25,10 +30,10 @@ jobs:
         run: npm ci --legacy-peer-deps
         
       - name: Run Biome format check
-        run: npm run format-git
+        run: npm run format
         
       - name: Run Biome lint
-        run: npm run lint-git
+        run: npm run lint
         
       - name: Run TypeScript type check
         run: npm run type-check
@@ -54,107 +59,23 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Upload build artifacts
-        if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-files
-          path: .next/
-          retention-days: 1
-      
-  lighthouse:
-    name: Lighthouse CI
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'pull_request'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-files
-          path: .next/
-
-      - name: Start application
-        run: |
-          npm start &
-          npx wait-on http://localhost:3000
-        env:
-          NODE_ENV: production
-
-      - name: Run Lighthouse CI
-        run: npx @lhci/cli@0.12.x autorun
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-
-  deploy-preview:
-    name: Deploy Preview
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'pull_request'
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
-        
-      - name: Build application
-        run: npm run build
-        
-      - name: Deploy to Netlify (Preview)
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --dir=.next --alias=pr-${{ github.event.number }}
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-  deploy-production:
-    name: Deploy to Production
+  pr-status-comment:
+    name: PR Status Comment
     runs-on: ubuntu-latest
     needs: [lint-and-type-check, build]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
+    if: always() && github.event_name == 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Post PR Status Comment
+        uses: peter-evans/commit-comment@v3
         with:
-          node-version: '20'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
-        
-      - name: Build application
-        run: npm run build
-        
-      - name: Deploy to Netlify (Production)
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --dir=.next --prod
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          sha: ${{ github.event.pull_request.head.sha }}
+          body: |
+            ## Workflow Status
+            This workflow has completed.
+            **Lint and Type Check:** ${{ needs.lint-and-type-check.result }}
+            **Build:** ${{ needs.build.result }}
+            Overall status: ${{ job.status }}

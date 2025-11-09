@@ -121,3 +121,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+.event-page {
+  --background: oklch(0.9 0.05 260);
+  --foreground: oklch(0.1 0.05 260);
+  --card: oklch(0.95 0.05 260);
+  --card-foreground: oklch(0.1 0.05 260);
+  --primary: oklch(0.6 0.15 260);
+  --primary-foreground: oklch(1 0 0);
+}
+
+.dark .event-page {
+  --background: oklch(0.2 0.05 260);
+  --foreground: oklch(0.9 0.05 260);
+  --card: oklch(0.25 0.05 260);
+  --card-foreground: oklch(0.9 0.05 260);
+  --primary: oklch(0.7 0.15 260);
+  --primary-foreground: oklch(0.1 0.05 260);
+}

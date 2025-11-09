@@ -12,7 +12,7 @@
   [![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Latest-000000?style=for-the-badge)](https://ui.shadcn.com/)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-[🌐 Live Demo](https://dk24.netlify.app) • [🤝 Contributing](#-contributing) • [💬 Community](#-community)
+[🌐 Live Demo](https://dk24.org) • [🤝 Contributing](#-contributing) • [💬 Community](#-community)
 
 </div>
 
@@ -50,7 +50,7 @@ As independent college communities, we are just small pockets of resources sprea
 
 ### 🎭 TEAM Model
 
-DK24 operates on a unique **TEAM** structure that ensures sustainable growth and knowledge transfer. To know more, visit: [https://dk24.netlify.app/community](https://dk24.netlify.app/community)
+DK24 operates on a unique **TEAM** structure that ensures sustainable growth and knowledge transfer. To know more, visit: [https://dk24.org/community](https://dk24.org/community)
 
 ## 🚀 Quick Start
 
@@ -159,7 +159,7 @@ For setup, naming conventions, file structure, and code standards:
 
 ### 🌐 Connect With Us
 
-* **Website**: [dk24.netlify.app](https://dk24.netlify.app)
+* **Website**: [dk24.org](https://dk24.org)
 * **Twitter**: [@dk24community](https://twitter.com/dk24community)
 * **LinkedIn**: [DK24 Community](https://linkedin.com/company/dk24community)
 * **Instagram**: [@dk24community](https://instagram.com/dk24community)
@@ -218,7 +218,7 @@ We use privacy-focused analytics. No personal data is collected without consent.
 <div align="center">
   <h3>🚀 Ready to join the revolution?</h3>
   <p>
-    <a href="https://dk24.netlify.app/join">
+    <a href="https://dk24.org/join">
       <img src="https://img.shields.io/badge/Join_DK24-Get_Started-green?style=for-the-badge" alt="Join DK24">
     </a>
   </p>
