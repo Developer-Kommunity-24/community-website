@@ -49,7 +49,26 @@ export const projects: Project[] = [
     tags: ["Flutter", "Django", "PostgreSQL"],
     image: "",
     github: "https://github.com/so-sc/scem-evMan",
-    contributors: [],
+    contributors: [
+      {
+        name: "Open Source"
+      },
+    ],
     link: "",
+  },
+  {
+    id: "create-next-quick",
+    title: "Create Next Quick",
+    description:
+      "CLI tool that lets you instantly create a new Next.js project with your choice of options and minimal config steps.",
+    tags: ["Node.js", "Next.js", "Tailwind", "TypeScript", "npm", "CLI"],
+    image: "/projects/create-next-quick.png",
+    github: "https://github.com/gaureshpai/create-next-quick",
+    contributors: [
+      {
+        name: "Open Source"
+      }
+    ],
+    link: "https://gaureshpai.github.io/create-next-quick",
   },
 ];
