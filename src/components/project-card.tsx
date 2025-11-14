@@ -19,12 +19,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-100/40 via-green-200/50 to-green-100/40 group-hover:from-green-200/60 group-hover:via-green-300/70 group-hover:to-green-200/60 transition-colors duration-300" />
 
         {/* Image Section */}
-        <div className="relative aspect-[4/3] w-full bg-gradient-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 overflow-hidden flex items-center justify-center p-4">
+        <div className="relative aspect-video w-full bg-gradient-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 overflow-hidden flex items-center justify-center p-4">
           <Image
-            src={project.image || "/placeholder.svg?height=200&width=400"}
+            src={project.image || "/placeholder.svg"}
             alt={project.title}
             fill
-            className="object-contain group-hover:scale-101 transition-transform duration-500"
+            className="object-cover group-hover:scale-101 p-3 transition-transform duration-500"
           />
           {/* Overlay for better contrast */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -53,8 +53,38 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </Badge>
             ))}
           </div>
-        </CardContent>
 
+          {project?.contributors && project.contributors.length > 0 && (
+            <div className="space-y-2">
+              <h4 className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                Contributors
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {project.contributors.map((contributor, i) => (
+                  <div
+                    key={i}
+                    className="group/contributor relative"
+                  >
+                    <Badge
+                      variant="outline"
+                      className="bg-gradient-to-r from-green-50/50 to-green-100/30 dark:from-green-950/30 dark:to-green-900/20 text-green-700 dark:text-green-300 border-green-200/60 dark:border-green-800/50 hover:border-green-300 dark:hover:border-green-700 transition-all duration-300 hover:shadow-sm hover:shadow-green-500/10 text-xs font-medium px-3 py-1"
+                    >
+                      <span className="relative">
+                        {contributor.name}
+                        {contributor.company && (
+                          <span className="ml-1.5 text-[10px] text-green-600/70 dark:text-green-400/70">
+                            · {contributor.company}
+                          </span>
+                        )}
+                      </span>
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}  
+        </CardContent>
+        
         <CardFooter className="px-6 pb-6 pt-0 flex justify-between gap-3">
           {project.github && (
             <Button
