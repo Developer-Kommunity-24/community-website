@@ -61,10 +61,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </h4>
               <div className="flex flex-wrap gap-2">
                 {project.contributors.map((contributor, i) => (
-                  <div
-                    key={i}
-                    className="group/contributor relative"
-                  >
+                  <div key={i} className="group/contributor relative">
                     <Badge
                       variant="outline"
                       className="bg-gradient-to-r from-green-50/50 to-green-100/30 dark:from-green-950/30 dark:to-green-900/20 text-green-700 dark:text-green-300 border-green-200/60 dark:border-green-800/50 hover:border-green-300 dark:hover:border-green-700 transition-all duration-300 hover:shadow-sm hover:shadow-green-500/10 text-xs font-medium px-3 py-1"
@@ -82,9 +79,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 ))}
               </div>
             </div>
-          )}  
+          )}
         </CardContent>
-        
+
         <CardFooter className="px-6 pb-6 pt-0 flex justify-between gap-3">
           {project.github && (
             <Button

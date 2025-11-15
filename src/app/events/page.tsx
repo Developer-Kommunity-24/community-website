@@ -1,8 +1,8 @@
+import { Suspense } from "react";
 import { BackgroundPattern } from "@/components/background-pattern";
+import { EventsTabs } from "@/components/events-tabs";
 import { PageHeader } from "@/components/page-header";
 import { getEvents } from "@/lib/get-events";
-import { EventsTabs } from "@/components/events-tabs";
-import { Suspense } from "react";
 
 export default async function EventsPage() {
   const events = await getEvents();

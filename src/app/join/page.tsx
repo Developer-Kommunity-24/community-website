@@ -1,3 +1,7 @@
+import { Linkedin, Youtube } from "lucide-react";
+import Link from "next/link";
+import { BackgroundPattern } from "@/components/background-pattern";
+import { DiscordIcon } from "@/components/discord-icon";
 import { JoinForm } from "@/components/join-form";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -8,10 +12,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BackgroundPattern } from "@/components/background-pattern";
-import { Linkedin, Youtube } from "lucide-react";
-import { DiscordIcon } from "@/components/discord-icon";
-import Link from "next/link";
 
 export default function JoinUsPage() {
   return (

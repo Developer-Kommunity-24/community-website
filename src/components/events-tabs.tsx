@@ -1,11 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { EventCard } from "@/components/event-card";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Event } from "@/types";
-import Image from "next/image";
 import { EventCalendar } from "./event-calendar";
 
 export function EventsTabs({

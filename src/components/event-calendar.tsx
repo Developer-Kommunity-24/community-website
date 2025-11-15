@@ -1,9 +1,9 @@
 "use client";
 
+import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface Event {
