@@ -44,7 +44,7 @@ jobs:
   pr-status-comment:
     name: PR Status Comment
     runs-on: ubuntu-latest
-    needs: [lint-and-type-check, build]
+    needs: [lint-and-type-check]
     if: always() && github.event_name == 'pull_request'
     steps:
       - name: Checkout code
