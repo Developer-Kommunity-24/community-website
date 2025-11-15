@@ -58,6 +58,5 @@ jobs:
           body: |
             ## Workflow Status
             This workflow has completed.
-            **Lint and Type Check:** ${{ needs.lint-and-type-check.result }}
-            **Build:** ${{ needs.build.result }}
-            Overall status: ${{ job.status }}
+            **Lint, Type Check and Build:** ${{ needs.lint-and-type-check.result }}
+            Overall status: ${{ needs.lint-and-type-check.result }}
