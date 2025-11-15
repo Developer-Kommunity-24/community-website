@@ -1,5 +1,6 @@
 {
   "name": "dk24",
+  "description": "We are connecting college tech communities to learn and build together in public.",
   "version": "1.0.1",
   "private": true,
   "scripts": {
@@ -20,6 +21,9 @@
     "*.{js,jsx,ts,tsx,json}": [
       "biome format --write",
       "biome lint"
+    ],
+    "!(package-lock).json": [
+      "biome format --write"
     ]
   },
   "dependencies": {
