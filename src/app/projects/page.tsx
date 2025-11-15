@@ -1,5 +1,5 @@
-import { BackgroundPattern } from "@/components/background-pattern";
 import Image from "next/image";
+import { BackgroundPattern } from "@/components/background-pattern";
 import { PageHeader } from "@/components/page-header";
 import { ProjectCard } from "@/components/project-card";
 import { Card, CardContent } from "@/components/ui/card";
