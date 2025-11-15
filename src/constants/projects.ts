@@ -51,7 +51,7 @@ export const projects: Project[] = [
     github: "https://github.com/so-sc/scem-evMan",
     contributors: [
       {
-        name: "Open Source"
+        name: "Open Source",
       },
     ],
     link: "",
@@ -66,8 +66,8 @@ export const projects: Project[] = [
     github: "https://github.com/gaureshpai/create-next-quick",
     contributors: [
       {
-        name: "Open Source"
-      }
+        name: "Open Source",
+      },
     ],
     link: "https://gaureshpai.github.io/create-next-quick",
   },
