@@ -44,7 +44,7 @@ As independent college communities, we are just small pockets of resources sprea
 
 ### 🎭 TEAM Model
 
-DK24 operates on a unique **TEAM** structure that ensures sustainable growth and knowledge transfer. To know more, visit: [https://dk24.org/community](https://dk24.org/community)
+DK24 operates on a unique **TEAM** structure that ensures sustainable growth and knowledge transfer. To know more, visit: [https://dk24.org/communities](https://dk24.org/communities)
 
 ## 🚀 Quick Start
 
