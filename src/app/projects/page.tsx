@@ -1,8 +1,6 @@
-import Image from "next/image";
 import { BackgroundPattern } from "@/components/background-pattern";
 import { PageHeader } from "@/components/page-header";
-import { ProjectCard } from "@/components/project-card";
-import { Card, CardContent } from "@/components/ui/card";
+import { ProjectList } from "@/components/project-list";
 import { projects } from "@/constants/projects";
 
 export default function ProjectsPage() {
@@ -14,37 +12,7 @@ export default function ProjectsPage() {
           description="Explore the collaborative projects built by the DK24 community"
         />
 
-        <div className="mt-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.length === 0 ? (
-              <Card className="overflow-hidden flex flex-col h-full col-span-full lg:col-span-3">
-                <div className="relative h-48 w-full bg-muted flex items-center justify-center">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="No projects"
-                    fill
-                    className="object-cover opacity-60"
-                    style={{ zIndex: 0 }}
-                  />
-                  <div className="absolute inset-0 bg-muted/60" />
-                </div>
-                <CardContent className="p-6 flex-1 flex flex-col items-center justify-center">
-                  <h3 className="text-xl font-semibold mb-2 text-center">
-                    No completed projects
-                  </h3>
-                  <p className="text-muted-foreground text-center">
-                    Projects will appear here once they are added by the
-                    community.
-                  </p>
-                </CardContent>
-              </Card>
-            ) : (
-              projects.map((project, index) => (
-                <ProjectCard key={index} project={project} isCompleted />
-              ))
-            )}
-          </div>
-        </div>
+        <ProjectList initialProjects={projects} />
       </div>
     </BackgroundPattern>
   );

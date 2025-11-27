@@ -1,0 +1,36 @@
+name: Update Projects Data
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'project-submissions/*.json'
+
+jobs:
+  update-projects-file:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Update Script
+        run: node scripts/update-projects.js
+
+      - name: Format Code
+        run: npm run format:write
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add src/constants/projects.ts project-submissions/
+          git commit -m "chore: update projects.ts with new submission"
+          git push

@@ -1,0 +1,72 @@
+name: Auto Merge Project PR
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  check-approvals-and-merge:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Approvals
+        uses: actions/github-script@v7
+        id: check
+        with:
+          script: |
+            const requiredReviewers = ['dev-shetty', 'jtuluve', 'gaureshpai', 'darshan45672'];
+            const requiredApprovals = 2;
+            
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+
+            const reviews = await github.paginate(github.rest.pulls.listReviews, {
+              owner,
+              repo,
+              pull_number
+            });
+
+            // Filter for approvals from the required list
+            // We need to take the latest review per user
+            const latestReviews = {};
+            reviews.forEach(review => {
+              if (requiredReviewers.includes(review.user.login)) {
+                latestReviews[review.user.login] = review.state;
+              }
+            });
+
+            let approvalCount = 0;
+            Object.values(latestReviews).forEach(state => {
+              if (state === 'APPROVED') {
+                approvalCount++;
+              }
+            });
+
+            console.log(`Current approvals from required reviewers: ${approvalCount}`);
+            
+            if (approvalCount >= requiredApprovals) {
+              return true;
+            } else {
+              return false;
+            }
+
+      - name: Merge PR
+        if: steps.check.outputs.result == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pull_number = context.payload.pull_request.number;
+            
+            try {
+              await github.rest.pulls.merge({
+                owner,
+                repo,
+                pull_number,
+                merge_method: 'squash'
+              });
+              console.log('PR merged successfully');
+            } catch (error) {
+              console.error('Error merging PR:', error);
+              core.setFailed('Failed to merge PR');
+            }

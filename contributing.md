@@ -235,6 +235,10 @@ Make sure your PR includes:
 * 🎨 Design / UI Polish
 * 🌍 Translations
 
+### 🚀 Adding a Project
+Have a project to showcase? See the [Adding Your Project](README.md#-adding-your-project) section in the README.
+
+
 ---
 
 ## ❓ Getting Help

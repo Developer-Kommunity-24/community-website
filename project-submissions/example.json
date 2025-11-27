@@ -1,0 +1,17 @@
+{
+  "id": "example-project",
+  "title": "Example Project",
+  "description": "This is an example project submission. Copy this file, rename it to your-project-id.json, and fill in your details.",
+  "tags": ["Example", "Tag"],
+  "image": "/projects/example.png",
+  "github": "https://github.com/example/repo",
+  "link": "https://example.com",
+  "contributors": [
+    {
+      "name": "Contributor Name",
+      "company": "Company (Optional)",
+      "role": "Role (Optional)",
+      "college": "College (Optional)"
+    }
+  ]
+}

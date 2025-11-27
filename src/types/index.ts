@@ -31,6 +31,7 @@ export interface Project {
   }[];
   github: string;
   link: string;
+  type?: "Web App" | "Mobile App" | "Tool" | "Other";
 }
 
 export interface Testimonial {

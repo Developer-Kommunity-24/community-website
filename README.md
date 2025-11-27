@@ -141,6 +141,21 @@ We welcome contributions from everyone — whether you're reporting bugs, fixing
 For setup, naming conventions, file structure, and code standards:
 ➡️ See [contributing.md](contributing.md)
 
+## 🚀 Adding Your Project
+
+Want to showcase your project on the DK24 website? Follow these steps:
+
+1.  **Fork the Repository**: click the "Fork" button at the top right of this page.
+2.  **Create a Submission File**:
+    *   Navigate to the `project-submissions/` directory.
+    *   Create a new file named `your-project-id.json` (e.g., `my-awesome-app.json`).
+    *   Copy the content from `project-submissions/example.json`.
+3.  **Fill in Details**: Update the JSON file with your project's details (title, description, tags, contributors, etc.).
+4.  **Submit a Pull Request**: Open a PR with your new file.
+
+> 🤖 **Automation**: Your PR will be automatically validated. Once approved by 2 reviewers, it will be merged, and your project will be automatically added to the website!
+
+
 ## 💬 Community
 
 ### 🌐 Connect With Us

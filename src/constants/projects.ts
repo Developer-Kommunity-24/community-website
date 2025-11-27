@@ -24,6 +24,7 @@ export const projects: Project[] = [
     ],
     github: "",
     link: "https://filetailored.com",
+    type: "Web App",
   },
   {
     id: "daily-dine",
@@ -40,6 +41,7 @@ export const projects: Project[] = [
     ],
     github: "",
     link: "https://filetailored.com",
+    type: "Mobile App",
   },
   {
     id: "evma",
@@ -55,6 +57,7 @@ export const projects: Project[] = [
       },
     ],
     link: "",
+    type: "Web App",
   },
   {
     id: "create-next-quick",
@@ -70,5 +73,6 @@ export const projects: Project[] = [
       },
     ],
     link: "https://gaureshpai.github.io/create-next-quick",
+    type: "Tool",
   },
 ];
