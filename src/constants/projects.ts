@@ -74,5 +74,41 @@ export const projects: Project[] = [
     ],
     link: "https://gaureshpai.github.io/create-next-quick",
     type: "Tool",
-  }
+  },
+  {
+    id: "create-express-doc",
+    title: "Create Express Doc",
+    description:
+      "A CLI tool that automatically generates API documentation for Express.js applications by parsing route handlers, status codes, and responses directly from the source code.",
+    tags: ["Express", "Node.js", "CLI", "Documentation", "API"],
+    image: "/projects/create-express-doc.png",
+    github: "https://github.com/your-username/create-express-doc",
+    link: "https://npmjs.com/package/create-express-doc",
+    contributors: [
+      {
+        name: "Jnanesh",
+        company: "",
+        role: "Developer",
+        college: "",
+      },
+    ],
+  },
+  {
+    id: "litekv",
+    title: "LiteKV",
+    description:
+      "A lightweight TypeScript/JavaScript client library for the LiteKV key-value storage service. It provides persistent storage with simple APIs, designed for scalability and ease of use.",
+    tags: ["TypeScript", "JavaScript"],
+    image: "/projects/litekv.png",
+    github: "https://github.com/jtuluve/litekv",
+    link: "https://www.npmjs.com/package/litekv",
+    contributors: [
+      {
+        name: "Jnanesh",
+        company: "",
+        role: "Developer",
+        college: "",
+      },
+    ],
+  },
 ];
