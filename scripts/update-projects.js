@@ -20,7 +20,7 @@ fs.readdir(submissionsDir, (err, files) => {
     return;
   }
 
-  jsonFiles.forEach((file) => {
+  jsonFiles.forEach((file,i) => {
     const filePath = path.join(submissionsDir, file);
     const fileContent = fs.readFileSync(filePath, "utf8");
 
@@ -48,7 +48,7 @@ fs.readdir(submissionsDir, (err, files) => {
       // For simplicity, we assume the array is not empty based on the file we saw.
       // We'll add a comma before the new item.
 
-      const insertion = `,\n  ${newProjectString}`;
+      const insertion = `\n  ${newProjectString},`;
 
       // Insert before the closing bracket
       const updatedContent =
