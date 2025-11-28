@@ -74,5 +74,5 @@ export const projects: Project[] = [
     ],
     link: "https://gaureshpai.github.io/create-next-quick",
     type: "Tool",
-  },
+  }
 ];
