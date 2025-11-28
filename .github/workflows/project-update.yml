@@ -36,14 +36,11 @@ jobs:
       - name: Run Update Script
         if: steps.changed_files.outputs.added_files != ''
         run: node scripts/update-projects.js
-
-      - name: Format Code
-        if: steps.changed_files.outputs.added_files != ''
-        run: npm run format:write
-
-      - name: Commit and Push Changes
+        
+      - name: Format, Commit and Push Changes
         if: steps.changed_files.outputs.added_files != ''
         run: |
+          npm run format:write
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add src/constants/projects.ts project-submissions/
