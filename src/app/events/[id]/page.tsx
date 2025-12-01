@@ -46,18 +46,41 @@ async function getEventImages(eventId: string) {
 }
 
 // biome-ignore lint/suspicious/noExplicitAny: params type is dynamic and handled by Next.js routing
+// biome-ignore lint/suspicious/noExplicitAny: params type is dynamic and handled by Next.js routing
 export async function generateMetadata({ params }: { params: any }) {
   const { id } = await Promise.resolve(params);
   const e = events.find((x) => x.id === id);
   if (!e) return {};
+
   const { posterPath, recapPaths } = await getEventImages(id);
-  const images = [...(posterPath ? [posterPath] : []), ...recapPaths];
+  const primaryImage = posterPath || recapPaths[0] || "/logo.png";
+
   return {
     metadataBase: new URL("https://dk24.org"),
     title: e.title,
     description: e.description,
-    openGraph: { title: e.title, description: e.description, images },
-    twitter: { card: "summary_large_image", images },
+    openGraph: {
+      title: e.title,
+      description: e.description,
+      images: [
+        {
+          url: primaryImage,
+          width: 1200,
+          height: 630,
+          alt: `${e.title} - DK24 Event`,
+        },
+      ],
+      type: "website",
+      siteName: "DK24",
+      url: `/events/${id}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: e.title,
+      description: e.description,
+      images: [primaryImage],
+      creator: "@dk24community",
+    },
   };
 }
 

@@ -3,6 +3,14 @@ import { HeroSection } from "@/components/hero-section";
 import { TeamModelSection } from "@/components/team-model-section";
 import { UpcomingEvents } from "@/components/upcoming-events";
 import { VisionSection } from "@/components/vision-section";
+import { generatePageMetadata } from "@/lib/metadata";
+import { siteConfig } from "@/config/site";
+
+export const metadata = generatePageMetadata({
+  title: `${siteConfig.name} - ${siteConfig.tagline}`,
+  description: siteConfig.description,
+  path: "/",
+});
 
 export default function Home() {
   return (

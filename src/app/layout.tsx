@@ -2,19 +2,15 @@ import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
 import React from "react";
 import "./globals.css";
-import type { Metadata } from "next";
 import Image from "next/image";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
-import { siteConfig } from "@/config/site";
+import { baseMetadata } from "@/lib/metadata";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: `${siteConfig.name} - ${siteConfig.tagline}`,
-  description: siteConfig.description,
-};
+export const metadata = baseMetadata;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

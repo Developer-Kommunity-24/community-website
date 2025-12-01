@@ -3,6 +3,14 @@ import { PageHeader } from "@/components/page-header";
 import { Timeline } from "@/components/timeline";
 import { Card } from "@/components/ui/card";
 import { getEvents } from "@/lib/get-events";
+import { generatePageMetadata } from "@/lib/metadata";
+
+export const metadata = generatePageMetadata({
+  title: "About DK24",
+  description:
+    "Learn about DK24's vision, mission, and journey to connect college tech communities in Mangalore. Discover our core values, long-term goals, and the story behind building a thriving tech ecosystem.",
+  path: "/about",
+});
 
 export default async function AboutPage() {
   const timelineEvents = await getEvents();

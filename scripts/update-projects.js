@@ -20,7 +20,7 @@ fs.readdir(submissionsDir, (err, files) => {
     return;
   }
 
-  jsonFiles.forEach((file,i) => {
+  jsonFiles.forEach((file, i) => {
     const filePath = path.join(submissionsDir, file);
     const fileContent = fs.readFileSync(filePath, "utf8");
 

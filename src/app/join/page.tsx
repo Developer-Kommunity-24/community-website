@@ -12,6 +12,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { generatePageMetadata } from "@/lib/metadata";
+
+export const metadata = generatePageMetadata({
+  title: "Join DK24",
+  description:
+    "Be a part of the growing tech ecosystem in Mangalore. Join DK24 as an individual or bring your college community into our network. Connect, learn, and build together.",
+  path: "/join",
+});
 
 export default function JoinUsPage() {
   return (

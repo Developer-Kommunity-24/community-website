@@ -4,6 +4,14 @@ import { PageHeader } from "@/components/page-header";
 import { RoleDescription } from "@/components/role-description";
 import { TeamStructure } from "@/components/team-structure";
 import { Button } from "@/components/ui/button";
+import { generatePageMetadata } from "@/lib/metadata";
+
+export const metadata = generatePageMetadata({
+  title: "Our Community Structure",
+  description:
+    "Discover the TEAM model that drives DK24's growth and success. Learn about the roles of Techies, Explorers, Advisors, and Mentors in our community structure.",
+  path: "/structure",
+});
 
 export default function CommunityStructurePage() {
   return (
