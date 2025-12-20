@@ -1,10 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import type { Event } from "@/types";
 import { iconsMap } from "@/constants";
-import Link from "next/link";
+import type { Event } from "@/types";
 
 interface TimelineProps {
   timelineEvents: Event[];

@@ -1,8 +1,8 @@
-import { EventCard } from "@/components/event-card";
-import type { Event } from "@/types";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { CalendarDays } from "lucide-react";
+import Link from "next/link";
+import { EventCard } from "@/components/event-card";
+import { Button } from "@/components/ui/button";
+import type { Event } from "@/types";
 
 const UpcomingEventsClient = ({
   upcomingEvents,

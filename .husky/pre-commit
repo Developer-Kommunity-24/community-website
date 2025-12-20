@@ -2,4 +2,5 @@
 npx lint-staged
 
 cd "$(git rev-parse --show-toplevel)"
+npx biome format --write
 npx tsc --noEmit

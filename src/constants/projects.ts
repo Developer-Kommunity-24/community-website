@@ -24,6 +24,7 @@ export const projects: Project[] = [
     ],
     github: "",
     link: "https://filetailored.com",
+    type: "Web App",
   },
   {
     id: "daily-dine",
@@ -40,6 +41,7 @@ export const projects: Project[] = [
     ],
     github: "",
     link: "https://filetailored.com",
+    type: "Mobile App",
   },
   {
     id: "evma",
@@ -49,7 +51,64 @@ export const projects: Project[] = [
     tags: ["Flutter", "Django", "PostgreSQL"],
     image: "",
     github: "https://github.com/so-sc/scem-evMan",
-    contributors: [],
+    contributors: [
+      {
+        name: "Open Source",
+      },
+    ],
     link: "",
+    type: "Web App",
+  },
+  {
+    id: "create-next-quick",
+    title: "Create Next Quick",
+    description:
+      "CLI tool that lets you instantly create a new Next.js project with your choice of options and minimal config steps.",
+    tags: ["Node.js", "Next.js", "Tailwind", "TypeScript", "npm", "CLI"],
+    image: "/projects/create-next-quick.png",
+    github: "https://github.com/gaureshpai/create-next-quick",
+    contributors: [
+      {
+        name: "Open Source",
+      },
+    ],
+    link: "https://gaureshpai.github.io/create-next-quick",
+    type: "Tool",
+  },
+  {
+    id: "create-express-doc",
+    title: "Create Express Doc",
+    description:
+      "A CLI tool that automatically generates API documentation for Express.js applications by parsing route handlers, status codes, and responses directly from the source code.",
+    tags: ["Express", "Node.js", "CLI", "Documentation", "API"],
+    image: "/projects/create-express-docs.png",
+    github: "https://github.com/jtuluve/create-express-doc",
+    link: "https://npmjs.com/package/create-express-doc",
+    contributors: [
+      {
+        name: "Jnanesh",
+        company: "",
+        role: "Developer",
+        college: "AJIET",
+      },
+    ],
+  },
+  {
+    id: "litekv",
+    title: "LiteKV",
+    description:
+      "A lightweight TypeScript/JavaScript client library for the LiteKV key-value storage service. It provides persistent storage with simple APIs, designed for scalability and ease of use.",
+    tags: ["TypeScript", "JavaScript"],
+    image: "/projects/livekv.png",
+    github: "https://github.com/jtuluve/litekv",
+    link: "https://www.npmjs.com/package/litekv",
+    contributors: [
+      {
+        name: "Jnanesh",
+        company: "",
+        role: "Developer",
+        college: "AJIET",
+      },
+    ],
   },
 ];

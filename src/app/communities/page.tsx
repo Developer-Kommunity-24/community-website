@@ -1,6 +1,14 @@
 import { CommunityCard } from "@/components/community-card";
 import { PageHeader } from "@/components/page-header";
 import { communities } from "@/constants/member-colleges";
+import { generatePageMetadata } from "@/lib/metadata";
+
+export const metadata = generatePageMetadata({
+  title: "Member Communities",
+  description:
+    "Meet the founding communities that form DK24. Discover the college tech communities across Mangalore working together to build a thriving tech ecosystem.",
+  path: "/communities",
+});
 
 export default function MemberCollegesPage() {
   return (

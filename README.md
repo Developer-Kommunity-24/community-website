@@ -16,8 +16,6 @@
 
 </div>
 
----
-
 ## 📖 Table of Contents
 
 * [About DK24](#-about-dk24)
@@ -27,8 +25,6 @@
 * [Contributing](#-contributing)
 * [Community](#-community)
 * [License](#-license)
-
----
 
 ## 🌟 About DK24
 
@@ -46,17 +42,15 @@ DK24 is a revolutionary community initiative that bridges the gap between colleg
 
 As independent college communities, we are just small pockets of resources spread over various places. We can utilize maximum power when there is sharing of resources and knowledge between these pockets, and **DK24 is the bridge connecting all of them together**.
 
----
-
 ### 🎭 TEAM Model
 
-DK24 operates on a unique **TEAM** structure that ensures sustainable growth and knowledge transfer. To know more, visit: [https://dk24.org/community](https://dk24.org/community)
+DK24 operates on a unique **TEAM** structure that ensures sustainable growth and knowledge transfer. To know more, visit: [https://dk24.org/communities](https://dk24.org/communities)
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-* **Node.js** 18.0 or later
+* **Node.js** 20.0 or later
 * **npm**, **yarn**, or **pnpm**
 * **Git** for version control
 
@@ -85,8 +79,6 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000) to see the project.
 
----
-
 ## 🛠️ Development
 
 ### Available Scripts
@@ -101,8 +93,6 @@ npm run format       # Check code format
 npm run format:write # Auto-format files
 npm run type-check   # Run TypeScript type checks
 ```
-
----
 
 ## 🧰 Tech Stack
 
@@ -132,8 +122,6 @@ npm run type-check   # Run TypeScript type checks
 * **next-themes** – Dark/light mode support
 * **class-variance-authority** – Variant-based styling
 
----
-
 ## 🤝 Contributing
 
 We welcome contributions from everyone — whether you're reporting bugs, fixing code, or improving docs.
@@ -153,23 +141,33 @@ We welcome contributions from everyone — whether you're reporting bugs, fixing
 For setup, naming conventions, file structure, and code standards:
 ➡️ See [contributing.md](contributing.md)
 
----
+## 🚀 Adding Your Project
+
+Want to showcase your project on the DK24 website? Follow these steps:
+
+1.  **Fork the Repository**: click the "Fork" button at the top right of this page.
+2.  **Create a Submission File**:
+    *   Navigate to the `project-submissions/` directory.
+    *   Create a new file named `your-project-id.json` (e.g., `my-awesome-app.json`).
+    *   Copy the content from `project-submissions/example.json`.
+3.  **Fill in Details**: Update the JSON file with your project's details (title, description, tags, contributors, etc.).
+4.  **Submit a Pull Request**: Open a PR with your new file.
+
+> 🤖 **Automation**: Your PR will be automatically validated. Once approved by 2 reviewers, it will be merged, and your project will be automatically added to the website!
+
 
 ## 💬 Community
 
 ### 🌐 Connect With Us
 
 * **Website**: [dk24.org](https://dk24.org)
-* **Twitter**: [@dk24community](https://twitter.com/dk24community)
-* **LinkedIn**: [DK24 Community](https://linkedin.com/company/dk24community)
-* **Instagram**: [@dk24community](https://instagram.com/dk24community)
+* **LinkedIn**: [DK24 Consortium](https://www.linkedin.com/company/dk24-consortium/)
+* **Instagram**: [@dk24_consortium](https://www.instagram.com/dk24_consortium/)
 * **GitHub**: [Developer-Kommunity-24](https://github.com/Developer-Kommunity-24)
 
 ### 📧 Contact
 
 * [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com)
-
----
 
 ## 📊 Project Stats
 
@@ -177,16 +175,15 @@ For setup, naming conventions, file structure, and code standards:
 * **👥 Active Members**: 500+
 * **🚀 Projects**: 10+
 * **📅 Events**: 20+
-* **🌟 GitHub Stars**: Help us grow!
-
----
+* ![](https://img.shields.io/github/stars/Developer-Kommunity-24/community-website?style=social)
+* ![](https://img.shields.io/github/forks/Developer-Kommunity-24/community-website?style=social)
+* ![](https://img.shields.io/github/issues/Developer-Kommunity-24/community-website?style=social)
+* ![](https://img.shields.io/github/issues-closed/Developer-Kommunity-24/community-website?style=social)
 
 ## 👥 Contributors
 
 Thanks to all contributors 💜
 [![contributers](https://contrib.rocks/image?repo=Developer-Kommunity-24/community-website)](https://github.com/Developer-Kommunity-24/community-website/graphs/contributors)
-
----
 
 ## 📄 License
 
@@ -201,19 +198,13 @@ Licensed under the [MIT License](LICENSE)
 ❌ Liability
 ```
 
----
-
 ## 🔒 Security
 
 If you find a security issue, email [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com) — we’ll handle it promptly.
 
----
-
 ## 📈 Analytics
 
 We use privacy-focused analytics. No personal data is collected without consent.
-
----
 
 <div align="center">
   <h3>🚀 Ready to join the revolution?</h3>

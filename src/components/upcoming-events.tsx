@@ -1,6 +1,6 @@
+import { Suspense } from "react";
 import { getEvents } from "@/lib/get-events";
 import UpcomingEventsClient from "./upcoming-events-client";
-import { Suspense } from "react";
 
 export async function UpcomingEvents() {
   const events = await getEvents();

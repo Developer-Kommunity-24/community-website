@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { Compass, GraduationCap, Lightbulb, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { GraduationCap, Lightbulb, Compass, Users } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export function TeamModelSection() {

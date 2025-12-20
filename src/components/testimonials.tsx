@@ -1,9 +1,9 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Quote, Sparkles } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
+import { Quote, Sparkles } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
 import { siteConfig } from "@/config/site";
 import { testimonials } from "@/constants/testimonials";
 

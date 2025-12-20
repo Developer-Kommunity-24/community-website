@@ -1,7 +1,9 @@
 "use server";
+
 import { JWT } from "google-auth-library";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import type { CollegeFormValues, IndividualFormValues } from "./forms-config";
+
 const serviceAccountAuth = new JWT({
   email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
   key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
@@ -35,7 +37,9 @@ export async function submitFormData(
       roleClaimed: "no",
     });
 
-    let payload: any;
+    let payload: {
+      content: string;
+    };
 
     if (name === "individual") {
       const d = data as IndividualFormValues;

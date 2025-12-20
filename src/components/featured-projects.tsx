@@ -2,8 +2,8 @@
 
 import { motion, type Variants } from "framer-motion";
 import { Code2 } from "lucide-react";
-import { projects } from "@/constants/projects";
 import { ProjectCard } from "@/components/project-card";
+import { projects } from "@/constants/projects";
 
 export function FeaturedProjects() {
   const containerVariants: Variants = {
