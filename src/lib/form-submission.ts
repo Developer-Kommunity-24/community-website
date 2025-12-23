@@ -51,7 +51,7 @@ export async function submitFormData(
       //     "──────────────────────────────",
       // };
 
-      await fetch(WEBHOOK_URL! + "new-applicant", {
+      let res = await fetch(WEBHOOK_URL! + "new-applicant", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,6 +59,10 @@ export async function submitFormData(
         },
         body: JSON.stringify(data),
       });
+      if (!res.ok) {
+        console.error(res);
+        throw new Error("Error submitting to webhook");
+      }
     } else {
       // payload = {
       //   content:
@@ -76,7 +80,7 @@ export async function submitFormData(
       //     "──────────────────────────────",
       // };
 
-      await fetch(WEBHOOK_URL! + "new-college-applicant", {
+      let res = await fetch(WEBHOOK_URL! + "new-college-applicant", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,6 +88,10 @@ export async function submitFormData(
         },
         body: JSON.stringify(data),
       });
+      if (!res.ok) {
+        console.error(res);
+        throw new Error("Error submitting to webhook");
+      }
     }
 
     return true;
