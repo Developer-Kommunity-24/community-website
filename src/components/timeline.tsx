@@ -14,7 +14,7 @@ export function Timeline({ timelineEvents }: TimelineProps) {
   return (
     <div className="relative py-12">
       {/* Timeline line with gradient */}
-      <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-green-200 via-green-300 to-green-200 dark:from-green-800 dark:via-green-600 dark:to-green-800 transform -translate-x-1/2"></div>
+      <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-green-200 via-green-300 to-green-200 dark:from-green-800 dark:via-green-600 dark:to-green-800 transform -translate-x-1/2"></div>
 
       <div className="space-y-16">
         {timelineEvents.map((event, index) => {
@@ -35,8 +35,8 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                 <div
                   className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
                     event.highlight
-                      ? "bg-gradient-to-br from-green-400 to-green-500 border-2 border-green-200 dark:border-green-700"
-                      : "bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900 dark:to-green-800 border-2 border-green-200 dark:border-green-700"
+                      ? "bg-linear-to-br from-green-400 to-green-500 border-2 border-green-200 dark:border-green-700"
+                      : "bg-linear-to-br from-green-50 to-green-100 dark:from-green-900 dark:to-green-800 border-2 border-green-200 dark:border-green-700"
                   }`}
                 >
                   <IconComponent
@@ -71,7 +71,7 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                     <Card
                       className={`backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${
                         event.highlight
-                          ? "border-green-300 dark:border-green-600 bg-gradient-to-br from-green-50/50 to-white dark:from-green-900/20 dark:to-background shadow-green-100 dark:shadow-green-900/20"
+                          ? "border-green-300 dark:border-green-600 bg-linear-to-br from-green-50/50 to-white dark:from-green-900/20 dark:to-background shadow-green-100 dark:shadow-green-900/20"
                           : "border-green-100 dark:border-green-800/50 bg-white/80 dark:bg-background/80 hover:border-green-200 dark:hover:border-green-700"
                       }`}
                     >
@@ -95,8 +95,8 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                             index % 2 === 0 ? "md:ml-auto" : ""
                           } ${
                             event.highlight
-                              ? "bg-gradient-to-r from-green-400 to-green-500"
-                              : "bg-gradient-to-r from-green-200 to-green-300 dark:from-green-700 dark:to-green-600"
+                              ? "bg-linear-to-r from-green-400 to-green-500"
+                              : "bg-linear-to-r from-green-200 to-green-300 dark:from-green-700 dark:to-green-600"
                           }`}
                         ></div>
                       </CardContent>

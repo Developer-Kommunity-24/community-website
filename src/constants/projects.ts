@@ -92,6 +92,7 @@ export const projects: Project[] = [
         college: "AJIET",
       },
     ],
+    type: "Tool",
   },
   {
     id: "litekv",
@@ -110,5 +111,6 @@ export const projects: Project[] = [
         college: "AJIET",
       },
     ],
+    type: "Tool",
   },
 ];

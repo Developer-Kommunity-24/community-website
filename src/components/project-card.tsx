@@ -17,10 +17,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <Link href={`/projects/${project.id}`} className="block h-full">
         <Card className="h-full relative overflow-hidden bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-50 dark:border-green-900/30 shadow-lg hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300">
           {/* Top Accent - consistent with vision cards */}
-          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-100/40 via-green-200/50 to-green-100/40 group-hover:from-green-200/60 group-hover:via-green-300/70 group-hover:to-green-200/60 transition-colors duration-300" />
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-green-100/40 via-green-200/50 to-green-100/40 group-hover:from-green-200/60 group-hover:via-green-300/70 group-hover:to-green-200/60 transition-colors duration-300" />
 
           {/* Image Section */}
-          <div className="relative aspect-video w-full bg-gradient-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 overflow-hidden flex items-center justify-center p-4">
+          <div className="relative aspect-video w-full bg-linear-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 overflow-hidden flex items-center justify-center p-4">
             <Image
               src={project.image || "/placeholder.svg"}
               alt={project.title}
@@ -28,7 +28,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className="object-cover group-hover:scale-101 p-3 transition-transform duration-500"
             />
             {/* Overlay for better contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
 
           <CardContent className="relative px-6 py-4 flex-1">
@@ -73,7 +73,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     <div key={i} className="group/contributor relative">
                       <Badge
                         variant="outline"
-                        className="bg-gradient-to-r from-green-50/50 to-green-100/30 dark:from-green-950/30 dark:to-green-900/20 text-green-700 dark:text-green-300 border-green-200/60 dark:border-green-800/50 hover:border-green-300 dark:hover:border-green-700 transition-all duration-300 hover:shadow-sm hover:shadow-green-500/10 text-xs font-medium px-3 py-1"
+                        className="bg-linear-to-r from-green-50/50 to-green-100/30 dark:from-green-950/30 dark:to-green-900/20 text-green-700 dark:text-green-300 border-green-200/60 dark:border-green-800/50 hover:border-green-300 dark:hover:border-green-700 transition-all duration-300 hover:shadow-sm hover:shadow-green-500/10 text-xs font-medium px-3 py-1"
                       >
                         <span className="relative">
                           {contributor.name}
@@ -89,7 +89,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   {project.contributors.length > 2 && (
                     <Badge
                       variant="outline"
-                      className="bg-gradient-to-r from-green-50/50 to-green-100/30 dark:from-green-950/30 dark:to-green-900/20 text-green-700 dark:text-green-300 border-green-200/60 dark:border-green-800/50 text-xs font-medium px-3 py-1"
+                      className="bg-linear-to-r from-green-50/50 to-green-100/30 dark:from-green-950/30 dark:to-green-900/20 text-green-700 dark:text-green-300 border-green-200/60 dark:border-green-800/50 text-xs font-medium px-3 py-1"
                     >
                       +{project.contributors.length - 2}
                     </Badge>
@@ -121,7 +121,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             {project.link && (
               <Button
                 size="sm"
-                className="flex-1 bg-gradient-to-r from-green-500 to-green-400 hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400"
+                className="flex-1 bg-linear-to-r from-green-500 to-green-400 hover:bg-linear-to-r hover:from-green-500 hover:to-green-400"
                 asChild
                 onClick={(e) => e.stopPropagation()}
               >
@@ -138,7 +138,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </CardFooter>
 
           {/* Subtle Bottom Accent */}
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-300/50 to-transparent group-hover:via-green-400 transition-colors duration-300" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-300/50 to-transparent group-hover:via-green-400 transition-colors duration-300" />
         </Card>
       </Link>
     </div>

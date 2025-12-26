@@ -13,7 +13,7 @@ export function CommunityCard({ community }: CommunityCardProps) {
   return (
     <Card className="overflow-hidden">
       <div className="p-6 pb-2 flex flex-col md:flex-row gap-4 items-center">
-        <div className="relative h-24 w-24 flex-shrink-0">
+        <div className="relative h-24 w-24 shrink-0">
           <Image
             src={community.logo || "/placeholder.svg?height=100&width=100"}
             alt={community.name}

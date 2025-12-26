@@ -101,7 +101,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
   ];
 
   return (
-    <Card className="bg-gradient-to-br from-green-50/50 to-white dark:from-green-950/20 dark:to-background border-green-200/50 dark:border-green-800/50">
+    <Card className="bg-linear-to-br from-green-50/50 to-white dark:from-green-950/20 dark:to-background border-green-200/50 dark:border-green-800/50">
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-6">
           <Button
@@ -165,7 +165,7 @@ export function EventCalendar({ events }: EventCalendarProps) {
           ))}
         </div>
 
-        <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-green-50/50 dark:from-green-900/20 dark:to-green-900/10 rounded-lg border border-green-100 dark:border-green-800/50">
+        <div className="mt-6 p-4 bg-linear-to-r from-green-50 to-green-50/50 dark:from-green-900/20 dark:to-green-900/10 rounded-lg border border-green-100 dark:border-green-800/50">
           <h4 className="text-sm font-semibold text-green-700 dark:text-green-300 mb-3 flex items-center">
             <Calendar className="h-4 w-4 mr-2" />
             Upcoming Events

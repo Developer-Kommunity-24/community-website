@@ -41,7 +41,7 @@ export function CommunityGuideline() {
               transition={{ delay: index * 0.2, duration: 0.5 }}
               className="flex items-center gap-4"
             >
-              <div className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold z-10">
+              <div className="shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold z-10">
                 {index + 1}
               </div>
               <div className="flex-1">

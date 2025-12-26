@@ -32,8 +32,8 @@ export function EventsTabs({
             <div className="space-y-6 flex-1 overflow-auto">
               {upcomingEvents.length === 0 ? (
                 <Card className="overflow-hidden flex flex-col h-full col-span-full bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-50 dark:border-green-900/30 shadow-lg hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300">
-                  <div className="relative h-48 w-full bg-gradient-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-100 to-green-200 dark:from-green-800/50 dark:to-green-700/50 flex items-center justify-center">
+                  <div className="relative h-48 w-full bg-linear-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-linear-to-br from-green-100 to-green-200 dark:from-green-800/50 dark:to-green-700/50 flex items-center justify-center">
                       <Image
                         src="/placeholder.svg"
                         alt="No events"
@@ -42,7 +42,7 @@ export function EventsTabs({
                         className="opacity-40 text-green-500"
                       />
                     </div>
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-100/40 via-green-200/50 to-green-100/40" />
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-green-100/40 via-green-200/50 to-green-100/40" />
                   </div>
                   <CardContent className="p-6 flex-1 flex flex-col items-center justify-center">
                     <h3 className="text-xl font-semibold mb-2 text-center text-gray-800 dark:text-gray-200">
@@ -73,8 +73,8 @@ export function EventsTabs({
         <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {pastEvents.length === 0 ? (
             <Card className="overflow-hidden flex flex-col h-full col-span-full bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-50 dark:border-green-900/30 shadow-lg hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300">
-              <div className="relative h-48 w-full bg-gradient-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 flex items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-100 to-green-200 dark:from-green-800/50 dark:to-green-700/50 flex items-center justify-center">
+              <div className="relative h-48 w-full bg-linear-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-linear-to-br from-green-100 to-green-200 dark:from-green-800/50 dark:to-green-700/50 flex items-center justify-center">
                   <Image
                     src="/placeholder.svg"
                     alt="No events"
@@ -83,7 +83,7 @@ export function EventsTabs({
                     className="opacity-40 text-green-500"
                   />
                 </div>
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-100/40 via-green-200/50 to-green-100/40" />
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-green-100/40 via-green-200/50 to-green-100/40" />
               </div>
               <CardContent className="p-6 flex-1 flex flex-col items-center justify-center">
                 <h3 className="text-xl font-semibold mb-2 text-center text-gray-800 dark:text-gray-200">

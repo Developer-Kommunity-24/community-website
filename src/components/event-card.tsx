@@ -11,7 +11,7 @@ export interface EventCardProps {
 export function EventCard({ event }: EventCardProps) {
   return (
     <Link href={`/events/${event.id}`} className="block hover:no-underline">
-      <Card className="overflow-hidden h-full hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 border-green-100/50 dark:border-green-800/50 bg-gradient-to-b from-white to-green-50/30 dark:from-background dark:to-green-950/20">
+      <Card className="overflow-hidden h-full hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 border-green-100/50 dark:border-green-800/50 bg-linear-to-b from-white to-green-50/30 dark:from-background dark:to-green-950/20">
         <div className="p-6">
           <h3 className="text-xl font-semibold mb-4 text-green-700 dark:text-green-300">
             {event?.title}

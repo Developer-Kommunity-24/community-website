@@ -96,9 +96,14 @@ export default async function ProjectPage({
 
         {/* Project Details */}
         <div className={project.image ? "" : "md:col-span-2"}>
-          <div className="flex items-center gap-2 mb-4">
-            <Badge variant="secondary">{project.type}</Badge>
-          </div>
+          {
+            /* Project Type */
+            project.type && (
+              <div className="flex items-center gap-2 mb-4">
+                <Badge variant="secondary">{project.type}</Badge>
+              </div>
+            )
+          }
 
           <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
 
@@ -142,38 +147,37 @@ export default async function ProjectPage({
               </Button>
             )}
           </div>
-
-          {/* Contributors */}
-          {project.contributors && project.contributors.length > 0 && (
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Contributors</h2>
-                <div className="space-y-3">
-                  {project.contributors.map((contributor, index) => (
-                    <div key={index} className="flex flex-col">
-                      <span className="font-medium">{contributor.name}</span>
-                      {contributor.role && (
-                        <span className="text-sm text-muted-foreground">
-                          {contributor.role}
-                        </span>
-                      )}
-                      {contributor.college && (
-                        <span className="text-sm text-muted-foreground">
-                          {contributor.college}
-                        </span>
-                      )}
-                      {contributor.company && (
-                        <span className="text-sm text-muted-foreground">
-                          {contributor.company}
-                        </span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
         </div>
+        {/* Contributors - placed below image and full-width */}
+        {project.contributors && project.contributors.length > 0 && (
+          <Card className="md:col-span-2">
+            <CardContent className="p-6 w-full">
+              <h2 className="text-xl font-semibold mb-4">Contributors</h2>
+              <div className="space-y-3">
+                {project.contributors.map((contributor, index) => (
+                  <div key={index} className="flex flex-col">
+                    <span className="font-medium">{contributor.name}</span>
+                    {contributor.role && (
+                      <span className="text-sm text-muted-foreground">
+                        {contributor.role}
+                      </span>
+                    )}
+                    {contributor.college && (
+                      <span className="text-sm text-muted-foreground">
+                        {contributor.college}
+                      </span>
+                    )}
+                    {contributor.company && (
+                      <span className="text-sm text-muted-foreground">
+                        {contributor.company}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );

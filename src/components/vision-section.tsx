@@ -62,7 +62,7 @@ export function VisionSection() {
       className="relative py-16 overflow-hidden max-w-7xl mx-auto"
     >
       {/* Subtle Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-50/20 via-white to-green-50/10 dark:from-green-950/5 dark:via-background dark:to-green-950/5" />
+      <div className="absolute inset-0 bg-linear-to-br from-green-50/20 via-white to-green-50/10 dark:from-green-950/5 dark:via-background dark:to-green-950/5" />
       <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl translate-x-32 -translate-y-32" />
       <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full blur-3xl -translate-x-28 translate-y-28" />
 
@@ -131,12 +131,12 @@ export function VisionSection() {
             >
               <Card className="h-full relative overflow-hidden bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-50 dark:border-green-900/30 shadow-lg hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300">
                 {/* Evenly Spread Top Accent */}
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-100/40 via-green-200/50 via-green-200/50 to-green-100/40 group-hover:from-green-200/60 group-hover:via-green-300/70 group-hover:via-green-300/70 group-hover:to-green-200/60 transition-colors duration-300" />
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-green-100/40 via-green-200/50 to-green-100/40 group-hover:from-green-200/60 group-hover:via-green-300/70 group-hover:to-green-200/60 transition-colors duration-300" />
 
                 <CardContent className="relative pt-8 px-5 pb-5 flex flex-col items-center text-center h-full">
                   {/* Icon with Subtle Background */}
                   <div className="relative mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-100 to-green-200 dark:from-green-800/50 dark:to-green-700/50 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-green-100 to-green-200 dark:from-green-800/50 dark:to-green-700/50 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                       <div className="text-green-600 dark:text-green-400">
                         {point.icon}
                       </div>
@@ -152,7 +152,7 @@ export function VisionSection() {
                   </p>
 
                   {/* Subtle Bottom Accent */}
-                  <div className="mt-7 w-8 h-px bg-gradient-to-r from-transparent via-green-300/50 to-transparent group-hover:via-green-400 transition-colors duration-300" />
+                  <div className="mt-7 w-8 h-px bg-linear-to-r from-transparent via-green-300/50 to-transparent group-hover:via-green-400 transition-colors duration-300" />
                 </CardContent>
               </Card>
             </motion.div>

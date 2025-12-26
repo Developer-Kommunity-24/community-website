@@ -88,7 +88,7 @@ export default function Footer() {
     <div className="space-y-6">
       <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 relative">
         {title}
-        <div className="absolute -bottom-2 left-0 h-0.5 w-12 bg-gradient-to-r from-emerald-500 to-teal-500" />
+        <div className="absolute -bottom-2 left-0 h-0.5 w-12 bg-linear-to-r from-emerald-500 to-teal-500" />
       </h3>
       <ul className="space-y-3">
         {items.map((link) => (
@@ -124,7 +124,7 @@ export default function Footer() {
   return (
     <footer
       id="footer"
-      className="border-t bg-gradient-to-br from-muted/60 via-muted/40 to-muted/60 shadow-inner"
+      className="border-t bg-linear-to-br from-muted/60 via-muted/40 to-muted/60 shadow-inner"
     >
       <div className="relative container mx-auto px-4 py-20 max-w-7xl">
         <motion.div
@@ -138,7 +138,7 @@ export default function Footer() {
             className="md:col-span-2 lg:col-span-2 space-y-8"
           >
             <Link href="/" className="inline-block group">
-              <span className="text-4xl md:text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 hover:scale-105 transition-transform">
+              <span className="text-4xl md:text-5xl font-black bg-clip-text text-transparent bg-linear-to-r from-emerald-600 via-green-500 to-teal-500 dark:from-emerald-400 dark:via-green-400 dark:to-teal-400 hover:scale-105 transition-transform">
                 {siteConfig.name}
               </span>
             </Link>

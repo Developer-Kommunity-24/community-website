@@ -41,7 +41,7 @@ export function Testimonials() {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-100 to-green-50 dark:from-green-900/30 dark:to-green-800/20 border border-green-200 dark:border-green-700 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-green-100 to-green-50 dark:from-green-900/30 dark:to-green-800/20 border border-green-200 dark:border-green-700 mb-6">
             <Sparkles className="h-4 w-4 text-green-600 dark:text-green-400" />
             <span className="text-sm font-medium text-green-700 dark:text-green-300">
               What Our Community Says
@@ -78,7 +78,7 @@ export function Testimonials() {
             >
               <Card className="h-full relative overflow-hidden bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-200/50 dark:border-green-700/50 shadow-lg hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-500">
                 {/* Card Header Gradient */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 via-green-500 to-green-600" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-green-400 via-green-500 to-green-600" />
                 {/* Floating Stars */}
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="flex gap-1"></div>
@@ -106,7 +106,7 @@ export function Testimonials() {
                           src={testimonial.avatar || "/placeholder.svg"}
                           alt={testimonial.name}
                         />
-                        <AvatarFallback className="bg-gradient-to-br from-green-400 to-green-600 text-white font-semibold">
+                        <AvatarFallback className="bg-linear-to-br from-green-400 to-green-600 text-white font-semibold">
                           {testimonial.name.charAt(0)}
                         </AvatarFallback>
                       </Avatar>
@@ -123,7 +123,7 @@ export function Testimonials() {
                   </div>
 
                   {/* Bottom Accent */}
-                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-400/50 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-green-400/50 to-transparent" />
                 </CardContent>
               </Card>
             </motion.div>

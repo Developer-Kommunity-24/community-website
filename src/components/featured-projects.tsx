@@ -20,7 +20,7 @@ export function FeaturedProjects() {
   return (
     <section id="featured-projects" className="relative py-16 overflow-hidden">
       {/* Subtle Background Elements - matching vision section */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-50/20 via-white to-green-50/10 dark:from-green-950/5 dark:via-background dark:to-green-950/5" />
+      <div className="absolute inset-0 bg-linear-to-br from-green-50/20 via-white to-green-50/10 dark:from-green-950/5 dark:via-background dark:to-green-950/5" />
       <div className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl translate-x-32 -translate-y-32" />
       <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full blur-3xl -translate-x-28 translate-y-28" />
 

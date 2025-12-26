@@ -110,7 +110,7 @@ export default async function EventPage({
     <div className="container mx-auto px-4 py-12 max-w-6xl">
       <div className="flex flex-col-reverse md:flex-row">
         <div className="md:w-1/2">
-          <div className="overflow-hidden hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 border-green-100/50 dark:border-green-800/50 bg-gradient-to-b from-white to-green-50/30 dark:from-background dark:to-green-950/20 rounded-lg">
+          <div className="overflow-hidden hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 border-green-100/50 dark:border-green-800/50 bg-linear-to-b from-white to-green-50/30 dark:from-background dark:to-green-950/20 rounded-lg">
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-4 text-green-700 dark:text-green-300">
                 {event?.title}
@@ -194,13 +194,13 @@ export default async function EventPage({
         </div>
         <div className="w-full md:w-1/2 flex md:p-4">
           {posterPath && (
-            <div className="relative w-full aspect-square md:aspect-auto flex-1 min-h-[300px]">
+            <div className="relative w-full aspect-square md:aspect-auto flex-1 min-h-75">
               <Image
                 src={posterPath || "/placeholder.svg"}
                 alt={`${event.title} Poster`}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-contain !rounded-2xl"
+                className="object-contain rounded-2xl!"
                 priority
               />
             </div>

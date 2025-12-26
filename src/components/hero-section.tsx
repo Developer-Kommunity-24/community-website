@@ -19,7 +19,7 @@ export function HeroSection() {
           <div className="space-y-2">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
               Connecting College{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-400">
+              <span className="bg-clip-text text-transparent bg-linear-to-r from-green-500 to-green-400">
                 Tech Communities
               </span>
             </h1>
@@ -40,7 +40,7 @@ export function HeroSection() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative h-[400px] rounded-lg overflow-hidden bg-[#0E0E0E]"
+          className="relative h-100 rounded-lg overflow-hidden bg-[#0E0E0E]"
         >
           <Image
             src="/logo_new.png"
