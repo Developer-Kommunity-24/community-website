@@ -29,6 +29,10 @@ export default async function EventsPage() {
     return eventDate < today;
   });
 
+  const pastEventsDesc = pastEvents.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
   return (
     <BackgroundPattern variant="default">
       <div className="container mx-auto px-4 py-12 max-w-7xl">
@@ -37,7 +41,10 @@ export default async function EventsPage() {
           description="Discover past and upcoming events from the DK24 community"
         />
         <Suspense fallback={<div>Loading...</div>}>
-          <EventsTabs upcomingEvents={upcomingEvents} pastEvents={pastEvents} />
+          <EventsTabs
+            upcomingEvents={upcomingEvents}
+            pastEvents={pastEventsDesc}
+          />
         </Suspense>
       </div>
     </BackgroundPattern>
