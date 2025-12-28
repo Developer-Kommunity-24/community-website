@@ -96,14 +96,15 @@ export default async function ProjectPage({
 
         {/* Project Details */}
         <div className={project.image ? "" : "md:col-span-2"}>
-          {
-            /* Project Type */
-            project.type && (
-              <div className="flex items-center gap-2 mb-4">
-                <Badge variant="secondary">{project.type}</Badge>
-              </div>
-            )
-          }
+          {project.categories?.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {project.categories.map((category) => (
+                <Badge key={category} variant="secondary">
+                  {category}
+                </Badge>
+              ))}
+            </div>
+          )}
 
           <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
 
@@ -157,17 +158,17 @@ export default async function ProjectPage({
                 {project.contributors.map((contributor, index) => (
                   <div key={index} className="flex flex-col">
                     <span className="font-medium">{contributor.name}</span>
-                    {contributor.role && (
-                      <span className="text-sm text-muted-foreground">
-                        {contributor.role}
-                      </span>
-                    )}
-                    {contributor.college && (
+                    <span className="text-sm text-muted-foreground">
+                      {contributor.role}
+                    </span>
+
+                    {contributor.kind === "student" && (
                       <span className="text-sm text-muted-foreground">
                         {contributor.college}
                       </span>
                     )}
-                    {contributor.company && (
+
+                    {contributor.kind === "professional" && (
                       <span className="text-sm text-muted-foreground">
                         {contributor.company}
                       </span>

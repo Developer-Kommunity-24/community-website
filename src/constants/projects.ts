@@ -1,4 +1,4 @@
-import type { Project } from "@/types";
+import type { Project } from "@/types/project";
 
 export const projects: Project[] = [
   {
@@ -17,6 +17,7 @@ export const projects: Project[] = [
     image: "/projects/filetailored.png?height=50&width=100",
     contributors: [
       {
+        kind: "professional",
         name: "Nuhayd Shaik",
         company: "FileTailored",
         role: "Chief Operations Officer",
@@ -24,7 +25,7 @@ export const projects: Project[] = [
     ],
     github: "",
     link: "https://filetailored.com",
-    type: "Web App",
+    categories: ["Web"],
   },
   {
     id: "daily-dine",
@@ -35,13 +36,15 @@ export const projects: Project[] = [
     image: "/projects/daily-dine.png?height=200&width=400",
     contributors: [
       {
+        kind: "student",
         name: "Nikhil Bajantri",
         college: "Srinivas Institute of Technology",
+        role: "Developer",
       },
     ],
     github: "",
     link: "https://filetailored.com",
-    type: "Mobile App",
+    categories: ["Mobile"],
   },
   {
     id: "evma",
@@ -53,11 +56,14 @@ export const projects: Project[] = [
     github: "https://github.com/so-sc/scem-evMan",
     contributors: [
       {
-        name: "Open Source",
+        kind: "professional",
+        name: "Open Source Community",
+        company: "SO-SC",
+        role: "Contributors",
       },
     ],
-    link: "",
-    type: "Web App",
+    link: "https://github.com/so-sc/scem-evMan",
+    categories: ["Web"],
   },
   {
     id: "create-next-quick",
@@ -69,11 +75,14 @@ export const projects: Project[] = [
     github: "https://github.com/gaureshpai/create-next-quick",
     contributors: [
       {
-        name: "Open Source",
+        kind: "professional",
+        name: "Gauresh Pai",
+        company: "Open Source",
+        role: "Creator",
       },
     ],
     link: "https://gaureshpai.github.io/create-next-quick",
-    type: "Tool",
+    categories: ["Tool"],
   },
   {
     id: "create-express-doc",
@@ -86,13 +95,13 @@ export const projects: Project[] = [
     link: "https://npmjs.com/package/create-express-doc",
     contributors: [
       {
+        kind: "student",
         name: "Jnanesh",
-        company: "",
-        role: "Developer",
         college: "AJIET",
+        role: "Developer",
       },
     ],
-    type: "Tool",
+    categories: ["Tool"],
   },
   {
     id: "litekv",
@@ -105,12 +114,12 @@ export const projects: Project[] = [
     link: "https://www.npmjs.com/package/litekv",
     contributors: [
       {
+        kind: "student",
         name: "Jnanesh",
-        company: "",
-        role: "Developer",
         college: "AJIET",
+        role: "Developer",
       },
     ],
-    type: "Tool",
+    categories: ["Tool"],
   },
 ];

@@ -25,7 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import type { Project } from "@/types";
+import type { Project } from "@/types/project";
 import { Badge } from "@/components/ui/badge";
 
 interface ProjectFiltersProps {
@@ -47,8 +47,8 @@ export function ProjectFilters({
 
   // Extract unique project types
   const projectTypes = Array.from(
-    new Set(projects.map((p) => p.type).filter(Boolean)),
-  ) as string[];
+    new Set(projects.flatMap((p) => p.categories)),
+  ).sort();
 
   // Extract unique tech stack (tags)
   const allTechStack = Array.from(

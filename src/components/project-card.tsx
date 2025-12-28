@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import type { Project } from "@/types";
+import type { Project } from "@/types/project";
 
 interface ProjectCardProps {
   project: Project;
@@ -46,7 +46,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <div className="flex flex-wrap gap-2 mb-4">
               {project.tags.slice(0, 4).map((tag, i) => (
                 <Badge
-                  key={i}
+                  key={tag}
                   variant="secondary"
                   className="bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800 text-xs"
                 >
@@ -63,7 +63,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               )}
             </div>
 
-            {project?.contributors && project.contributors.length > 0 && (
+            {project.contributors.length > 0 && (
               <div className="space-y-2">
                 <h4 className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Contributors
@@ -72,17 +72,23 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   {project.contributors.slice(0, 2).map((contributor, i) => (
                     <div key={i} className="group/contributor relative">
                       <Badge
+                        key={i}
                         variant="outline"
                         className="bg-linear-to-r from-green-50/50 to-green-100/30 dark:from-green-950/30 dark:to-green-900/20 text-green-700 dark:text-green-300 border-green-200/60 dark:border-green-800/50 hover:border-green-300 dark:hover:border-green-700 transition-all duration-300 hover:shadow-sm hover:shadow-green-500/10 text-xs font-medium px-3 py-1"
                       >
-                        <span className="relative">
-                          {contributor.name}
-                          {contributor.company && (
-                            <span className="ml-1.5 text-[10px] text-green-600/70 dark:text-green-400/70">
-                              · {contributor.company}
-                            </span>
-                          )}
-                        </span>
+                        {contributor.name}
+
+                        {contributor.kind === "professional" && (
+                          <span className="ml-1.5 text-[10px] text-green-600/70 dark:text-green-400/70">
+                            · {contributor.company}
+                          </span>
+                        )}
+
+                        {contributor.kind === "student" && (
+                          <span className="ml-1.5 text-[10px] text-green-600/70 dark:text-green-400/70">
+                            · {contributor.college}
+                          </span>
+                        )}
                       </Badge>
                     </div>
                   ))}
@@ -114,7 +120,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   rel="noopener noreferrer"
                 >
                   <Github className="h-4 w-4 mr-2" />
-                  Github
+                  GitHub
                 </Link>
               </Button>
             )}
