@@ -29,7 +29,7 @@ const ContributorSchema = z.discriminatedUnion("kind", [
 ]);
 
 export const ProjectSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string().min(1).max(100),
   title: z.string().min(1).max(200),
   description: z.string().min(1).max(2000),
   image: z.string().url(),
