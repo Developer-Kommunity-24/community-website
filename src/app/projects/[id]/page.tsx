@@ -1,11 +1,11 @@
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { projects } from "@/constants";
+import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
-import { projects } from "@/constants/projects";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 export async function generateStaticParams() {
   return projects.map((project) => ({

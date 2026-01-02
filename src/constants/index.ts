@@ -1,3 +1,6 @@
+import ProjectData from "@/data/projects.json" with { type: "json" };
+import { ProjectSchema } from "@/types/project";
+
 import {
   Calendar,
   Code,
@@ -17,3 +20,5 @@ export const iconsMap = {
   network: Network,
   trendingUp: TrendingUp,
 };
+
+export const projects = ProjectSchema.array().parse(ProjectData);
