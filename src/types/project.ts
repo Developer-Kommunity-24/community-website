@@ -32,7 +32,7 @@ export const ProjectSchema = z.object({
   id: z.string().min(1).max(100),
   title: z.string().min(1).max(200),
   description: z.string().min(1).max(2000),
-  image: z.string().url(),
+  image: z.string().min(1),
   tags: z.array(ProjectTagSchema).min(1),
   contributors: z.array(ContributorSchema).min(1),
   github: z.string().url().optional(),
