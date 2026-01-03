@@ -45,7 +45,7 @@
     "title": "EVMA",
     "description": "A self-hostable test platform for competitive programming and assessments with MCQs, coding questions, and customizable features for evaluation and monitoring.",
     "tags": ["Flutter", "Django", "PostgreSQL"],
-    "image": "https://placehold.co/600x400/EEE/31343C.png",
+    "image": "/placeholder.svg",
     "github": "https://github.com/so-sc/scem-evMan",
     "contributors": [
       {
