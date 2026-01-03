@@ -2,68 +2,20 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useEffect } from "react";
-import { type SubmitHandler, useForm } from "react-hook-form";
-import * as z from "zod";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
+// import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-
-// Event submission schema based on the provided payload
-const eventSubmissionSchema = z.object({
-  eventName: z.string().min(2, "Event name must be at least 2 characters."),
-  organizationName: z
-    .string()
-    .min(2, "Organization name must be at least 2 characters."),
-  startDateTime: z.string().min(1, "Start date and time is required."),
-  endDateTime: z.string().min(1, "End date and time is required."),
-  eventLocation: z
-    .string()
-    .min(5, "Event location must be at least 5 characters."),
-  eventWebsite: z
-    .string()
-    .url("Please enter a valid website URL.")
-    .optional()
-    .or(z.literal("")),
-  registrationLink: z
-    .string()
-    .url("Please enter a valid registration URL.")
-    .optional()
-    .or(z.literal("")),
-  eventDescription: z
-    .string()
-    .min(50, "Event description must be at least 50 characters."),
-  eventPosterUrl: z
-    .string()
-    .url("Please enter a valid poster image URL.")
-    .optional()
-    .or(z.literal("")),
-  eventTags: z
-    .array(z.string())
-    .min(1, "Please select at least one event tag."),
-  submittedBy: z.string().min(2, "Your name must be at least 2 characters."),
-  submittedEmail: z.string().email("Please enter a valid email address."),
-  emailConsentChecked: z
-    .boolean()
-    .refine((val) => val === true, "You must consent to email communications."),
-});
-
-type EventSubmissionFormValues = z.infer<typeof eventSubmissionSchema>;
-
-const eventTagOptions = [
-  "Conference",
-  "Meetup",
-  "Workshop",
-  "Hackathon",
-  "Webinar",
-  "Networking",
-  "Tech Talk",
-  "Training",
-  "Competition",
-  "Other",
-];
+import { submitFormData } from "@/lib/form-submission";
+import {
+  type EventSubmissionFormValues,
+  eventSubmissionSchema,
+  eventTagOptions,
+} from "@/lib/forms-config";
 
 export function EventSubmissionForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -79,6 +31,7 @@ export function EventSubmissionForm() {
     watch,
     setValue,
     getValues,
+    control,
   } = useForm<EventSubmissionFormValues>({
     resolver: zodResolver(eventSubmissionSchema),
     defaultValues: {
@@ -95,11 +48,11 @@ export function EventSubmissionForm() {
       submittedBy: "",
       submittedEmail: "",
       emailConsentChecked: false,
+      isEmailVerified: false,
     },
     mode: "onChange",
   });
 
-  // Helpers to format Date -> datetime-local value (YYYY-MM-DDTHH:MM)
   const formatDateTimeLocal = (d: Date) => {
     const pad = (n: number) => String(n).padStart(2, "0");
     const year = d.getFullYear();
@@ -107,7 +60,7 @@ export function EventSubmissionForm() {
     const day = pad(d.getDate());
     const hours = pad(d.getHours());
     const minutes = pad(d.getMinutes());
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
+    return `${day}-${month}-${year}T${hours}:${minutes}`;
   };
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Auto update prevented
@@ -158,18 +111,7 @@ export function EventSubmissionForm() {
         isEmailVerified: false,
       };
 
-      const response = await fetch("/api/submit-event", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to showcase event");
-      }
-
+      submitFormData("event", payload);
       setSubmitSuccess(true);
       reset();
     } catch (error) {
@@ -451,9 +393,18 @@ export function EventSubmissionForm() {
           {/* Consent Section */}
           <div className="space-y-8">
             <div className="flex items-start space-x-2">
-              <Checkbox
-                id="emailConsentChecked"
-                {...register("emailConsentChecked")}
+              <Controller
+                name="emailConsentChecked"
+                control={control}
+                render={({ field }) => (
+                  <Checkbox
+                    id="emailConsentChecked"
+                    checked={field.value}
+                    onCheckedChange={(checked) =>
+                      field.onChange(checked === true)
+                    }
+                  />
+                )}
               />
               <Label
                 htmlFor="emailConsentChecked"
