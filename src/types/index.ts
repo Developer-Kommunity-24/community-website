@@ -16,24 +16,6 @@ export interface Community {
   website: string;
 }
 
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-  contributors: {
-    name: string;
-    year?: string;
-    college?: string;
-    company?: string;
-    role?: string;
-  }[];
-  github: string;
-  link: string;
-  type?: "Web App" | "Mobile App" | "Tool" | "Other";
-}
-
 export interface Testimonial {
   quote: string;
   name: string;

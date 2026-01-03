@@ -1,7 +1,7 @@
 import { BackgroundPattern } from "@/components/background-pattern";
 import { PageHeader } from "@/components/page-header";
 import { ProjectList } from "@/components/project-list";
-import { projects } from "@/constants/projects";
+import { projects } from "@/constants";
 import { generatePageMetadata } from "@/lib/metadata";
 
 export const metadata = generatePageMetadata({

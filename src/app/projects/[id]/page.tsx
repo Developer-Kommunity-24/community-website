@@ -1,11 +1,11 @@
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { projects } from "@/constants";
+import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
-import { projects } from "@/constants/projects";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
@@ -72,14 +72,6 @@ export default async function ProjectPage({
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl">
-      <Link
-        href="/projects"
-        className="inline-flex items-center gap-2 mb-8 text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to Projects
-      </Link>
-
       <div className="grid md:grid-cols-2 gap-8">
         {/* Project Image */}
         {project.image && (
@@ -96,14 +88,15 @@ export default async function ProjectPage({
 
         {/* Project Details */}
         <div className={project.image ? "" : "md:col-span-2"}>
-          {
-            /* Project Type */
-            project.type && (
-              <div className="flex items-center gap-2 mb-4">
-                <Badge variant="secondary">{project.type}</Badge>
-              </div>
-            )
-          }
+          {project.categories?.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {project.categories.map((category) => (
+                <Badge key={category} variant="secondary">
+                  {category}
+                </Badge>
+              ))}
+            </div>
+          )}
 
           <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
 
@@ -157,17 +150,17 @@ export default async function ProjectPage({
                 {project.contributors.map((contributor, index) => (
                   <div key={index} className="flex flex-col">
                     <span className="font-medium">{contributor.name}</span>
-                    {contributor.role && (
-                      <span className="text-sm text-muted-foreground">
-                        {contributor.role}
-                      </span>
-                    )}
-                    {contributor.college && (
+                    <span className="text-sm text-muted-foreground">
+                      {contributor.role}
+                    </span>
+
+                    {contributor.kind === "student" && (
                       <span className="text-sm text-muted-foreground">
                         {contributor.college}
                       </span>
                     )}
-                    {contributor.company && (
+
+                    {contributor.kind === "professional" && (
                       <span className="text-sm text-muted-foreground">
                         {contributor.company}
                       </span>

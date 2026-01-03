@@ -13,7 +13,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import type { Project } from "@/types";
+import type { Project } from "@/types/project";
 
 interface ProjectListProps {
   initialProjects: Project[];
@@ -34,7 +34,7 @@ export function ProjectList({ initialProjects }: ProjectListProps) {
   const filteredProjects = useMemo(() => {
     return initialProjects.filter((project) => {
       const matchesType =
-        selectedType === "all" || project.type === selectedType;
+        selectedType === "all" || project.categories.includes(selectedType);
 
       const matchesTechStack =
         selectedTechStack.length === 0 ||
