@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { projects } from "@/constants";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -72,14 +72,6 @@ export default async function ProjectPage({
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl">
-      <Link
-        href="/projects"
-        className="inline-flex items-center gap-2 mb-8 text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to Projects
-      </Link>
-
       <div className="grid md:grid-cols-2 gap-8">
         {/* Project Image */}
         {project.image && (
