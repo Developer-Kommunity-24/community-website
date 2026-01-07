@@ -60,7 +60,7 @@ export function ClientContainer({ view, hideHeader = false }: IProps) {
   });
 
   return (
-    <div className="overflow-hidden rounded-xl border">
+    <div className="overflow-hidden rounded-xl border h-full">
       {!hideHeader && <CalendarHeader view={view} events={filteredEvents} />}
 
       {view === "month" && (

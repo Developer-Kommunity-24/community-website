@@ -21,6 +21,9 @@ export interface IEvent {
   highlight: boolean;
   youtubeLink?: string;
   color?: TEventColor;
+  organizationName?: string;
+  posterUrl?: string;
+  tags?: string[];
 }
 
 export interface ICalendarCell {

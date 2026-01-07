@@ -85,9 +85,9 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                         >
                           {event.title}
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        <div className="text-gray-600 dark:text-gray-400 leading-relaxed">
                           {event.description}
-                        </p>
+                        </div>
 
                         {/* Subtle accent line */}
                         <div

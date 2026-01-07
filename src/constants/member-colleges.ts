@@ -80,7 +80,7 @@ export const communities: Community[] = [
     name: "The Sceptix Club",
     college: "St Joseph Engineering College",
     description:
-      "A technical club that organizes workshops, hackathons, and technical competitions to enhance students' technical skills.",
+      "A technical club that organizes workshops, hackathons, and technical competitions to enhance student's technical skills.",
     logo: "/community-logos/spectix.jpeg",
     representatives: [
       {

@@ -26,7 +26,7 @@ export function CalendarHeader({ view, events }: IProps) {
         <div className="flex w-full items-center gap-1.5"></div>
 
         <Link href="/showcase-event">
-          <Button className="w-full sm:w-auto">
+          <Button className="w-full sm:w-auto md:flex hidden">
             <Plus />
             Add Event
           </Button>

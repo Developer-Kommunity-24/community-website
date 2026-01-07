@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useEffect } from "react";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
-// import * as z from "zod";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import {
   eventSubmissionSchema,
   eventTagOptions,
 } from "@/lib/forms-config";
+import { DateTimePicker } from "@/components/ui/date-time-picker";
 
 export function EventSubmissionForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -54,19 +55,13 @@ export function EventSubmissionForm() {
   });
 
   const formatDateTimeLocal = (d: Date) => {
-    const pad = (n: number) => String(n).padStart(2, "0");
-    const year = d.getFullYear();
-    const month = pad(d.getMonth() + 1);
-    const day = pad(d.getDate());
-    const hours = pad(d.getHours());
-    const minutes = pad(d.getMinutes());
-    return `${day}-${month}-${year}T${hours}:${minutes}`;
+    return format(d, "yyyy-MM-dd'T'HH:mm");
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Auto update prevented
+  // biome-ignore lint/correctness/useExhaustiveDependencies: only run on mount
   useEffect(() => {
-    const currentStart = (getValues("startDateTime") as string) || "";
-    const currentEnd = (getValues("endDateTime") as string) || "";
+    const currentStart = getValues("startDateTime");
+    const currentEnd = getValues("endDateTime");
     if (!currentStart && !currentEnd) {
       const now = new Date();
       const start = new Date(now);
@@ -76,11 +71,10 @@ export function EventSubmissionForm() {
       setValue("startDateTime", formatDateTimeLocal(start));
       setValue("endDateTime", formatDateTimeLocal(end));
     }
-    // run only on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getValues, setValue]);
 
   const selectedTags = watch("eventTags");
+  const startDateTime = watch("startDateTime");
 
   const handleTagChange = (tag: string, checked: boolean) => {
     const currentTags = selectedTags || [];
@@ -195,31 +189,31 @@ export function EventSubmissionForm() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
                 <Label htmlFor="startDateTime">Start Date & Time *</Label>
-                <Input
-                  id="startDateTime"
-                  type="datetime-local"
-                  {...register("startDateTime", {
-                    onChange: (e) => {
-                      const val = (e.target as HTMLInputElement).value;
-                      if (!val) return;
-                      const start = new Date(val);
+                <Controller
+                  name="startDateTime"
+                  control={control}
+                  render={({ field }) => (
+                    <DateTimePicker
+                      value={field.value ? new Date(field.value) : new Date()}
+                      minDate={new Date()}
+                      onChange={(date) => {
+                        const formattedDate = formatDateTimeLocal(date);
+                        field.onChange(formattedDate);
+                        const start = new Date(date);
+                        const endCandidate = new Date(start);
+                        endCandidate.setHours(17, 0, 0, 0);
 
-                      // Desired default end time is 17:00 same day.
-                      const endCandidate = new Date(start);
-                      endCandidate.setHours(17, 0, 0, 0);
-
-                      // If the selected start is after 17:00, set end to start + 2 hours.
-                      let finalEnd = endCandidate;
-                      if (start.getTime() > endCandidate.getTime()) {
-                        finalEnd = new Date(
-                          start.getTime() + 2 * 60 * 60 * 1000,
-                        );
-                      }
-
-                      setValue("endDateTime", formatDateTimeLocal(finalEnd));
-                      trigger("endDateTime");
-                    },
-                  })}
+                        let finalEnd = endCandidate;
+                        if (start.getTime() > endCandidate.getTime()) {
+                          finalEnd = new Date(
+                            start.getTime() + 2 * 60 * 60 * 1000,
+                          );
+                        }
+                        setValue("endDateTime", formatDateTimeLocal(finalEnd));
+                        trigger("endDateTime");
+                      }}
+                    />
+                  )}
                 />
                 {errors.startDateTime && (
                   <p className="text-destructive text-sm">
@@ -230,10 +224,20 @@ export function EventSubmissionForm() {
 
               <div className="space-y-4">
                 <Label htmlFor="endDateTime">End Date & Time *</Label>
-                <Input
-                  id="endDateTime"
-                  type="datetime-local"
-                  {...register("endDateTime")}
+                <Controller
+                  name="endDateTime"
+                  control={control}
+                  render={({ field }) => (
+                    <DateTimePicker
+                      value={field.value ? new Date(field.value) : new Date()}
+                      minDate={
+                        startDateTime ? new Date(startDateTime) : undefined
+                      }
+                      onChange={(date) =>
+                        field.onChange(formatDateTimeLocal(date))
+                      }
+                    />
+                  )}
                 />
                 {errors.endDateTime && (
                   <p className="text-destructive text-sm">
@@ -391,7 +395,7 @@ export function EventSubmissionForm() {
           </div>
 
           {/* Consent Section */}
-          <div className="space-y-8">
+          <div className="space-y-8 mb-2">
             <div className="flex items-start space-x-2">
               <Controller
                 name="emailConsentChecked"

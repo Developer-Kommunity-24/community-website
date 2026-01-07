@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import type { ReactNode } from "react";
 import React from "react";
-import "./globals.css";
+import "@/app/globals.css";
 import Image from "next/image";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";

@@ -37,7 +37,7 @@ export function CalendarMonthView({ singleDayEvents, multiDayEvents }: IProps) {
   );
 
   return (
-    <Card className="bg-linear-to-br from-green-50/50 to-white dark:from-green-950/20 dark:to-background border-green-200/50 dark:border-green-800/50 py-0">
+    <Card className="bg-linear-to-br from-green-50/50 to-white dark:from-green-950/20 dark:to-background border-green-200/50 dark:border-green-800/50 py-0 h-full">
       <CardContent className="p-6">
         <div className="grid grid-cols-7 divide-x">
           {WEEK_DAYS.map((day) => (

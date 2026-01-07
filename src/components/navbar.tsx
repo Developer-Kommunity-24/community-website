@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { DiscordJoinBar } from "./discord-join-bar";
+import { DiscordJoinBar } from "@/components/discord-join-bar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +41,7 @@ export default function Navbar() {
     { href: "/about", label: "About" },
     { href: "/structure", label: "Structure" },
     { href: "/communities", label: "Communities" },
-    { href: "/events", label: "Callendar" },
+    { href: "/events", label: "Calendar" },
     { href: "/projects", label: "Projects" },
   ];
 

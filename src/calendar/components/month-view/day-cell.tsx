@@ -4,14 +4,12 @@ import { isToday, startOfDay } from "date-fns";
 
 import { useCalendar } from "@/calendar/contexts/calendar-context";
 
-import { EventBullet } from "@/calendar/components/month-view/event-bullet";
 import { MonthEventBadge } from "@/calendar/components/month-view/month-event-badge";
 
 import { cn } from "@/lib/utils";
 import { getMonthCellEvents } from "@/calendar/helpers";
 
 import type { ICalendarCell, IEvent } from "@/calendar/interfaces";
-import type { TEventColor } from "@/types";
 
 interface IProps {
   cell: ICalendarCell;
@@ -35,7 +33,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
 
   const handleClick = () => {
     setSelectedDate(date);
-    push("/day-view");
+    push(`/day-view?date=${date.toISOString()}`);
   };
 
   return (
@@ -49,6 +47,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
         type="button"
         onClick={handleClick}
         className={cn(
+          "cursor-pointer",
           "flex size-6 translate-x-1 items-center justify-center rounded-full text-xs font-semibold hover:bg-green-50 dark:hover:bg-green-900/20 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring lg:px-2",
           !currentMonth && "opacity-20",
           isToday(date) &&
@@ -63,7 +62,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
 
       <div
         className={cn(
-          "flex h-6 gap-1 px-2 lg:h-[62px] lg:flex-col lg:gap-2 lg:px-0",
+          "flex min-h-10 flex-col gap-1 px-1 lg:h-15.5 lg:gap-2 lg:px-0",
           !currentMonth && "opacity-50",
         )}
       >
@@ -74,19 +73,13 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
             : `empty-${position}`;
 
           return (
-            <div key={eventKey} className="lg:flex-1">
+            <div key={eventKey} className="lg:flex-1 w-full">
               {event && (
-                <>
-                  <EventBullet
-                    className="lg:hidden"
-                    color={(event.color ?? "gray") as TEventColor}
-                  />
-                  <MonthEventBadge
-                    className="hidden lg:flex"
-                    event={event}
-                    cellDate={startOfDay(date)}
-                  />
-                </>
+                <MonthEventBadge
+                  className="w-full"
+                  event={event}
+                  cellDate={startOfDay(date)}
+                />
               )}
             </div>
           );

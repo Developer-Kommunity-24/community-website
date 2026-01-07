@@ -2,7 +2,7 @@
 
 import { JWT } from "google-auth-library";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import type { EventSubmissionFormValues } from "./forms-config";
+import type { EventSubmissionFormValues } from "@/lib/forms-config";
 import type { IEvent } from "@/calendar/interfaces";
 import type { TEventColor } from "@/types";
 import type { iconsMap } from "@/constants";
@@ -18,16 +18,6 @@ const doc = new GoogleSpreadsheet(
   serviceAccountAuth,
 );
 
-const EVENT_COLORS: TEventColor[] = [
-  "blue",
-  "green",
-  "red",
-  "yellow",
-  "purple",
-  "orange",
-  "gray",
-];
-
 export async function getEvents(
   startDate?: Date,
   endDate?: Date,
@@ -37,29 +27,55 @@ export async function getEvents(
   if (!sheet) throw new Error("Sheet not found");
 
   const rows = await sheet.getRows();
-  console.log(rows);
   const res: IEvent[] = rows
-    .map((row) => {
+    .map((row): IEvent | null => {
       const eventData = row.toObject() as unknown as EventSubmissionFormValues;
-      const randomColor =
-        EVENT_COLORS[Math.floor(Math.random() * EVENT_COLORS.length)];
+      const isDK24 = eventData.organizationName === "DK24";
+
+      const startDateTime = new Date(eventData.startDateTime);
+      const endDateTime = new Date(eventData.endDateTime);
+
+      if (
+        Number.isNaN(startDateTime.getTime()) ||
+        Number.isNaN(endDateTime.getTime())
+      ) {
+        return null;
+      }
 
       return {
         id: row.rowNumber.toString(), // Using row number as a simple ID
         title: eventData.eventName,
-        startDateTime: new Date(eventData.startDateTime).toISOString(),
-        endDateTime: new Date(eventData.endDateTime).toISOString(),
+        startDateTime: startDateTime.toISOString(),
+        endDateTime: endDateTime.toISOString(),
         time: eventData.startDateTime.split("T")[1]?.substring(0, 5) || "", // Extract time from startDateTime
         location: eventData.eventLocation,
         description: eventData.eventDescription,
         registrationLink: eventData.registrationLink || "",
         joinLink: eventData.eventWebsite || "", // Using eventWebsite as joinLink for now
         icon: "calendar" as keyof typeof iconsMap, // Default icon
-        highlight: eventData.organizationName === "DK24",
+        highlight: isDK24,
         youtubeLink: "", // No direct mapping from form, so empty for now
-        color: randomColor,
+        color: (isDK24 ? "green" : "gray") as TEventColor,
+        organizationName: eventData.organizationName,
+        posterUrl: eventData.eventPosterUrl,
+        tags: (() => {
+          const raw = eventData.eventTags as unknown;
+          if (Array.isArray(raw)) return raw as string[];
+          if (typeof raw === "string") {
+            let s = (raw as string).trim();
+            if (s.startsWith("[") && s.endsWith("]")) {
+              s = s.slice(1, -1);
+            }
+            return s
+              .split(",")
+              .map((t: string) => t.replace(/^['"]|['"]$/g, "").trim())
+              .filter(Boolean) as string[];
+          }
+          return [];
+        })(),
       };
     })
+    .filter((event): event is IEvent => event !== null)
     .filter((event) => {
       if (!startDate || !endDate) return true;
       const eventStartDate = new Date(event.startDateTime);
@@ -69,6 +85,5 @@ export async function getEvents(
         (eventEndDate >= startDate && eventEndDate <= endDate)
       );
     });
-  console.log(res);
   return res;
 }

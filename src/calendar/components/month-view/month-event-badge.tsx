@@ -1,5 +1,6 @@
 import { cva } from "class-variance-authority";
 import { endOfDay, isSameDay, parseISO, startOfDay } from "date-fns";
+import { Star } from "lucide-react";
 
 import { useCalendar } from "@/calendar/contexts/calendar-context";
 
@@ -26,7 +27,7 @@ const eventBadgeVariants = cva(
           "border-purple-200 bg-purple-50 text-purple-700 dark:border-purple-800 dark:bg-purple-950 dark:text-purple-300 [&_.event-dot]:fill-purple-600",
         orange:
           "border-orange-200 bg-orange-50 text-orange-700 dark:border-orange-800 dark:bg-orange-950 dark:text-orange-300 [&_.event-dot]:fill-orange-600",
-        gray: "border-neutral-200 bg-neutral-50 text-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 [&_.event-dot]:fill-neutral-600",
+        gray: "border-neutral-200 bg-muted/30 text-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 [&_.event-dot]:fill-neutral-600",
 
         // Dot variants
         "blue-dot":
@@ -54,7 +55,7 @@ const eventBadgeVariants = cva(
       },
     },
     defaultVariants: {
-      color: "blue-dot",
+      color: "gray",
     },
   },
 );
@@ -153,7 +154,10 @@ export function MonthEventBadge({
             )}
 
           {renderBadgeText && (
-            <p className="flex-1 truncate font-semibold">
+            <p className="flex-1 truncate font-semibold flex items-center gap-1">
+              {event.highlight && (
+                <Star className="size-3 fill-yellow-400 text-yellow-500 shrink-0" />
+              )}
               {eventCurrentDay && (
                 <span className="text-xs">
                   Day {eventCurrentDay} of {eventTotalDays} •{" "}

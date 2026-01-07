@@ -3,7 +3,7 @@ import type {
   CollegeFormValues,
   EventSubmissionFormValues,
   IndividualFormValues,
-} from "./forms-config";
+} from "@/lib/forms-config";
 
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 

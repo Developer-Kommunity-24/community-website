@@ -60,12 +60,13 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
   const [eventsCache, setEventsCache] = useState<Map<string, IEvent[]>>(
     new Map(),
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchEventsForMonth = useCallback(
     async (date: Date) => {
       const monthKey = format(date, "yyyy-MM");
       if (eventsCache.has(monthKey)) {
+        setIsLoading(false);
         return eventsCache.get(monthKey);
       }
 
