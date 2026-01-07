@@ -6,21 +6,35 @@ import { EventCard } from "@/components/event-card";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import type { Event } from "@/types";
-
-import { ClientContainer } from "./../calendar/components/client-container";
+import { useCalendar } from "@/calendar/contexts/calendar-context";
 import { useState } from "react";
+import { ClientContainer } from "@/calendar/components/client-container";
 
-export function EventsTabs({
-  upcomingEvents: _upcomingEvents,
-  pastEvents,
-}: {
-  upcomingEvents: Event[];
-  pastEvents: Event[];
-}) {
+export function EventsTabs() {
   const searchParams = useSearchParams();
   const defaultTab = searchParams.get("tab") === "past" ? "past" : "upcoming";
   const [view, setView] = useState<"month" | "agenda">("month");
+  const { events } = useCalendar();
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Normalize today's date to the start of the day
+
+  const _upcomingEvents = events.filter((e) => {
+    const eventDate = new Date(e.startDateTime);
+    eventDate.setHours(0, 0, 0, 0); // Normalize event date to the start of the day
+    return eventDate >= today;
+  });
+  const _pastEvents = events.filter((e) => {
+    const eventDate = new Date(e.startDateTime);
+    eventDate.setHours(0, 0, 0, 0); // Normalize event date to the start of the day
+    return eventDate < today;
+  });
+
+  const pastEventsDesc = _pastEvents.sort((a, b) => {
+    return (
+      new Date(b.startDateTime).getTime() - new Date(a.startDateTime).getTime()
+    );
+  });
 
   return (
     <Tabs defaultValue={defaultTab} className="mt-12">
@@ -65,8 +79,8 @@ export function EventsTabs({
       <TabsContent value="past" className="mt-6">
         <h2 className="text-2xl font-bold mb-6 mt-8 lg:mt-0">Past Events</h2>
         <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {pastEvents.length === 0 ? (
-            <Card className="overflow-hidden flex flex-col h-full col-span-full bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-50 dark:border-green-900/30 shadow-lg hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300">
+          {pastEventsDesc.length === 0 ? (
+            <Card className="overflow-hidden flex flex-col h-full col-span-full bg-white/80 dark:bg-background/80 backdrop-blur-sm border-green-50 dark:border-900/30 shadow-lg hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300">
               <div className="relative h-48 w-full bg-linear-to-br from-green-50/30 to-green-100/20 dark:from-green-950/20 dark:to-green-900/10 flex items-center justify-center">
                 <div className="w-16 h-16 rounded-full bg-linear-to-br from-green-100 to-green-200 dark:from-green-800/50 dark:to-green-700/50 flex items-center justify-center">
                   <Image
@@ -89,7 +103,7 @@ export function EventsTabs({
               </CardContent>
             </Card>
           ) : (
-            pastEvents.map((event, index) => (
+            pastEventsDesc.map((event, index) => (
               <EventCard key={index} event={event} />
             ))
           )}

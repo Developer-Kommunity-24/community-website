@@ -10,6 +10,7 @@ import { EventDetailsDialog } from "@/calendar/components/dialogs/event-details-
 
 import type { IEvent } from "@/calendar/interfaces";
 import type { VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
 const agendaEventCardVariants = cva(
   "flex select-none items-center justify-between gap-3 rounded-md border p-3 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
@@ -87,7 +88,11 @@ export function AgendaEventCard({
       <div
         role="button"
         tabIndex={0}
-        className={agendaEventCardClasses}
+        className={cn(
+          agendaEventCardClasses,
+          event.highlight &&
+            "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-900",
+        )}
         onKeyDown={handleKeyDown}
       >
         <div className="flex flex-col gap-2">

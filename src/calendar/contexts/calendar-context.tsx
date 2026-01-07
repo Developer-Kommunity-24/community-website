@@ -1,6 +1,15 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+import { format, startOfMonth, endOfMonth } from "date-fns";
+
+import { getEvents } from "@/lib/get-events";
 
 import type { Dispatch, SetStateAction } from "react";
 import type { IEvent } from "@/calendar/interfaces";
@@ -20,7 +29,7 @@ interface ICalendarContext {
   visibleHours: TVisibleHours;
   setVisibleHours: Dispatch<SetStateAction<TVisibleHours>>;
   events: IEvent[];
-  setLocalEvents: Dispatch<SetStateAction<IEvent[]>>;
+  isLoading: boolean;
   hoveredEventId: string | null;
   setHoveredEventId: (id: string | null) => void;
 }
@@ -39,13 +48,7 @@ const WORKING_HOURS = {
 
 const VISIBLE_HOURS = { from: 7, to: 18 };
 
-export function CalendarProvider({
-  children,
-  events,
-}: {
-  children: React.ReactNode;
-  events: IEvent[];
-}) {
+export function CalendarProvider({ children }: { children: React.ReactNode }) {
   const [badgeVariant, setBadgeVariant] = useState<TBadgeVariant>("colored");
   const [visibleHours, setVisibleHours] =
     useState<TVisibleHours>(VISIBLE_HOURS);
@@ -54,17 +57,40 @@ export function CalendarProvider({
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
+  const [eventsCache, setEventsCache] = useState<Map<string, IEvent[]>>(
+    new Map(),
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
-  // This localEvents doesn't need to exists in a real scenario.
-  // It's used here just to simulate the update of the events.
-  // In a real scenario, the events would be updated in the backend
-  // and the request that fetches the events should be refetched
-  const [localEvents, setLocalEvents] = useState<IEvent[]>(events);
+  const fetchEventsForMonth = useCallback(
+    async (date: Date) => {
+      const monthKey = format(date, "yyyy-MM");
+      if (eventsCache.has(monthKey)) {
+        return eventsCache.get(monthKey);
+      }
+
+      setIsLoading(true);
+      const monthStart = startOfMonth(date);
+      const monthEnd = endOfMonth(date);
+      const fetchedEvents = await getEvents(monthStart, monthEnd);
+      setEventsCache((prev) => new Map(prev).set(monthKey, fetchedEvents));
+      setIsLoading(false);
+      return fetchedEvents;
+    },
+    [eventsCache],
+  );
+
+  useEffect(() => {
+    fetchEventsForMonth(selectedDate);
+  }, [selectedDate, fetchEventsForMonth]);
 
   const handleSelectDate = (date: Date | undefined) => {
     if (!date) return;
     setSelectedDate(date);
   };
+
+  const currentMonthKey = format(selectedDate, "yyyy-MM");
+  const currentMonthEvents = eventsCache.get(currentMonthKey) || [];
 
   return (
     <CalendarContext.Provider
@@ -77,9 +103,8 @@ export function CalendarProvider({
         setVisibleHours,
         workingHours,
         setWorkingHours,
-        // If you go to the refetch approach, you can remove the localEvents and pass the events directly
-        events: localEvents,
-        setLocalEvents,
+        events: currentMonthEvents,
+        isLoading,
         hoveredEventId,
         setHoveredEventId,
       }}

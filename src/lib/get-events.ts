@@ -1,3 +1,5 @@
+"use server";
+
 import { JWT } from "google-auth-library";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import type { EventSubmissionFormValues } from "./forms-config";

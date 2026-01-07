@@ -131,6 +131,8 @@ export function MonthEventBadge({
         className={cn(
           eventBadgeClasses,
           hoveredEventId === event.id && "brightness-90",
+          event.highlight &&
+            "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-900",
         )}
         onKeyDown={handleKeyDown}
         onMouseEnter={() => setHoveredEventId(event.id)}
