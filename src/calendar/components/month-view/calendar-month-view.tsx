@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 import { useMemo } from "react";
 
 import { useCalendar } from "@/calendar/contexts/calendar-context";
@@ -39,11 +41,14 @@ export function CalendarMonthView({ singleDayEvents, multiDayEvents }: IProps) {
   return (
     <Card className="bg-linear-to-br from-green-50/50 to-white dark:from-green-950/20 dark:to-background border-green-200/50 dark:border-green-800/50 py-0 h-full">
       <CardContent className="p-6">
-        <div className="grid grid-cols-7 divide-x">
-          {WEEK_DAYS.map((day) => (
+        <div className="grid grid-cols-7">
+          {WEEK_DAYS.map((day, index) => (
             <div
               key={day}
-              className="flex items-center justify-center py-2 text-xs font-semibold text-green-600 dark:text-green-400"
+              className={cn(
+                "flex items-center justify-center py-2 text-xs font-semibold text-green-600 dark:text-green-400",
+                index !== 0 && "border-l",
+              )}
             >
               <span>{day}</span>
             </div>

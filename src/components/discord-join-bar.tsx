@@ -9,7 +9,7 @@ export function DiscordJoinBar() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const dismissed = sessionStorage.getItem("discord-bar-dismissed");
+    const dismissed = localStorage.getItem("discord-bar-dismissed");
     if (dismissed !== "true") {
       setIsVisible(true);
     }
@@ -17,7 +17,7 @@ export function DiscordJoinBar() {
 
   const handleDismiss = () => {
     setIsVisible(false);
-    sessionStorage.setItem("discord-bar-dismissed", "true");
+    localStorage.setItem("discord-bar-dismissed", "true");
   };
 
   if (!isVisible) {
