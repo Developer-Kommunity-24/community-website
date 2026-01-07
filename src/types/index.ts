@@ -1,5 +1,14 @@
 import type { iconsMap } from "@/constants";
 
+export type TEventColor =
+  | "blue"
+  | "green"
+  | "red"
+  | "yellow"
+  | "purple"
+  | "orange"
+  | "gray";
+
 export interface CommunityRepresentative {
   name: string;
   role: string;
@@ -26,7 +35,8 @@ export interface Testimonial {
 export interface Event {
   id: string;
   title: string;
-  date: string;
+  startDateTime: string;
+  endDateTime: string;
   time: string;
   location: string;
   description: string;
@@ -35,4 +45,5 @@ export interface Event {
   icon: keyof typeof iconsMap;
   highlight: boolean;
   youtubeLink?: string;
+  color?: TEventColor;
 }

@@ -31,9 +31,6 @@ const UpcomingEventsClient = ({
             </span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-gray-200">
-            {isUpcoming ? "Upcoming Events" : "Past Events"}
-          </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed mb-8">
             Join us for workshops, hackathons, and community gatherings
           </p>

@@ -22,7 +22,7 @@ export function EventCard({ event }: EventCardProps) {
                 <Calendar className="h-4 w-4 text-green-600 dark:text-green-400" />
               </div>
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                {event?.date}
+                {event?.startDateTime}
               </span>
             </div>
             {event?.time && (

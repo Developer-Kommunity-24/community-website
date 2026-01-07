@@ -65,7 +65,7 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                     variant="outline"
                     className="mb-3 bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700 text-green-700 dark:text-green-300"
                   >
-                    {event.date}
+                    {event.startDateTime}
                   </Badge>
                   <Link href={`/events/${event.id}`}>
                     <Card
@@ -85,9 +85,9 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                         >
                           {event.title}
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        <div className="text-gray-600 dark:text-gray-400 leading-relaxed">
                           {event.description}
-                        </p>
+                        </div>
 
                         {/* Subtle accent line */}
                         <div

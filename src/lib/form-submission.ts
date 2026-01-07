@@ -1,28 +1,19 @@
 "use server";
-
-import { JWT } from "google-auth-library";
-import { GoogleSpreadsheet } from "google-spreadsheet";
-import type { CollegeFormValues, IndividualFormValues } from "./forms-config";
-
-const serviceAccountAuth = new JWT({
-  email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-  key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-});
+import type {
+  CollegeFormValues,
+  EventSubmissionFormValues,
+  IndividualFormValues,
+} from "@/lib/forms-config";
 
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
-if (!WEBHOOK_URL) throw new Error("WEBHOOK_URL not set");
-
-// const doc = new GoogleSpreadsheet(
-//   process.env.GOOGLE_SHEET_ID ?? "",
-//   serviceAccountAuth,
-// );
 
 export async function submitFormData(
-  name: "individual" | "community",
-  data: IndividualFormValues | CollegeFormValues,
+  name: "individual" | "community" | "event",
+  data: IndividualFormValues | CollegeFormValues | EventSubmissionFormValues,
 ) {
   try {
+    if (!WEBHOOK_URL || !process.env.WEBHOOK_SECRET_KEY)
+      throw new Error("WEBHOOK_URL not set");
     // if (!doc) throw new Error("Doc not found!");
     // await doc.loadInfo();
 
@@ -51,11 +42,11 @@ export async function submitFormData(
       //     "──────────────────────────────",
       // };
 
-      let res = await fetch(WEBHOOK_URL! + "new-applicant", {
+      const res = await fetch(`${WEBHOOK_URL}new-applicant`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Secret-Key": process.env.WEBHOOK_SECRET_KEY!,
+          "X-Secret-Key": process.env.WEBHOOK_SECRET_KEY,
         },
         body: JSON.stringify(data),
       });
@@ -63,7 +54,7 @@ export async function submitFormData(
         console.error(res);
         throw new Error("Error submitting to webhook");
       }
-    } else {
+    } else if (name === "community") {
       // payload = {
       //   content:
       //     "🎉 *New Community Entry Added*\n\n" +
@@ -80,11 +71,24 @@ export async function submitFormData(
       //     "──────────────────────────────",
       // };
 
-      let res = await fetch(WEBHOOK_URL! + "new-college-applicant", {
+      const res = await fetch(`${WEBHOOK_URL}new-college-applicant`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Secret-Key": process.env.WEBHOOK_SECRET_KEY!,
+          "X-Secret-Key": process.env.WEBHOOK_SECRET_KEY,
+        },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        console.error(res);
+        throw new Error("Error submitting to webhook");
+      }
+    } else if (name === "event") {
+      const res = await fetch(`${WEBHOOK_URL}new-event`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Secret-Key": process.env.WEBHOOK_SECRET_KEY,
         },
         body: JSON.stringify(data),
       });

@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { events } from "@/constants/events";
+import { getEvents } from "@/lib/get-events";
 
 export async function generateStaticParams() {
+  const events = await getEvents();
   return events.map((event) => ({
     id: event.id,
   }));
@@ -49,7 +50,8 @@ async function getEventImages(eventId: string) {
 // biome-ignore lint/suspicious/noExplicitAny: params type is dynamic and handled by Next.js routing
 export async function generateMetadata({ params }: { params: any }) {
   const { id } = await Promise.resolve(params);
-  const e = events.find((x) => x.id === id);
+  const allEvents = await getEvents();
+  const e = allEvents.find((x) => x.id === id);
   if (!e) return {};
 
   const { posterPath, recapPaths } = await getEventImages(id);
@@ -97,14 +99,15 @@ export default async function EventPage({
     notFound();
   }
 
-  const event = events.find((event) => event.id === eventId);
+  const allEvents = await getEvents();
+  const event = allEvents.find((event) => event.id === eventId);
 
   if (!event) {
     notFound();
   }
 
   const { posterPath, recapPaths } = await getEventImages(eventId);
-  const isUpcoming = new Date(event.date) > new Date();
+  const isUpcoming = new Date(event.startDateTime) > new Date();
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl">
@@ -121,7 +124,7 @@ export default async function EventPage({
                     <Calendar className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
                   </div>
                   <span className="text-sm text-gray-700 dark:text-gray-300">
-                    {event?.date}
+                    {event?.startDateTime}
                   </span>
                 </div>
                 {event?.time && (

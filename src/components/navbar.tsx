@@ -1,15 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { CalendarPlus, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { DiscordJoinBar } from "./discord-join-bar";
+import { DiscordJoinBar } from "@/components/discord-join-bar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +41,7 @@ export default function Navbar() {
     { href: "/about", label: "About" },
     { href: "/structure", label: "Structure" },
     { href: "/communities", label: "Communities" },
-    { href: "/events", label: "Events" },
+    { href: "/events", label: "Calendar" },
     { href: "/projects", label: "Projects" },
   ];
 
@@ -58,7 +57,7 @@ export default function Navbar() {
     >
       <DiscordJoinBar />
       <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-green-500 to-green-400">
               {siteConfig.name}
@@ -82,15 +81,18 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center space-x-4">
-            <ModeToggle />
+          <div className="hidden md:flex items-center space-x-2">
             <Button asChild className="cursor-pointer">
               <Link href="/join">Join Us</Link>
+            </Button>
+            <Button asChild variant={"outline"} className="cursor-pointer">
+              <Link href="/showcase-event">
+                <CalendarPlus />
+              </Link>
             </Button>
           </div>
 
           <div className="flex md:hidden items-center space-x-4 cursor-pointer">
-            <ModeToggle />
             <Button
               className="cursor-pointer"
               variant="ghost"
@@ -133,6 +135,12 @@ export default function Navbar() {
               ))}
               <Button asChild className="w-full mt-2 cursor-pointer">
                 <Link href="/join">Join Us</Link>
+              </Button>
+              <Button
+                asChild
+                className="w-full bg-secondary mt-2 cursor-pointer"
+              >
+                <Link href="/showcase-event">Showcase Event</Link>
               </Button>
             </nav>
           </div>

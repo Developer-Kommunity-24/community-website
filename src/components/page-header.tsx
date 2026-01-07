@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 
 interface PageHeaderProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 }
 
 export function PageHeader({ title, description }: PageHeaderProps) {
