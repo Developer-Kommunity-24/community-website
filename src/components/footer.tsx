@@ -46,7 +46,7 @@ export default function Footer() {
       { href: "/about", label: "About Us" },
       { href: "/structure", label: "Structure" },
       { href: "/communities", label: "Member Communities" },
-      { href: "/events", label: "Events" },
+      { href: "/calendar", label: "Events" },
       { href: "/projects", label: "Projects" },
     ],
     nav: [

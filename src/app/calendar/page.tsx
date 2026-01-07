@@ -7,13 +7,12 @@ import { CalendarProvider } from "@/calendar/contexts/calendar-context";
 import { EventsLoadingSkeleton } from "@/components/events-loading-skeleton";
 
 export const metadata = generatePageMetadata({
-  title: "Events",
-  description:
-    "Discover past and upcoming events from the DK24 community. Join workshops, hackathons, tech talks, and collaborative learning sessions across Mangalore's college tech communities.",
-  path: "/events",
+  title: "Calendar",
+  description: "Discover the events happening in Mangalore.",
+  path: "/calendar",
 });
 
-export default async function EventsPage() {
+export default async function CalendarPage() {
   return (
     <BackgroundPattern variant="default">
       <div className="container mx-auto px-4 py-12 max-w-7xl">

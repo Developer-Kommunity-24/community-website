@@ -45,7 +45,7 @@ const UpcomingEventsClient = ({
 
         <div className="mt-10 text-center">
           <Button variant="link">
-            <Link href={isUpcoming ? "/events" : "/events?tab=past"}>
+            <Link href={isUpcoming ? "/calendar" : "/calendar?tab=past"}>
               View All Events →
             </Link>
           </Button>

@@ -41,7 +41,7 @@ export default function Navbar() {
     { href: "/about", label: "About" },
     { href: "/structure", label: "Structure" },
     { href: "/communities", label: "Communities" },
-    { href: "/events", label: "Calendar" },
+    { href: "/calendar", label: "Calendar" },
     { href: "/projects", label: "Projects" },
   ];
 

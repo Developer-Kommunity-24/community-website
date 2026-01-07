@@ -27,7 +27,7 @@ async function getEventImages(eventId: string) {
       const extension = path.extname(file);
       const basename = path.basename(file, extension);
       if (basename === eventId) {
-        posterPath = `/events/posters/${file}`;
+        posterPath = `/calendar/posters/${file}`;
         break;
       }
     }
@@ -36,7 +36,7 @@ async function getEventImages(eventId: string) {
       await fs.access(recapsDir);
       const recapFiles = await fs.readdir(recapsDir);
       for (const file of recapFiles) {
-        recapPaths.push(`/events/${eventId}/${file}`);
+        recapPaths.push(`/calendar/${eventId}/${file}`);
       }
     } catch {}
   } catch (error) {
@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: { params: any }) {
       ],
       type: "website",
       siteName: "DK24",
-      url: `/events/${id}`,
+      url: `/calendar/${id}`,
     },
     twitter: {
       card: "summary_large_image",
