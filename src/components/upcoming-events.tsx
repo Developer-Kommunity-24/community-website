@@ -1,22 +1,3 @@
-import { Suspense } from "react";
-import { getEvents } from "@/lib/get-events";
-import UpcomingEventsClient from "./upcoming-events-client";
-
-export async function UpcomingEvents() {
-  const events = await getEvents();
-
-  const upcomingEvents = events.filter((e) => new Date(e.date) > new Date());
-  const pastEvents = events
-    .filter((e) => new Date(e.date) <= new Date())
-    .slice(-3)
-    .reverse();
-
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <UpcomingEventsClient
-        upcomingEvents={upcomingEvents}
-        pastEvents={pastEvents}
-      />
-    </Suspense>
-  );
+export function UpcomingEvents() {
+  return <div></div>;
 }

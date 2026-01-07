@@ -1,25 +1,11 @@
 "use server";
-
-// import { JWT } from "google-auth-library";
-// import { GoogleSpreadsheet } from "google-spreadsheet";
 import type {
   CollegeFormValues,
   EventSubmissionFormValues,
   IndividualFormValues,
 } from "./forms-config";
 
-// const serviceAccountAuth = new JWT({
-//   email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-//   key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-//   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-// });
-
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
-
-// const doc = new GoogleSpreadsheet(
-//   process.env.GOOGLE_SHEET_ID ?? "",
-//   serviceAccountAuth,
-// );
 
 export async function submitFormData(
   name: "individual" | "community" | "event",
