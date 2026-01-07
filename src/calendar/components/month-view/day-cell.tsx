@@ -1,9 +1,5 @@
 import { useMemo } from "react";
-import { useRouter } from "next/navigation";
 import { isToday, startOfDay } from "date-fns";
-
-import { useCalendar } from "@/calendar/contexts/calendar-context";
-
 import { MonthEventBadge } from "@/calendar/components/month-view/month-event-badge";
 
 import { cn } from "@/lib/utils";
@@ -20,9 +16,6 @@ interface IProps {
 const MAX_VISIBLE_EVENTS = 2;
 
 export function DayCell({ cell, events, eventPositions }: IProps) {
-  const { push } = useRouter();
-  const { setSelectedDate } = useCalendar();
-
   const { day, currentMonth, date } = cell;
 
   const cellEvents = useMemo(
@@ -30,11 +23,6 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
     [date, events, eventPositions],
   );
   const isSunday = date.getDay() === 0;
-
-  const handleClick = () => {
-    setSelectedDate(date);
-    push(`/day-view?date=${date.toISOString()}`);
-  };
 
   return (
     <div
@@ -45,7 +33,6 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
     >
       <button
         type="button"
-        onClick={handleClick}
         className={cn(
           "cursor-pointer",
           "flex size-6 translate-x-1 items-center justify-center rounded-full text-xs font-semibold hover:bg-green-50 dark:hover:bg-green-900/20 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring lg:px-2",

@@ -1,4 +1,4 @@
-import { CalendarDays } from "lucide-react";
+import { Calendar } from "lucide-react";
 import Link from "next/link";
 import { EventCard } from "@/components/event-card";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ const UpcomingEventsClient = ({
         {/* Header Section */}
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-900/20 border border-green-100 dark:border-green-800/50 mb-5">
-            <CalendarDays className="h-3.5 w-3.5 text-green-500 dark:text-green-400" />
+            <Calendar className="h-3.5 w-3.5 text-green-500 dark:text-green-400" />
             <span className="text-xs font-medium text-green-600 dark:text-green-300">
               Events
             </span>

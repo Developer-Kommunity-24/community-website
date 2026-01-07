@@ -1,7 +1,6 @@
 import { BackgroundPattern } from "@/components/background-pattern";
 import { HeroSection } from "@/components/hero-section";
 import { TeamModelSection } from "@/components/team-model-section";
-import { UpcomingEvents } from "@/components/upcoming-events";
 import { VisionSection } from "@/components/vision-section";
 import { generatePageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
@@ -19,9 +18,6 @@ export default function Home() {
         <HeroSection />
         <VisionSection />
         <TeamModelSection />
-        {/* <FeaturedProjects /> */}
-        <UpcomingEvents />
-        {/* <Testimonials /> */}
       </div>
     </BackgroundPattern>
   );

@@ -47,7 +47,6 @@ async function getEventImages(eventId: string) {
 }
 
 // biome-ignore lint/suspicious/noExplicitAny: params type is dynamic and handled by Next.js routing
-// biome-ignore lint/suspicious/noExplicitAny: params type is dynamic and handled by Next.js routing
 export async function generateMetadata({ params }: { params: any }) {
   const { id } = await Promise.resolve(params);
   const allEvents = await getEvents();

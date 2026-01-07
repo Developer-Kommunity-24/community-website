@@ -55,7 +55,7 @@ export function EventSubmissionForm() {
   });
 
   const formatDateTimeLocal = (d: Date) => {
-    return format(d, "yyyy-MM-dd'T'HH:mm");
+    return format(d, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
   };
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: only run on mount

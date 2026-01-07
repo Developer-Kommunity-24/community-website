@@ -1,11 +1,10 @@
 "use client";
 
-import { differenceInDays, format, parseISO } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Clock, MapPin } from "lucide-react";
 
 import { EventDetailsDialog } from "@/calendar/components/dialogs/event-details-dialog";
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 import type { IEvent } from "@/calendar/interfaces";
@@ -13,9 +12,10 @@ import { cn, sanitizeTag } from "@/lib/utils";
 
 interface IProps {
   event: IEvent;
+  className?: string;
 }
 
-export function AgendaEventCard({ event }: IProps) {
+export function AgendaEventCard({ event, className }: IProps) {
   const startDate = parseISO(event.startDateTime);
   const endDate = parseISO(event.endDateTime);
 
@@ -28,28 +28,26 @@ export function AgendaEventCard({ event }: IProps) {
       ? startDay
       : `${startDay}-${isSameMonth ? endDay : format(endDate, "MMM d")}`;
 
-  const durationInDays = differenceInDays(endDate, startDate) + 1;
-
   return (
     <EventDetailsDialog event={event}>
-      <Card
+      <div
         className={cn(
           "group relative flex cursor-pointer overflow-hidden border transition-all hover:shadow-md hover:border-primary/50",
-          "hover:bg-accent/5",
+          "hover:bg-accent/5 rounded-lg",
+          className,
         )}
       >
         <div className="flex w-full flex-row">
           {/* Date Badge Section */}
-          <div className="flex w-24 flex-col items-center justify-center border-r bg-muted/30 p-4 text-center">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              {startMonth}
-            </span>
-            <span className="text-xl font-bold text-foreground">
-              {dateRange}
-            </span>
-            <span className="mt-1 text-[10px] font-medium text-muted-foreground">
-              {durationInDays > 1 ? `${durationInDays} Days` : "1 Day"}
-            </span>
+          <div className="h-full flex justify-center items-center">
+            <div className="m-1 flex w-24 h-24 flex-col items-center justify-center bg-background text-center rounded-lg border overflow-hidden">
+              <span className="flex h-6 w-full items-center justify-center bg-primary text-center text-xs font-semibold text-primary-foreground">
+                {startMonth}
+              </span>
+              <span className="flex w-full items-center justify-center text-xl font-bold text-foreground p-2">
+                {dateRange}
+              </span>
+            </div>
           </div>
 
           {/* Content Section */}
@@ -100,7 +98,7 @@ export function AgendaEventCard({ event }: IProps) {
             </div>
           </div>
         </div>
-      </Card>
+      </div>
     </EventDetailsDialog>
   );
 }

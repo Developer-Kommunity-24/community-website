@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -41,10 +42,10 @@ export function EventDetailsDialog({ event, children }: IProps) {
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
 
-      <DialogContent className="max-w-4xl p-0 max-h-[85vh] flex flex-col">
-        <div className="grid flex-1 overflow-auto w-full grid-cols-1 md:grid-cols-5">
+      <DialogContent className="p-4 max-h-[90vh] max-w-[90vw] md:max-w-7xl flex flex-col gap-4">
+        <div className="grid flex-1 overflow-auto w-full grid-cols-1 md:grid-cols-5 gap-6 p-4">
           {/* Left Side: Image */}
-          <div className="relative h-64 w-full bg-muted/30 overflow-hidden md:col-span-2 md:h-full flex items-center justify-center p-4">
+          <div className="relative h-64 w-full bg-muted/30 overflow-hidden md:col-span-2 md:h-full flex items-center justify-center p-4 rounded-lg">
             {event.posterUrl ? (
               <>
                 {/* Blurred Background */}
@@ -64,22 +65,22 @@ export function EventDetailsDialog({ event, children }: IProps) {
                 </div>
               </>
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-primary/10 p-6 text-center">
+              <div className="flex h-full w-full items-center justify-center bg-primary/10 p-6 text-center rounded-lg">
                 <span className="text-muted-foreground">No Event Poster</span>
               </div>
             )}
           </div>
 
           {/* Right Side: Details */}
-          <div className="flex flex-col md:col-span-3 h-full bg-background">
-            <DialogHeader className="p-6 pb-2">
+          <div className="flex flex-col md:col-span-3 h-full bg-background gap-4">
+            <DialogHeader className="p-0">
               <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <DialogTitle className="text-2xl font-bold leading-tight">
+                <div className="space-y-2">
+                  <DialogTitle className="text-3xl font-bold leading-tight">
                     {event.title}
                   </DialogTitle>
                   {event.organizationName && (
-                    <div className="text-base text-muted-foreground">
+                    <div className="text-lg text-muted-foreground">
                       Hosted by {event.organizationName}
                       {event.highlight && (
                         <Badge
@@ -98,11 +99,11 @@ export function EventDetailsDialog({ event, children }: IProps) {
 
             <Separator />
 
-            <ScrollArea className="flex-1 p-6">
-              <div className="space-y-8">
+            <ScrollArea className="flex-1 pr-4 -mr-4">
+              <div className="space-y-6">
                 {/* Event Tags */}
                 {event.tags && event.tags.length > 0 && (
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <h4 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
                       Tags
                     </h4>
@@ -111,7 +112,7 @@ export function EventDetailsDialog({ event, children }: IProps) {
                         <Badge
                           key={String(tag)}
                           variant="secondary"
-                          className="px-2 py-0.5 text-xs"
+                          className="px-2.5 py-1 text-sm"
                         >
                           {sanitizeTag(tag)}
                         </Badge>
@@ -122,34 +123,34 @@ export function EventDetailsDialog({ event, children }: IProps) {
 
                 {/* Date & Time */}
                 <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-1">
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2 text-muted-foreground">
-                      <Calendar className="size-4" />
-                      <span className="text-xs font-medium uppercase tracking-wider">
+                      <Calendar className="size-5" />
+                      <span className="text-sm font-medium uppercase tracking-wider">
                         Start
                       </span>
                     </div>
                     <div>
-                      <p className="font-semibold text-foreground">
+                      <p className="font-semibold text-foreground text-lg">
                         {format(startDateTime, "MMM d, yyyy")}
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-md text-muted-foreground">
                         {format(startDateTime, "h:mm a")}
                       </p>
                     </div>
                   </div>
-                  <div className="space-y-1">
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2 text-muted-foreground">
-                      <Clock className="size-4" />
-                      <span className="text-xs font-medium uppercase tracking-wider">
+                      <Clock className="size-5" />
+                      <span className="text-sm font-medium uppercase tracking-wider">
                         End
                       </span>
                     </div>
                     <div>
-                      <p className="font-semibold text-foreground">
+                      <p className="font-semibold text-foreground text-lg">
                         {format(endDateTime, "MMM d, yyyy")}
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-md text-muted-foreground">
                         {format(endDateTime, "h:mm a")}
                       </p>
                     </div>
@@ -157,40 +158,36 @@ export function EventDetailsDialog({ event, children }: IProps) {
                 </div>
 
                 {/* Location */}
-                <div className="space-y-1">
+                <div className="space-y-2">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <MapPin className="size-4" />
-                    <span className="text-xs font-medium uppercase tracking-wider">
+                    <MapPin className="size-5" />
+                    <span className="text-sm font-medium uppercase tracking-wider">
                       Location
                     </span>
                   </div>
-                  <p className="font-medium">{event.location}</p>
+                  <p className="font-medium text-lg">{event.location}</p>
                 </div>
 
                 {/* Description */}
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                    About Event
-                  </h4>
-                  <div className="prose prose-sm dark:prose-invert text-sm leading-relaxed text-muted-foreground">
-                    {event.description.split("\n").map((line, i) => (
-                      <div key={i} className="mb-2 last:mb-0">
-                        {line}
-                      </div>
-                    ))}
+                <DialogDescription asChild>
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                      About Event
+                    </h4>
+                    <div className="prose prose-base dark:prose-invert leading-relaxed text-muted-foreground">
+                      {event.description.split("\n").map((line, i) => (
+                        <p key={i}>{line}</p>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </DialogDescription>
               </div>
             </ScrollArea>
-
-            <Separator />
           </div>
         </div>
 
-        <Separator />
-
-        <DialogFooter className="bg-muted/10 p-6">
-          <div className="flex w-full flex-col gap-2 sm:flex-row sm:justify-end">
+        <DialogFooter className="bg-muted/30 p-4 border-t">
+          <div className="flex w-full flex-col gap-3 sm:flex-row sm:justify-end">
             {event.youtubeLink && (
               <Link
                 href={event.youtubeLink}
@@ -200,9 +197,9 @@ export function EventDetailsDialog({ event, children }: IProps) {
               >
                 <Button
                   variant="outline"
-                  className="w-full sm:w-auto cursor-pointer"
+                  className="w-full sm:w-auto cursor-pointer text-base"
                 >
-                  <Youtube className="mr-2 size-4 text-red-600" />
+                  <Youtube className="mr-2 size-5 text-red-600" />
                   Watch Recording
                 </Button>
               </Link>
@@ -214,8 +211,8 @@ export function EventDetailsDialog({ event, children }: IProps) {
                 rel="noopener noreferrer"
                 className="cursor-pointer"
               >
-                <Button className="w-full sm:w-auto cursor-pointer">
-                  <LinkIcon className="mr-2 size-4" />
+                <Button className="w-full sm:w-auto cursor-pointer text-base">
+                  <LinkIcon className="mr-2 size-5" />
                   Visit Website
                 </Button>
               </Link>
@@ -227,7 +224,10 @@ export function EventDetailsDialog({ event, children }: IProps) {
                 rel="noopener noreferrer"
                 className="cursor-pointer"
               >
-                <Button className="w-full sm:w-auto cursor-pointer">
+                <Button
+                  variant="ghost"
+                  className="w-full border-2 sm:w-auto cursor-pointer text-base"
+                >
                   Register Now
                 </Button>
               </Link>

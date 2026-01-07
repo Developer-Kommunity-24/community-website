@@ -138,6 +138,7 @@ export function MonthEventBadge({
         onKeyDown={handleKeyDown}
         onMouseEnter={() => setHoveredEventId(event.id)}
         onMouseLeave={() => setHoveredEventId(null)}
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-1.5 truncate">
           {!["middle", "last"].includes(position) &&

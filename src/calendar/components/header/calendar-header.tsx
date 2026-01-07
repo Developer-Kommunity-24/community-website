@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Calendar, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-
-import { TodayButton } from "@/calendar/components/header/today-button";
 import { DateNavigator } from "@/calendar/components/header/date-navigator";
 
 import type { IEvent } from "@/calendar/interfaces";
@@ -18,7 +16,7 @@ export function CalendarHeader({ view, events }: IProps) {
   return (
     <div className="flex flex-col gap-4 border-b p-4 lg:flex-row lg:items-center lg:justify-between">
       <div className="flex items-center gap-3">
-        <TodayButton />
+        <Calendar className="h-12 w-12" />
         <DateNavigator view={view} events={events} />
       </div>
 

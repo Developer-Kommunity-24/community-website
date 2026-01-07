@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Plus, Calendar } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ClientContainer } from "@/calendar/components/client-container";
@@ -19,7 +19,13 @@ export function EventsTabs() {
           <Tabs defaultValue="month" className="w-full">
             <div className="flex items-center justify-between mb-4">
               <TabsList className="bg-muted/50">
-                <TabsTrigger value="agenda">Agenda</TabsTrigger>
+                <TabsTrigger
+                  value="agenda"
+                  className="inline-flex items-center gap-1"
+                >
+                  <Calendar className="h-4 w-4" />
+                  Agenda
+                </TabsTrigger>
                 <TabsTrigger value="month">Month</TabsTrigger>
               </TabsList>
               <Link href="/showcase-event">
@@ -30,7 +36,7 @@ export function EventsTabs() {
               </Link>
             </div>
             <TabsContent value="agenda" className="mt-0">
-              <ClientContainer view="agenda" hideHeader={false} />
+              <ClientContainer view="agenda" />
             </TabsContent>
             <TabsContent value="month" className="mt-0">
               <ClientContainer view="month" hideHeader={false} />
