@@ -12,7 +12,7 @@ import type { IEvent } from "@/calendar/interfaces";
 import type { VariantProps } from "class-variance-authority";
 
 const eventBadgeVariants = cva(
-  "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
+  "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 whitespace-nowrap rounded-md border px-2 text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
   {
     variants: {
       color: {
@@ -123,6 +123,36 @@ export function MonthEventBadge({
     }
   };
 
+  const fromColorClass = {
+    blue: "from-blue-50",
+    green: "from-green-50",
+    red: "from-red-50",
+    yellow: "from-yellow-50",
+    purple: "from-purple-50",
+    orange: "from-orange-50",
+    gray: "from-neutral-100",
+  }[event.color ?? "green"];
+
+  const darkFromColorClass = {
+    blue: "dark:from-blue-950",
+    green: "dark:from-green-950",
+    red: "dark:from-red-950",
+    yellow: "dark:from-yellow-950",
+    purple: "dark:from-purple-950",
+    orange: "dark:from-orange-950",
+    gray: "dark:from-neutral-900",
+  }[event.color ?? "green"];
+
+  let gradientFromClass = `${fromColorClass} ${darkFromColorClass}`;
+
+  if (badgeVariant === "dot") {
+    gradientFromClass = "from-neutral-50 dark:from-neutral-900";
+  }
+
+  if (event.highlight) {
+    gradientFromClass = "from-green-100 dark:from-green-900";
+  }
+
   return (
     <EventDetailsDialog event={event}>
       {/* biome-ignore lint/a11y/useSemanticElements: The text ellipsis is not working with button element */}
@@ -131,6 +161,7 @@ export function MonthEventBadge({
         tabIndex={0}
         className={cn(
           eventBadgeClasses,
+          "relative",
           hoveredEventId === event.id && "brightness-90",
           event.highlight &&
             "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-900",
@@ -140,7 +171,7 @@ export function MonthEventBadge({
         onMouseLeave={() => setHoveredEventId(null)}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-1.5 truncate">
+        <div className="flex items-center gap-1.5 overflow-hidden">
           {!["middle", "last"].includes(position) &&
             ["mixed", "dot"].includes(badgeVariant) && (
               <svg
@@ -155,19 +186,28 @@ export function MonthEventBadge({
             )}
 
           {renderBadgeText && (
-            <p className="truncate font-semibold block items-center gap-1">
+            <p className="block items-center gap-1 font-semibold">
               {event.highlight && (
-                <Star className="size-3 fill-yellow-400 text-yellow-500 shrink-0" />
+                <Star className="size-3 shrink-0 fill-yellow-400 text-yellow-500 absolute top-[-5px] left-[-4px]" />
               )}
-              {eventCurrentDay && (
+              {/* {eventCurrentDay && (
                 <span className="text-xs">
                   Day {eventCurrentDay} of {eventTotalDays} •{" "}
                 </span>
-              )}
+              )} */}
               {event.title}
             </p>
           )}
         </div>
+        {renderBadgeText && (
+          <div
+            className={cn(
+              "absolute inset-y-0 right-0 w-12 bg-gradient-to-l to-transparent",
+              position === "none" ? "rounded-md" : "",
+              gradientFromClass,
+            )}
+          />
+        )}
       </div>
     </EventDetailsDialog>
   );

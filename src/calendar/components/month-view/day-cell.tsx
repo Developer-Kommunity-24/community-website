@@ -63,7 +63,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
             <div key={eventKey} className="lg:flex-1 w-full">
               {event && (
                 <MonthEventBadge
-                  className="w-full"
+                  // className="w-full"
                   event={event}
                   cellDate={startOfDay(date)}
                 />
