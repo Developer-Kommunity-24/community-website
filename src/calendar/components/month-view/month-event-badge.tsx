@@ -155,7 +155,7 @@ export function MonthEventBadge({
             )}
 
           {renderBadgeText && (
-            <p className="flex-1 truncate font-semibold flex items-center gap-1">
+            <p className="truncate font-semibold block items-center gap-1">
               {event.highlight && (
                 <Star className="size-3 fill-yellow-400 text-yellow-500 shrink-0" />
               )}
