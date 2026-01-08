@@ -49,7 +49,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
 
       <div
         className={cn(
-          "flex min-h-10 flex-col gap-1 px-1 lg:h-15.5 lg:gap-2 lg:px-0",
+          "flex min-h-10 flex-col gap-1 lg:h-15.5 lg:gap-2 px-0",
           !currentMonth && "opacity-50",
         )}
       >
