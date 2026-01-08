@@ -16,12 +16,15 @@ export const metadata = generatePageMetadata({
 export default async function CalendarPage({
   searchParams,
 }: {
-  searchParams?: { date?: string };
+  searchParams?: Promise<{ date?: string }>;
 }) {
   let initialDate: Date;
+  let awaitedSearchParams = await searchParams;
 
-  if (searchParams?.date) {
-    const [monthStr, yearStr] = searchParams.date.toLowerCase().split("-");
+  if (awaitedSearchParams?.date) {
+    const [monthStr, yearStr] = awaitedSearchParams.date
+      .toLowerCase()
+      .split("-");
     const monthIndex = monthMap[monthStr];
     const year = yearStr ? parseInt(yearStr, 10) : NaN;
 
