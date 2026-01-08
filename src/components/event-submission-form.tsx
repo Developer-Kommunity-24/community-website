@@ -102,6 +102,8 @@ export function EventSubmissionForm() {
     try {
       const payload = {
         ...data,
+        startDateTime: `${data.startDateTime}:00+05:30`,
+        endDateTime: `${data.endDateTime}:00+05:30`,
         isEmailVerified: false,
       };
 
@@ -188,7 +190,9 @@ export function EventSubmissionForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <Label htmlFor="startDateTime">Start Date & Time *</Label>
+                <Label htmlFor="startDateTime">
+                  Start Date & Time * (IST, +5:30)
+                </Label>
                 <Controller
                   name="startDateTime"
                   control={control}
@@ -223,7 +227,9 @@ export function EventSubmissionForm() {
               </div>
 
               <div className="space-y-4">
-                <Label htmlFor="endDateTime">End Date & Time *</Label>
+                <Label htmlFor="endDateTime">
+                  End Date & Time * (IST, +5:30)
+                </Label>
                 <Controller
                   name="endDateTime"
                   control={control}
