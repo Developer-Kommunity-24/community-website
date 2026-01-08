@@ -29,7 +29,8 @@ export async function getEvents(
   const rows = await sheet.getRows();
   const res: IEvent[] = rows
     .map((row): IEvent | null => {
-      const eventData = row.toObject() as unknown as EventSubmissionFormValues;
+      const eventData =
+        row.toObject() as unknown as EventSubmissionFormValues & { ID: string };
       const isDK24 = eventData.organizationName === "DK24";
 
       const startDateTime = new Date(eventData.startDateTime);
@@ -43,7 +44,7 @@ export async function getEvents(
       }
 
       return {
-        id: row.rowNumber.toString(), // Using row number as a simple ID
+        id: eventData.ID,
         title: eventData.eventName,
         startDateTime: startDateTime.toISOString(),
         endDateTime: endDateTime.toISOString(),

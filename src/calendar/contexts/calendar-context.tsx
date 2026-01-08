@@ -8,8 +8,10 @@ import {
   useCallback,
 } from "react";
 import { format, startOfMonth, endOfMonth } from "date-fns";
+import { useSearchParams } from "next/navigation";
 
 import { getEvents } from "@/lib/get-events";
+import { monthMap } from "@/calendar/helpers";
 
 import type { Dispatch, SetStateAction } from "react";
 import type { IEvent } from "@/calendar/interfaces";
@@ -48,26 +50,47 @@ const WORKING_HOURS = {
 
 const VISIBLE_HOURS = { from: 7, to: 18 };
 
-export function CalendarProvider({ children }: { children: React.ReactNode }) {
+export function CalendarProvider({
+  children,
+  initialDate,
+}: {
+  children: React.ReactNode;
+  initialDate?: Date;
+}) {
+  const searchParams = useSearchParams();
   const [badgeVariant, setBadgeVariant] = useState<TBadgeVariant>("colored");
   const [visibleHours, setVisibleHours] =
     useState<TVisibleHours>(VISIBLE_HOURS);
   const [workingHours, setWorkingHours] =
     useState<TWorkingHours>(WORKING_HOURS);
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(initialDate || new Date());
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
   const [eventsCache, setEventsCache] = useState<Map<string, IEvent[]>>(
     new Map(),
   );
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const dateParam = searchParams.get("date");
+    if (dateParam) {
+      const [monthStr, yearStr] = dateParam.toLowerCase().split("-");
+      const monthIndex = monthMap[monthStr];
+      const year = yearStr ? parseInt(yearStr, 10) : NaN;
+
+      if (monthIndex !== undefined && !isNaN(year)) {
+        const newDate = new Date(year, monthIndex, 1);
+        setSelectedDate(newDate);
+      }
+    }
+  }, [searchParams]);
+
   const fetchEventsForMonth = useCallback(
     async (date: Date) => {
       const monthKey = format(date, "yyyy-MM");
       if (eventsCache.has(monthKey)) {
         setIsLoading(false);
-        return eventsCache.get(monthKey);
+        return;
       }
 
       setIsLoading(true);
@@ -76,7 +99,7 @@ export function CalendarProvider({ children }: { children: React.ReactNode }) {
       const fetchedEvents = await getEvents(monthStart, monthEnd);
       setEventsCache((prev) => new Map(prev).set(monthKey, fetchedEvents));
       setIsLoading(false);
-      return fetchedEvents;
+      return;
     },
     [eventsCache],
   );
