@@ -19,7 +19,7 @@ export default async function CalendarPage({
   searchParams?: Promise<{ date?: string }>;
 }) {
   let initialDate: Date;
-  let awaitedSearchParams = await searchParams;
+  const awaitedSearchParams = await searchParams;
 
   if (awaitedSearchParams?.date) {
     const [monthStr, yearStr] = awaitedSearchParams.date
@@ -28,7 +28,7 @@ export default async function CalendarPage({
     const monthIndex = monthMap[monthStr];
     const year = yearStr ? parseInt(yearStr, 10) : NaN;
 
-    if (monthIndex !== undefined && !isNaN(year)) {
+    if (monthIndex !== undefined && !Number.isNaN(year)) {
       initialDate = new Date(year, monthIndex, 1);
     } else {
       initialDate = new Date();

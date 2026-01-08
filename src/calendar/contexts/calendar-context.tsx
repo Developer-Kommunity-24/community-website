@@ -78,7 +78,7 @@ export function CalendarProvider({
       const monthIndex = monthMap[monthStr];
       const year = yearStr ? parseInt(yearStr, 10) : NaN;
 
-      if (monthIndex !== undefined && !isNaN(year)) {
+      if (monthIndex !== undefined && !Number.isNaN(year)) {
         const newDate = new Date(year, monthIndex, 1);
         setSelectedDate(newDate);
       }
