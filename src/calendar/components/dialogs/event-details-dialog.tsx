@@ -24,7 +24,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { sanitizeTag } from "@/lib/utils";
+import { cn, sanitizeTag } from "@/lib/utils";
 
 import type { IEvent } from "@/calendar/interfaces";
 
@@ -45,34 +45,33 @@ export function EventDetailsDialog({ event, children }: IProps) {
       <DialogContent className="p-4 max-h-[90vh] max-w-[90vw] md:max-w-7xl flex flex-col gap-4">
         <div className="grid flex-1 overflow-auto w-full grid-cols-1 md:grid-cols-5 gap-6 p-4">
           {/* Left Side: Image */}
-          <div className="relative h-64 w-full bg-muted/30 overflow-hidden md:col-span-2 md:h-full flex items-center justify-center p-4 rounded-lg">
-            {event.posterUrl ? (
-              <>
-                {/* Blurred Background */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center blur-2xl opacity-50 dark:opacity-30 scale-110"
-                  style={{ backgroundImage: `url(${event.posterUrl})` }}
+          {event.posterUrl && (
+            <div className="relative h-64 w-full bg-muted/30 overflow-hidden md:col-span-2 md:h-full flex items-center justify-center p-4 rounded-lg">
+              {/* Blurred Background */}
+              <div
+                className="absolute inset-0 bg-cover bg-center blur-2xl opacity-50 dark:opacity-30 scale-110"
+                style={{ backgroundImage: `url(${event.posterUrl})` }}
+              />
+              {/* Main Image: center vertically and horizontally */}
+              <div className="relative z-10 w-full h-full flex items-center justify-center">
+                <Image
+                  src={event.posterUrl}
+                  alt={event.title}
+                  fill
+                  style={{ objectFit: "contain", objectPosition: "center" }}
+                  className="relative"
                 />
-                {/* Main Image: center vertically and horizontally */}
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  <Image
-                    src={event.posterUrl}
-                    alt={event.title}
-                    fill
-                    style={{ objectFit: "contain", objectPosition: "center" }}
-                    className="relative"
-                  />
-                </div>
-              </>
-            ) : (
-              <div className="flex h-full w-full items-center justify-center bg-primary/10 p-6 text-center rounded-lg">
-                <span className="text-muted-foreground">No Event Poster</span>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Right Side: Details */}
-          <div className="flex flex-col md:col-span-3 h-full bg-background gap-4">
+          <div
+            className={cn(
+              "flex flex-col h-full bg-background gap-4",
+              event.posterUrl ? "md:col-span-3" : "md:col-span-5",
+            )}
+          >
             <DialogHeader className="p-0">
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-2">
@@ -171,7 +170,7 @@ export function EventDetailsDialog({ event, children }: IProps) {
                 {/* Description */}
                 <DialogDescription asChild>
                   <div className="space-y-3">
-                    <h4 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                    <h4 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-2">
                       About Event
                     </h4>
                     <div className="prose prose-base dark:prose-invert leading-relaxed text-muted-foreground">
