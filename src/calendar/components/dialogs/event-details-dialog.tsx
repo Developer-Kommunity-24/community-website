@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { format, isPast, parseISO } from "date-fns";
+import { format, formatDate, isPast, parseISO } from "date-fns";
 import {
   Calendar,
   Clock,
@@ -34,7 +34,7 @@ interface IProps {
 }
 
 export function EventDetailsDialog({ event }: IProps) {
-  const { setSelectedEventId } = useCalendar();
+  const { setSelectedEventId, selectedDate } = useCalendar();
   const [copied, setCopied] = useState(false);
 
   if (!event) return null;
@@ -44,7 +44,12 @@ export function EventDetailsDialog({ event }: IProps) {
   const isEventPast = isPast(endDateTime);
 
   const handleCopyUrl = () => {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(
+      `${window.location.origin}${window.location.pathname}?date=${formatDate(
+        selectedDate,
+        "MMM-yyyy",
+      ).toLowerCase()}&eventId=${event.id}`,
+    );
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
