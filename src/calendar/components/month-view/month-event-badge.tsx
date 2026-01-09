@@ -4,15 +4,13 @@ import { Star } from "lucide-react";
 
 import { useCalendar } from "@/calendar/contexts/calendar-context";
 
-import { EventDetailsDialog } from "@/calendar/components/dialogs/event-details-dialog";
-
 import { cn } from "@/lib/utils";
 
 import type { IEvent } from "@/calendar/interfaces";
 import type { VariantProps } from "class-variance-authority";
 
 const eventBadgeVariants = cva(
-  "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 truncate whitespace-nowrap rounded-md border px-2 text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
+  "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 whitespace-nowrap rounded-md border px-2 text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
   {
     variants: {
       color: {
@@ -81,7 +79,12 @@ export function MonthEventBadge({
   className,
   position: propPosition,
 }: IProps) {
-  const { badgeVariant, hoveredEventId, setHoveredEventId } = useCalendar();
+  const {
+    badgeVariant,
+    hoveredEventId,
+    setHoveredEventId,
+    setSelectedEventId,
+  } = useCalendar();
 
   const itemStart = startOfDay(parseISO(event.startDateTime));
   const itemEnd = endOfDay(parseISO(event.endDateTime));
@@ -123,52 +126,90 @@ export function MonthEventBadge({
     }
   };
 
-  return (
-    <EventDetailsDialog event={event}>
-      {/* biome-ignore lint/a11y/useSemanticElements: The text ellipsis is not working with button element */}
-      <div
-        role="button"
-        tabIndex={0}
-        className={cn(
-          eventBadgeClasses,
-          hoveredEventId === event.id && "brightness-90",
-          event.highlight &&
-            "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-900",
-        )}
-        onKeyDown={handleKeyDown}
-        onMouseEnter={() => setHoveredEventId(event.id)}
-        onMouseLeave={() => setHoveredEventId(null)}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center gap-1.5 truncate">
-          {!["middle", "last"].includes(position) &&
-            ["mixed", "dot"].includes(badgeVariant) && (
-              <svg
-                width="8"
-                height="8"
-                viewBox="0 0 8 8"
-                className="event-dot shrink-0"
-              >
-                <title>{event.title}</title>
-                <circle cx="4" cy="4" r="4" />
-              </svg>
-            )}
+  const fromColorClass = {
+    blue: "from-blue-50",
+    green: "from-green-50",
+    red: "from-red-50",
+    yellow: "from-yellow-50",
+    purple: "from-purple-50",
+    orange: "from-orange-50",
+    gray: "from-neutral-100",
+  }[event.color ?? "green"];
 
-          {renderBadgeText && (
-            <p className="truncate font-semibold block items-center gap-1">
-              {event.highlight && (
-                <Star className="size-3 fill-yellow-400 text-yellow-500 shrink-0" />
-              )}
-              {eventCurrentDay && (
+  const darkFromColorClass = {
+    blue: "dark:from-blue-950",
+    green: "dark:from-green-950",
+    red: "dark:from-red-950",
+    yellow: "dark:from-yellow-950",
+    purple: "dark:from-purple-950",
+    orange: "dark:from-orange-950",
+    gray: "dark:from-neutral-900",
+  }[event.color ?? "green"];
+
+  let gradientFromClass = `${fromColorClass} ${darkFromColorClass}`;
+
+  if (badgeVariant === "dot") {
+    gradientFromClass = "from-neutral-50 dark:from-neutral-900";
+  }
+
+  if (event.highlight) {
+    gradientFromClass = "from-green-100 dark:from-green-900";
+  }
+
+  return (
+    // biome-ignore lint/a11y/useSemanticElements: The text ellipsis is not working with button element
+    <div
+      role="button"
+      tabIndex={0}
+      className={cn(
+        eventBadgeClasses,
+        "relative",
+        hoveredEventId === event.id && "brightness-90",
+        event.highlight &&
+          "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-900",
+      )}
+      onKeyDown={handleKeyDown}
+      onMouseEnter={() => setHoveredEventId(event.id)}
+      onMouseLeave={() => setHoveredEventId(null)}
+      onClick={() => setSelectedEventId(event.id)}
+    >
+      <div className="flex items-center gap-1.5 overflow-hidden">
+        {!["middle", "last"].includes(position) &&
+          ["mixed", "dot"].includes(badgeVariant) && (
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              className="event-dot shrink-0"
+            >
+              <title>{event.title}</title>
+              <circle cx="4" cy="4" r="4" />
+            </svg>
+          )}
+
+        {renderBadgeText && (
+          <p className="block items-center gap-1 font-semibold">
+            {event.highlight && (
+              <Star className="size-3 shrink-0 fill-yellow-400 text-yellow-500 absolute top-[-5px] left-[-4px]" />
+            )}
+            {/* {eventCurrentDay && (
                 <span className="text-xs">
                   Day {eventCurrentDay} of {eventTotalDays} •{" "}
                 </span>
-              )}
-              {event.title}
-            </p>
-          )}
-        </div>
+              )} */}
+            {event.title}
+          </p>
+        )}
       </div>
-    </EventDetailsDialog>
+      {renderBadgeText && (
+        <div
+          className={cn(
+            "absolute inset-y-0 right-0 w-12 bg-gradient-to-l to-transparent",
+            position === "none" ? "rounded-md" : "",
+            gradientFromClass,
+          )}
+        />
+      )}
+    </div>
   );
 }

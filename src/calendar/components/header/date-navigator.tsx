@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { formatDate } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
 
 import { useCalendar } from "@/calendar/contexts/calendar-context";
 
@@ -18,7 +19,9 @@ interface IProps {
 }
 
 export function DateNavigator({ view, events }: IProps) {
-  const { selectedDate, setSelectedDate } = useCalendar();
+  const { selectedDate } = useCalendar();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const month = formatDate(selectedDate, "MMMM");
   const year = selectedDate.getFullYear();
@@ -28,10 +31,14 @@ export function DateNavigator({ view, events }: IProps) {
     [events, selectedDate, view],
   );
 
-  const handlePrevious = () =>
-    setSelectedDate(navigateDate(selectedDate, view, "previous"));
-  const handleNext = () =>
-    setSelectedDate(navigateDate(selectedDate, view, "next"));
+  const handleNavigation = (direction: "previous" | "next") => {
+    const newDate = navigateDate(selectedDate, view, direction);
+    const newDateStr = formatDate(newDate, "MMM-yyyy").toLowerCase();
+    router.push(`${pathname}?date=${newDateStr}`);
+  };
+
+  const handlePrevious = () => handleNavigation("previous");
+  const handleNext = () => handleNavigation("next");
 
   return (
     <div className="space-y-0.5">
