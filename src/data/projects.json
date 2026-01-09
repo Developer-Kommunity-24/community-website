@@ -111,7 +111,6 @@
     ],
     "categories": ["Tool"]
   },
-
   {
     "id": "The Nagger",
     "title": "Nagger Bot: Your Personal Productivity Bully",
@@ -120,18 +119,15 @@
     "tags": ["Python", "Telegram Bot", "PostgreSQL", "APScheduler", "Asyncpg", "Aiohttp"],
     "github": "https://github.com/Rishi-Bhati/TheNagger",
     "link": "https://t.me/Naggering_Bot", 
-
     "contributors": [
       {
         "kind": "student",
         "name": "Rishi Bhati",
-        "colllege": "NMAM Institute of Technology",
+        "college": "NMAM Institute of Technology",
         "role": "Cyber Security Student"
       }
     ], 
     "categories": ["Bot", "Tool"]
   }
- 
 ]
-
 
