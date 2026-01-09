@@ -10,6 +10,7 @@ import {
   Youtube,
 } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +20,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -27,21 +27,36 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn, sanitizeTag } from "@/lib/utils";
 
 import type { IEvent } from "@/calendar/interfaces";
+import { useCalendar } from "@/calendar/contexts/calendar-context";
 
 interface IProps {
-  event: IEvent;
-  children: React.ReactNode;
+  event?: IEvent;
 }
 
-export function EventDetailsDialog({ event, children }: IProps) {
+export function EventDetailsDialog({ event }: IProps) {
+  const { setSelectedEventId } = useCalendar();
+  const [copied, setCopied] = useState(false);
+
+  if (!event) return null;
+
   const startDateTime = parseISO(event.startDateTime);
   const endDateTime = parseISO(event.endDateTime);
   const isEventPast = isPast(endDateTime);
 
-  return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+  const handleCopyUrl = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
+  const handleOpenChange = (newOpen: boolean) => {
+    if (!newOpen) {
+      setSelectedEventId(undefined);
+    }
+  };
+
+  return (
+    <Dialog open={true} onOpenChange={handleOpenChange}>
       <DialogContent className="p-4 max-h-[90vh] max-w-[90vw] md:max-w-7xl flex flex-col gap-4">
         <div className="grid flex-1 overflow-auto w-full grid-cols-1 md:grid-cols-5 gap-6 p-4">
           {/* Left Side: Image */}
@@ -75,9 +90,22 @@ export function EventDetailsDialog({ event, children }: IProps) {
             <DialogHeader className="p-0">
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-2">
-                  <DialogTitle className="text-3xl font-bold leading-tight">
-                    {event.title}
-                  </DialogTitle>
+                  <div className="flex items-center gap-2">
+                    <DialogTitle className="text-3xl font-bold leading-tight">
+                      {event.title}
+                    </DialogTitle>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={handleCopyUrl}
+                      className="h-8 w-8"
+                    >
+                      <LinkIcon className="h-4 w-4" />
+                    </Button>
+                    {copied && (
+                      <span className="text-sm text-green-500">Copied!</span>
+                    )}
+                  </div>
                   {event.organizationName && (
                     <div className="text-lg text-muted-foreground">
                       Hosted by {event.organizationName}
@@ -92,7 +120,6 @@ export function EventDetailsDialog({ event, children }: IProps) {
                     </div>
                   )}
                 </div>
-                {/* header close removed to avoid duplicate X (global dialog provides close) */}
               </div>
             </DialogHeader>
 

@@ -4,8 +4,6 @@ import { Star } from "lucide-react";
 
 import { useCalendar } from "@/calendar/contexts/calendar-context";
 
-import { EventDetailsDialog } from "@/calendar/components/dialogs/event-details-dialog";
-
 import { cn } from "@/lib/utils";
 
 import type { IEvent } from "@/calendar/interfaces";
@@ -81,7 +79,12 @@ export function MonthEventBadge({
   className,
   position: propPosition,
 }: IProps) {
-  const { badgeVariant, hoveredEventId, setHoveredEventId } = useCalendar();
+  const {
+    badgeVariant,
+    hoveredEventId,
+    setHoveredEventId,
+    setSelectedEventId,
+  } = useCalendar();
 
   const itemStart = startOfDay(parseISO(event.startDateTime));
   const itemEnd = endOfDay(parseISO(event.endDateTime));
@@ -154,61 +157,59 @@ export function MonthEventBadge({
   }
 
   return (
-    <EventDetailsDialog event={event}>
-      {/* biome-ignore lint/a11y/useSemanticElements: The text ellipsis is not working with button element */}
-      <div
-        role="button"
-        tabIndex={0}
-        className={cn(
-          eventBadgeClasses,
-          "relative",
-          hoveredEventId === event.id && "brightness-90",
-          event.highlight &&
-            "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-900",
-        )}
-        onKeyDown={handleKeyDown}
-        onMouseEnter={() => setHoveredEventId(event.id)}
-        onMouseLeave={() => setHoveredEventId(null)}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center gap-1.5 overflow-hidden">
-          {!["middle", "last"].includes(position) &&
-            ["mixed", "dot"].includes(badgeVariant) && (
-              <svg
-                width="8"
-                height="8"
-                viewBox="0 0 8 8"
-                className="event-dot shrink-0"
-              >
-                <title>{event.title}</title>
-                <circle cx="4" cy="4" r="4" />
-              </svg>
-            )}
+    // biome-ignore lint/a11y/useSemanticElements: The text ellipsis is not working with button element
+    <div
+      role="button"
+      tabIndex={0}
+      className={cn(
+        eventBadgeClasses,
+        "relative",
+        hoveredEventId === event.id && "brightness-90",
+        event.highlight &&
+          "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-900",
+      )}
+      onKeyDown={handleKeyDown}
+      onMouseEnter={() => setHoveredEventId(event.id)}
+      onMouseLeave={() => setHoveredEventId(null)}
+      onClick={() => setSelectedEventId(event.id)}
+    >
+      <div className="flex items-center gap-1.5 overflow-hidden">
+        {!["middle", "last"].includes(position) &&
+          ["mixed", "dot"].includes(badgeVariant) && (
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              className="event-dot shrink-0"
+            >
+              <title>{event.title}</title>
+              <circle cx="4" cy="4" r="4" />
+            </svg>
+          )}
 
-          {renderBadgeText && (
-            <p className="block items-center gap-1 font-semibold">
-              {event.highlight && (
-                <Star className="size-3 shrink-0 fill-yellow-400 text-yellow-500 absolute top-[-5px] left-[-4px]" />
-              )}
-              {/* {eventCurrentDay && (
+        {renderBadgeText && (
+          <p className="block items-center gap-1 font-semibold">
+            {event.highlight && (
+              <Star className="size-3 shrink-0 fill-yellow-400 text-yellow-500 absolute top-[-5px] left-[-4px]" />
+            )}
+            {/* {eventCurrentDay && (
                 <span className="text-xs">
                   Day {eventCurrentDay} of {eventTotalDays} •{" "}
                 </span>
               )} */}
-              {event.title}
-            </p>
-          )}
-        </div>
-        {renderBadgeText && (
-          <div
-            className={cn(
-              "absolute inset-y-0 right-0 w-12 bg-gradient-to-l to-transparent",
-              position === "none" ? "rounded-md" : "",
-              gradientFromClass,
-            )}
-          />
+            {event.title}
+          </p>
         )}
       </div>
-    </EventDetailsDialog>
+      {renderBadgeText && (
+        <div
+          className={cn(
+            "absolute inset-y-0 right-0 w-12 bg-gradient-to-l to-transparent",
+            position === "none" ? "rounded-md" : "",
+            gradientFromClass,
+          )}
+        />
+      )}
+    </div>
   );
 }

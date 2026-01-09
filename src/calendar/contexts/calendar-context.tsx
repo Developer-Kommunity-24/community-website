@@ -8,7 +8,7 @@ import {
   useCallback,
 } from "react";
 import { format, startOfMonth, endOfMonth } from "date-fns";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { getEvents } from "@/lib/get-events";
 import { monthMap } from "@/calendar/helpers";
@@ -20,10 +20,13 @@ import type {
   TVisibleHours,
   TWorkingHours,
 } from "@/calendar/types";
+import { EventDetailsDialog } from "../components/dialogs/event-details-dialog";
 
 interface ICalendarContext {
   selectedDate: Date;
   setSelectedDate: (date: Date | undefined) => void;
+  selectedEventId: string | undefined;
+  setSelectedEventId: (id: string | undefined) => void;
   badgeVariant: TBadgeVariant;
   setBadgeVariant: (variant: TBadgeVariant) => void;
   workingHours: TWorkingHours;
@@ -53,11 +56,14 @@ const VISIBLE_HOURS = { from: 7, to: 18 };
 export function CalendarProvider({
   children,
   initialDate,
+  initialEventId,
 }: {
   children: React.ReactNode;
   initialDate?: Date;
+  initialEventId?: string;
 }) {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [badgeVariant, setBadgeVariant] = useState<TBadgeVariant>("colored");
   const [visibleHours, setVisibleHours] =
     useState<TVisibleHours>(VISIBLE_HOURS);
@@ -65,6 +71,7 @@ export function CalendarProvider({
     useState<TWorkingHours>(WORKING_HOURS);
 
   const [selectedDate, setSelectedDate] = useState(initialDate || new Date());
+  const [selectedEventId, setSelectedEventId] = useState(initialEventId);
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
   const [eventsCache, setEventsCache] = useState<Map<string, IEvent[]>>(
     new Map(),
@@ -83,7 +90,24 @@ export function CalendarProvider({
         setSelectedDate(newDate);
       }
     }
+
+    const eventIdParam = searchParams.get("eventId");
+    if (eventIdParam) {
+      setSelectedEventId(eventIdParam);
+    }
   }, [searchParams]);
+
+  useEffect(() => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    if (selectedEventId) {
+      current.set("eventId", selectedEventId);
+    } else {
+      current.delete("eventId");
+    }
+    const search = current.toString();
+    const query = search ? `?${search}` : "";
+    router.replace(`${window.location.pathname}${query}`);
+  }, [selectedEventId, router.replace, searchParams.entries]);
 
   const fetchEventsForMonth = useCallback(
     async (date: Date) => {
@@ -121,6 +145,8 @@ export function CalendarProvider({
       value={{
         selectedDate,
         setSelectedDate: handleSelectDate,
+        selectedEventId,
+        setSelectedEventId,
         badgeVariant,
         setBadgeVariant,
         visibleHours,
@@ -134,6 +160,13 @@ export function CalendarProvider({
       }}
     >
       {children}
+      <EventDetailsDialog
+        event={
+          selectedEventId
+            ? currentMonthEvents.find((e) => e.id === selectedEventId)
+            : undefined
+        }
+      ></EventDetailsDialog>
     </CalendarContext.Provider>
   );
 }

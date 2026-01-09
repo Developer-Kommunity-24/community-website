@@ -16,7 +16,7 @@ export const metadata = generatePageMetadata({
 export default async function CalendarPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ date?: string }>;
+  searchParams?: Promise<{ date?: string; eventId?: string }>;
 }) {
   let initialDate: Date;
   const awaitedSearchParams = await searchParams;
@@ -41,7 +41,10 @@ export default async function CalendarPage({
       <div className="container mx-auto px-4 py-12 max-w-7xl">
         <PageHeader title="Discover the events happening in Mangalore." />
         <Suspense fallback={<EventsLoadingSkeleton />}>
-          <CalendarProvider initialDate={initialDate}>
+          <CalendarProvider
+            initialDate={initialDate}
+            initialEventId={awaitedSearchParams?.eventId}
+          >
             <EventsTabs />
           </CalendarProvider>
         </Suspense>
