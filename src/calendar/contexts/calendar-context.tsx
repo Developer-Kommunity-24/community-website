@@ -132,6 +132,15 @@ export function CalendarProvider({
     fetchEventsForMonth(selectedDate);
   }, [selectedDate, fetchEventsForMonth]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: This effect is for pre-fetching events for the next and previous months
+  useEffect(() => {
+    const tempDate = new Date(selectedDate);
+    tempDate.setMonth(tempDate.getMonth() + 1);
+    fetchEventsForMonth(tempDate);
+    tempDate.setMonth(tempDate.getMonth() - 2);
+    fetchEventsForMonth(tempDate);
+  }, []);
+
   const handleSelectDate = (date: Date | undefined) => {
     if (!date) return;
     setSelectedDate(date);
