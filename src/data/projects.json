@@ -112,7 +112,7 @@
     "categories": ["Tool"]
   },
   {
-    "id": "The Nagger",
+    "id": "TheNagger",
     "title": "Nagger Bot: Your Personal Productivity Bully",
     "description": "Nagger Bot is a Telegram bot designed to be your personal task manager. It allows you to quickly add tasks, set deadlines, and configure reminders that will keep pinging you until you mark the task as complete.",
     "image": "/projects/nagger.png",
