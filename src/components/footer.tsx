@@ -1,9 +1,18 @@
 "use client";
 import { motion } from "framer-motion";
-import { ArrowUp, Github, Mail, MapPin } from "lucide-react";
+import {
+  ArrowUp,
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Youtube,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { DiscordIcon } from "@/components/discord-icon";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { siteConfig } from "@/config/site";
@@ -77,6 +86,63 @@ export default function Footer() {
     },
   ];
 
+  const socials = [
+    {
+      href: "https://www.linkedin.com/company/dk24-consortium",
+      label: "LinkedIn",
+      icon: Linkedin,
+    },
+    {
+      href: "https://discord.gg/65MJZ2eDNp",
+      label: "Discord",
+      icon: DiscordIcon,
+    },
+    {
+      href: "https://www.youtube.com/playlist?list=PLpQlHw5SaxvBAt4SiO476Vh8lH5sHGLFO",
+      label: "YouTube",
+      icon: Youtube,
+    },
+    {
+      href: "https://instagram.com/dk24_consortium",
+      label: "Instagram",
+      icon: Instagram,
+    },
+  ];
+
+  const SocialSection = ({
+    title,
+    items,
+  }: {
+    title: string;
+    items: typeof socials;
+  }) => (
+    <div className="space-y-6">
+      <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 relative">
+        {title}
+        <div className="absolute -bottom-2 left-0 h-0.5 w-12 bg-linear-to-r from-emerald-500 to-teal-500" />
+      </h3>
+      <ul className="space-y-3">
+        {items.map((link) => (
+          <li key={link.href}>
+            <Link
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300"
+            >
+              <div className="p-1 rounded-md bg-slate-100 dark:bg-slate-800 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30 transition-colors">
+                <link.icon className="h-4 w-4" />
+              </div>
+              <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+                {link.label}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
   const LinkSection = ({
     title,
     items,
@@ -132,7 +198,7 @@ export default function Footer() {
           initial="hidden"
           animate={isVisible ? "visible" : "hidden"}
           transition={{ staggerChildren: 0.1, duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-10"
         >
           <motion.div
             variants={fadeInUp}
@@ -180,6 +246,10 @@ export default function Footer() {
 
           <motion.div variants={fadeInUp}>
             <LinkSection title="Navigation" items={links.nav} isNav />
+          </motion.div>
+
+          <motion.div variants={fadeInUp}>
+            <SocialSection title="Connect" items={socials} />
           </motion.div>
         </motion.div>
 

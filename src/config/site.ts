@@ -70,9 +70,10 @@ export const siteConfig = {
   },
 
   social: {
-    twitter: "https://twitter.com/dk24community",
-    github: "https://github.com/dk24",
+    github: "https://github.com/Developer-Kommunity-24",
     linkedin: "https://linkedin.com/company/dk24community",
-    instagram: "https://instagram.com/dk24community",
+    instagram: "https://instagram.com/dk24_consortium",
+    youtube:
+      "https://www.youtube.com/playlist?list=PLpQlHw5SaxvBAt4SiO476Vh8lH5sHGLFO",
   },
 };
