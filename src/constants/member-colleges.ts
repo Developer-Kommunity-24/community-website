@@ -47,6 +47,16 @@ export const communities: Community[] = [
         email: "",
       },
       {
+        name: "Aboobakkar Twaha",
+        role: "Club President",
+        email: "aboobakkartwaha@gmail.com",
+      },
+      {
+        name:"Sunpreeth Vishva",
+        role:"Club Treasurer",
+        email: "sunpreethvishva89@gmail.com",
+      },
+      {
         name: "Himanshu Hegde",
         role: "Community Organizer",
         email: "",
