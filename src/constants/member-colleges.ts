@@ -40,21 +40,15 @@ export const communities: Community[] = [
       "A community of developers working on innovative projects and organizing technical events to enhance coding skills and promote collaboration.",
     logo: "/community-logos/devnation.jpeg",
     representatives: [
-      { name: "Jnanesh", role: "Community Lead", email: "jtuluve@gmail.com" },
       {
-        name: "Gauresh G Pai",
-        role: "Community Organizer",
-        email: "",
+        name: "Aboobakkar Twaha",
+        role: "Club President",
+        email: "aboobakkartwaha@gmail.com",
       },
       {
-        name: "Himanshu Hegde",
-        role: "Community Organizer",
-        email: "",
-      },
-      {
-        name: "Milan C I",
-        role: "Community Organizer",
-        email: "",
+        name:"Sunpreeth Vishva",
+        role:"Club Treasurer",
+        email: "sunpreethvishva89@gmail.com",
       },
     ],
     website: "https://www.ajiet.edu.in/student-clubs.php",
