@@ -55,7 +55,7 @@ export function EventSubmissionForm() {
   });
 
   const formatDateTimeLocal = (d: Date) => {
-    return format(d, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+    return format(d, "yyyy-MM-dd'T'HH:mm:ss.SSS");
   };
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: only run on mount
@@ -102,8 +102,8 @@ export function EventSubmissionForm() {
     try {
       const payload = {
         ...data,
-        startDateTime: `${data.startDateTime}:00+05:30`,
-        endDateTime: `${data.endDateTime}:00+05:30`,
+        startDateTime: `${data.startDateTime}+05:30`,
+        endDateTime: `${data.endDateTime}+05:30`,
         isEmailVerified: false,
       };
 
