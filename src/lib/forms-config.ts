@@ -142,6 +142,7 @@ export const eventTagOptions = [
   "Workshop",
   "Meetup",
   "Hackathon",
+  "Ideathon",
   "Webinar",
   "Networking",
   "Training",
