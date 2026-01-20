@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { iconsMap } from "@/constants";
@@ -65,7 +66,7 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                     variant="outline"
                     className="mb-3 bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700 text-green-700 dark:text-green-300"
                   >
-                    {event.startDateTime}
+                    {format(new Date(event.startDateTime), "PPP")}
                   </Badge>
                   <Link href={`/calendar?eventId=${event.id}`}>
                     <Card

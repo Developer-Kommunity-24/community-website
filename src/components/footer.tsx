@@ -14,7 +14,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DiscordIcon } from "@/components/discord-icon";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
 import { siteConfig } from "@/config/site";
 
 const fadeInUp = {
@@ -265,7 +264,6 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-3">
-            <ModeToggle />
             <Button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               variant="ghost"
