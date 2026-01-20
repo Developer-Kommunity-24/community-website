@@ -114,14 +114,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 asChild
                 onClick={(e) => e.stopPropagation()}
               >
-                <Link
+                <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Github className="h-4 w-4 mr-2" />
                   GitHub
-                </Link>
+                </a>
               </Button>
             )}
             {project.link && (
@@ -131,14 +131,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 asChild
                 onClick={(e) => e.stopPropagation()}
               >
-                <Link
+                <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <ExternalLink className="h-4 w-4 mr-2" />
                   Visit Project
-                </Link>
+                </a>
               </Button>
             )}
           </CardFooter>

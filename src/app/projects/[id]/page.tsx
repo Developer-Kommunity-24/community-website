@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { projects } from "@/constants";
 import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -117,26 +116,26 @@ export default async function ProjectPage({
           <div className="flex gap-4 mb-8">
             {project.link && (
               <Button asChild>
-                <Link
+                <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <ExternalLink className="h-4 w-4 mr-2" />
                   Visit Project
-                </Link>
+                </a>
               </Button>
             )}
             {project.github && (
               <Button asChild variant="outline">
-                <Link
+                <a
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Github className="h-4 w-4 mr-2" />
                   View on GitHub
-                </Link>
+                </a>
               </Button>
             )}
           </div>

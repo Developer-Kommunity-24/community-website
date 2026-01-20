@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { format, formatDate, isPast, parseISO } from "date-fns";
 import {
   Calendar,
@@ -220,7 +219,7 @@ export function EventDetailsDialog({ event }: IProps) {
         <DialogFooter className="bg-muted/30 p-4 border-t">
           <div className="flex w-full flex-col gap-3 sm:flex-row sm:justify-end">
             {event.youtubeLink && (
-              <Link
+              <a
                 href={event.youtubeLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -233,10 +232,10 @@ export function EventDetailsDialog({ event }: IProps) {
                   <Youtube className="mr-2 size-5 text-red-600" />
                   Watch Recording
                 </Button>
-              </Link>
+              </a>
             )}
             {!isEventPast && event.joinLink && (
-              <Link
+              <a
                 href={event.joinLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -246,10 +245,10 @@ export function EventDetailsDialog({ event }: IProps) {
                   <LinkIcon className="mr-2 size-5" />
                   Visit Website
                 </Button>
-              </Link>
+              </a>
             )}
             {!isEventPast && event.registrationLink && (
-              <Link
+              <a
                 href={event.registrationLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -261,7 +260,7 @@ export function EventDetailsDialog({ event }: IProps) {
                 >
                   Register Now
                 </Button>
-              </Link>
+              </a>
             )}
           </div>
         </DialogFooter>
