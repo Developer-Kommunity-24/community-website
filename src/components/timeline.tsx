@@ -67,7 +67,7 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                   >
                     {event.startDateTime}
                   </Badge>
-                  <Link href={`/calendar/${event.id}`}>
+                  <Link href={`/calendar?eventId=${event.id}`}>
                     <Card
                       className={`backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${
                         event.highlight
