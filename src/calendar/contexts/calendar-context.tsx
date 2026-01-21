@@ -39,7 +39,7 @@ interface ICalendarContext {
   setHoveredEventId: (id: string | null) => void;
 }
 
-const CalendarContext = createContext({} as ICalendarContext);
+export const CalendarContext = createContext({} as ICalendarContext);
 
 const WORKING_HOURS = {
   0: { from: 0, to: 0 },
