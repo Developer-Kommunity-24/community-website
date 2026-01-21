@@ -12,10 +12,11 @@ import { getEvents } from "@/lib/get-events";
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ eventId?: string }>;
+  searchParams: Promise<{ eventId?: string; date?: string }>;
 }): Promise<Metadata> {
   const awaitedSearchParams = await searchParams;
   const eventId = awaitedSearchParams.eventId;
+  const date = awaitedSearchParams.date;
 
   if (eventId) {
     const allEvents = await getEvents();
@@ -28,6 +29,19 @@ export async function generateMetadata({
         description: event.description,
         image: primaryImage,
         path: `/calendar?eventId=${eventId}`,
+      });
+    }
+  }
+
+  if (date) {
+    const [month, year] = date.toLowerCase().split("-");
+    if (month && year) {
+      const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
+      return generatePageMetadata({
+        title: `Events in ${capitalizedMonth} ${year}`,
+        description: `Discover upcoming tech events in Mangalore for ${capitalizedMonth} ${year}.`,
+        image: `/api/og?date=${date}`,
+        path: `/calendar?date=${date}`,
       });
     }
   }
