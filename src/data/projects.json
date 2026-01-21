@@ -116,9 +116,16 @@
     "title": "Nagger Bot: Your Personal Productivity Bully",
     "description": "Nagger Bot is a Telegram bot designed to be your personal task manager. It allows you to quickly add tasks, set deadlines, and configure reminders that will keep pinging you until you mark the task as complete.",
     "image": "/projects/nagger.png",
-    "tags": ["Python", "Telegram Bot", "PostgreSQL", "APScheduler", "Asyncpg", "Aiohttp"],
+    "tags": [
+      "Python",
+      "Telegram Bot",
+      "PostgreSQL",
+      "APScheduler",
+      "Asyncpg",
+      "Aiohttp"
+    ],
     "github": "https://github.com/Rishi-Bhati/TheNagger",
-    "link": "https://t.me/Naggering_Bot", 
+    "link": "https://t.me/Naggering_Bot",
     "contributors": [
       {
         "kind": "student",
@@ -126,8 +133,7 @@
         "college": "NMAM Institute of Technology",
         "role": "Cyber Security Student"
       }
-    ], 
+    ],
     "categories": ["Bot", "Tool"]
   }
 ]
-

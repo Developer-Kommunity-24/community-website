@@ -46,8 +46,8 @@ export const communities: Community[] = [
         email: "aboobakkartwaha@gmail.com",
       },
       {
-        name:"Sunpreeth Vishva",
-        role:"Club Treasurer",
+        name: "Sunpreeth Vishva",
+        role: "Club Treasurer",
         email: "sunpreethvishva89@gmail.com",
       },
     ],
