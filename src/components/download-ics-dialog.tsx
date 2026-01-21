@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Download } from "lucide-react";
 import type { IEvent } from "@/calendar/interfaces";
+import { buildICalendar } from "@/lib/export-ics";
 
 interface DownloadIcsDialogProps {
   buttonLabel?: string;
@@ -118,6 +119,51 @@ export function DownloadIcsDialog({
       ? selectedEventIds.length === 0
       : selectedMonths.length === 0;
 
+  const getMonthKey = (date: Date) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+
+  const getEventMonthKeys = (event: IEvent) => {
+    const start = new Date(event.startDateTime);
+    const end = new Date(event.endDateTime);
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return [];
+
+    const keys: string[] = [];
+    const cursor = new Date(start.getFullYear(), start.getMonth(), 1);
+    const endCursor = new Date(end.getFullYear(), end.getMonth(), 1);
+    while (cursor <= endCursor) {
+      keys.push(getMonthKey(cursor));
+      cursor.setMonth(cursor.getMonth() + 1);
+    }
+    return keys;
+  };
+
+  const handleDownload = () => {
+    const selectedEvents =
+      mode === "event"
+        ? events.filter((event) => selectedEventIds.includes(event.id))
+        : events.filter((event) =>
+            getEventMonthKeys(event).some((key) =>
+              selectedMonths.includes(key),
+            ),
+          );
+
+    if (selectedEvents.length === 0) return;
+
+    const icsContent = buildICalendar(selectedEvents);
+    const blob = new Blob([icsContent], {
+      type: "text/calendar;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download =
+      mode === "event" ? "dk24-events.ics" : "dk24-events-by-month.ics";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -193,7 +239,11 @@ export function DownloadIcsDialog({
         )}
 
         <div className="flex justify-end">
-          <Button type="button" disabled={isDownloadDisabled}>
+          <Button
+            type="button"
+            disabled={isDownloadDisabled}
+            onClick={handleDownload}
+          >
             Download ICS
           </Button>
         </div>

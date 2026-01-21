@@ -2,10 +2,11 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Plus, Calendar, Download } from "lucide-react";
+import { Plus, Calendar } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ClientContainer } from "@/calendar/components/client-container";
+import { DownloadIcsDialog } from "@/components/download-ics-dialog";
 
 export function EventsTabs() {
   const searchParams = useSearchParams();
@@ -29,15 +30,7 @@ export function EventsTabs() {
                 <TabsTrigger value="month">Month</TabsTrigger>
               </TabsList>
               <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  type="button"
-                  onClick={() => {}}
-                >
-                  <Download className="h-4 w-4 mr-1" />
-                  ICS
-                </Button>
+                <DownloadIcsDialog buttonLabel="ICS" />
                 <Link href="/showcase-event">
                   <Button size="sm">
                     <Plus className="h-4 w-4 mr-1" />

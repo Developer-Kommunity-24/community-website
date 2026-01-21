@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
-import { Calendar, Download, Plus } from "lucide-react";
+import { Calendar, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { DownloadIcsDialog } from "@/components/download-ics-dialog";
 import { DateNavigator } from "@/calendar/components/header/date-navigator";
 
 import type { IEvent } from "@/calendar/interfaces";
@@ -22,10 +25,7 @@ export function CalendarHeader({ view, events }: IProps) {
 
       <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
         <div className="flex w-full items-center gap-2">
-          <Button variant="outline" size="sm" type="button" onClick={() => {}}>
-            <Download className="h-4 w-4 mr-1" />
-            Download ICS
-          </Button>
+          <DownloadIcsDialog />
         </div>
 
         <Link href="/showcase-event">
