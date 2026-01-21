@@ -55,7 +55,7 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
           !currentMonth && "opacity-50",
         )}
       >
-        {[0, 1, 2].map((position) => {
+        {[0, 1].map((position) => {
           const event = cellEvents.find((e) => e.position === position);
           const eventKey = event
             ? `event-${event.id}-${position}`
