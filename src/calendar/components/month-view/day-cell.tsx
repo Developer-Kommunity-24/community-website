@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+"use client";
+import { useMemo, useRef } from "react";
 import { isToday, startOfDay } from "date-fns";
 import { MonthEventBadge } from "@/calendar/components/month-view/month-event-badge";
 
@@ -17,6 +18,7 @@ const MAX_VISIBLE_EVENTS = 2;
 
 export function DayCell({ cell, events, eventPositions }: IProps) {
   const { day, currentMonth, date } = cell;
+  const badgeContainerRef = useRef<HTMLDivElement | null>(null);
 
   const cellEvents = useMemo(
     () => getMonthCellEvents(date, events, eventPositions),
@@ -60,10 +62,15 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
             : `empty-${position}`;
 
           return (
-            <div key={eventKey} className="lg:flex-1 w-full">
+            <div
+              key={eventKey}
+              className="lg:flex-1 w-full"
+              ref={badgeContainerRef}
+            >
               {event && (
                 <MonthEventBadge
                   // className="w-full"
+                  badgeContainerRef={badgeContainerRef}
                   event={event}
                   cellDate={startOfDay(date)}
                 />

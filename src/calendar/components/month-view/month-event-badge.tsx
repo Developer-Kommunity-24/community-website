@@ -1,3 +1,4 @@
+"use client";
 import { cva } from "class-variance-authority";
 import { endOfDay, isSameDay, parseISO, startOfDay } from "date-fns";
 import { Star } from "lucide-react";
@@ -8,6 +9,7 @@ import { cn } from "@/lib/utils";
 
 import type { IEvent } from "@/calendar/interfaces";
 import type { VariantProps } from "class-variance-authority";
+import { type RefObject, useEffect, useRef } from "react";
 
 const eventBadgeVariants = cva(
   "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 whitespace-nowrap rounded-md border px-2 text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
@@ -63,6 +65,7 @@ interface IProps
     VariantProps<typeof eventBadgeVariants>,
     "color" | "multiDayPosition"
   > {
+  badgeContainerRef: RefObject<HTMLDivElement | null>;
   event: IEvent;
   cellDate: Date;
   eventCurrentDay?: number;
@@ -72,6 +75,7 @@ interface IProps
 }
 
 export function MonthEventBadge({
+  badgeContainerRef,
   event,
   cellDate,
   eventCurrentDay,
@@ -79,13 +83,33 @@ export function MonthEventBadge({
   className,
   position: propPosition,
 }: IProps) {
+  const textRef = useRef<HTMLParagraphElement | null>(null);
+
+  // biome-ignore lint: useExhaustiveDependencies
+  useEffect(() => {
+    const badgeContainer = badgeContainerRef.current;
+    const text = textRef.current;
+
+    if (!badgeContainer || !text) return;
+
+    const observer = new ResizeObserver(() => {
+      const btnWidth = badgeContainer.offsetWidth;
+      const cellIndex =
+        daysBetween(itemStart, itemEnd) - daysBetween(cellDate, itemEnd);
+      text.style.transform = `translateX(${-btnWidth * cellIndex + (cellIndex > 0 ? 10 : 0)}px)`;
+    });
+
+    observer.observe(badgeContainer);
+
+    return () => observer.disconnect();
+  }, []);
+
   const {
     badgeVariant,
     hoveredEventId,
     setHoveredEventId,
     setSelectedEventId,
   } = useCalendar();
-
   const itemStart = startOfDay(parseISO(event.startDateTime));
   const itemEnd = endOfDay(parseISO(event.endDateTime));
 
@@ -107,7 +131,15 @@ export function MonthEventBadge({
     position = "middle";
   }
 
-  const renderBadgeText = ["first", "none"].includes(position);
+  function daysBetween(dateStr1: Date, dateStr2: Date) {
+    // biome-ignore lint: noExplicitAny
+    const d1: any = new Date(dateStr1);
+    // biome-ignore lint: noExplicitAny
+    const d2: any = new Date(dateStr2);
+    return Math.floor(Math.abs((d2 - d1) / (1000 * 60 * 60 * 24)));
+  }
+
+  const renderBadgeText = ["last", "none"].includes(position);
 
   const color = (
     badgeVariant === "dot"
@@ -159,14 +191,17 @@ export function MonthEventBadge({
   return (
     // biome-ignore lint/a11y/useSemanticElements: The text ellipsis is not working with button element
     <div
+      id="BadgeButton"
       role="button"
       tabIndex={0}
       className={cn(
         eventBadgeClasses,
-        "relative",
+        "relative pr-0",
         hoveredEventId === event.id && "brightness-90",
         event.highlight &&
           "border-green-500 bg-green-100 dark:border-green-700 dark:bg-green-900",
+
+        ["middle", "last"].includes(position) && "pl-0",
       )}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => setHoveredEventId(event.id)}
@@ -187,19 +222,21 @@ export function MonthEventBadge({
             </svg>
           )}
 
-        {renderBadgeText && (
-          <p className="block items-center gap-1 font-semibold">
-            {event.highlight && (
+        {
+          <>
+            {event.highlight && ["first", "none"].includes(position) && (
               <Star className="size-3 shrink-0 fill-yellow-400 text-yellow-500 absolute top-[-5px] left-[-4px]" />
             )}
-            {/* {eventCurrentDay && (
+            <p className="block items-center gap-1 font-semibold" ref={textRef}>
+              {/* {eventCurrentDay && (
                 <span className="text-xs">
                   Day {eventCurrentDay} of {eventTotalDays} •{" "}
                 </span>
               )} */}
-            {event.title}
-          </p>
-        )}
+              {event.title}
+            </p>
+          </>
+        }
       </div>
       {renderBadgeText && (
         <div
