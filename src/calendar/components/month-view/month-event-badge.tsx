@@ -96,7 +96,7 @@ export function MonthEventBadge({
       const btnWidth = badgeContainer.offsetWidth;
       const cellIndex =
         daysBetween(itemStart, itemEnd) - daysBetween(cellDate, itemEnd);
-      text.style.transform = `translateX(${-btnWidth * cellIndex + (cellIndex > 0 ? 10 : 0)}px)`;
+      text.style.transform = `translateX(${-btnWidth * cellIndex + (cellIndex > 0 ? 13 : 0)}px)`;
     });
 
     observer.observe(badgeContainer);
