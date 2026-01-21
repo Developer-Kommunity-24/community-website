@@ -14,8 +14,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DiscordIcon } from "@/components/discord-icon";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
 import { siteConfig } from "@/config/site";
+import { ModeToggle } from "./mode-toggle";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -124,7 +124,7 @@ export default function Footer() {
       <ul className="space-y-3">
         {items.map((link) => (
           <li key={link.href}>
-            <Link
+            <a
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
@@ -136,7 +136,7 @@ export default function Footer() {
               <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
                 {link.label}
               </span>
-            </Link>
+            </a>
           </li>
         ))}
       </ul>
@@ -216,7 +216,7 @@ export default function Footer() {
               {contactItems.map((item) => (
                 <div key={item.label}>
                   {item.clickable && item.href ? (
-                    <Link
+                    <a
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -226,7 +226,7 @@ export default function Footer() {
                         <item.icon className="h-4 w-4 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
                       </div>
                       <span className="text-sm font-medium">{item.label}</span>
-                    </Link>
+                    </a>
                   ) : (
                     <div className="flex items-center gap-3 text-slate-600 dark:text-slate-300 group hover:translate-x-1 transition-transform">
                       <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-900/30 transition-colors">

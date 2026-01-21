@@ -138,7 +138,8 @@ export default function Navbar() {
               </Button>
               <Button
                 asChild
-                className="w-full bg-secondary mt-2 cursor-pointer"
+                variant="secondary"
+                className="w-full mt-2 cursor-pointer"
               >
                 <Link href="/showcase-event">Showcase Event</Link>
               </Button>

@@ -1,7 +1,6 @@
 "use client";
 
 import { X } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -35,13 +34,13 @@ export function DiscordJoinBar() {
         size="sm"
         className="ml-4 text-primary"
       >
-        <Link
+        <a
           href="https://discord.gg/65MJZ2eDNp"
           target="_blank"
           rel="noopener noreferrer"
         >
           Join Now
-        </Link>
+        </a>
       </Button>
       <Button
         onClick={handleDismiss}

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { BackgroundPattern } from "@/components/background-pattern";
 import { PageHeader } from "@/components/page-header";
 import { Timeline } from "@/components/timeline";
@@ -5,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { getEvents } from "@/lib/get-events";
 import { generatePageMetadata } from "@/lib/metadata";
 
-export const metadata = generatePageMetadata({
+export const metadata: Metadata = generatePageMetadata({
   title: "About DK24",
   description:
     "Learn about DK24's vision, mission, and journey to connect college tech communities in Mangalore. Discover our core values, long-term goals, and the story behind building a thriving tech ecosystem.",
@@ -13,7 +14,10 @@ export const metadata = generatePageMetadata({
 });
 
 export default async function AboutPage() {
-  const timelineEvents = await getEvents();
+  const allEvents = await getEvents();
+  const timelineEvents = allEvents.filter(
+    (event) => event.organizationName === "DK24",
+  );
 
   return (
     <BackgroundPattern variant="default">
