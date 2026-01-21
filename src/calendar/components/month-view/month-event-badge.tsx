@@ -96,7 +96,14 @@ export function MonthEventBadge({
       const btnWidth = badgeContainer.offsetWidth;
       const cellIndex =
         daysBetween(itemStart, itemEnd) - daysBetween(cellDate, itemEnd);
-      text.style.transform = `translateX(${-btnWidth * cellIndex + (cellIndex > 0 ? 13 : 0)}px)`;
+      const isSunday = Boolean(cellDate.getDay());
+
+      // How the formula works:
+      // 13 -> margin+padding+border of the first event badge
+      // - cellIndex is used because each extra day cell adds a border of 1px
+      // isSunday is used because the previous day does not have border (saturday day cell does not have border on right).
+      // There might be rare cases which may break this formula, hopefully it won't.
+      text.style.transform = `translateX(${-btnWidth * cellIndex + (cellIndex > 0 ? 13 - cellIndex + (isSunday ? 2 : 0) : 0)}px)`;
     });
 
     observer.observe(badgeContainer);
@@ -132,11 +139,11 @@ export function MonthEventBadge({
   }
 
   function daysBetween(dateStr1: Date, dateStr2: Date) {
-    // biome-ignore lint: noExplicitAny
-    const d1: any = new Date(dateStr1);
-    // biome-ignore lint: noExplicitAny
-    const d2: any = new Date(dateStr2);
-    return Math.floor(Math.abs((d2 - d1) / (1000 * 60 * 60 * 24)));
+    const d1 = new Date(dateStr1);
+    const d2 = new Date(dateStr2);
+    return Math.floor(
+      Math.abs((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24)),
+    );
   }
 
   const renderBadgeText = ["last", "none"].includes(position);
