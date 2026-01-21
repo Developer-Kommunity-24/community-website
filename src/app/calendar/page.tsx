@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { promises as fs } from "node:fs";
-import path from "node:path";
 import { Suspense } from "react";
 import { BackgroundPattern } from "@/components/background-pattern";
 import { EventsTabs } from "@/components/events-tabs";
@@ -10,38 +8,6 @@ import { CalendarProvider } from "@/calendar/contexts/calendar-context";
 import { EventsLoadingSkeleton } from "@/components/events-loading-skeleton";
 import { monthMap } from "@/calendar/helpers";
 import { getEvents } from "@/lib/get-events";
-
-async function getEventImages(eventId: string) {
-  const postersDir = path.join(process.cwd(), "public", "events", "posters");
-  const recapsDir = path.join(process.cwd(), "public", "events", eventId);
-
-  let posterPath: string | null = null;
-  const recapPaths: string[] = [];
-
-  try {
-    const posterFiles = await fs.readdir(postersDir);
-    for (const file of posterFiles) {
-      const extension = path.extname(file);
-      const basename = path.basename(file, extension);
-      if (basename === eventId) {
-        posterPath = `/events/posters/${file}`;
-        break;
-      }
-    }
-
-    try {
-      await fs.access(recapsDir);
-      const recapFiles = await fs.readdir(recapsDir);
-      for (const file of recapFiles) {
-        recapPaths.push(`/events/${eventId}/${file}`);
-      }
-    } catch {}
-  } catch (error) {
-    console.error("Error reading event images:", error);
-  }
-
-  return { posterPath, recapPaths };
-}
 
 export async function generateMetadata({
   searchParams,
@@ -55,9 +21,7 @@ export async function generateMetadata({
     const allEvents = await getEvents();
     const event = allEvents.find((e) => e.id === eventId);
     if (event) {
-      const { posterPath, recapPaths } = await getEventImages(eventId);
-      const primaryImage =
-        event.posterUrl || posterPath || recapPaths[0] || "/logo.png";
+      const primaryImage = event.posterUrl || "/logo.png";
 
       return generatePageMetadata({
         title: event.title,

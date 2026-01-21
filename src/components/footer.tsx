@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { DiscordIcon } from "@/components/discord-icon";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
+import { ModeToggle } from "./mode-toggle";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -264,6 +265,7 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-3">
+            <ModeToggle />
             <Button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               variant="ghost"

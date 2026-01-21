@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { DiscordJoinBar } from "@/components/discord-join-bar";
-import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,7 +82,6 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-2">
-            <ModeToggle />
             <Button asChild className="cursor-pointer">
               <Link href="/join">Join Us</Link>
             </Button>
@@ -95,7 +93,6 @@ export default function Navbar() {
           </div>
 
           <div className="flex md:hidden items-center space-x-4 cursor-pointer">
-            <ModeToggle />
             <Button
               className="cursor-pointer"
               variant="ghost"
