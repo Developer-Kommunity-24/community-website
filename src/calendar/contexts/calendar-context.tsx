@@ -10,7 +10,6 @@ import {
 import { format, startOfMonth, endOfMonth } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { getEvents } from "@/lib/get-events";
 import { monthMap } from "@/calendar/helpers";
 
 import type { Dispatch, SetStateAction } from "react";
@@ -120,7 +119,12 @@ export function CalendarProvider({
       setIsLoading(true);
       const monthStart = startOfMonth(date);
       const monthEnd = endOfMonth(date);
-      const fetchedEvents = await getEvents(monthStart, monthEnd);
+      const query = new URLSearchParams({
+        start: monthStart.toISOString(),
+        end: monthEnd.toISOString(),
+      });
+      const response = await fetch(`/api/events?${query.toString()}`);
+      const fetchedEvents = (await response.json()) as IEvent[];
       setEventsCache((prev) => new Map(prev).set(monthKey, fetchedEvents));
       setIsLoading(false);
       return;

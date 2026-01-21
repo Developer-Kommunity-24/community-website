@@ -18,73 +18,95 @@ const doc = new GoogleSpreadsheet(
   serviceAccountAuth,
 );
 
+function filterEventsByRange(
+  events: IEvent[],
+  startDate?: Date,
+  endDate?: Date,
+): IEvent[] {
+  if (!startDate || !endDate) return events;
+  return events.filter((event) => {
+    const eventStartDate = new Date(event.startDateTime);
+    const eventEndDate = new Date(event.endDateTime);
+    return (
+      (eventStartDate >= startDate && eventStartDate <= endDate) ||
+      (eventEndDate >= startDate && eventEndDate <= endDate)
+    );
+  });
+}
+
 export async function getEvents(
   startDate?: Date,
   endDate?: Date,
 ): Promise<IEvent[]> {
-  await doc.loadInfo();
-  const sheet = doc.sheetsByIndex[3];
-  if (!sheet) throw new Error("Sheet not found");
+  if (
+    !process.env.GOOGLE_SHEET_ID ||
+    !process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
+    !process.env.GOOGLE_PRIVATE_KEY
+  ) {
+    return [];
+  }
 
-  const rows = await sheet.getRows();
-  const res: IEvent[] = rows
-    .map((row): IEvent | null => {
-      const eventData =
-        row.toObject() as unknown as EventSubmissionFormValues & { ID: string };
-      const isDK24 = eventData.organizationName === "DK24";
+  try {
+    await doc.loadInfo();
+    const sheet = doc.sheetsByIndex[3];
+    if (!sheet) throw new Error("Sheet not found");
 
-      const startDateTime = new Date(eventData.startDateTime);
-      const endDateTime = new Date(eventData.endDateTime);
+    const rows = await sheet.getRows();
+    const res: IEvent[] = rows
+      .map((row): IEvent | null => {
+        const eventData =
+          row.toObject() as unknown as EventSubmissionFormValues & {
+            ID: string;
+          };
+        const isDK24 = eventData.organizationName === "DK24";
 
-      if (
-        Number.isNaN(startDateTime.getTime()) ||
-        Number.isNaN(endDateTime.getTime())
-      ) {
-        return null;
-      }
+        const startDateTime = new Date(eventData.startDateTime);
+        const endDateTime = new Date(eventData.endDateTime);
 
-      return {
-        id: eventData.ID,
-        title: eventData.eventName,
-        startDateTime: startDateTime.toISOString(),
-        endDateTime: endDateTime.toISOString(),
-        time: eventData.startDateTime.split("T")[1]?.substring(0, 5) || "", // Extract time from startDateTime
-        location: eventData.eventLocation,
-        description: eventData.eventDescription,
-        registrationLink: eventData.registrationLink || "",
-        joinLink: eventData.eventWebsite || "", // Using eventWebsite as joinLink for now
-        icon: "calendar" as keyof typeof iconsMap, // Default icon
-        highlight: isDK24,
-        youtubeLink: "", // No direct mapping from form, so empty for now
-        color: (isDK24 ? "green" : "gray") as TEventColor,
-        organizationName: eventData.organizationName,
-        posterUrl: eventData.eventPosterUrl,
-        tags: (() => {
-          const raw = eventData.eventTags as unknown;
-          if (Array.isArray(raw)) return raw as string[];
-          if (typeof raw === "string") {
-            let s = (raw as string).trim();
-            if (s.startsWith("[") && s.endsWith("]")) {
-              s = s.slice(1, -1);
+        if (
+          Number.isNaN(startDateTime.getTime()) ||
+          Number.isNaN(endDateTime.getTime())
+        ) {
+          return null;
+        }
+
+        return {
+          id: eventData.ID,
+          title: eventData.eventName,
+          startDateTime: startDateTime.toISOString(),
+          endDateTime: endDateTime.toISOString(),
+          time: eventData.startDateTime.split("T")[1]?.substring(0, 5) || "",
+          location: eventData.eventLocation,
+          description: eventData.eventDescription,
+          registrationLink: eventData.registrationLink || "",
+          joinLink: eventData.eventWebsite || "",
+          icon: "calendar" as keyof typeof iconsMap,
+          highlight: isDK24,
+          youtubeLink: "",
+          color: (isDK24 ? "green" : "gray") as TEventColor,
+          organizationName: eventData.organizationName,
+          posterUrl: eventData.eventPosterUrl,
+          tags: (() => {
+            const raw = eventData.eventTags as unknown;
+            if (Array.isArray(raw)) return raw as string[];
+            if (typeof raw === "string") {
+              let s = (raw as string).trim();
+              if (s.startsWith("[") && s.endsWith("]")) {
+                s = s.slice(1, -1);
+              }
+              return s
+                .split(",")
+                .map((t: string) => t.replace(/^['"]|['"]$/g, "").trim())
+                .filter(Boolean) as string[];
             }
-            return s
-              .split(",")
-              .map((t: string) => t.replace(/^['"]|['"]$/g, "").trim())
-              .filter(Boolean) as string[];
-          }
-          return [];
-        })(),
-      };
-    })
-    .filter((event): event is IEvent => event !== null)
-    .filter((event) => {
-      if (!startDate || !endDate) return true;
-      const eventStartDate = new Date(event.startDateTime);
-      const eventEndDate = new Date(event.endDateTime);
-      return (
-        (eventStartDate >= startDate && eventStartDate <= endDate) ||
-        (eventEndDate >= startDate && eventEndDate <= endDate)
-      );
-    });
-  return res;
+            return [];
+          })(),
+        };
+      })
+      .filter((event): event is IEvent => event !== null);
+
+    return filterEventsByRange(res, startDate, endDate);
+  } catch {
+    return [];
+  }
 }
