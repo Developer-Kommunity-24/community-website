@@ -360,7 +360,7 @@ export async function GET(request: NextRequest) {
             border: "1px solid rgba(226, 232, 240, 0.4)",
           }}
         >
-          <span style={{ color: "#059669" }}>dk24.in</span>
+          <span style={{ color: "#059669" }}>dk24.org</span>
         </div>
       </div>,
       {
