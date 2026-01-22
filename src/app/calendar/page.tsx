@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { BackgroundPattern } from "@/components/background-pattern";
 import { EventsTabs } from "@/components/events-tabs";
@@ -6,12 +7,51 @@ import { generatePageMetadata } from "@/lib/metadata";
 import { CalendarProvider } from "@/calendar/contexts/calendar-context";
 import { EventsLoadingSkeleton } from "@/components/events-loading-skeleton";
 import { monthMap } from "@/calendar/helpers";
+import { getEvents } from "@/lib/get-events";
 
-export const metadata = generatePageMetadata({
-  title: "Calendar",
-  description: "Discover the events happening in Mangalore.",
-  path: "/calendar",
-});
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ eventId?: string; date?: string }>;
+}): Promise<Metadata> {
+  const awaitedSearchParams = await searchParams;
+  const eventId = awaitedSearchParams.eventId;
+  const date = awaitedSearchParams.date;
+
+  if (eventId) {
+    const allEvents = await getEvents();
+    const event = allEvents.find((e) => e.id === eventId);
+    if (event) {
+      const primaryImage = event.posterUrl || "/logo.png";
+
+      return generatePageMetadata({
+        title: event.title,
+        description: event.description,
+        image: primaryImage,
+        path: `/calendar?eventId=${eventId}`,
+      });
+    }
+  }
+
+  if (date) {
+    const [month, year] = date.toLowerCase().split("-");
+    if (month && year) {
+      const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
+      return generatePageMetadata({
+        title: `Events in ${capitalizedMonth} ${year}`,
+        description: `Discover upcoming tech events in Mangalore for ${capitalizedMonth} ${year}.`,
+        image: `/api/og?date=${date}`,
+        path: `/calendar?date=${date}`,
+      });
+    }
+  }
+
+  return generatePageMetadata({
+    title: "Calendar",
+    description: "Discover the events happening in Mangalore.",
+    path: "/calendar",
+  });
+}
 
 export default async function CalendarPage({
   searchParams,

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { format, formatDate, isPast, parseISO } from "date-fns";
 import {
   Calendar,
@@ -10,6 +9,7 @@ import {
   Youtube,
 } from "lucide-react";
 import Image from "next/image";
+import * as React from "react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -27,15 +27,33 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn, sanitizeTag } from "@/lib/utils";
 
 import type { IEvent } from "@/calendar/interfaces";
-import { useCalendar } from "@/calendar/contexts/calendar-context";
+import { CalendarContext } from "@/calendar/contexts/calendar-context";
 
 interface IProps {
   event?: IEvent;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function EventDetailsDialog({ event }: IProps) {
-  const { setSelectedEventId, selectedDate } = useCalendar();
+export function EventDetailsDialog({
+  event,
+  open: propOpen,
+  onOpenChange: propOnOpenChange,
+}: IProps) {
+  const context = React.useContext(CalendarContext);
   const [copied, setCopied] = useState(false);
+
+  const handleOpenChange = (newOpen: boolean) => {
+    if (propOnOpenChange) {
+      propOnOpenChange(newOpen);
+    } else if (context?.setSelectedEventId) {
+      if (!newOpen) {
+        context.setSelectedEventId(undefined);
+      }
+    }
+  };
+
+  const isOpen = propOpen !== undefined ? propOpen : !!event;
 
   if (!event) return null;
 
@@ -45,8 +63,8 @@ export function EventDetailsDialog({ event }: IProps) {
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(
-      `${window.location.origin}${window.location.pathname}?date=${formatDate(
-        selectedDate,
+      `${window.location.origin}/calendar?date=${formatDate(
+        startDateTime,
         "MMM-yyyy",
       ).toLowerCase()}&eventId=${event.id}`,
     );
@@ -54,14 +72,8 @@ export function EventDetailsDialog({ event }: IProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleOpenChange = (newOpen: boolean) => {
-    if (!newOpen) {
-      setSelectedEventId(undefined);
-    }
-  };
-
   return (
-    <Dialog open={true} onOpenChange={handleOpenChange}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="p-4 max-h-[90vh] max-w-[90vw] md:max-w-7xl flex flex-col gap-4">
         <div className="grid flex-1 overflow-auto w-full grid-cols-1 md:grid-cols-5 gap-6 p-4">
           {/* Left Side: Image */}
@@ -220,7 +232,7 @@ export function EventDetailsDialog({ event }: IProps) {
         <DialogFooter className="bg-muted/30 p-4 border-t">
           <div className="flex w-full flex-col gap-3 sm:flex-row sm:justify-end">
             {event.youtubeLink && (
-              <Link
+              <a
                 href={event.youtubeLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -233,10 +245,10 @@ export function EventDetailsDialog({ event }: IProps) {
                   <Youtube className="mr-2 size-5 text-red-600" />
                   Watch Recording
                 </Button>
-              </Link>
+              </a>
             )}
             {!isEventPast && event.joinLink && (
-              <Link
+              <a
                 href={event.joinLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -246,10 +258,10 @@ export function EventDetailsDialog({ event }: IProps) {
                   <LinkIcon className="mr-2 size-5" />
                   Visit Website
                 </Button>
-              </Link>
+              </a>
             )}
             {!isEventPast && event.registrationLink && (
-              <Link
+              <a
                 href={event.registrationLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -261,7 +273,7 @@ export function EventDetailsDialog({ event }: IProps) {
                 >
                   Register Now
                 </Button>
-              </Link>
+              </a>
             )}
           </div>
         </DialogFooter>

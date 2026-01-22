@@ -1,5 +1,4 @@
 import { Linkedin, Youtube } from "lucide-react";
-import Link from "next/link";
 import { BackgroundPattern } from "@/components/background-pattern";
 import { DiscordIcon } from "@/components/discord-icon";
 import { JoinForm } from "@/components/join-form";
@@ -167,7 +166,7 @@ export default function JoinUsPage() {
                     Connect With Us
                   </h3>
                   <div className="flex flex-col gap-3">
-                    <Link
+                    <a
                       href="https://www.linkedin.com/company/dk24-consortium"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -175,8 +174,8 @@ export default function JoinUsPage() {
                     >
                       <Linkedin className="w-5 h-5" />
                       DK24-Consortium
-                    </Link>
-                    <Link
+                    </a>
+                    <a
                       href="https://www.youtube.com/playlist?list=PLpQlHw5SaxvBAt4SiO476Vh8lH5sHGLFO"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -184,8 +183,8 @@ export default function JoinUsPage() {
                     >
                       <Youtube className="w-5 h-5" />
                       DK24 Consortium
-                    </Link>
-                    <Link
+                    </a>
+                    <a
                       href="https://discord.gg/65MJZ2eDNp"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -193,7 +192,7 @@ export default function JoinUsPage() {
                     >
                       <DiscordIcon className="w-5 h-5" />
                       Join our Discord
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>

@@ -1,18 +1,29 @@
 "use client";
+
+import { useState } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { iconsMap } from "@/constants";
-import type { Event } from "@/types";
+import type { IEvent } from "@/calendar/interfaces";
+import { EventDetailsDialog } from "@/calendar/components/dialogs/event-details-dialog";
 
 interface TimelineProps {
-  timelineEvents: Event[];
+  timelineEvents: IEvent[];
 }
 
 export function Timeline({ timelineEvents }: TimelineProps) {
+  const [selectedEvent, setSelectedEvent] = useState<IEvent | undefined>();
+
   return (
     <div className="relative py-12">
+      <EventDetailsDialog
+        event={selectedEvent}
+        open={!!selectedEvent}
+        onOpenChange={(open) => !open && setSelectedEvent(undefined)}
+      />
+
       {/* Timeline line with gradient */}
       <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-green-200 via-green-300 to-green-200 dark:from-green-800 dark:via-green-600 dark:to-green-800 transform -translate-x-1/2"></div>
 
@@ -65,9 +76,13 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                     variant="outline"
                     className="mb-3 bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-700 text-green-700 dark:text-green-300"
                   >
-                    {event.startDateTime}
+                    {format(new Date(event.startDateTime), "PPP")}
                   </Badge>
-                  <Link href={`/calendar/${event.id}`}>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedEvent(event)}
+                    className="w-full cursor-pointer outline-none text-left"
+                  >
                     <Card
                       className={`backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${
                         event.highlight
@@ -85,7 +100,7 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                         >
                           {event.title}
                         </h3>
-                        <div className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        <div className="text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-3">
                           {event.description}
                         </div>
 
@@ -101,7 +116,7 @@ export function Timeline({ timelineEvents }: TimelineProps) {
                         ></div>
                       </CardContent>
                     </Card>
-                  </Link>
+                  </button>
                 </motion.div>
               </div>
 

@@ -1,6 +1,5 @@
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import type { Community } from "@/types";
@@ -42,14 +41,10 @@ export function CommunityCard({ community }: CommunityCardProps) {
       </CardContent>
       <CardFooter className="p-6 mt-auto">
         <Button variant="outline" className="w-full" asChild>
-          <Link
-            href={community.website}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={community.website} target="_blank" rel="noopener noreferrer">
             <ExternalLink className="h-4 w-4 mr-2" />
             Visit Website
-          </Link>
+          </a>
         </Button>
       </CardFooter>
     </Card>
