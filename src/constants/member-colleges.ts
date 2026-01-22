@@ -67,7 +67,7 @@ export const communities: Community[] = [
         email: "nandan@finiteloop.club",
       },
     ],
-    website: "https://www.finiteloop.co.in",
+    website: "https://www.finiteloop.club",
   },
   {
     id: 4,
