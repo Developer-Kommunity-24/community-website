@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useEffect } from "react";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { format } from "date-fns";
+import { Check, X, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,9 @@ export function EventSubmissionForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [isCheckingImage, setIsCheckingImage] = useState(false);
+  const [imageCheckError, setImageCheckError] = useState<string | null>(null);
+  const [isImageVerified, setIsImageVerified] = useState(false);
 
   const {
     handleSubmit,
@@ -32,6 +36,8 @@ export function EventSubmissionForm() {
     watch,
     setValue,
     getValues,
+    setError,
+    clearErrors,
     control,
   } = useForm<EventSubmissionFormValues>({
     resolver: zodResolver(eventSubmissionSchema),
@@ -76,6 +82,51 @@ export function EventSubmissionForm() {
   const selectedTags = watch("eventTags");
   const startDateTime = watch("startDateTime");
 
+  const validateImageUrl = async (url: string) => {
+    if (!url) {
+      setImageCheckError(null);
+      setIsCheckingImage(false);
+      setIsImageVerified(false);
+      return true;
+    }
+
+    try {
+      new URL(url);
+    } catch {
+      setIsImageVerified(false);
+      return false; // Let zod handle format, but image check failed
+    }
+
+    setIsCheckingImage(true);
+    setImageCheckError(null);
+    setIsImageVerified(false);
+
+    return new Promise<boolean>((resolve) => {
+      const img = new Image();
+      img.src = url;
+
+      img.onload = () => {
+        setIsCheckingImage(false);
+        setImageCheckError(null);
+        setIsImageVerified(true);
+        clearErrors("eventPosterUrl");
+        resolve(true);
+      };
+
+      img.onerror = () => {
+        setIsCheckingImage(false);
+        const errorMsg = "Could not load image. Please check the URL.";
+        setImageCheckError(errorMsg);
+        setIsImageVerified(false);
+        setError("eventPosterUrl", {
+          type: "manual",
+          message: errorMsg,
+        });
+        resolve(false);
+      };
+    });
+  };
+
   const handleTagChange = (tag: string, checked: boolean) => {
     const currentTags = selectedTags || [];
     if (checked) {
@@ -90,6 +141,15 @@ export function EventSubmissionForm() {
   };
 
   const onSubmit: SubmitHandler<EventSubmissionFormValues> = async (data) => {
+    // Re-validate image before submission
+    if (data.eventPosterUrl) {
+      const isValidImage = await validateImageUrl(data.eventPosterUrl);
+      if (!isValidImage) {
+        setSubmitError("Please provide a valid image URL.");
+        return;
+      }
+    }
+
     const isFormValid = await trigger();
     if (!isFormValid) {
       setSubmitError("Please fix all validation errors before showcasing.");
@@ -321,16 +381,47 @@ export function EventSubmissionForm() {
 
             <div className="space-y-4">
               <Label htmlFor="eventPosterUrl">Event Poster URL</Label>
-              <Input
-                id="eventPosterUrl"
-                type="url"
-                {...register("eventPosterUrl")}
-                placeholder="https://cdn.techfuture.org/posters/ai-summit-2026.png"
-              />
+              <div className="relative">
+                <Input
+                  id="eventPosterUrl"
+                  type="url"
+                  {...register("eventPosterUrl", {
+                    onBlur: (e) => validateImageUrl(e.target.value),
+                    onChange: () => {
+                      setIsImageVerified(false);
+                      if (imageCheckError) {
+                        setImageCheckError(null);
+                        clearErrors("eventPosterUrl");
+                      }
+                    },
+                  })}
+                  placeholder="https://cdn.techfuture.org/posters/ai-summit-2026.png"
+                  className="pr-10"
+                />
+                <div className="absolute right-3 top-2.5 flex items-center gap-2">
+                  {isCheckingImage && (
+                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  )}
+                  {!isCheckingImage &&
+                    watch("eventPosterUrl") &&
+                    isImageVerified &&
+                    !errors.eventPosterUrl && (
+                      <Check className="h-5 w-5 text-green-500" />
+                    )}
+                  {!isCheckingImage &&
+                    watch("eventPosterUrl") &&
+                    (imageCheckError || errors.eventPosterUrl) && (
+                      <X className="h-5 w-5 text-destructive" />
+                    )}
+                </div>
+              </div>
               {errors.eventPosterUrl && (
                 <p className="text-destructive text-sm">
                   {errors.eventPosterUrl.message}
                 </p>
+              )}
+              {!errors.eventPosterUrl && imageCheckError && (
+                <p className="text-destructive text-sm">{imageCheckError}</p>
               )}
             </div>
           </div>
@@ -434,7 +525,9 @@ export function EventSubmissionForm() {
         <CardFooter>
           <Button
             type="submit"
-            disabled={isSubmitting || !isValid}
+            disabled={
+              isSubmitting || !isValid || isCheckingImage || !!imageCheckError
+            }
             className="w-full pt-2"
           >
             {isSubmitting ? "Showcasing..." : "Showcase Event"}
