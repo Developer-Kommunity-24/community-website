@@ -8,6 +8,8 @@ import { CalendarProvider } from "@/calendar/contexts/calendar-context";
 import { EventsLoadingSkeleton } from "@/components/events-loading-skeleton";
 import { monthMap } from "@/calendar/helpers";
 import { getEvents } from "@/lib/get-events";
+import { redirect } from "next/navigation";
+import { formatDate } from "date-fns";
 
 export async function generateMetadata({
   searchParams,
@@ -61,20 +63,23 @@ export default async function CalendarPage({
   let initialDate: Date;
   const awaitedSearchParams = await searchParams;
 
-  if (awaitedSearchParams?.date) {
-    const [monthStr, yearStr] = awaitedSearchParams.date
-      .toLowerCase()
-      .split("-");
+  const params = new URLSearchParams(awaitedSearchParams);
+  const fallbackDate = formatDate(new Date(), "MMM-yyyy");
+
+  if (params.has("date")) {
+    const [monthStr, yearStr] = params.get("date")!.toLowerCase().split("-");
     const monthIndex = monthMap[monthStr];
     const year = yearStr ? parseInt(yearStr, 10) : NaN;
 
     if (monthIndex !== undefined && !Number.isNaN(year)) {
       initialDate = new Date(year, monthIndex, 1);
     } else {
-      initialDate = new Date();
+      params.set("date", fallbackDate);
+      redirect(`/calendar?${params.toString()}`);
     }
   } else {
-    initialDate = new Date();
+    params.set("date", fallbackDate);
+    redirect(`/calendar?${params.toString()}`);
   }
   return (
     <BackgroundPattern variant="default">
