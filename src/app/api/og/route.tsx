@@ -29,18 +29,70 @@ export async function GET(request: NextRequest) {
 
     const events = await getEvents(startDate, endDate);
 
-    // Filter events: events starting in this month (top 3)
-    const upcomingEvents = events
-      .filter((e) => {
-        const eventDate = new Date(e.startDateTime);
-        return eventDate >= startDate && eventDate <= endDate;
-      })
-      .sort(
-        (a, b) =>
-          new Date(a.startDateTime).getTime() -
-          new Date(b.startDateTime).getTime(),
-      )
-      .slice(0, 3);
+    // Filter events: events starting in this month (top 3 logic)
+    const now = new Date();
+    const monthEvents = events.filter((e) => {
+      const eventDate = new Date(e.startDateTime);
+      return eventDate >= startDate && eventDate <= endDate;
+    });
+
+    let displayEvents: typeof events = [];
+
+    if (endDate < now) {
+      // Past month: Show 3 events, prioritize DK24, then sort by date
+      displayEvents = monthEvents
+        .sort((a, b) => {
+          const aIsDK24 = a.organizationName === "DK24";
+          const bIsDK24 = b.organizationName === "DK24";
+          if (aIsDK24 && !bIsDK24) return -1;
+          if (!aIsDK24 && bIsDK24) return 1;
+          return (
+            new Date(a.startDateTime).getTime() -
+            new Date(b.startDateTime).getTime()
+          );
+        })
+        .slice(0, 3);
+    } else if (startDate > now) {
+      // Future month: Show top 3 by start date
+      displayEvents = monthEvents
+        .sort(
+          (a, b) =>
+            new Date(a.startDateTime).getTime() -
+            new Date(b.startDateTime).getTime(),
+        )
+        .slice(0, 3);
+    } else {
+      // Current month: Show upcoming events only (if < 3, include past events)
+      const upcoming = monthEvents
+        .filter((e) => new Date(e.startDateTime) >= now)
+        .sort(
+          (a, b) =>
+            new Date(a.startDateTime).getTime() -
+            new Date(b.startDateTime).getTime(),
+        );
+
+      if (upcoming.length >= 3) {
+        displayEvents = upcoming.slice(0, 3);
+      } else {
+        const past = monthEvents
+          .filter((e) => new Date(e.startDateTime) < now)
+          .sort(
+            (a, b) =>
+              new Date(b.startDateTime).getTime() -
+              new Date(a.startDateTime).getTime(),
+          ); // Latest past first
+
+        const needed = 3 - upcoming.length;
+        const pastToUse = past.slice(0, needed);
+
+        // Combine and sort chronologically
+        displayEvents = [...pastToUse, ...upcoming].sort(
+          (a, b) =>
+            new Date(a.startDateTime).getTime() -
+            new Date(b.startDateTime).getTime(),
+        );
+      }
+    }
 
     const monthName = format(startDate, "MMMM yyyy");
 
@@ -54,36 +106,22 @@ export async function GET(request: NextRequest) {
           alignItems: "flex-start",
           justifyContent: "flex-start",
           backgroundColor: "#ffffff",
-          padding: "40px 80px",
+          padding: "50px 80px 80px 80px",
           fontFamily: "sans-serif",
           position: "relative",
           backgroundImage:
-            "radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.02) 0%, rgba(255, 255, 255, 0) 50%)",
+            "radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0) 50%), radial-gradient(circle at 0% 100%, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0) 50%)",
         }}
       >
         <div
           style={{
             position: "absolute",
-            top: -180,
-            left: -180,
-            width: 600,
-            height: 600,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.04) 40%, rgba(255, 255, 255, 0) 70%)",
-            filter: "blur(40px)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            bottom: -100,
-            right: -100,
+            top: -150,
+            right: -150,
             width: 400,
             height: 400,
             borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(5, 150, 105, 0.08) 0%, rgba(255, 255, 255, 0) 70%)",
+            background: "rgba(16, 185, 129, 0.03)",
             filter: "blur(60px)",
           }}
         />
@@ -96,30 +134,30 @@ export async function GET(request: NextRequest) {
             right: 0,
             bottom: 0,
             backgroundImage:
-              "linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-            opacity: 0.4,
+              "linear-gradient(rgba(16, 185, 129, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.02) 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
+            opacity: 0.5,
           }}
         />
 
-        {/* Header */}
+        {/* Header Section */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "flex-end",
+            alignItems: "center",
             width: "100%",
-            marginBottom: "35px",
+            marginBottom: "36px",
             position: "relative",
             zIndex: 10,
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
             <span
               style={{
-                fontSize: "20px",
+                fontSize: "18px",
                 fontWeight: 600,
-                color: "#059669",
+                color: "#10b981",
                 textTransform: "uppercase",
                 letterSpacing: "0.15em",
               }}
@@ -128,12 +166,12 @@ export async function GET(request: NextRequest) {
             </span>
             <h1
               style={{
-                fontSize: "56px",
+                fontSize: "52px",
                 fontWeight: 800,
-                color: "#0f172a",
+                color: "#1e293b",
                 margin: 0,
                 lineHeight: 1,
-                textShadow: "0 4px 12px rgba(15, 23, 42, 0.08)",
+                letterSpacing: "-0.03em",
               }}
             >
               Tech Events & Workshops
@@ -142,232 +180,277 @@ export async function GET(request: NextRequest) {
           <div
             style={{
               display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              gap: "4px",
+              alignItems: "center",
+              gap: "20px",
             }}
           >
             <div
               style={{
-                fontSize: "24px",
-                fontWeight: 800,
-                color: "#10b981",
-                padding: "6px 16px",
-                background:
-                  "linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.12) 100%)",
-                borderRadius: "10px",
-                border: "1px solid rgba(16, 185, 129, 0.15)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
               }}
             >
-              DK24
+              <span
+                style={{
+                  fontSize: "30px",
+                  fontWeight: 900,
+                  color: "#10b981",
+                  lineHeight: 0.9,
+                }}
+              >
+                DK24
+              </span>
+              <span
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#94a3b8",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                }}
+              >
+                Community
+              </span>
             </div>
+            <div
+              style={{
+                width: "2px",
+                height: "40px",
+                backgroundColor: "#e2e8f0",
+              }}
+            />
             <span
-              style={{ fontSize: "14px", color: "#94a3b8", fontWeight: 500 }}
+              style={{ fontSize: "22px", color: "#64748b", fontWeight: 600 }}
             >
-              Learn & Build
+              dk24.org
             </span>
           </div>
         </div>
 
-        {/* Events */}
+        {/* Event Cards */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "16px",
+            gap: "20px",
             width: "100%",
             position: "relative",
             zIndex: 10,
           }}
         >
-          {upcomingEvents.length > 0 ? (
-            upcomingEvents.map((event) => (
-              <div
-                key={event.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "24px",
-                  background:
-                    "linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)",
-                  padding: "16px 28px",
-                  borderRadius: "16px",
-                  border: "1px solid rgba(226, 232, 240, 0.8)",
-                  borderLeft: "6px solid #10b981",
-                  width: "100%",
-                  boxShadow:
-                    "0 4px 12px -2px rgba(15, 23, 42, 0.04), inset 0 1px 0 0 rgba(255, 255, 255, 0.8)",
-                  position: "relative",
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                    width: "6px",
-                    background:
-                      "linear-gradient(180deg, #10b981 0%, #059669 100%)",
-                    borderRadius: "16px 0 0 16px",
-                  }}
-                />
+          {displayEvents.length > 0 ? (
+            displayEvents.map((event) => {
+              const isEventPast = new Date(event.startDateTime) < now;
+              const isDK24 = event.organizationName === "DK24";
 
+              return (
                 <div
+                  key={event.id}
                   style={{
                     display: "flex",
-                    flexDirection: "column",
                     alignItems: "center",
-                    justifyContent: "center",
-                    minWidth: "72px",
-                    background:
-                      "linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(5, 150, 105, 0.08) 100%)",
-                    padding: "10px 14px",
-                    borderRadius: "12px",
-                    border: "1px solid rgba(16, 185, 129, 0.12)",
+                    gap: "28px",
+                    background: "rgba(255, 255, 255, 0.98)",
+                    padding: "18px 28px",
+                    borderRadius: "22px",
+                    border: isDK24
+                      ? "2px solid rgba(16, 185, 129, 0.2)"
+                      : "1px solid rgba(226, 232, 240, 0.6)",
+                    boxShadow: "0 4px 15px -5px rgba(0, 0, 0, 0.05)",
+                    width: "100%",
+                    position: "relative",
+                    overflow: "hidden",
                   }}
                 >
-                  <span
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      color: "#059669",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    {format(new Date(event.startDateTime), "MMM")}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "32px",
-                      fontWeight: 800,
-                      color: "#0f172a",
-                      lineHeight: 1,
-                    }}
-                  >
-                    {format(new Date(event.startDateTime), "dd")}
-                  </span>
-                </div>
-
-                <div
-                  style={{
-                    width: "1px",
-                    height: "48px",
-                    background:
-                      "linear-gradient(180deg, transparent 0%, #e2e8f0 20%, #e2e8f0 80%, transparent 100%)",
-                  }}
-                />
-
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "6px",
-                    flex: 1,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "24px",
-                      fontWeight: 700,
-                      color: "#0f172a",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      maxWidth: "720px",
-                    }}
-                  >
-                    {event.title}
-                  </span>
+                  {/* Left: Date Box */}
                   <div
                     style={{
                       display: "flex",
-                      gap: "12px",
+                      flexDirection: "column",
                       alignItems: "center",
+                      justifyContent: "center",
+                      minWidth: "88px",
+                      height: "88px",
+                      background: isEventPast
+                        ? "#f1f5f9"
+                        : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+                      borderRadius: "16px",
                     }}
                   >
                     <span
                       style={{
-                        fontSize: "16px",
-                        color: "#64748b",
-                        fontWeight: 500,
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        color: isEventPast
+                          ? "#94a3b8"
+                          : "rgba(255,255,255,0.85)",
+                        textTransform: "uppercase",
                       }}
                     >
-                      {event.time}
+                      {format(new Date(event.startDateTime), "MMM")}
                     </span>
                     <span
                       style={{
-                        width: "4px",
-                        height: "4px",
-                        borderRadius: "50%",
-                        background: "#cbd5e1",
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontSize: "16px",
-                        color: "#64748b",
-                        fontWeight: 500,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                        maxWidth: "480px",
+                        fontSize: "38px",
+                        fontWeight: 800,
+                        color: isEventPast ? "#475569" : "#ffffff",
+                        lineHeight: 1,
                       }}
                     >
-                      {event.location}
+                      {format(new Date(event.startDateTime), "dd")}
+                    </span>
+                  </div>
+
+                  {/* Middle: Content */}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      flex: 1,
+                      gap: "4px",
+                      paddingBottom: "4px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "32px",
+                          fontWeight: 700,
+                          color: isEventPast ? "#64748b" : "#1e293b",
+                          maxWidth: "600px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          lineHeight: 1.25,
+                        }}
+                      >
+                        {event.title}
+                      </span>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "14px",
+                        color: "#64748b",
+                        fontSize: "20px",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {isDK24 && (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "4px",
+                            padding: "2px 10px",
+                            background: "rgba(16, 185, 129, 0.1)",
+                            borderRadius: "8px",
+                            marginRight: "4px",
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontSize: "12px",
+                              fontWeight: 700,
+                              color: "#059669",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            by DK24
+                          </span>
+                        </div>
+                      )}
+                      <span>{event.time}</span>
+                      <div
+                        style={{
+                          width: "4px",
+                          height: "4px",
+                          borderRadius: "2px",
+                          backgroundColor: "#cbd5e1",
+                        }}
+                      />
+                      <span
+                        style={{
+                          maxWidth: "350px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {event.location}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right: Status */}
+                  <div
+                    style={{
+                      display: "flex",
+                      padding: "6px 14px",
+                      borderRadius: "8px",
+                      background: isEventPast
+                        ? "#f8fafc"
+                        : "rgba(16, 185, 129, 0.05)",
+                      border: `1px solid ${
+                        isEventPast ? "#e2e8f0" : "rgba(16, 185, 129, 0.15)"
+                      }`,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 700,
+                        color: isEventPast ? "#94a3b8" : "#059669",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {isEventPast ? "Completed" : "Upcoming"}
                     </span>
                   </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           ) : (
             <div
               style={{
-                fontSize: 24,
-                color: "#64748b",
-                background:
-                  "linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)",
-                padding: "40px",
-                borderRadius: "20px",
-                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
                 width: "100%",
-                border: "1px solid rgba(226, 232, 240, 0.8)",
-                boxShadow:
-                  "0 4px 12px -2px rgba(15, 23, 42, 0.04), inset 0 1px 0 0 rgba(255, 255, 255, 0.8)",
+                padding: "80px",
+                background: "rgba(255, 255, 255, 0.8)",
+                borderRadius: "28px",
+                border: "2px dashed #e2e8f0",
               }}
             >
-              No scheduled events discovered for this month.
+              <span
+                style={{ fontSize: "28px", color: "#94a3b8", fontWeight: 600 }}
+              >
+                No scheduled events for {monthName}.
+              </span>
+              <span
+                style={{ fontSize: "18px", color: "#64748b", marginTop: "8px" }}
+              >
+                Stay tuned on dk24.org
+              </span>
             </div>
           )}
-        </div>
-
-        {/* Footer */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "35px",
-            right: "80px",
-            fontSize: "16px",
-            color: "#94a3b8",
-            fontWeight: 600,
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-            padding: "8px 16px",
-            background: "rgba(255, 255, 255, 0.5)",
-            borderRadius: "8px",
-            border: "1px solid rgba(226, 232, 240, 0.4)",
-          }}
-        >
-          <span style={{ color: "#059669" }}>dk24.org</span>
         </div>
       </div>,
       {
         width: 1200,
         height: 630,
         headers: {
-          // Cache for 1 hour and revalidate every 24 hours
           "Cache-Control":
             "public, s-maxage=3600, stale-while-revalidate=86400",
         },
