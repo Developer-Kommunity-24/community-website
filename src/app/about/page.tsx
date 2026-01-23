@@ -15,9 +15,13 @@ export const metadata: Metadata = generatePageMetadata({
 
 export default async function AboutPage() {
   const allEvents = await getEvents();
-  const timelineEvents = allEvents.filter(
-    (event) => event.organizationName === "DK24",
-  );
+  const timelineEvents = allEvents
+    .filter((event) => event.organizationName === "DK24")
+    .sort(
+      (a, b) =>
+        new Date(b.startDateTime).getTime() -
+        new Date(a.startDateTime).getTime(),
+    );
 
   return (
     <BackgroundPattern variant="default">
