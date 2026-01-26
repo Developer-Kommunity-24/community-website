@@ -8,6 +8,7 @@ import { CalendarProvider } from "@/calendar/contexts/calendar-context";
 import { EventsLoadingSkeleton } from "@/components/events-loading-skeleton";
 import { monthMap } from "@/calendar/helpers";
 import { getEvents } from "@/lib/get-events";
+import { formatDate } from "date-fns";
 
 export async function generateMetadata({
   searchParams,
@@ -16,7 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const awaitedSearchParams = await searchParams;
   const eventId = awaitedSearchParams.eventId;
-  const date = awaitedSearchParams.date;
+  let date = awaitedSearchParams.date;
 
   if (eventId) {
     const allEvents = await getEvents();
@@ -46,10 +47,14 @@ export async function generateMetadata({
     }
   }
 
+  // defaults to current month (note: even for invalid date param)
+  date = formatDate(new Date(), "MMM-yyyy");
+
   return generatePageMetadata({
     title: "Calendar",
     description: "Discover the events happening in Mangalore.",
-    path: "/calendar",
+    image: `/api/og?date=${date}`,
+    path: `/calendar?date=${date}`,
   });
 }
 
