@@ -1,5 +1,7 @@
 "use server";
 
+import { promises as fs } from "node:fs";
+import path from "node:path";
 import { JWT } from "google-auth-library";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import type { EventSubmissionFormValues } from "@/lib/forms-config";
@@ -17,6 +19,21 @@ const doc = new GoogleSpreadsheet(
   process.env.GOOGLE_SHEET_ID ?? "",
   serviceAccountAuth,
 );
+
+const localEventsPath = path.join(process.cwd(), "src/data/local-events.json");
+
+async function readLocalEvents(): Promise<IEvent[]> {
+  try {
+    const raw = await fs.readFile(localEventsPath, "utf-8");
+    const data = JSON.parse(raw);
+    return Array.isArray(data) ? (data as IEvent[]) : [];
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return [];
+    }
+    throw error;
+  }
+}
 
 function filterEventsByRange(
   events: IEvent[],
@@ -38,6 +55,13 @@ export async function getEvents(
   startDate?: Date,
   endDate?: Date,
 ): Promise<IEvent[]> {
+  const isDev = process.env.NODE_ENV !== "production";
+  const useLocalCalendar = process.env.EVENTS_SOURCE === "calendar";
+  if (isDev && useLocalCalendar) {
+    const localEvents = await readLocalEvents();
+    return filterEventsByRange(localEvents, startDate, endDate);
+  }
+
   if (
     !process.env.GOOGLE_SHEET_ID ||
     !process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
