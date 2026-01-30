@@ -178,7 +178,7 @@ export function DownloadIcsDialog({
           {buttonLabel}
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="w-[92vw] max-w-[92vw] sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Download ICS</DialogTitle>
           <DialogDescription>
