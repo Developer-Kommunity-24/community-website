@@ -25,11 +25,11 @@ export function CalendarHeader({ view, events }: IProps) {
 
       <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
         <div className="flex w-full items-center gap-2">
-          <DownloadIcsDialog />
+          <DownloadIcsDialog size="default" className="w-full sm:w-auto" />
         </div>
 
         <Link href="/showcase-event">
-          <Button className="w-full sm:w-auto md:flex hidden">
+          <Button size="default" className="w-full sm:w-auto md:flex hidden">
             <Plus />
             Add Event
           </Button>
