@@ -30,19 +30,31 @@ export function DownloadIcsDialog({
 }: DownloadIcsDialogProps) {
   const [mode, setMode] = useState<"event" | "month">("event");
   const [events, setEvents] = useState<IEvent[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedEventIds, setSelectedEventIds] = useState<string[]>([]);
   const [selectedMonths, setSelectedMonths] = useState<string[]>([]);
 
   useEffect(() => {
     let isMounted = true;
+    setErrorMessage(null);
     fetch("/api/events")
-      .then((res) => (res.ok ? res.json() : []))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to load events: ${res.status} ${res.statusText}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         if (!isMounted) return;
         setEvents(Array.isArray(data) ? (data as IEvent[]) : []);
       })
-      .catch(() => {
-        if (isMounted) setEvents([]);
+      .catch((error) => {
+        if (!isMounted) return;
+        console.error("Error fetching events", error);
+        setEvents([]);
+        setErrorMessage(
+          "Unable to load events right now. Please check your connection and try again.",
+        );
       });
     return () => {
       isMounted = false;
@@ -201,6 +213,12 @@ export function DownloadIcsDialog({
             Month
           </Button>
         </div>
+
+        {errorMessage ? (
+          <div className="text-sm text-destructive border border-destructive/30 bg-destructive/5 rounded-md p-3">
+            {errorMessage}
+          </div>
+        ) : null}
 
         {mode === "event" ? (
           <div className="grid gap-2 max-h-64 overflow-auto border rounded-md p-3">
