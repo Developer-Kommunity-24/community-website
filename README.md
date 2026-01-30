@@ -69,6 +69,8 @@ Create a `.env.local` file in the root directory:
 ```env
 # Add your environment variables here
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+# Optional: use local fake calendar data in development
+EVENTS_SOURCE=calendar
 ```
 
 ### Run the Dev Server
