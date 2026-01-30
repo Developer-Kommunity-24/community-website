@@ -24,7 +24,7 @@ export function CalendarHeader({ view, events }: IProps) {
       </div>
 
       <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
-        <div className="flex w-full items-center gap-2">
+        <div className="hidden w-full items-center gap-2 lg:flex">
           <DownloadIcsDialog size="default" className="w-full sm:w-auto" />
         </div>
 
