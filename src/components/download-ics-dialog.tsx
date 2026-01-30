@@ -29,18 +29,22 @@ export function DownloadIcsDialog({
   className,
 }: DownloadIcsDialogProps) {
   const [mode, setMode] = useState<"event" | "month">("event");
+  const [isOpen, setIsOpen] = useState(false);
   const [events, setEvents] = useState<IEvent[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedEventIds, setSelectedEventIds] = useState<string[]>([]);
   const [selectedMonths, setSelectedMonths] = useState<string[]>([]);
 
   useEffect(() => {
+    if (!isOpen) return;
     let isMounted = true;
     setErrorMessage(null);
     fetch("/api/events")
       .then((res) => {
         if (!res.ok) {
-          throw new Error(`Failed to load events: ${res.status} ${res.statusText}`);
+          throw new Error(
+            `Failed to load events: ${res.status} ${res.statusText}`,
+          );
         }
         return res.json();
       })
@@ -52,14 +56,12 @@ export function DownloadIcsDialog({
         if (!isMounted) return;
         console.error("Error fetching events", error);
         setEvents([]);
-        setErrorMessage(
-          "Unable to load events right now. Please check your connection and try again.",
-        );
+        setErrorMessage("Could not fetch events.");
       });
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [isOpen]);
 
   const monthOptions = useMemo(() => {
     const buckets = new Map<
@@ -183,7 +185,7 @@ export function DownloadIcsDialog({
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button size={size} variant={variant} className={className}>
           <Download className="h-4 w-4 mr-1" />
@@ -215,12 +217,10 @@ export function DownloadIcsDialog({
         </div>
 
         {errorMessage ? (
-          <div className="text-sm text-destructive border border-destructive/30 bg-destructive/5 rounded-md p-3">
+          <div className="text-sm text-muted-foreground border rounded-md p-3">
             {errorMessage}
           </div>
-        ) : null}
-
-        {mode === "event" ? (
+        ) : mode === "event" ? (
           <div className="grid gap-2 max-h-64 overflow-auto border rounded-md p-3">
             {events.length === 0 ? (
               <div className="text-sm text-muted-foreground">

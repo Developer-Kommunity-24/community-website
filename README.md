@@ -69,8 +69,6 @@ Create a `.env.local` file in the root directory:
 ```env
 # Add your environment variables here
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-# Optional: use local fake calendar data in development
-EVENTS_SOURCE=calendar
 ```
 
 ### Run the Dev Server
@@ -94,6 +92,7 @@ npm run lint:fix     # Fix lint issues
 npm run format       # Check code format
 npm run format:write # Auto-format files
 npm run type-check   # Run TypeScript type checks
+EVENTS_SOURCE=calendar npm run dev # Use fake calendar events
 ```
 
 ## 🧰 Tech Stack
