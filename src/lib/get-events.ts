@@ -67,6 +67,7 @@ export async function getEvents(
     !process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
     !process.env.GOOGLE_PRIVATE_KEY
   ) {
+    console.warn("getEvents: Missing Google Sheets configuration.");
     return [];
   }
 
@@ -130,7 +131,8 @@ export async function getEvents(
       .filter((event): event is IEvent => event !== null);
 
     return filterEventsByRange(res, startDate, endDate);
-  } catch {
+  } catch (error) {
+    console.error("getEvents: Failed to load events from Google Sheets.", error);
     return [];
   }
 }
