@@ -227,38 +227,48 @@ export function DownloadIcsDialog({
                 No events available.
               </div>
             ) : (
-              events.map((event) => (
-                <label
-                  key={event.id}
-                  className="flex items-center gap-2 text-sm"
-                >
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4"
-                    checked={selectedEventIds.includes(event.id)}
-                    onChange={() => toggleEvent(event.id)}
-                  />
-                  <span>{formatEventLabel(event)}</span>
-                </label>
-              ))
+              events.map((event) => {
+                const inputId = `event-${event.id}`;
+                return (
+                  <label
+                    key={event.id}
+                    htmlFor={inputId}
+                    className="flex items-center gap-2 text-sm"
+                  >
+                    <input
+                      id={inputId}
+                      type="checkbox"
+                      className="h-4 w-4"
+                      checked={selectedEventIds.includes(event.id)}
+                      onChange={() => toggleEvent(event.id)}
+                    />
+                    <span>{formatEventLabel(event)}</span>
+                  </label>
+                );
+              })
             )}
           </div>
         ) : (
           <div className="grid gap-2 max-h-64 overflow-y-auto border rounded-md p-3 sm:grid-cols-2">
-            {monthOptions.map((month) => (
-              <label
-                key={month.key}
-                className="flex items-center gap-2 text-sm"
-              >
-                <input
-                  type="checkbox"
-                  className="h-4 w-4"
-                  checked={selectedMonths.includes(month.key)}
-                  onChange={() => toggleMonth(month.key)}
-                />
-                <span>{month.label}</span>
-              </label>
-            ))}
+            {monthOptions.map((month) => {
+              const inputId = `month-${month.key}`;
+              return (
+                <label
+                  key={month.key}
+                  htmlFor={inputId}
+                  className="flex items-center gap-2 text-sm"
+                >
+                  <input
+                    id={inputId}
+                    type="checkbox"
+                    className="h-4 w-4"
+                    checked={selectedMonths.includes(month.key)}
+                    onChange={() => toggleMonth(month.key)}
+                  />
+                  <span>{month.label}</span>
+                </label>
+              );
+            })}
           </div>
         )}
 
