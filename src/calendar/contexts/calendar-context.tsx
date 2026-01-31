@@ -34,6 +34,7 @@ interface ICalendarContext {
   setVisibleHours: Dispatch<SetStateAction<TVisibleHours>>;
   events: IEvent[];
   isLoading: boolean;
+  fetchError: string | null;
   hoveredEventId: string | null;
   setHoveredEventId: (id: string | null) => void;
 }
@@ -75,6 +76,7 @@ export function CalendarProvider({
   const [eventsCache, setEventsCache] = useState<Map<string, IEvent[]>>(
     new Map(),
   );
+  const [fetchErrors, setFetchErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -132,9 +134,18 @@ export function CalendarProvider({
         }
         const fetchedEvents = (await response.json()) as IEvent[];
         setEventsCache((prev) => new Map(prev).set(monthKey, fetchedEvents));
+        setFetchErrors((prev) => {
+          if (!Object.hasOwn(prev, monthKey)) return prev;
+          const { [monthKey]: _removed, ...rest } = prev;
+          return rest;
+        });
       } catch (error) {
         console.error("Error fetching events", error);
         setEventsCache((prev) => new Map(prev).set(monthKey, []));
+        setFetchErrors((prev) => ({
+          ...prev,
+          [monthKey]: "Could not fetch events.",
+        }));
       }
       setIsLoading(false);
       return;
@@ -162,6 +173,7 @@ export function CalendarProvider({
 
   const currentMonthKey = format(selectedDate, "yyyy-MM");
   const currentMonthEvents = eventsCache.get(currentMonthKey) || [];
+  const fetchError = fetchErrors[currentMonthKey] ?? null;
 
   return (
     <CalendarContext.Provider
@@ -178,6 +190,7 @@ export function CalendarProvider({
         setWorkingHours,
         events: currentMonthEvents,
         isLoading,
+        fetchError,
         hoveredEventId,
         setHoveredEventId,
       }}

@@ -36,7 +36,7 @@ export function CalendarAgendaView({
       });
   }, [singleDayEvents, multiDayEvents, selectedDate]);
 
-  const { isLoading } = useCalendar();
+  const { isLoading, fetchError } = useCalendar();
 
   if (isLoading) {
     return (
@@ -51,6 +51,19 @@ export function CalendarAgendaView({
             </div>
           </div>
         ))}
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="h-full p-4">
+        <div className="flex h-full items-center justify-center text-muted-foreground min-h-[50vh]">
+          <div className="flex flex-col items-center gap-2">
+            <CalendarX2 className="size-10" />
+            <p className="text-sm md:text-base">{fetchError}</p>
+          </div>
+        </div>
       </div>
     );
   }
