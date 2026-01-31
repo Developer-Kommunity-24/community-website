@@ -9,6 +9,14 @@ export async function GET(request: Request) {
   const startDate = startParam ? new Date(startParam) : undefined;
   const endDate = endParam ? new Date(endParam) : undefined;
 
+  if (startParam && startDate && Number.isNaN(startDate.getTime())) {
+    return NextResponse.json({ error: "Invalid start date" }, { status: 400 });
+  }
+
+  if (endParam && endDate && Number.isNaN(endDate.getTime())) {
+    return NextResponse.json({ error: "Invalid end date" }, { status: 400 });
+  }
+
   const events = await getEvents(startDate, endDate);
   return NextResponse.json(events);
 }
