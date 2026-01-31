@@ -123,9 +123,19 @@ export function CalendarProvider({
         start: monthStart.toISOString(),
         end: monthEnd.toISOString(),
       });
-      const response = await fetch(`/api/events?${query.toString()}`);
-      const fetchedEvents = (await response.json()) as IEvent[];
-      setEventsCache((prev) => new Map(prev).set(monthKey, fetchedEvents));
+      try {
+        const response = await fetch(`/api/events?${query.toString()}`);
+        if (!response.ok) {
+          throw new Error(
+            `Failed to load events: ${response.status} ${response.statusText}`,
+          );
+        }
+        const fetchedEvents = (await response.json()) as IEvent[];
+        setEventsCache((prev) => new Map(prev).set(monthKey, fetchedEvents));
+      } catch (error) {
+        console.error("Error fetching events", error);
+        setEventsCache((prev) => new Map(prev).set(monthKey, []));
+      }
       setIsLoading(false);
       return;
     },
