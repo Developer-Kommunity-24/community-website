@@ -11,6 +11,7 @@ function escapeText(value: string | undefined) {
 
 function formatIcsDate(value: string | Date) {
   const date = typeof value === "string" ? new Date(value) : value;
+  if (Number.isNaN(date.getTime())) return null;
   return date
     .toISOString()
     .replace(/[-:]/g, "")
@@ -18,7 +19,7 @@ function formatIcsDate(value: string | Date) {
 }
 
 export function buildICalendar(events: IEvent[]): string {
-  const now = formatIcsDate(new Date());
+  const now = formatIcsDate(new Date()) ?? "";
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
@@ -31,14 +32,18 @@ export function buildICalendar(events: IEvent[]): string {
   events.forEach((event) => {
     if (!event.startDateTime || !event.endDateTime) return;
 
+    const start = formatIcsDate(event.startDateTime);
+    const end = formatIcsDate(event.endDateTime);
+    if (!start || !end) return;
+
     const uid = event.id || `${event.title}-${event.startDateTime}`;
 
     lines.push(
       "BEGIN:VEVENT",
       `UID:${escapeText(uid)}@dk24.org`,
       `DTSTAMP:${now}`,
-      `DTSTART:${formatIcsDate(event.startDateTime)}`,
-      `DTEND:${formatIcsDate(event.endDateTime)}`,
+      `DTSTART:${start}`,
+      `DTEND:${end}`,
       `SUMMARY:${escapeText(event.title)}`,
       event.description ? `DESCRIPTION:${escapeText(event.description)}` : "",
       event.location ? `LOCATION:${escapeText(event.location)}` : "",
