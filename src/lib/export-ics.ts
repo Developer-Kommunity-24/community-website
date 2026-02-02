@@ -18,6 +18,33 @@ function formatIcsDate(value: string | Date) {
     .replace(/\.\d{3}Z$/, "Z");
 }
 
+/**
+ * Builds an iCalendar (ICS) document string for the given events.
+ *
+ * Each event in the array is converted into a `VEVENT` component inside a
+ * single `VCALENDAR` with `VERSION:2.0`, `CALSCALE:GREGORIAN` and
+ * `METHOD:PUBLISH`. Dates are rendered in UTC (`YYYYMMDDTHHmmssZ`) and
+ * text fields are escaped according to the iCalendar rules for backslashes,
+ * commas, semicolons and newlines.
+ *
+ * Expected `IEvent` fields used by this function:
+ * - `startDateTime` (string | Date): Start of the event; required to emit a VEVENT.
+ * - `endDateTime`   (string | Date): End of the event; required to emit a VEVENT.
+ * - `id`            (string, optional): Used to build a stable UID; falls back to
+ *   `${title}-${startDateTime}` if not provided.
+ * - `title`         (string): Mapped to `SUMMARY`.
+ * - `description`   (string, optional): Mapped to `DESCRIPTION`.
+ * - `location`      (string, optional): Mapped to `LOCATION`.
+ * - `registrationLink` (string, optional): Preferred URL mapped to `URL`.
+ * - `joinLink`      (string, optional): Fallback URL mapped to `URL` if
+ *   `registrationLink` is not present.
+ *
+ * @param events Array of calendar events to export as ICS.
+ * @returns A string containing a complete VCALENDAR 2.0 document with CRLF
+ * line endings, suitable for serving as a `.ics` file.
+ *
+ * @see https://datatracker.ietf.org/doc/html/rfc5545
+ */
 export function buildICalendar(events: IEvent[]): string {
   const now = formatIcsDate(new Date()) ?? "";
   const lines = [
