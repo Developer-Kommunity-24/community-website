@@ -53,7 +53,7 @@
     "google-auth-library": "^10.2.1",
     "google-spreadsheet": "^5.0.2",
     "lucide-react": "^0.518.0",
-    "next": "15.5.9",
+    "next": "^15.5.11",
     "next-themes": "^0.4.6",
     "react": "^19.1.0",
     "react-aria-components": "^1.14.0",
@@ -62,6 +62,7 @@
     "react-hook-form": "^7.58.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^13.0.0",
     "zod": "^3.25.67"
   },
   "devDependencies": {

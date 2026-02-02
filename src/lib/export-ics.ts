@@ -1,4 +1,8 @@
 import type { IEvent } from "@/calendar/interfaces";
+import { v4 as uuidv4 } from "uuid";
+
+// Add type declarations for 'uuid'
+declare module "uuid";
 
 function escapeText(value: string | undefined) {
   if (!value) return "";
@@ -74,7 +78,7 @@ export function buildICalendar(events: IEvent[]): string {
     const end = formatIcsDate(event.endDateTime);
     if (!start || !end) return;
 
-    const uid = event.id || `${event.title}-${event.startDateTime}`;
+    const uid = event.id || `${event.title}-${event.startDateTime}-${uuidv4()}`;
 
     lines.push(
       "BEGIN:VEVENT",
@@ -96,5 +100,8 @@ export function buildICalendar(events: IEvent[]): string {
 
   lines.push("END:VCALENDAR");
 
-  return lines.filter(Boolean).map((line) => foldLine(line)).join("\r\n");
+  return lines
+    .filter(Boolean)
+    .map((line) => foldLine(line))
+    .join("\r\n");
 }
