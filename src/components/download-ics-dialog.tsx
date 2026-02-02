@@ -44,27 +44,26 @@ export function DownloadIcsDialog({
     const oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(currentDate.getFullYear() + 1);
 
-    fetch(
-      `/api/events?startDate=${currentDate.toISOString()}&endDate=${oneYearFromNow.toISOString()}`,
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(
-            `Failed to load events: ${res.status} ${res.statusText}`,
-          );
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (!isMounted) return;
-        setEvents(Array.isArray(data) ? (data as IEvent[]) : []);
+    import("@/lib/get-events")
+      .then(({ getEvents }) => {
+        getEvents(currentDate, oneYearFromNow)
+          .then((data) => {
+            if (!isMounted) return;
+            setEvents(Array.isArray(data) ? (data as IEvent[]) : []);
+          })
+          .catch((error) => {
+            if (!isMounted) return;
+            console.error("Error fetching events", error);
+            setEvents([]);
+            setErrorMessage("Could not fetch events.");
+          });
       })
       .catch((error) => {
         if (!isMounted) return;
-        console.error("Error fetching events", error);
-        setEvents([]);
-        setErrorMessage("Could not fetch events.");
+        console.error("Error loading getEvents function", error);
+        setErrorMessage("Could not load events.");
       });
+
     return () => {
       isMounted = false;
     };

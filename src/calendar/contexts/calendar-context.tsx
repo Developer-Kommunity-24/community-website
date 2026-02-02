@@ -11,6 +11,7 @@ import { format, startOfMonth, endOfMonth } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { monthMap } from "@/calendar/helpers";
+import { getEvents } from "@/lib/get-events";
 
 import type { Dispatch, SetStateAction } from "react";
 import type { IEvent } from "@/calendar/interfaces";
@@ -121,34 +122,27 @@ export function CalendarProvider({
       setIsLoading(true);
       const monthStart = startOfMonth(date);
       const monthEnd = endOfMonth(date);
-      const query = new URLSearchParams({
-        start: monthStart.toISOString(),
-        end: monthEnd.toISOString(),
+
+      import("@/lib/get-events").then(({ getEvents }) => {
+        getEvents(monthStart, monthEnd)
+          .then((fetchedEvents) => {
+            setEventsCache((prev) =>
+              new Map(prev).set(monthKey, fetchedEvents),
+            );
+            setFetchErrors((prev) => {
+              if (!Object.hasOwn(prev, monthKey)) return prev;
+              const { [monthKey]: _removed, ...rest } = prev;
+              return rest;
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching events", error);
+            setFetchErrors((prev) => ({ ...prev, [monthKey]: error }));
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
       });
-      try {
-        const response = await fetch(`/api/events?${query.toString()}`);
-        if (!response.ok) {
-          throw new Error(
-            `Failed to load events: ${response.status} ${response.statusText}`,
-          );
-        }
-        const fetchedEvents = (await response.json()) as IEvent[];
-        setEventsCache((prev) => new Map(prev).set(monthKey, fetchedEvents));
-        setFetchErrors((prev) => {
-          if (!Object.hasOwn(prev, monthKey)) return prev;
-          const { [monthKey]: _removed, ...rest } = prev;
-          return rest;
-        });
-      } catch (error) {
-        console.error("Error fetching events", error);
-        setEventsCache((prev) => new Map(prev).set(monthKey, []));
-        setFetchErrors((prev) => ({
-          ...prev,
-          [monthKey]: "Could not fetch events.",
-        }));
-      }
-      setIsLoading(false);
-      return;
     },
     [eventsCache],
   );
