@@ -13,6 +13,11 @@ function escapeText(value: string | undefined) {
     .replace(/\n/g, "\\n");
 }
 
+function escapeUrl(value: string | undefined) {
+  if (!value) return "";
+  return value.replace(/,/g, "\,").replace(/;/g, "\;");
+}
+
 function foldLine(line: string, limit = 75) {
   if (line.length <= limit) return line;
 
@@ -90,9 +95,9 @@ export function buildICalendar(events: IEvent[]): string {
       event.description ? `DESCRIPTION:${escapeText(event.description)}` : "",
       event.location ? `LOCATION:${escapeText(event.location)}` : "",
       event.registrationLink
-        ? `URL:${escapeText(event.registrationLink)}`
+        ? `URL:${escapeUrl(event.registrationLink)}`
         : event.joinLink
-          ? `URL:${escapeText(event.joinLink)}`
+          ? `URL:${escapeUrl(event.joinLink)}`
           : "",
       "END:VEVENT",
     );
