@@ -170,18 +170,30 @@ export function DownloadIcsDialog({
 
     if (selectedEvents.length === 0) return;
 
-    const icsContent = buildICalendar(selectedEvents);
-    const blob = new Blob([icsContent], {
-      type: "text/calendar;charset=utf-8",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "dk24-events.ics";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
+    let url: string | undefined;
+
+    try {
+      const icsContent = buildICalendar(selectedEvents);
+      const blob = new Blob([icsContent], {
+        type: "text/calendar;charset=utf-8",
+      });
+      url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "dk24-events.ics";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Failed to download ICS file:", error);
+      if (typeof window !== "undefined") {
+        window.alert("Failed to download calendar file. Please try again.");
+      }
+    } finally {
+      if (url) {
+        URL.revokeObjectURL(url);
+      }
+    }
   };
 
   return (
