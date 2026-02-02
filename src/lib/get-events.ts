@@ -46,7 +46,8 @@ function filterEventsByRange(
     const eventEndDate = new Date(event.endDateTime);
     return (
       (eventStartDate >= startDate && eventStartDate <= endDate) ||
-      (eventEndDate >= startDate && eventEndDate <= endDate)
+      (eventEndDate >= startDate && eventEndDate <= endDate) ||
+      (eventStartDate <= startDate && eventEndDate >= endDate)
     );
   });
 }
