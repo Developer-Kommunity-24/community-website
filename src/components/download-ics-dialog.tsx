@@ -96,7 +96,11 @@ export function DownloadIcsDialog({
     if (buckets.size === 0) {
       const fallback = new Date();
       for (let i = 0; i < 12; i += 1) {
-        const date = new Date(fallback.getFullYear(), i, 1);
+        const date = new Date(
+          fallback.getFullYear(),
+          fallback.getMonth() + i,
+          1,
+        );
         const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
         const label = date.toLocaleString("en-US", {
           month: "long",
