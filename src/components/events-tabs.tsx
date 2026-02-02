@@ -30,9 +30,13 @@ export function EventsTabs() {
                 <TabsTrigger value="month">Month</TabsTrigger>
               </TabsList>
               <div className="flex items-center gap-2">
-                <DownloadIcsDialog buttonLabel="ICS" />
+                <DownloadIcsDialog
+                  buttonLabel="ICS"
+                  size="sm"
+                  className="h-10"
+                />
                 <Link href="/showcase-event">
-                  <Button size="sm">
+                  <Button size="sm" className="h-10">
                     <Plus className="h-4 w-4 mr-1" />
                     Add Event
                   </Button>
