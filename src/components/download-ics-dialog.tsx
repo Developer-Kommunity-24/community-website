@@ -39,7 +39,14 @@ export function DownloadIcsDialog({
     if (!isOpen) return;
     let isMounted = true;
     setErrorMessage(null);
-    fetch("/api/events")
+
+    const currentDate = new Date();
+    const oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(currentDate.getFullYear() + 1);
+
+    fetch(
+      `/api/events?startDate=${currentDate.toISOString()}&endDate=${oneYearFromNow.toISOString()}`,
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error(
