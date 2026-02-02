@@ -9,6 +9,17 @@ function escapeText(value: string | undefined) {
     .replace(/\n/g, "\\n");
 }
 
+function foldLine(line: string, limit = 75) {
+  if (line.length <= limit) return line;
+
+  const segments: string[] = [];
+  for (let i = 0; i < line.length; i += limit) {
+    segments.push(line.slice(i, i + limit));
+  }
+
+  return `${segments[0]}\r\n ${segments.slice(1).join("\r\n ")}`;
+}
+
 function formatIcsDate(value: string | Date) {
   const date = typeof value === "string" ? new Date(value) : value;
   if (Number.isNaN(date.getTime())) return null;
@@ -85,5 +96,5 @@ export function buildICalendar(events: IEvent[]): string {
 
   lines.push("END:VCALENDAR");
 
-  return lines.filter(Boolean).join("\r\n");
+  return lines.filter(Boolean).map((line) => foldLine(line)).join("\r\n");
 }
