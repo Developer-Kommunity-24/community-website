@@ -68,7 +68,7 @@ export async function getEvents(
     !process.env.GOOGLE_PRIVATE_KEY
   ) {
     console.warn("getEvents: Missing Google Sheets configuration.");
-    return [];
+    throw new Error("Missing Google Sheets configuration");
   }
 
   try {
