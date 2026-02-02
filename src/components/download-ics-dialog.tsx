@@ -128,8 +128,18 @@ export function DownloadIcsDialog({
     );
   };
 
-  const isDownloadDisabled =
-    selectedEventIds.length === 0 && selectedMonths.length === 0;
+  const hasSelection =
+    selectedEventIds.length > 0 || selectedMonths.length > 0;
+  const hasValidSelectedEvents = events.some((event) => {
+    const matchesEventId =
+      selectedEventIds.length > 0 && selectedEventIds.includes(event.id);
+    const matchesSelectedMonth =
+      selectedMonths.length > 0 &&
+      getEventMonthKeys(event).some((key) => selectedMonths.includes(key));
+    if (!matchesEventId && !matchesSelectedMonth) return false;
+    return getEventMonthKeys(event).length > 0;
+  });
+  const isDownloadDisabled = !hasSelection || !hasValidSelectedEvents;
 
   const getMonthKey = (date: Date) =>
     `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
