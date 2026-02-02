@@ -128,8 +128,7 @@ export function DownloadIcsDialog({
     );
   };
 
-  const hasSelection =
-    selectedEventIds.length > 0 || selectedMonths.length > 0;
+  const hasSelection = selectedEventIds.length > 0 || selectedMonths.length > 0;
   const hasValidSelectedEvents = events.some((event) => {
     const matchesEventId =
       selectedEventIds.length > 0 && selectedEventIds.includes(event.id);

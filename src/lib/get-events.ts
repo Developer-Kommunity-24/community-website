@@ -132,7 +132,10 @@ export async function getEvents(
 
     return filterEventsByRange(res, startDate, endDate);
   } catch (error) {
-    console.error("getEvents: Failed to load events from Google Sheets.", error);
+    console.error(
+      "getEvents: Failed to load events from Google Sheets.",
+      error,
+    );
     return [];
   }
 }
