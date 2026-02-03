@@ -76,8 +76,13 @@ export function buildICalendar(events: IEvent[]): string {
     "X-WR-CALNAME:DK24 Events",
   ];
 
+  const currentDate = new Date();
+
   events.forEach((event) => {
     if (!event.startDateTime || !event.endDateTime) return;
+
+    // Filter out past events
+    if (new Date(event.endDateTime) < currentDate) return;
 
     const start = formatIcsDate(event.startDateTime);
     const end = formatIcsDate(event.endDateTime);
