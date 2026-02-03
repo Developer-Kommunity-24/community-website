@@ -138,18 +138,6 @@ export function DownloadIcsDialog({
     );
   };
 
-  const hasSelection = selectedEventIds.length > 0 || selectedMonths.length > 0;
-  const hasValidSelectedEvents = events.some((event) => {
-    const matchesEventId =
-      selectedEventIds.length > 0 && selectedEventIds.includes(event.id);
-    const matchesSelectedMonth =
-      selectedMonths.length > 0 &&
-      getEventMonthKeys(event).some((key) => selectedMonths.includes(key));
-    if (!matchesEventId && !matchesSelectedMonth) return false;
-    return getEventMonthKeys(event).length > 0;
-  });
-  const isDownloadDisabled = !hasSelection || !hasValidSelectedEvents;
-
   const getMonthKey = (date: Date) =>
     `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
 
@@ -167,6 +155,18 @@ export function DownloadIcsDialog({
     }
     return keys;
   };
+
+  const hasSelection = selectedEventIds.length > 0 || selectedMonths.length > 0;
+  const hasValidSelectedEvents = events.some((event) => {
+    const matchesEventId =
+      selectedEventIds.length > 0 && selectedEventIds.includes(event.id);
+    const matchesSelectedMonth =
+      selectedMonths.length > 0 &&
+      getEventMonthKeys(event).some((key) => selectedMonths.includes(key));
+    if (!matchesEventId && !matchesSelectedMonth) return false;
+    return getEventMonthKeys(event).length > 0;
+  });
+  const isDownloadDisabled = !hasSelection || !hasValidSelectedEvents;
 
   const handleDownload = () => {
     const eventsById = new Map<string, IEvent>();
@@ -258,29 +258,74 @@ export function DownloadIcsDialog({
                 No events available.
               </div>
             ) : (
-              events.map((event) => {
-                const inputId = `event-${event.id}`;
-                return (
+              <>
+                <div className="flex items-center gap-2 mb-2">
+                  <input
+                    type="checkbox"
+                    id="select-all-events"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedEventIds(events.map((event) => event.id));
+                      } else {
+                        setSelectedEventIds([]);
+                      }
+                    }}
+                    checked={selectedEventIds.length === events.length}
+                    className="h-4 w-4"
+                  />
                   <label
-                    key={event.id}
-                    htmlFor={inputId}
-                    className="flex items-center gap-2 text-sm"
+                    htmlFor="select-all-events"
+                    className="text-sm font-medium"
                   >
-                    <input
-                      id={inputId}
-                      type="checkbox"
-                      className="h-4 w-4"
-                      checked={selectedEventIds.includes(event.id)}
-                      onChange={() => toggleEvent(event.id)}
-                    />
-                    <span>{formatEventLabel(event)}</span>
+                    Select All Events
                   </label>
-                );
-              })
+                </div>
+
+                {events.map((event) => {
+                  const inputId = `event-${event.id}`;
+                  return (
+                    <label
+                      key={event.id}
+                      htmlFor={inputId}
+                      className="flex items-center gap-2 text-sm"
+                    >
+                      <input
+                        id={inputId}
+                        type="checkbox"
+                        className="h-4 w-4"
+                        checked={selectedEventIds.includes(event.id)}
+                        onChange={() => toggleEvent(event.id)}
+                      />
+                      <span>{formatEventLabel(event)}</span>
+                    </label>
+                  );
+                })}
+              </>
             )}
           </div>
         ) : (
           <div className="grid gap-2 max-h-64 overflow-y-auto border rounded-md p-3 sm:grid-cols-2">
+            <div className="flex items-center gap-2 mb-2">
+              <input
+                type="checkbox"
+                id="select-all-months"
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setSelectedMonths(monthOptions.map((month) => month.key));
+                  } else {
+                    setSelectedMonths([]);
+                  }
+                }}
+                checked={selectedMonths.length === monthOptions.length}
+                className="h-4 w-4"
+              />
+              <label
+                htmlFor="select-all-months"
+                className="text-sm font-medium"
+              >
+                Select All Months
+              </label>
+            </div>
             {monthOptions.map((month) => {
               const inputId = `month-${month.key}`;
               return (
