@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ButtonProps } from "@/components/ui/button";
 import { Button } from "@/components/ui/button";
 import {
@@ -120,6 +120,36 @@ export function DownloadIcsDialog({
     );
   }, [events]);
 
+  const getEventMonthKeys = useCallback((event: IEvent) => {
+    const start = new Date(event.startDateTime);
+    const end = new Date(event.endDateTime);
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return [];
+
+    const keys: string[] = [];
+    const cursor = new Date(start.getFullYear(), start.getMonth(), 1);
+    const endCursor = new Date(end.getFullYear(), end.getMonth(), 1);
+    while (cursor <= endCursor) {
+      const monthKey = `${cursor.getFullYear()}-${String(
+        cursor.getMonth() + 1,
+      ).padStart(2, "0")}`;
+      keys.push(monthKey);
+      cursor.setMonth(cursor.getMonth() + 1);
+    }
+    return keys;
+  }, []);
+
+  const monthOptionsWithCount = useMemo(() => {
+    return monthOptions.map((month) => {
+      const eventCount = events.filter((event) =>
+        getEventMonthKeys(event).includes(month.key),
+      ).length;
+      return {
+        ...month,
+        eventCount,
+      };
+    });
+  }, [monthOptions, events, getEventMonthKeys]);
+
   const formatEventLabel = (event: IEvent) => {
     const date = new Date(event.startDateTime);
     const monthLabel = Number.isNaN(date.getTime())
@@ -142,24 +172,6 @@ export function DownloadIcsDialog({
         ? prev.filter((m) => m !== monthName)
         : [...prev, monthName],
     );
-  };
-
-  const getMonthKey = (date: Date) =>
-    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
-
-  const getEventMonthKeys = (event: IEvent) => {
-    const start = new Date(event.startDateTime);
-    const end = new Date(event.endDateTime);
-    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return [];
-
-    const keys: string[] = [];
-    const cursor = new Date(start.getFullYear(), start.getMonth(), 1);
-    const endCursor = new Date(end.getFullYear(), end.getMonth(), 1);
-    while (cursor <= endCursor) {
-      keys.push(getMonthKey(cursor));
-      cursor.setMonth(cursor.getMonth() + 1);
-    }
-    return keys;
   };
 
   const hasSelection = selectedEventIds.length > 0 || selectedMonths.length > 0;
@@ -219,6 +231,31 @@ export function DownloadIcsDialog({
         URL.revokeObjectURL(url);
       }
     }
+  };
+
+  const renderMonthOptions = () => {
+    return (
+      <div className="flex flex-col gap-2">
+        {monthOptionsWithCount.map((month) => (
+          <div key={month.key} className="flex items-center">
+            <input
+              type="checkbox"
+              id={month.key}
+              name={month.key}
+              className="mr-2"
+              checked={selectedMonths.includes(month.key)}
+              onChange={() => toggleMonth(month.key)}
+            />
+            <label htmlFor={month.key} className="grow">
+              {month.label}
+            </label>
+            <span className="text-sm text-gray-500">
+              {month.eventCount} events
+            </span>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -307,8 +344,8 @@ export function DownloadIcsDialog({
                 })}
               </div>
             ) : (
-              <div className="grid gap-2 max-h-64 overflow-y-auto border rounded-md p-3 sm:grid-cols-2">
-                <div className="flex items-center gap-2 mb-2">
+              <div className="flex flex-col gap-2 max-h-64 overflow-y-auto border rounded-md p-3">
+                <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     id="select-all-months"
@@ -331,25 +368,7 @@ export function DownloadIcsDialog({
                     Select All Months
                   </label>
                 </div>
-                {monthOptions.map((month) => {
-                  const inputId = `month-${month.key}`;
-                  return (
-                    <label
-                      key={month.key}
-                      htmlFor={inputId}
-                      className="flex items-center gap-2 text-sm"
-                    >
-                      <input
-                        id={inputId}
-                        type="checkbox"
-                        className="h-4 w-4"
-                        checked={selectedMonths.includes(month.key)}
-                        onChange={() => toggleMonth(month.key)}
-                      />
-                      <span>{month.label}</span>
-                    </label>
-                  );
-                })}
+                {renderMonthOptions()}
               </div>
             )}
 
