@@ -238,12 +238,12 @@ export function DownloadIcsDialog({
     return (
       <div className="flex flex-col gap-2">
         {monthOptionsWithCount.map((month) => (
-          <div key={month.key} className="flex items-center">
+          <div key={month.key} className="flex items-center gap-2 text-sm">
             <input
               type="checkbox"
               id={month.key}
               name={month.key}
-              className="mr-2"
+              className="h-4 w-4"
               checked={selectedMonths.includes(month.key)}
               onChange={() => toggleMonth(month.key)}
             />
@@ -341,7 +341,7 @@ export function DownloadIcsDialog({
 
               <TabsContent value="month">
                 <div className="flex flex-col gap-2 max-h-64 overflow-y-auto border rounded-md p-3">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 mb-2">
                     <input
                       type="checkbox"
                       id="select-all-months"
@@ -369,7 +369,7 @@ export function DownloadIcsDialog({
               </TabsContent>
             </Tabs>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end mt-4">
               <Button
                 type="button"
                 disabled={isDownloadDisabled}
