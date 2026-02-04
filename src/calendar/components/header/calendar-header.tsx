@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { Calendar, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { DownloadIcsDialog } from "@/components/download-ics-dialog";
 import { DateNavigator } from "@/calendar/components/header/date-navigator";
 
 import type { IEvent } from "@/calendar/interfaces";
@@ -20,11 +23,16 @@ export function CalendarHeader({ view, events }: IProps) {
         <DateNavigator view={view} events={events} />
       </div>
 
-      <div className="flex flex-col items-center gap-1.5 sm:flex-row sm:justify-between">
-        <div className="flex w-full items-center gap-1.5"></div>
+      <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
+        <div className="hidden w-full items-center gap-2 lg:flex">
+          <DownloadIcsDialog size="default" className="w-full sm:w-auto h-12" />
+        </div>
 
         <Link href="/showcase-event">
-          <Button className="w-full sm:w-auto md:flex hidden">
+          <Button
+            size="default"
+            className="w-full sm:w-auto md:flex hidden h-12"
+          >
             <Plus />
             Add Event
           </Button>

@@ -10,8 +10,8 @@ import {
 import { format, startOfMonth, endOfMonth } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { getEvents } from "@/lib/get-events";
 import { monthMap } from "@/calendar/helpers";
+import { getEvents } from "@/lib/get-events";
 
 import type { Dispatch, SetStateAction } from "react";
 import type { IEvent } from "@/calendar/interfaces";
@@ -35,6 +35,7 @@ interface ICalendarContext {
   setVisibleHours: Dispatch<SetStateAction<TVisibleHours>>;
   events: IEvent[];
   isLoading: boolean;
+  fetchError: string | null;
   hoveredEventId: string | null;
   setHoveredEventId: (id: string | null) => void;
 }
@@ -76,6 +77,7 @@ export function CalendarProvider({
   const [eventsCache, setEventsCache] = useState<Map<string, IEvent[]>>(
     new Map(),
   );
+  const [fetchErrors, setFetchErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -120,10 +122,27 @@ export function CalendarProvider({
       setIsLoading(true);
       const monthStart = startOfMonth(date);
       const monthEnd = endOfMonth(date);
-      const fetchedEvents = await getEvents(monthStart, monthEnd);
-      setEventsCache((prev) => new Map(prev).set(monthKey, fetchedEvents));
-      setIsLoading(false);
-      return;
+
+      import("@/lib/get-events").then(({ getEvents }) => {
+        getEvents(monthStart, monthEnd)
+          .then((fetchedEvents) => {
+            setEventsCache((prev) =>
+              new Map(prev).set(monthKey, fetchedEvents),
+            );
+            setFetchErrors((prev) => {
+              if (!Object.hasOwn(prev, monthKey)) return prev;
+              const { [monthKey]: _removed, ...rest } = prev;
+              return rest;
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching events", error);
+            setFetchErrors((prev) => ({ ...prev, [monthKey]: error }));
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      });
     },
     [eventsCache],
   );
@@ -148,6 +167,7 @@ export function CalendarProvider({
 
   const currentMonthKey = format(selectedDate, "yyyy-MM");
   const currentMonthEvents = eventsCache.get(currentMonthKey) || [];
+  const fetchError = fetchErrors[currentMonthKey] ?? null;
 
   return (
     <CalendarContext.Provider
@@ -164,6 +184,7 @@ export function CalendarProvider({
         setWorkingHours,
         events: currentMonthEvents,
         isLoading,
+        fetchError,
         hoveredEventId,
         setHoveredEventId,
       }}

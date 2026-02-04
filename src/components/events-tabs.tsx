@@ -6,6 +6,7 @@ import { Plus, Calendar } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ClientContainer } from "@/calendar/components/client-container";
+import { DownloadIcsDialog } from "@/components/download-ics-dialog";
 
 export function EventsTabs() {
   const searchParams = useSearchParams();
@@ -28,12 +29,19 @@ export function EventsTabs() {
                 </TabsTrigger>
                 <TabsTrigger value="month">Month</TabsTrigger>
               </TabsList>
-              <Link href="/showcase-event">
-                <Button size="sm">
-                  <Plus className="h-4 w-4 mr-1" />
-                  Add Event
-                </Button>
-              </Link>
+              <div className="flex items-center gap-2">
+                <DownloadIcsDialog
+                  buttonLabel="ICS"
+                  size="sm"
+                  className="h-10"
+                />
+                <Link href="/showcase-event">
+                  <Button size="sm" className="h-10">
+                    <Plus className="h-4 w-4 mr-1" />
+                    Add Event
+                  </Button>
+                </Link>
+              </div>
             </div>
             <TabsContent value="agenda" className="mt-0">
               <ClientContainer view="agenda" />

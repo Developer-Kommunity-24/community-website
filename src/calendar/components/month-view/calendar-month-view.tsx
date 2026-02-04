@@ -22,7 +22,7 @@ interface IProps {
 const WEEK_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export function CalendarMonthView({ singleDayEvents, multiDayEvents }: IProps) {
-  const { selectedDate } = useCalendar();
+  const { selectedDate, fetchError } = useCalendar();
 
   const allEvents = [...multiDayEvents, ...singleDayEvents];
 
@@ -40,7 +40,12 @@ export function CalendarMonthView({ singleDayEvents, multiDayEvents }: IProps) {
 
   return (
     <Card className="bg-linear-to-br from-green-50/50 to-white dark:from-green-950/20 dark:to-background border-green-200/50 dark:border-green-800/50 py-0 h-full">
-      <CardContent className="p-4">
+      <CardContent className="p-4 h-full">
+        {fetchError ? (
+          <div className="mb-4 text-sm text-destructive border border-destructive/30 bg-destructive/5 rounded-md p-3">
+            {fetchError}
+          </div>
+        ) : null}
         <div className="grid grid-cols-7">
           {WEEK_DAYS.map((day, index) => (
             <div

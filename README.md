@@ -92,6 +92,7 @@ npm run lint:fix     # Fix lint issues
 npm run format       # Check code format
 npm run format:write # Auto-format files
 npm run type-check   # Run TypeScript type checks
+EVENTS_SOURCE=calendar npm run dev # Use fake calendar events
 ```
 
 ## 🧰 Tech Stack
