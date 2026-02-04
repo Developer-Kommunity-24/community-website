@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ButtonProps } from "@/components/ui/button";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -282,95 +283,91 @@ export function DownloadIcsDialog({
           <div className="text-center py-4">No events available.</div>
         ) : (
           <div>
-            <div className="flex gap-2">
-              <Button
-                variant={mode === "event" ? "default" : "outline"}
-                type="button"
-                onClick={() => setMode("event")}
-              >
-                Event
-              </Button>
-              <Button
-                variant={mode === "month" ? "default" : "outline"}
-                type="button"
-                onClick={() => setMode("month")}
-              >
-                Month
-              </Button>
-            </div>
+            <Tabs
+              value={mode}
+              onValueChange={(value) => setMode(value as "event" | "month")}
+              className="mt-2"
+            >
+              <TabsList>
+                <TabsTrigger value="event">Event</TabsTrigger>
+                <TabsTrigger value="month">Month</TabsTrigger>
+              </TabsList>
 
-            {mode === "event" ? (
-              <div className="grid gap-2 max-h-64 overflow-auto border rounded-md p-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <input
-                    type="checkbox"
-                    id="select-all-events"
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedEventIds(events.map((event) => event.id));
-                      } else {
-                        setSelectedEventIds([]);
-                      }
-                    }}
-                    checked={selectedEventIds.length === events.length}
-                    className="h-4 w-4"
-                  />
-                  <label
-                    htmlFor="select-all-events"
-                    className="text-sm font-medium"
-                  >
-                    Select All Events
-                  </label>
-                </div>
-
-                {events.map((event) => {
-                  const inputId = `event-${event.id}`;
-                  return (
+              <TabsContent value="event">
+                <div className="grid gap-2 max-h-64 overflow-auto border rounded-md p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <input
+                      type="checkbox"
+                      id="select-all-events"
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedEventIds(events.map((event) => event.id));
+                        } else {
+                          setSelectedEventIds([]);
+                        }
+                      }}
+                      checked={selectedEventIds.length === events.length}
+                      className="h-4 w-4"
+                    />
                     <label
-                      key={event.id}
-                      htmlFor={inputId}
-                      className="flex items-center gap-2 text-sm"
+                      htmlFor="select-all-events"
+                      className="text-sm font-medium"
                     >
-                      <input
-                        id={inputId}
-                        type="checkbox"
-                        className="h-4 w-4"
-                        checked={selectedEventIds.includes(event.id)}
-                        onChange={() => toggleEvent(event.id)}
-                      />
-                      <span>{formatEventLabel(event)}</span>
+                      Select All Events
                     </label>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2 max-h-64 overflow-y-auto border rounded-md p-3">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    id="select-all-months"
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedMonths(
-                          monthOptions.map((month) => month.key),
-                        );
-                      } else {
-                        setSelectedMonths([]);
-                      }
-                    }}
-                    checked={selectedMonths.length === monthOptions.length}
-                    className="h-4 w-4"
-                  />
-                  <label
-                    htmlFor="select-all-months"
-                    className="text-sm font-medium"
-                  >
-                    Select All Months
-                  </label>
+                  </div>
+
+                  {events.map((event) => {
+                    const inputId = `event-${event.id}`;
+                    return (
+                      <label
+                        key={event.id}
+                        htmlFor={inputId}
+                        className="flex items-center gap-2 text-sm"
+                      >
+                        <input
+                          id={inputId}
+                          type="checkbox"
+                          className="h-4 w-4"
+                          checked={selectedEventIds.includes(event.id)}
+                          onChange={() => toggleEvent(event.id)}
+                        />
+                        <span>{formatEventLabel(event)}</span>
+                      </label>
+                    );
+                  })}
                 </div>
-                {renderMonthOptions()}
-              </div>
-            )}
+              </TabsContent>
+
+              <TabsContent value="month">
+                <div className="flex flex-col gap-2 max-h-64 overflow-y-auto border rounded-md p-3">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      id="select-all-months"
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedMonths(
+                            monthOptions.map((month) => month.key),
+                          );
+                        } else {
+                          setSelectedMonths([]);
+                        }
+                      }}
+                      checked={selectedMonths.length === monthOptions.length}
+                      className="h-4 w-4"
+                    />
+                    <label
+                      htmlFor="select-all-months"
+                      className="text-sm font-medium"
+                    >
+                      Select All Months
+                    </label>
+                  </div>
+                  {renderMonthOptions()}
+                </div>
+              </TabsContent>
+            </Tabs>
 
             <div className="flex justify-end">
               <Button
