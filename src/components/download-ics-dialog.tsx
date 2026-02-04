@@ -34,11 +34,13 @@ export function DownloadIcsDialog({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedEventIds, setSelectedEventIds] = useState<string[]>([]);
   const [selectedMonths, setSelectedMonths] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
 
   useEffect(() => {
     if (!isOpen) return;
     let isMounted = true;
     setErrorMessage(null);
+    setIsLoading(true); // Set loading state to true
 
     const currentDate = new Date();
     const oneYearFromNow = new Date();
@@ -56,12 +58,16 @@ export function DownloadIcsDialog({
             console.error("Error fetching events", error);
             setEvents([]);
             setErrorMessage("Could not fetch events.");
+          })
+          .finally(() => {
+            if (isMounted) setIsLoading(false); // Set loading state to false
           });
       })
       .catch((error) => {
         if (!isMounted) return;
         console.error("Error loading getEvents function", error);
         setErrorMessage("Could not load events.");
+        setIsLoading(false); // Set loading state to false
       });
 
     return () => {
@@ -227,38 +233,37 @@ export function DownloadIcsDialog({
         <DialogHeader>
           <DialogTitle>Download ICS</DialogTitle>
           <DialogDescription>
-            Choose events or months to export.
+            Select events or months to download as an ICS file.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex gap-2">
-          <Button
-            variant={mode === "event" ? "default" : "outline"}
-            type="button"
-            onClick={() => setMode("event")}
-          >
-            Event
-          </Button>
-          <Button
-            variant={mode === "month" ? "default" : "outline"}
-            type="button"
-            onClick={() => setMode("month")}
-          >
-            Month
-          </Button>
-        </div>
 
-        {errorMessage ? (
-          <div className="text-sm text-muted-foreground border rounded-md p-3">
-            {errorMessage}
-          </div>
-        ) : mode === "event" ? (
-          <div className="grid gap-2 max-h-64 overflow-auto border rounded-md p-3">
-            {events.length === 0 ? (
-              <div className="text-sm text-muted-foreground">
-                No events available.
-              </div>
-            ) : (
-              <>
+        {isLoading ? (
+          <div className="text-center py-4">Loading events...</div> // Loading state UI
+        ) : errorMessage ? (
+          <div className="text-center text-red-500 py-4">{errorMessage}</div>
+        ) : events.length === 0 ? (
+          <div className="text-center py-4">No events available.</div>
+        ) : (
+          <div>
+            <div className="flex gap-2">
+              <Button
+                variant={mode === "event" ? "default" : "outline"}
+                type="button"
+                onClick={() => setMode("event")}
+              >
+                Event
+              </Button>
+              <Button
+                variant={mode === "month" ? "default" : "outline"}
+                type="button"
+                onClick={() => setMode("month")}
+              >
+                Month
+              </Button>
+            </div>
+
+            {mode === "event" ? (
+              <div className="grid gap-2 max-h-64 overflow-auto border rounded-md p-3">
                 <div className="flex items-center gap-2 mb-2">
                   <input
                     type="checkbox"
@@ -300,63 +305,65 @@ export function DownloadIcsDialog({
                     </label>
                   );
                 })}
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="grid gap-2 max-h-64 overflow-y-auto border rounded-md p-3 sm:grid-cols-2">
-            <div className="flex items-center gap-2 mb-2">
-              <input
-                type="checkbox"
-                id="select-all-months"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setSelectedMonths(monthOptions.map((month) => month.key));
-                  } else {
-                    setSelectedMonths([]);
-                  }
-                }}
-                checked={selectedMonths.length === monthOptions.length}
-                className="h-4 w-4"
-              />
-              <label
-                htmlFor="select-all-months"
-                className="text-sm font-medium"
-              >
-                Select All Months
-              </label>
-            </div>
-            {monthOptions.map((month) => {
-              const inputId = `month-${month.key}`;
-              return (
-                <label
-                  key={month.key}
-                  htmlFor={inputId}
-                  className="flex items-center gap-2 text-sm"
-                >
+              </div>
+            ) : (
+              <div className="grid gap-2 max-h-64 overflow-y-auto border rounded-md p-3 sm:grid-cols-2">
+                <div className="flex items-center gap-2 mb-2">
                   <input
-                    id={inputId}
                     type="checkbox"
+                    id="select-all-months"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedMonths(
+                          monthOptions.map((month) => month.key),
+                        );
+                      } else {
+                        setSelectedMonths([]);
+                      }
+                    }}
+                    checked={selectedMonths.length === monthOptions.length}
                     className="h-4 w-4"
-                    checked={selectedMonths.includes(month.key)}
-                    onChange={() => toggleMonth(month.key)}
                   />
-                  <span>{month.label}</span>
-                </label>
-              );
-            })}
+                  <label
+                    htmlFor="select-all-months"
+                    className="text-sm font-medium"
+                  >
+                    Select All Months
+                  </label>
+                </div>
+                {monthOptions.map((month) => {
+                  const inputId = `month-${month.key}`;
+                  return (
+                    <label
+                      key={month.key}
+                      htmlFor={inputId}
+                      className="flex items-center gap-2 text-sm"
+                    >
+                      <input
+                        id={inputId}
+                        type="checkbox"
+                        className="h-4 w-4"
+                        checked={selectedMonths.includes(month.key)}
+                        onChange={() => toggleMonth(month.key)}
+                      />
+                      <span>{month.label}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
+
+            <div className="flex justify-end">
+              <Button
+                type="button"
+                disabled={isDownloadDisabled}
+                onClick={handleDownload}
+              >
+                Download ICS
+              </Button>
+            </div>
           </div>
         )}
-
-        <div className="flex justify-end">
-          <Button
-            type="button"
-            disabled={isDownloadDisabled}
-            onClick={handleDownload}
-          >
-            Download ICS
-          </Button>
-        </div>
       </DialogContent>
     </Dialog>
   );
