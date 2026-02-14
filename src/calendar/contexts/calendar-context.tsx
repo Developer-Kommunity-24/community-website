@@ -11,8 +11,6 @@ import { format, startOfMonth, endOfMonth } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { monthMap } from "@/calendar/helpers";
-import { getEvents } from "@/lib/get-events";
-
 import type { Dispatch, SetStateAction } from "react";
 import type { IEvent } from "@/calendar/interfaces";
 import type {

@@ -105,7 +105,9 @@ export function AgendaEventCard({ event, className }: IProps) {
           {/* Right Side: Time */}
           <div className="mt-4 flex items-center justify-end gap-1.5 text-sm font-medium text-primary sm:mt-0 sm:flex-col sm:items-end sm:justify-start sm:gap-0">
             <Clock className="size-4 sm:hidden" />
-            <span>{format(startDate, "h:mm a")}</span>
+            <span className="whitespace-nowrap">
+              {format(startDate, "h:mm a")}
+            </span>
           </div>
         </div>
       </div>

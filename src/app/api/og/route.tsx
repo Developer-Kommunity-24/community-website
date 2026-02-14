@@ -1,7 +1,7 @@
+import { format } from "date-fns";
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { getFilteredEventsByDateRange } from "@/lib/get-events";
-import { format } from "date-fns";
 
 export const runtime = "nodejs";
 

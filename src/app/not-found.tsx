@@ -1,6 +1,6 @@
+import { ArrowLeft, FileQuestion } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, FileQuestion } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -14,7 +14,7 @@ export default function NotFound() {
         </div>
       </div>
 
-      <div className="space-y-2 max-w-[600px]">
+      <div className="space-y-2 max-w-150">
         <h2 className="text-3xl font-bold tracking-tight">Page not found</h2>
         <p className="text-muted-foreground text-lg">
           Sorry, we couldn't find the page you're looking for. It might have

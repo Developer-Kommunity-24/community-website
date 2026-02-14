@@ -36,11 +36,11 @@ export function EventCard({ event, className }: EventCardProps) {
         </div>
         <div className="space-y-3 mb-4 px-6">
           {event?.time && (
-            <div className="flex items-start group">
+            <div className="flex items-start group flex-nowrap">
               <div className="p-1.5 rounded-full bg-green-100 dark:bg-green-900/40 mr-3">
                 <Clock className="h-4 w-4 text-green-600 dark:text-green-400" />
               </div>
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
                 {event?.time}
               </span>
             </div>
