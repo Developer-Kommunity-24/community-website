@@ -29,6 +29,7 @@ jobs:
       - name: Generate and send monthly analytics report
         env:
           POSTHOG_PROJECT_API_KEY: ${{ secrets.POSTHOG_PROJECT_API_KEY }}
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
           POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
           NEXT_PUBLIC_POSTHOG_HOST: https://app.posthog.com
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
