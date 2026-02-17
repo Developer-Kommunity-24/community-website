@@ -5,7 +5,8 @@ name: Monthly Analytics Report
 
 on:
   schedule:
-    - cron: '0 9 1 * *'
+    # Run at 9:00 AM IST (3:30 AM UTC) on the 1st day of every month
+    - cron: '30 3 1 * *'
   workflow_dispatch:
 
 jobs:
@@ -34,11 +35,3 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           RECIPIENT_EMAIL: dk24consortium@gmail.com
         run: npm run report:monthly
-      
-      - name: Upload report artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: monthly-analytics-report
-          path: monthly-analytics-report.json
-          retention-days: 90
