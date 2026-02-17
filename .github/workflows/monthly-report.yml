@@ -5,10 +5,7 @@ name: Monthly Analytics Report
 
 on:
   schedule:
-    # Run at 9:00 AM UTC on the 1st day of every month
     - cron: '0 9 1 * *'
-  
-  # Allow manual trigger from GitHub Actions tab
   workflow_dispatch:
 
 jobs:
@@ -45,15 +42,3 @@ jobs:
           name: monthly-analytics-report
           path: monthly-analytics-report.json
           retention-days: 90
-
-# Required GitHub Secrets:
-# -----------------------
-# Add these in: Settings → Secrets and variables → Actions → New repository secret
-#
-# 1. POSTHOG_PROJECT_API_KEY - Your PostHog Project API Key
-# 2. POSTHOG_PROJECT_ID - Your PostHog Project ID
-# 3. EMAIL_USER - Gmail address to send from (e.g., radheshpai802@gmail.com)
-# 4. EMAIL_PASSWORD - Gmail App Password (16 characters)
-#
-# Note: The recipient email (dk24consortium@gmail.com) is hardcoded above.
-# To change it, edit the RECIPIENT_EMAIL environment variable.
