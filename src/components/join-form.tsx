@@ -22,6 +22,7 @@ import {
   individualInitialValues,
   individualSchema,
 } from "@/lib/forms-config";
+import { captureError, captureEvent, identifyUser } from "@/lib/posthog";
 
 interface JoinFormProps {
   type: "individual" | "college";
@@ -70,14 +71,38 @@ function IndividualForm() {
 
       if (response) {
         setSubmitSuccess(true);
+
+        // Track successful form submission and identify user
+        identifyUser(data.email, {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          college: data.college,
+          year: data.year,
+          interests: data.interests,
+        });
+
+        captureEvent("form_submitted", {
+          form_type: "individual_join",
+          success: true,
+          college: data.college,
+          year: data.year,
+        });
+
         reset();
       } else {
         throw new Error(`Submission failed!`);
       }
-    } catch {
+    } catch (error) {
       setSubmitError(
         "An error occurred while submitting the form. Please try again.",
       );
+
+      // Track form submission error
+      captureError(error instanceof Error ? error : "Form submission failed", {
+        component: "IndividualForm",
+        action: "form_submission",
+        form_type: "individual_join",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -272,14 +297,39 @@ function CollegeForm() {
 
       if (response) {
         setSubmitSuccess(true);
+
+        // Track successful community form submission and identify representative
+        identifyUser(data.repEmail, {
+          name: data.repName,
+          position: data.repPosition,
+          college: data.collegeName,
+          community: data.communityName,
+          communitySize: data.communitySize,
+        });
+
+        captureEvent("form_submitted", {
+          form_type: "college_join",
+          success: true,
+          college: data.collegeName,
+          community: data.communityName,
+          community_size: data.communitySize,
+        });
+
         reset();
       } else {
         throw new Error(`Submission failed!`);
       }
-    } catch {
+    } catch (error) {
       setSubmitError(
         "An error occurred while submitting the form. Please try again.",
       );
+
+      // Track form submission error
+      captureError(error instanceof Error ? error : "Form submission failed", {
+        component: "CollegeForm",
+        action: "form_submission",
+        form_type: "college_join",
+      });
     } finally {
       setIsSubmitting(false);
     }

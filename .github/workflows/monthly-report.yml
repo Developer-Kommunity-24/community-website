@@ -1,0 +1,59 @@
+name: Monthly Analytics Report
+
+# This workflow sends a monthly analytics report on the 1st of every month
+# It can also be triggered manually from the Actions tab
+
+on:
+  schedule:
+    # Run at 9:00 AM UTC on the 1st day of every month
+    - cron: '0 9 1 * *'
+  
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  send-monthly-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Generate and send monthly analytics report
+        env:
+          POSTHOG_PROJECT_API_KEY: ${{ secrets.POSTHOG_PROJECT_API_KEY }}
+          POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+          NEXT_PUBLIC_POSTHOG_HOST: https://app.posthog.com
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          RECIPIENT_EMAIL: dk24consortium@gmail.com
+        run: npm run report:monthly
+      
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: monthly-analytics-report
+          path: monthly-analytics-report.json
+          retention-days: 90
+
+# Required GitHub Secrets:
+# -----------------------
+# Add these in: Settings → Secrets and variables → Actions → New repository secret
+#
+# 1. POSTHOG_PROJECT_API_KEY - Your PostHog Project API Key
+# 2. POSTHOG_PROJECT_ID - Your PostHog Project ID
+# 3. EMAIL_USER - Gmail address to send from (e.g., radheshpai802@gmail.com)
+# 4. EMAIL_PASSWORD - Gmail App Password (16 characters)
+#
+# Note: The recipient email (dk24consortium@gmail.com) is hardcoded above.
+# To change it, edit the RECIPIENT_EMAIL environment variable.

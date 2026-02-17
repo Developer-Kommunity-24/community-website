@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { format } from "date-fns";
 import { Check, X, Loader2 } from "lucide-react";
+import { captureError, captureEvent } from "@/lib/posthog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -167,12 +168,29 @@ export function EventSubmissionForm() {
         isEmailVerified: false,
       };
 
-      submitFormData("event", payload);
+      await submitFormData("event", payload);
       setSubmitSuccess(true);
+
+      // Track successful event submission
+      captureEvent("form_submitted", {
+        form_type: "event_submission",
+        success: true,
+        event_name: data.eventName,
+        organization: data.organizationName,
+        tags: data.eventTags,
+      });
+
       reset();
     } catch (error) {
       console.error("Form submission error:", error);
       setSubmitError("Failed to showcase event. Please try again.");
+
+      // Track event submission error
+      captureError(error instanceof Error ? error : "Event submission failed", {
+        component: "EventSubmissionForm",
+        action: "form_submission",
+        form_type: "event_submission",
+      });
     } finally {
       setIsSubmitting(false);
     }
