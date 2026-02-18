@@ -140,7 +140,7 @@
     "title": "ClientX",
     "description": "A lightweight, modern CRM for freelancers and small agencies — combine client management, contracts (NDA), e-sign, chat, invoices and project tracking in one place",
     "tags": ["TypeScript", "JavaScript"],
-    "image": "/projects/livekv.png",
+    "image": "/projects/clientx.png",
     "github": "https://github.com/prajwallshetty/ClientX",
     "link": "https://github.com/prajwallshetty/ClientX",
     "contributors": [
@@ -152,5 +152,5 @@
       }
     ],
     "categories": ["SaaS"]
-  },
+  }
 ]
