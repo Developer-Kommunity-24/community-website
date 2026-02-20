@@ -87,20 +87,17 @@ function AntigravityCanvas() {
         p.x += p.vx;
         p.y += p.vy;
 
-        // Core dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(34, 197, 94, ${p.opacity})`;
         ctx.fill();
 
-        // Soft glow
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(34, 197, 94, ${p.opacity * 0.12})`;
         ctx.fill();
       }
 
-      // Connecting lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -120,7 +117,6 @@ function AntigravityCanvas() {
       rafRef.current = requestAnimationFrame(draw);
     };
 
-    // Mouse position relative to the canvas element
     const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouseRef.current = {
@@ -161,9 +157,7 @@ function AntigravityCanvas() {
 
 export function HeroSection() {
   return (
-    // `relative` + `overflow-hidden` keeps the canvas clipped to this section
     <section className="relative overflow-hidden container justify-center text-center flex mx-auto px-4 py-12 md:py-24 lg:py-32">
-      {/* Canvas is scoped only to this section */}
       <AntigravityCanvas />
 
       <div
