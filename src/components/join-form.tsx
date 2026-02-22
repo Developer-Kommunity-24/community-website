@@ -22,7 +22,7 @@ import {
   individualInitialValues,
   individualSchema,
 } from "@/lib/forms-config";
-import { captureError, captureEvent, identifyUser } from "@/lib/posthog";
+import { captureError, captureEvent } from "@/lib/posthog";
 
 interface JoinFormProps {
   type: "individual" | "college";
@@ -72,15 +72,7 @@ function IndividualForm() {
       if (response) {
         setSubmitSuccess(true);
 
-        // Track successful form submission and identify user
-        identifyUser(data.email, {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          college: data.college,
-          year: data.year,
-          interests: data.interests,
-        });
-
+        // Track successful form submission
         captureEvent("form_submitted", {
           form_type: "individual_join",
           success: true,
@@ -298,15 +290,7 @@ function CollegeForm() {
       if (response) {
         setSubmitSuccess(true);
 
-        // Track successful community form submission and identify representative
-        identifyUser(data.repEmail, {
-          name: data.repName,
-          position: data.repPosition,
-          college: data.collegeName,
-          community: data.communityName,
-          communitySize: data.communitySize,
-        });
-
+        // Track successful community form submission
         captureEvent("form_submitted", {
           form_type: "college_join",
           success: true,

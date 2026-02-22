@@ -31,78 +31,30 @@ const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 const RECIPIENT_EMAIL =
   process.env.RECIPIENT_EMAIL || "dk24consortium@gmail.com";
 
-if (!POSTHOG_API_KEY || !POSTHOG_PROJECT_ID) {
+const REQUIRED_ENV_VARS = {
+  POSTHOG_PROJECT_API_KEY: POSTHOG_API_KEY,
+  POSTHOG_PERSONAL_API_KEY: POSTHOG_PERSONAL_API_KEY,
+  POSTHOG_PROJECT_ID: POSTHOG_PROJECT_ID,
+  EMAIL_USER: EMAIL_USER,
+  EMAIL_PASSWORD: EMAIL_PASSWORD,
+};
+
+const missingEnvVars = Object.entries(REQUIRED_ENV_VARS)
+  .filter(([, value]) => !value)
+  .map(([name]) => name);
+
+if (missingEnvVars.length > 0) {
   console.error(
-    "Error: POSTHOG_PROJECT_API_KEY and POSTHOG_PROJECT_ID must be set",
+    `Error: Missing required environment variables: ${missingEnvVars.join(", ")}`,
   );
   process.exit(1);
-}
-
-if (!POSTHOG_PERSONAL_API_KEY) {
-  console.log("\n[!] Warning: POSTHOG_PERSONAL_API_KEY not set.");
-  console.warn(
-    "The Query API requires a Personal API Key, not a Project API Key.",
-  );
-  console.warn("To fix this:");
-  console.warn(
-    "1. Go to PostHog -> Your Profile -> Settings -> Personal API Keys",
-  );
-  console.warn("2. Create a new Personal API Key");
-  console.warn("3. Add POSTHOG_PERSONAL_API_KEY=phx_your_key to .env.local\n");
-}
-
-/**
- * Query PostHog insights using the correct API format
- */
-function queryInsights(query) {
-  return new Promise((resolve, reject) => {
-    const url = new URL(
-      `${POSTHOG_HOST}/api/projects/${POSTHOG_PROJECT_ID}/insights/trend/`,
-    );
-    const protocol = url.protocol === "https:" ? https : http;
-
-    const postData = JSON.stringify(query);
-
-    const options = {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${POSTHOG_API_KEY}`,
-        "Content-Type": "application/json",
-        "Content-Length": Buffer.byteLength(postData),
-      },
-    };
-
-    const req = protocol.request(url, options, (res) => {
-      let data = "";
-      res.on("data", (chunk) => {
-        data += chunk;
-      });
-      res.on("end", () => {
-        if (res.statusCode === 200 || res.statusCode === 201) {
-          try {
-            const parsed = JSON.parse(data);
-            resolve(parsed);
-          } catch (e) {
-            reject(new Error(`Failed to parse response: ${e.message}`));
-          }
-        } else {
-          console.error(`API Error ${res.statusCode}:`, data);
-          reject(new Error(`Query failed: ${res.statusCode}`));
-        }
-      });
-    });
-
-    req.on("error", reject);
-    req.write(postData);
-    req.end();
-  });
 }
 
 /**
  * Get event count using PostHog Query API
  */
 function getEventCount(eventName, dateFrom) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     // If no personal API key, return 0
     if (!POSTHOG_PERSONAL_API_KEY) {
       resolve(0);
@@ -167,7 +119,7 @@ function getEventCount(eventName, dateFrom) {
  * Get error details using PostHog Query API
  */
 function getErrorDetails(dateFrom) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     // If no personal API key, return empty array
     if (!POSTHOG_PERSONAL_API_KEY) {
       resolve([]);
@@ -288,6 +240,48 @@ async function getMonthlyAnalytics() {
     console.log("Querying interactions...");
     const buttonClickCount = await getEventCount("$autocapture", dateFrom);
 
+    // Calendar-specific analytics
+    console.log("Querying calendar analytics...");
+    const calendarPageViews = await getEventCount(
+      "calendar_page_view",
+      dateFrom,
+    );
+    const calendarMonthChanges = await getEventCount(
+      "calendar_month_changed",
+      dateFrom,
+    );
+    const calendarEventClicks = await getEventCount(
+      "calendar_event_clicked",
+      dateFrom,
+    );
+    const calendarViewChanges = await getEventCount(
+      "calendar_view_changed",
+      dateFrom,
+    );
+    const calendarDownloads = await getEventCount(
+      "calendar_downloaded",
+      dateFrom,
+    );
+
+    // Showcase-specific analytics
+    console.log("Querying showcase analytics...");
+    const showcasePageViews = await getEventCount(
+      "showcase_page_view",
+      dateFrom,
+    );
+    const showcaseEventViewed = await getEventCount(
+      "showcase_event_viewed",
+      dateFrom,
+    );
+    const showcaseEventClicked = await getEventCount(
+      "showcase_event_clicked",
+      dateFrom,
+    );
+    const showcaseCTAClicks = await getEventCount(
+      "showcase_cta_clicked",
+      dateFrom,
+    );
+
     // Calculate metrics
     const daysCount = 30;
     const estimatedUniqueVisitors = Math.max(1, Math.ceil(pageViewCount / 4)); // Estimate: avg 4 pages per visitor
@@ -307,6 +301,35 @@ async function getMonthlyAnalytics() {
         pageViewCount > 0
           ? ((buttonClickCount / pageViewCount) * 100).toFixed(2)
           : 0,
+      // Calendar engagement metrics
+      calendar: {
+        pageViews: calendarPageViews,
+        monthChanges: calendarMonthChanges,
+        eventClicks: calendarEventClicks,
+        viewChanges: calendarViewChanges,
+        downloads: calendarDownloads,
+        engagementRate:
+          calendarPageViews > 0
+            ? (
+                ((calendarEventClicks +
+                  calendarMonthChanges +
+                  calendarViewChanges) /
+                  calendarPageViews) *
+                100
+              ).toFixed(2)
+            : 0,
+      },
+      // Showcase engagement metrics
+      showcase: {
+        pageViews: showcasePageViews,
+        eventViewed: showcaseEventViewed,
+        eventClicked: showcaseEventClicked,
+        ctaClicks: showcaseCTAClicks,
+        clickThroughRate:
+          showcaseEventViewed > 0
+            ? ((showcaseEventClicked / showcaseEventViewed) * 100).toFixed(2)
+            : 0,
+      },
       dailyAverage: {
         pageViews: Math.round(pageViewCount / daysCount),
         uniqueVisitors: Math.round(estimatedUniqueVisitors / daysCount),
@@ -318,47 +341,7 @@ async function getMonthlyAnalytics() {
       monthEnd: new Date().toISOString().split("T")[0],
     };
 
-    console.log("\n--- Monthly analytics fetched successfully ---");
-    console.log(`  Page Views: ${analytics.pageViews}`);
-    console.log(`  Est. Unique Visitors: ${analytics.uniqueVisitors}`);
-    console.log(`  Form Submissions: ${analytics.formSubmissions}`);
-    console.log(`  Errors Detected: ${analytics.errors}`);
-
-    if (analytics.errors > 0 && analytics.errorDetails.length > 0) {
-      console.log("\n  Error Summary:");
-      console.log("  " + "=".repeat(60));
-
-      // Group errors by message
-      const errorGroups = analytics.errorDetails.reduce((acc, error) => {
-        const key = error.message;
-        if (!acc[key]) {
-          acc[key] = { count: 0, pages: new Set(), message: error.message };
-        }
-        acc[key].count++;
-        acc[key].pages.add(error.url);
-        return acc;
-      }, {});
-
-      // Convert to array and sort by count
-      const sortedErrors = Object.values(errorGroups).sort(
-        (a, b) => b.count - a.count,
-      );
-
-      sortedErrors.forEach((errorGroup, index) => {
-        console.log(`  ${errorGroup.message} (${errorGroup.count}×)`);
-        const uniquePages = Array.from(errorGroup.pages).map((page) => {
-          const path =
-            page.replace(/^https?:\/\/[^\/]+/, "").split("?")[0] || "/";
-          return path;
-        });
-        console.log(
-          `     ${uniquePages.length === 1 ? "Page:" : "Pages:"} ${uniquePages.join(", ")}`,
-        );
-        if (index < sortedErrors.length - 1) console.log("");
-      });
-      console.log("  " + "=".repeat(60));
-    }
-    console.log("\n----------------------------------------------\n");
+    console.log("Monthly analytics fetched successfully.");
 
     return analytics;
   } catch (error) {
@@ -652,7 +635,7 @@ function generateEmailHTML(analytics) {
                 )
                   .map((page) => {
                     const path =
-                      page.replace(/^https?:\/\/[^\/]+/, "").split("?")[0] ||
+                      page.replace(/^https?:\/\/[^/]+/, "").split("?")[0] ||
                       "/";
                     return path;
                   })
@@ -679,6 +662,80 @@ function generateEmailHTML(analytics) {
 		`
     }
 
+		${
+      analytics.calendar && analytics.calendar.pageViews > 0
+        ? `
+		<hr>
+		<h3 style="margin: 30px 0 15px 0; color: #0a0a0a; font-size: 1.3em;">📅 Calendar Engagement</h3>
+		
+		<div class="metric">
+			<div class="metric-label">Calendar Page Views</div>
+			<div class="metric-value">${analytics.calendar.pageViews.toLocaleString()}</div>
+			<div class="metric-sub">${((analytics.calendar.pageViews / analytics.pageViews) * 100).toFixed(1)}% of total pageviews</div>
+		</div>
+
+		<div class="grid">
+			<div class="mini-metric">
+				<div class="mini-metric-value">${analytics.calendar.eventClicks.toLocaleString()}</div>
+				<div class="mini-metric-label">Event Clicks</div>
+			</div>
+			<div class="mini-metric">
+				<div class="mini-metric-value">${analytics.calendar.monthChanges.toLocaleString()}</div>
+				<div class="mini-metric-label">Month Navigations</div>
+			</div>
+		</div>
+
+		<div class="grid">
+			<div class="mini-metric">
+				<div class="mini-metric-value">${analytics.calendar.downloads.toLocaleString()}</div>
+				<div class="mini-metric-label">ICS Downloads</div>
+			</div>
+			<div class="mini-metric">
+				<div class="mini-metric-value">${analytics.calendar.engagementRate}%</div>
+				<div class="mini-metric-label">Engagement Rate</div>
+			</div>
+		</div>
+		`
+        : ""
+    }
+
+		${
+      analytics.showcase && analytics.showcase.pageViews > 0
+        ? `
+		<hr>
+		<h3 style="margin: 30px 0 15px 0; color: #0a0a0a; font-size: 1.3em;">🎯 Showcase Page Engagement</h3>
+		
+		<div class="metric">
+			<div class="metric-label">Showcase Page Views</div>
+			<div class="metric-value">${analytics.showcase.pageViews.toLocaleString()}</div>
+			<div class="metric-sub">${((analytics.showcase.pageViews / analytics.pageViews) * 100).toFixed(1)}% of total pageviews</div>
+		</div>
+
+		<div class="grid">
+			<div class="mini-metric">
+				<div class="mini-metric-value">${analytics.showcase.eventViewed.toLocaleString()}</div>
+				<div class="mini-metric-label">Event Cards Viewed</div>
+			</div>
+			<div class="mini-metric">
+				<div class="mini-metric-value">${analytics.showcase.eventClicked.toLocaleString()}</div>
+				<div class="mini-metric-label">Event Cards Clicked</div>
+			</div>
+		</div>
+
+		<div class="grid">
+			<div class="mini-metric">
+				<div class="mini-metric-value">${analytics.showcase.ctaClicks.toLocaleString()}</div>
+				<div class="mini-metric-label">CTA Clicks</div>
+			</div>
+			<div class="mini-metric">
+				<div class="mini-metric-value">${analytics.showcase.clickThroughRate}%</div>
+				<div class="mini-metric-label">Click-Through Rate</div>
+			</div>
+		</div>
+		`
+        : ""
+    }
+
 		<div class="footer">
 			<p style="font-weight: 600; color: #0a0a0a; margin: 0 0 10px 0;">View Detailed Analytics</p>
 			<p style="margin: 0 0 15px 0;"><a href="${POSTHOG_HOST}/project/${POSTHOG_PROJECT_ID}">Open PostHog Dashboard →</a></p>
@@ -701,17 +758,6 @@ function generateEmailHTML(analytics) {
  * Send email using nodemailer
  */
 async function sendEmail(subject, htmlContent) {
-  if (!EMAIL_USER || !EMAIL_PASSWORD) {
-    console.log("Email credentials not configured. Email will not be sent.");
-    console.log("To enable email sending, set these environment variables:");
-    console.log("  - EMAIL_USER: Your Gmail address");
-    console.log("  - EMAIL_PASSWORD: Your Gmail app password");
-    console.log(
-      "  - RECIPIENT_EMAIL: Email to send the report to (optional, defaults to dk24consortium@gmail.com)\n",
-    );
-    return false;
-  }
-
   try {
     console.log(`\nSending email to ${RECIPIENT_EMAIL}...`);
 
@@ -760,26 +806,12 @@ async function main() {
     const emailSent = await sendEmail(subject, emailHTML);
 
     if (!emailSent) {
-      console.log("\n[INFO] Report generated but not emailed.");
-      console.log("\n--- Email Preview ---");
-      console.log(`Subject: ${subject}`);
-      console.log(`To: ${RECIPIENT_EMAIL}`);
-      console.log("\nReport Summary:");
-      console.log(
-        `   Unique Visitors: ${analytics.uniqueVisitors.toLocaleString()}`,
-      );
-      console.log(`   Page Views: ${analytics.pageViews.toLocaleString()}`);
-      console.log(
-        `   Form Submissions: ${analytics.formSubmissions.toLocaleString()}`,
-      );
-      console.log(`   Errors: ${analytics.errors}`);
-      console.log(`   Conversion Rate: ${analytics.conversionRate}%`);
-      console.log("---------------------\n");
+      throw new Error("Report was generated, but email delivery failed.");
     }
 
     console.log("\n[COMPLETE] Monthly report generation complete!\n");
   } catch (error) {
-    console.error("❌ Failed to generate monthly report:", error);
+    console.error("[ERROR] Failed to generate monthly report:", error);
     process.exit(1);
   }
 }

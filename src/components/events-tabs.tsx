@@ -7,17 +7,32 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ClientContainer } from "@/calendar/components/client-container";
 import { DownloadIcsDialog } from "@/components/download-ics-dialog";
+import { useCalendarAnalytics } from "@/hooks/use-calendar-analytics";
 
 export function EventsTabs() {
   const searchParams = useSearchParams();
   const defaultTab = searchParams.get("tab") === "past" ? "past" : "upcoming";
+  const { trackViewChange } = useCalendarAnalytics({
+    autoTrackPageView: false,
+    autoTrackMonthChange: false,
+  });
+
+  const handleViewChange = (view: string) => {
+    if (view === "month" || view === "agenda") {
+      trackViewChange(view);
+    }
+  };
 
   return (
     <Tabs defaultValue={defaultTab} className="mt-8">
       <TabsContent value="upcoming">
         {/* Mobile View with Tabs for transitioning between Month and Agenda */}
         <div className="lg:hidden">
-          <Tabs defaultValue="month" className="w-full">
+          <Tabs
+            defaultValue="month"
+            className="w-full"
+            onValueChange={handleViewChange}
+          >
             <div className="flex items-center justify-between mb-4">
               <TabsList className="bg-muted/50">
                 <TabsTrigger

@@ -190,6 +190,8 @@ export function EventSubmissionForm() {
         component: "EventSubmissionForm",
         action: "form_submission",
         form_type: "event_submission",
+        submitted_by: data.submittedBy,
+        submitted_email: data.submittedEmail,
       });
     } finally {
       setIsSubmitting(false);

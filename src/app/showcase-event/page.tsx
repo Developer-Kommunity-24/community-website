@@ -2,6 +2,7 @@ import { BackgroundPattern } from "@/components/background-pattern";
 import { EventSubmissionForm } from "@/components/event-submission-form";
 import { PageHeader } from "@/components/page-header";
 import { generatePageMetadata } from "@/lib/metadata";
+import { ShowcasePageAnalytics } from "@/components/showcase-page-analytics";
 
 export const metadata = generatePageMetadata({
   title: "Submit Event",
@@ -13,6 +14,7 @@ export const metadata = generatePageMetadata({
 export default function SubmitEventPage() {
   return (
     <BackgroundPattern variant="default">
+      <ShowcasePageAnalytics />
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <PageHeader
           title="Showcase Your Event"

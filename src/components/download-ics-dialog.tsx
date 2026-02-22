@@ -15,6 +15,7 @@ import {
 import { Download } from "lucide-react";
 import type { IEvent } from "@/calendar/interfaces";
 import { buildICalendar } from "@/lib/export-ics";
+import { captureEvent } from "@/lib/posthog";
 
 interface DownloadIcsDialogProps {
   buttonLabel?: string;
@@ -226,6 +227,15 @@ export function DownloadIcsDialog({
       document.body.appendChild(link);
       link.click();
       link.remove();
+
+      // Track successful ICS download
+      captureEvent("calendar_downloaded", {
+        format: "ics",
+        events_count: selectedEvents.length,
+        download_mode: mode,
+        selected_months: selectedMonths.length,
+        selected_events: selectedEventIds.length,
+      });
     } catch (error) {
       console.error("Failed to download ICS file:", error);
       if (typeof window !== "undefined") {

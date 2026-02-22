@@ -1,4 +1,3 @@
-import type { PostHog as PostHogInterface } from "posthog-js";
 import posthog from "posthog-js";
 
 // PostHog singleton instance
@@ -11,6 +10,11 @@ let posthogInstance: typeof posthog | null = null;
 export function getPostHogClient(): typeof posthog | null {
   // Only initialize in browser environment
   if (typeof window === "undefined") {
+    return null;
+  }
+
+  // Avoid polluting production analytics during local development.
+  if (process.env.NODE_ENV === "development") {
     return null;
   }
 
@@ -46,7 +50,10 @@ export function getPostHogClient(): typeof posthog | null {
     },
     // Add super properties for all events
     property_denylist: ["$initial_referrer", "$initial_referring_domain"], // Save quota
-    sanitize_properties: (_properties: Record<string, any>, _event: string) => {
+    sanitize_properties: (
+      _properties: Record<string, unknown>,
+      _event: string,
+    ) => {
       // Remove sensitive data if accidentally captured
       return _properties;
     },
@@ -113,22 +120,6 @@ export function captureError(
   if (process.env.NODE_ENV === "development") {
     console.error("PostHog Error Captured:", errorMessage, context);
   }
-}
-
-/**
- * Identify a user in PostHog
- * Call this after successful form submissions to track user journey
- * @param userId - Unique identifier for the user (email)
- * @param properties - User properties (name, college, etc.)
- */
-export function identifyUser(
-  userId: string,
-  properties?: Record<string, unknown>,
-): void {
-  const client = getPostHogClient();
-  if (!client) return;
-
-  client.identify(userId, properties);
 }
 
 /**
