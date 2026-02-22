@@ -35,7 +35,7 @@ export default function JoinUsPage() {
               <TabsTrigger value="individual">
                 Join as an Individual
               </TabsTrigger>
-              <TabsTrigger value="college">Join as a College</TabsTrigger>
+              <TabsTrigger value="college">Join as a Community</TabsTrigger>
             </TabsList>
 
             <TabsContent value="individual" className="mt-6">
