@@ -4,11 +4,11 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { TiltSpotlight } from "@/components/ui/tilt-spotlight";
 import type { Project } from "@/types/project";
 
 interface ProjectCardProps {
   project: Project;
-  isCompleted?: boolean;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
