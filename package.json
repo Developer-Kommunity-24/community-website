@@ -12,10 +12,7 @@
     "lint": "biome lint",
     "lint:write": "biome lint --write",
     "type-check": "tsc --noEmit",
-    "prepare": "husky",
-    "format-git": "biome format --write .",
-    "lint-git": "biome lint .",
-    "lint-git:fix": "biome lint --write ."
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json}": [

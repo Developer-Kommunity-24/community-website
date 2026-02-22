@@ -153,9 +153,13 @@ export function DownloadIcsDialog({
 
   const formatEventLabel = (event: IEvent) => {
     const date = new Date(event.startDateTime);
-    const monthLabel = Number.isNaN(date.getTime())
+    const monthLabel = Number.isNaN(date.getDate())
       ? ""
-      : date.toLocaleString("en-US", { month: "short", year: "numeric" });
+      : date.toLocaleString("en-GB", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
     return monthLabel ? `${event.title} — ${monthLabel}` : event.title;
   };
 
