@@ -470,7 +470,7 @@ function generateEmailHTML(analytics) {
 		}
 		.grid {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: 1fr;
 			gap: 15px;
 			margin: 15px 0;
 		}
@@ -478,7 +478,7 @@ function generateEmailHTML(analytics) {
 			background: white;
 			padding: 20px;
 			border-radius: 10px;
-			text-align: center;
+			text-align: left;
 			box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 			border: 1px solid #f0f0f0;
 		}
