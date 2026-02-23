@@ -354,6 +354,30 @@ async function getMonthlyAnalytics() {
  * Generate HTML email report
  */
 function generateEmailHTML(analytics) {
+  const totalPageViews = analytics.pageViews || 0;
+  const calendarPageViews = analytics.calendar?.pageViews || 0;
+  const showcasePageViews = analytics.showcase?.pageViews || 0;
+
+  const calendarShare =
+    totalPageViews > 0
+      ? ((calendarPageViews / totalPageViews) * 100).toFixed(1)
+      : "0.0";
+  const showcaseShare =
+    totalPageViews > 0
+      ? ((showcasePageViews / totalPageViews) * 100).toFixed(1)
+      : "0.0";
+
+  const calendarTotalInteractions =
+    (analytics.calendar?.eventClicks || 0) +
+    (analytics.calendar?.monthChanges || 0) +
+    (analytics.calendar?.viewChanges || 0) +
+    (analytics.calendar?.downloads || 0);
+
+  const showcaseTotalInteractions =
+    (analytics.showcase?.eventViewed || 0) +
+    (analytics.showcase?.eventClicked || 0) +
+    (analytics.showcase?.ctaClicks || 0);
+
   return `
 <!DOCTYPE html>
 <html>
@@ -580,6 +604,29 @@ function generateEmailHTML(analytics) {
 			<div class="metric-sub">Button clicks and other interactions</div>
 		</div>
 
+		<hr>
+		<h3 style="margin: 30px 0 15px 0; color: #0a0a0a; font-size: 1.3em;">📊 Section Performance Snapshot</h3>
+		<div class="grid">
+			<div class="mini-metric">
+				<div class="mini-metric-value">${calendarShare}%</div>
+				<div class="mini-metric-label">Calendar Traffic Share</div>
+			</div>
+			<div class="mini-metric">
+				<div class="mini-metric-value">${showcaseShare}%</div>
+				<div class="mini-metric-label">Showcase Traffic Share</div>
+			</div>
+		</div>
+		<div class="grid">
+			<div class="mini-metric">
+				<div class="mini-metric-value">${calendarTotalInteractions.toLocaleString()}</div>
+				<div class="mini-metric-label">Calendar Interactions</div>
+			</div>
+			<div class="mini-metric">
+				<div class="mini-metric-value">${showcaseTotalInteractions.toLocaleString()}</div>
+				<div class="mini-metric-label">Showcase Interactions</div>
+			</div>
+		</div>
+
 		${
       analytics.formSubmissions > 50
         ? `
@@ -662,79 +709,67 @@ function generateEmailHTML(analytics) {
 		`
     }
 
-		${
-      analytics.calendar && analytics.calendar.pageViews > 0
-        ? `
 		<hr>
 		<h3 style="margin: 30px 0 15px 0; color: #0a0a0a; font-size: 1.3em;">📅 Calendar Engagement</h3>
 		
 		<div class="metric">
 			<div class="metric-label">Calendar Page Views</div>
-			<div class="metric-value">${analytics.calendar.pageViews.toLocaleString()}</div>
-			<div class="metric-sub">${((analytics.calendar.pageViews / analytics.pageViews) * 100).toFixed(1)}% of total pageviews</div>
+			<div class="metric-value">${calendarPageViews.toLocaleString()}</div>
+			<div class="metric-sub">${calendarShare}% of total pageviews</div>
 		</div>
 
 		<div class="grid">
 			<div class="mini-metric">
-				<div class="mini-metric-value">${analytics.calendar.eventClicks.toLocaleString()}</div>
+				<div class="mini-metric-value">${(analytics.calendar?.eventClicks || 0).toLocaleString()}</div>
 				<div class="mini-metric-label">Event Clicks</div>
 			</div>
 			<div class="mini-metric">
-				<div class="mini-metric-value">${analytics.calendar.monthChanges.toLocaleString()}</div>
+				<div class="mini-metric-value">${(analytics.calendar?.monthChanges || 0).toLocaleString()}</div>
 				<div class="mini-metric-label">Month Navigations</div>
 			</div>
 		</div>
 
 		<div class="grid">
 			<div class="mini-metric">
-				<div class="mini-metric-value">${analytics.calendar.downloads.toLocaleString()}</div>
+				<div class="mini-metric-value">${(analytics.calendar?.downloads || 0).toLocaleString()}</div>
 				<div class="mini-metric-label">ICS Downloads</div>
 			</div>
 			<div class="mini-metric">
-				<div class="mini-metric-value">${analytics.calendar.engagementRate}%</div>
+				<div class="mini-metric-value">${analytics.calendar?.engagementRate || "0.00"}%</div>
 				<div class="mini-metric-label">Engagement Rate</div>
 			</div>
 		</div>
-		`
-        : ""
-    }
 
-		${
-      analytics.showcase && analytics.showcase.pageViews > 0
-        ? `
 		<hr>
 		<h3 style="margin: 30px 0 15px 0; color: #0a0a0a; font-size: 1.3em;">🎯 Showcase Page Engagement</h3>
 		
 		<div class="metric">
 			<div class="metric-label">Showcase Page Views</div>
-			<div class="metric-value">${analytics.showcase.pageViews.toLocaleString()}</div>
-			<div class="metric-sub">${((analytics.showcase.pageViews / analytics.pageViews) * 100).toFixed(1)}% of total pageviews</div>
+			<div class="metric-value">${showcasePageViews.toLocaleString()}</div>
+			<div class="metric-sub">${showcaseShare}% of total pageviews</div>
 		</div>
 
 		<div class="grid">
 			<div class="mini-metric">
-				<div class="mini-metric-value">${analytics.showcase.eventViewed.toLocaleString()}</div>
+				<div class="mini-metric-value">${(analytics.showcase?.eventViewed || 0).toLocaleString()}</div>
 				<div class="mini-metric-label">Event Cards Viewed</div>
 			</div>
 			<div class="mini-metric">
-				<div class="mini-metric-value">${analytics.showcase.eventClicked.toLocaleString()}</div>
+				<div class="mini-metric-value">${(analytics.showcase?.eventClicked || 0).toLocaleString()}</div>
 				<div class="mini-metric-label">Event Cards Clicked</div>
 			</div>
 		</div>
 
 		<div class="grid">
 			<div class="mini-metric">
-				<div class="mini-metric-value">${analytics.showcase.ctaClicks.toLocaleString()}</div>
+				<div class="mini-metric-value">${(analytics.showcase?.ctaClicks || 0).toLocaleString()}</div>
 				<div class="mini-metric-label">CTA Clicks</div>
 			</div>
 			<div class="mini-metric">
-				<div class="mini-metric-value">${analytics.showcase.clickThroughRate}%</div>
+				<div class="mini-metric-value">${analytics.showcase?.clickThroughRate || "0.00"}%</div>
 				<div class="mini-metric-label">Click-Through Rate</div>
 			</div>
 		</div>
-		`
-        : ""
-    }
 
 		<div class="footer">
 			<p style="font-weight: 600; color: #0a0a0a; margin: 0 0 10px 0;">View Detailed Analytics</p>
