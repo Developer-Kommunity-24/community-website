@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import Image from "next/image";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import { PostHogProvider } from "@/components/posthog-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { baseMetadata } from "@/lib/metadata";
 
@@ -16,19 +17,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          disableTransitionOnChange
-        >
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1">
-              <ErrorBoundary>{children}</ErrorBoundary>
-            </main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+        <PostHogProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            disableTransitionOnChange
+          >
+            <div className="flex min-h-screen flex-col">
+              <Navbar />
+              <main className="flex-1">
+                <ErrorBoundary>{children}</ErrorBoundary>
+              </main>
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </PostHogProvider>
       </body>
     </html>
   );

@@ -19,6 +19,7 @@ import type {
   TWorkingHours,
 } from "@/calendar/types";
 import { EventDetailsDialog } from "../components/dialogs/event-details-dialog";
+import { useCalendarAnalytics } from "@/hooks/use-calendar-analytics";
 
 interface ICalendarContext {
   selectedDate: Date;
@@ -78,6 +79,17 @@ export function CalendarProvider({
   const [fetchErrors, setFetchErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
 
+  // Get current month key and events for analytics
+  const currentMonthKey = format(selectedDate, "yyyy-MM");
+  const currentMonthEvents = eventsCache.get(currentMonthKey) || [];
+
+  // Initialize calendar analytics
+  const { trackEventClick } = useCalendarAnalytics({
+    currentMonth: selectedDate.getMonth() + 1,
+    currentYear: selectedDate.getFullYear(),
+    eventsCount: currentMonthEvents.length,
+  });
+
   useEffect(() => {
     const dateParam = searchParams.get("date");
     if (dateParam) {
@@ -108,6 +120,21 @@ export function CalendarProvider({
     const query = search ? `?${search}` : "";
     router.replace(`${window.location.pathname}${query}`);
   }, [selectedEventId, router.replace, searchParams.entries]);
+
+  // Track event clicks when event is selected
+  useEffect(() => {
+    if (selectedEventId) {
+      const event = currentMonthEvents.find((e) => e.id === selectedEventId);
+      if (event) {
+        trackEventClick({
+          eventId: event.id,
+          eventName: event.title,
+          eventDate: event.startDateTime.split("T")[0],
+          organizationName: event.organizationName,
+        });
+      }
+    }
+  }, [selectedEventId, currentMonthEvents, trackEventClick]);
 
   const fetchEventsForMonth = useCallback(
     async (date: Date) => {
@@ -163,8 +190,6 @@ export function CalendarProvider({
     setSelectedDate(date);
   };
 
-  const currentMonthKey = format(selectedDate, "yyyy-MM");
-  const currentMonthEvents = eventsCache.get(currentMonthKey) || [];
   const fetchError = fetchErrors[currentMonthKey] ?? null;
 
   return (

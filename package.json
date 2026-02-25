@@ -12,7 +12,9 @@
     "lint": "biome lint",
     "lint:write": "biome lint --write",
     "type-check": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "report:monthly": "node scripts/posthog-report.js --month",
+    "report:weekly": "node scripts/posthog-report.js --week"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json}": [
@@ -46,12 +48,15 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
+    "dotenv": "^17.3.1",
     "framer-motion": "^12.18.1",
     "google-auth-library": "^10.2.1",
     "google-spreadsheet": "^5.0.2",
     "lucide-react": "^0.518.0",
     "next": "^15.5.11",
     "next-themes": "^0.4.6",
+    "nodemailer": "^6.9.9",
+    "posthog-js": "^1.347.2",
     "react": "^19.1.0",
     "react-aria-components": "^1.14.0",
     "react-day-picker": "^9.13.0",
