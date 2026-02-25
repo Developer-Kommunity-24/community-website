@@ -22,6 +22,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn, sanitizeTag } from "@/lib/utils";
@@ -74,7 +80,10 @@ export function EventDetailsDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="p-4 max-h-[90vh] max-w-[90vw] md:max-w-7xl flex flex-col gap-4">
+      <DialogContent
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        className="p-4 max-h-[90vh] max-w-[90vw] md:max-w-7xl flex flex-col gap-4"
+      >
         <div className="grid flex-1 overflow-auto w-full grid-cols-1 md:grid-cols-5 gap-6 p-4">
           {/* Left Side: Image */}
           {event.posterUrl && (
@@ -111,14 +120,23 @@ export function EventDetailsDialog({
                     <DialogTitle className="text-3xl font-bold leading-tight">
                       {event.title}
                     </DialogTitle>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={handleCopyUrl}
-                      className="h-8 w-8"
-                    >
-                      <LinkIcon className="h-4 w-4" />
-                    </Button>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={handleCopyUrl}
+                            className="h-8 w-8"
+                          >
+                            <LinkIcon className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent className="z-[200]">
+                          <p>Click to copy event link</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                     {copied && (
                       <span className="text-sm text-green-500">Copied!</span>
                     )}
