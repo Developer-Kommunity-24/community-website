@@ -1,0 +1,38 @@
+name: Monthly Analytics Report
+
+# This workflow sends a monthly analytics report on the 1st of every month
+# It can also be triggered manually from the Actions tab
+
+on:
+  schedule:
+    # Run at 9:00 AM IST (3:30 AM UTC) on the 1st day of every month
+    - cron: '30 3 1 * *'
+  workflow_dispatch:
+
+jobs:
+  send-monthly-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Generate and send monthly analytics report
+        env:
+          POSTHOG_PROJECT_API_KEY: ${{ secrets.POSTHOG_PROJECT_API_KEY }}
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
+          POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+          NEXT_PUBLIC_POSTHOG_HOST: https://app.posthog.com
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          RECIPIENT_EMAIL: dk24consortium@gmail.com
+        run: npm run report:monthly
