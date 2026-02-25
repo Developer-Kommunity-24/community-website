@@ -36,7 +36,7 @@ import type {
 // ================ Header helper functions ================ //
 
 export function rangeText(view: TCalendarView, date: Date) {
-  const formatString = "MMM d, yyyy";
+  const formatString = "MMM d";
   let start: Date;
   let end: Date;
 
