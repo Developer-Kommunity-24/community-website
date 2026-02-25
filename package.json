@@ -13,8 +13,8 @@
     "lint:write": "biome lint --write",
     "type-check": "tsc --noEmit",
     "prepare": "husky",
-    "report:monthly": "node scripts/posthog-monthly-report.js",
-    "report:weekly": "node scripts/posthog-weekly-report.js"
+    "report:monthly": "node scripts/posthog-report.js --month",
+    "report:weekly": "node scripts/posthog-report.js --week"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json}": [

@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 
 /**
- * PostHog Monthly Analytics Report Generator
- * Fetches analytics data from PostHog API for the last 30 days and sends via email
+ * PostHog Analytics Report Generator
+ * Fetches analytics data from PostHog API and sends via email
+ *
+ * Usage:
+ *   node scripts/posthog-report.js --week    # Last 7 days
+ *   node scripts/posthog-report.js --month   # Last 30 days
  *
  * Required environment variables:
  * - POSTHOG_PROJECT_API_KEY: PostHog API key (from Settings > Project API Key)
+ * - POSTHOG_PERSONAL_API_KEY: PostHog personal API key (for Query API)
  * - POSTHOG_PROJECT_ID: PostHog project ID (from URL)
  * - NEXT_PUBLIC_POSTHOG_HOST: PostHog host URL
  * - EMAIL_USER: Gmail address to send from
@@ -19,6 +24,29 @@ require("dotenv").config({ path: ".env.local" });
 const https = require("node:https");
 const http = require("node:http");
 const nodemailer = require("nodemailer");
+
+// --- Parse CLI flags ---
+const args = process.argv.slice(2);
+const isWeek = args.includes("--week");
+const isMonth = args.includes("--month");
+
+if (!isWeek && !isMonth) {
+  console.error("Error: Please specify a report period with --week or --month");
+  console.error("  node scripts/posthog-report.js --week");
+  console.error("  node scripts/posthog-report.js --month");
+  process.exit(1);
+}
+
+if (isWeek && isMonth) {
+  console.error(
+    "Error: Please specify only one of --week or --month, not both",
+  );
+  process.exit(1);
+}
+
+const PERIOD = isWeek ? "week" : "month";
+const DATE_FROM = isWeek ? "-7d" : "-30d";
+const DAYS_COUNT = isWeek ? 7 : 30;
 
 // Configuration
 const POSTHOG_API_KEY = process.env.POSTHOG_PROJECT_API_KEY;
@@ -218,72 +246,73 @@ function getErrorDetails(dateFrom) {
 }
 
 /**
- * Get analytics data for the last 30 days
+ * Get analytics data for the configured period
  */
-async function getMonthlyAnalytics() {
+async function getAnalytics() {
+  const periodLabel = PERIOD === "week" ? "weekly" : "monthly";
   try {
-    console.log("Fetching monthly analytics from PostHog...\n");
-
-    const dateFrom = "-30d";
+    console.log(`Fetching ${periodLabel} analytics from PostHog...\n`);
 
     // Fetch event counts
     console.log("Querying page views...");
-    const pageViewCount = await getEventCount("$pageview", dateFrom);
+    const pageViewCount = await getEventCount("$pageview", DATE_FROM);
 
     console.log("Querying form submissions...");
-    const formSubmissionCount = await getEventCount("form_submitted", dateFrom);
+    const formSubmissionCount = await getEventCount(
+      "form_submitted",
+      DATE_FROM,
+    );
 
     console.log("Querying errors...");
-    const errorDetails = await getErrorDetails(dateFrom);
+    const errorDetails = await getErrorDetails(DATE_FROM);
     const errorCount = errorDetails.length;
 
     console.log("Querying interactions...");
-    const buttonClickCount = await getEventCount("$autocapture", dateFrom);
+    const buttonClickCount = await getEventCount("$autocapture", DATE_FROM);
 
     // Calendar-specific analytics
     console.log("Querying calendar analytics...");
     const calendarPageViews = await getEventCount(
       "calendar_page_view",
-      dateFrom,
+      DATE_FROM,
     );
     const calendarMonthChanges = await getEventCount(
       "calendar_month_changed",
-      dateFrom,
+      DATE_FROM,
     );
     const calendarEventClicks = await getEventCount(
       "calendar_event_clicked",
-      dateFrom,
+      DATE_FROM,
     );
     const calendarViewChanges = await getEventCount(
       "calendar_view_changed",
-      dateFrom,
+      DATE_FROM,
     );
     const calendarDownloads = await getEventCount(
       "calendar_downloaded",
-      dateFrom,
+      DATE_FROM,
     );
 
     // Showcase-specific analytics
     console.log("Querying showcase analytics...");
     const showcasePageViews = await getEventCount(
       "showcase_page_view",
-      dateFrom,
+      DATE_FROM,
     );
     const showcaseEventViewed = await getEventCount(
       "showcase_event_viewed",
-      dateFrom,
+      DATE_FROM,
     );
     const showcaseEventClicked = await getEventCount(
       "showcase_event_clicked",
-      dateFrom,
+      DATE_FROM,
     );
     const showcaseCTAClicks = await getEventCount(
       "showcase_cta_clicked",
-      dateFrom,
+      DATE_FROM,
     );
 
     // Calculate metrics
-    const daysCount = 30;
     const estimatedUniqueVisitors = Math.max(1, Math.ceil(pageViewCount / 4)); // Estimate: avg 4 pages per visitor
 
     const analytics = {
@@ -331,21 +360,23 @@ async function getMonthlyAnalytics() {
             : 0,
       },
       dailyAverage: {
-        pageViews: Math.round(pageViewCount / daysCount),
-        uniqueVisitors: Math.round(estimatedUniqueVisitors / daysCount),
-        formSubmissions: Math.round(formSubmissionCount / daysCount),
+        pageViews: Math.round(pageViewCount / DAYS_COUNT),
+        uniqueVisitors: Math.round(estimatedUniqueVisitors / DAYS_COUNT),
+        formSubmissions: Math.round(formSubmissionCount / DAYS_COUNT),
       },
-      monthStart: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+      periodStart: new Date(Date.now() - DAYS_COUNT * 24 * 60 * 60 * 1000)
         .toISOString()
         .split("T")[0],
-      monthEnd: new Date().toISOString().split("T")[0],
+      periodEnd: new Date().toISOString().split("T")[0],
     };
 
-    console.log("Monthly analytics fetched successfully.");
+    console.log(
+      `${periodLabel.charAt(0).toUpperCase() + periodLabel.slice(1)} analytics fetched successfully.`,
+    );
 
     return analytics;
   } catch (error) {
-    console.error("Error fetching monthly analytics:", error);
+    console.error(`Error fetching ${periodLabel} analytics:`, error);
     throw error;
   }
 }
@@ -354,6 +385,18 @@ async function getMonthlyAnalytics() {
  * Generate HTML email report
  */
 function generateEmailHTML(analytics) {
+  const isWeeklyReport = PERIOD === "week";
+  const periodLabel = isWeeklyReport ? "weekly" : "monthly";
+  const periodWord = isWeeklyReport ? "week" : "month";
+  const reportTitle = isWeeklyReport
+    ? "Weekly Analytics Report"
+    : "Monthly Analytics Report";
+
+  // Thresholds differ between weekly and monthly
+  const highThreshold = isWeeklyReport ? 10 : 50;
+  const lowThreshold = isWeeklyReport ? 3 : 20;
+  const highMessage = isWeeklyReport ? "Great Week!" : "Outstanding Month!";
+
   const totalPageViews = analytics.pageViews || 0;
   const calendarPageViews = analytics.calendar?.pageViews || 0;
   const showcasePageViews = analytics.showcase?.pageViews || 0;
@@ -383,7 +426,7 @@ function generateEmailHTML(analytics) {
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>DK24 Monthly Analytics Report</title>
+	<title>DK24 ${reportTitle}</title>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -545,8 +588,8 @@ function generateEmailHTML(analytics) {
 			<h1><span class="dk24">DK24</span></h1>
 		</div>
 		<div class="header">
-			<h2 style="margin: 0; font-size: 1.5em; font-weight: 600;">Monthly Analytics Report</h2>
-			<p>${analytics.monthStart} to ${analytics.monthEnd}</p>
+			<h2 style="margin: 0; font-size: 1.5em; font-weight: 600;">${reportTitle}</h2>
+			<p>${analytics.periodStart} to ${analytics.periodEnd}</p>
 			<p class="tagline">Connecting college tech communities to learn and build together</p>
 		</div>
 
@@ -628,16 +671,16 @@ function generateEmailHTML(analytics) {
 		</div>
 
 		${
-      analytics.formSubmissions > 50
+      analytics.formSubmissions > highThreshold
         ? `
 		<div class="success">
-			<strong>Outstanding Month!</strong> ${analytics.formSubmissions} new community members joined this month. Keep building together!
+			<strong>${highMessage}</strong> ${analytics.formSubmissions} new community members joined this ${periodWord}. Keep building together!
 		</div>
 		`
-        : analytics.formSubmissions > 20
+        : analytics.formSubmissions > lowThreshold
           ? `
 		<div class="info">
-			<strong>Good Progress!</strong> ${analytics.formSubmissions} new members joined this month.
+			<strong>Good Progress!</strong> ${analytics.formSubmissions} new members joined this ${periodWord}.
 		</div>
 		`
           : ""
@@ -647,7 +690,7 @@ function generateEmailHTML(analytics) {
       analytics.errors > 0
         ? `
 		<div class="alert">
-			<strong>Attention Required:</strong> ${analytics.errors} error${analytics.errors > 1 ? "s" : ""} detected this month.
+			<strong>Attention Required:</strong> ${analytics.errors} error${analytics.errors > 1 ? "s" : ""} detected this ${periodWord}.
 			${
         analytics.errorDetails && analytics.errorDetails.length > 0
           ? `
@@ -704,7 +747,7 @@ function generateEmailHTML(analytics) {
 		`
         : `
 		<div class="success">
-			<strong>No Errors Detected!</strong> The website ran smoothly this month.
+			<strong>No Errors Detected!</strong> The website ran smoothly this ${periodWord}.
 		</div>
 		`
     }
@@ -776,7 +819,7 @@ function generateEmailHTML(analytics) {
 			<p style="margin: 0 0 15px 0;"><a href="${POSTHOG_HOST}/project/${POSTHOG_PROJECT_ID}">Open PostHog Dashboard →</a></p>
 			<hr>
 			<p style="font-size: 0.8em; color: #a3a3a3; margin: 15px 0 5px 0;">
-				Automated monthly report from <strong style="color: #0a0a0a;">DK24</strong><br>
+				Automated ${periodLabel} report from <strong style="color: #0a0a0a;">DK24</strong><br>
 				Connecting college tech communities to learn and build together
 			</p>
 			<p style="font-size: 0.75em; color: #d4d4d4; margin: 5px 0 0 0;">
@@ -829,13 +872,15 @@ async function sendEmail(subject, htmlContent) {
  * Main execution
  */
 async function main() {
+  const periodLabel = PERIOD === "week" ? "weekly" : "monthly";
   try {
-    console.log("[DK24] Starting monthly report generation...\n");
+    console.log(`[DK24] Starting ${periodLabel} report generation...\n`);
 
-    const analytics = await getMonthlyAnalytics();
+    const analytics = await getAnalytics();
     const emailHTML = generateEmailHTML(analytics);
 
-    const subject = `DK24 Monthly Report - ${analytics.uniqueVisitors.toLocaleString()} Visitors, ${analytics.formSubmissions} New Members`;
+    const reportType = PERIOD === "week" ? "Weekly" : "Monthly";
+    const subject = `DK24 ${reportType} Report - ${analytics.uniqueVisitors.toLocaleString()} Visitors, ${analytics.formSubmissions} New Members`;
 
     // Send email
     const emailSent = await sendEmail(subject, emailHTML);
@@ -844,9 +889,9 @@ async function main() {
       throw new Error("Report was generated, but email delivery failed.");
     }
 
-    console.log("\n[COMPLETE] Monthly report generation complete!\n");
+    console.log(`\n[COMPLETE] ${reportType} report generation complete!\n`);
   } catch (error) {
-    console.error("[ERROR] Failed to generate monthly report:", error);
+    console.error(`[ERROR] Failed to generate ${periodLabel} report:`, error);
     process.exit(1);
   }
 }
