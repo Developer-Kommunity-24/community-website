@@ -42,11 +42,11 @@ export function DateNavigator({ view, events }: IProps) {
 
   return (
     <div className="space-y-0.5">
-      <div className="flex items-center gap-2">
-        <span className="text-lg font-semibold">
+      <div className="flex items-center gap-2 flex-nowrap">
+        <span className="text-lg font-semibold whitespace-nowrap">
           {month} {year}
         </span>
-        <Badge variant="outline" className="px-1.5">
+        <Badge variant="outline" className="px-1.5 whitespace-nowrap">
           {eventCount} events
         </Badge>
       </div>
