@@ -68,24 +68,26 @@ export function CalendarAgendaView({
     );
   }
 
+  if (eventsForMonth.length === 0) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-2 text-muted-foreground">
+        <CalendarX2 className="size-10" />
+        <p className="text-sm md:text-base">
+          No events scheduled for the selected month
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="h-full">
       <ScrollArea className="h-full" type="always">
-        <div className="flex flex-col h-full p-4">
-          {eventsForMonth.length > 0 ? (
-            <div className="space-y-4">
-              {eventsForMonth.map((event) => (
-                <AgendaEventCard key={event.id} event={event} />
-              ))}
-            </div>
-          ) : (
-            <div className="flex-1 flex flex-col items-center justify-center gap-2 text-muted-foreground min-h-[50vh]">
-              <CalendarX2 className="size-10" />
-              <p className="text-sm md:text-base">
-                No events scheduled for the selected month
-              </p>
-            </div>
-          )}
+        <div className="flex flex-col p-4">
+          <div className="space-y-4">
+            {eventsForMonth.map((event) => (
+              <AgendaEventCard key={event.id} event={event} />
+            ))}
+          </div>
         </div>
       </ScrollArea>
     </div>
