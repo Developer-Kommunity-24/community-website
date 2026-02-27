@@ -610,7 +610,7 @@ export function EventSubmissionForm() {
                         className="text-xs text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors group"
                       >
                         <ExternalLink className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                        <span>image2url.com — Free image to URL converter</span>
+                        <span>image2url.com - Free image to URL converter</span>
                       </a>
                       <a
                         href="https://postimages.org"
@@ -620,7 +620,7 @@ export function EventSubmissionForm() {
                       >
                         <ExternalLink className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                         <span>
-                          postimages.org — Permanent free image hosting
+                          postimages.org - Permanent free image hosting
                         </span>
                       </a>
                       <a
@@ -630,7 +630,7 @@ export function EventSubmissionForm() {
                         className="text-xs text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors group"
                       >
                         <ExternalLink className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                        <span>imgbb.com — Simple, fast image hosting</span>
+                        <span>imgbb.com - Simple, fast image hosting</span>
                       </a>
                     </div>
                   </div>
