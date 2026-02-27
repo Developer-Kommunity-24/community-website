@@ -4,7 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useEffect } from "react";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { format } from "date-fns";
-import { Check, X, Loader2 } from "lucide-react";
+import {
+  Check,
+  X,
+  Loader2,
+  Info,
+  ExternalLink,
+  ChevronDown,
+} from "lucide-react";
 import { captureError, captureEvent } from "@/lib/posthog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -12,6 +19,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { submitFormData } from "@/lib/form-submission";
 import {
   type EventSubmissionFormValues,
@@ -19,6 +31,7 @@ import {
   eventTagOptions,
 } from "@/lib/forms-config";
 import { DateTimePicker } from "@/components/ui/date-time-picker";
+import { cn } from "@/lib/utils";
 
 export function EventSubmissionForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,7 +39,11 @@ export function EventSubmissionForm() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [isCheckingImage, setIsCheckingImage] = useState(false);
   const [imageCheckError, setImageCheckError] = useState<string | null>(null);
+  const [imageCheckWarning, setImageCheckWarning] = useState<string | null>(
+    null,
+  );
   const [isImageVerified, setIsImageVerified] = useState(false);
+  const [showHelpPanel, setShowHelpPanel] = useState(false);
 
   const {
     handleSubmit,
@@ -86,6 +103,7 @@ export function EventSubmissionForm() {
   const validateImageUrl = async (url: string) => {
     if (!url) {
       setImageCheckError(null);
+      setImageCheckWarning(null);
       setIsCheckingImage(false);
       setIsImageVerified(false);
       return true;
@@ -95,7 +113,49 @@ export function EventSubmissionForm() {
       new URL(url);
     } catch {
       setIsImageVerified(false);
-      return false; // Let zod handle format, but image check failed
+      setImageCheckError("Please enter a valid URL.");
+      return false;
+    }
+
+    // Domain Check
+    const blockedDomains = [
+      "drive.google.com",
+      "docs.google.com",
+      "photos.google.com",
+      "dropbox.com",
+      "icloud.com",
+    ];
+    try {
+      const urlObj = new URL(url);
+      const isBlocked = blockedDomains.some((domain) =>
+        urlObj.hostname.includes(domain),
+      );
+
+      if (isBlocked) {
+        const domainMatch = blockedDomains.find((d) =>
+          urlObj.hostname.includes(d),
+        );
+        const errorMsg = `${domainMatch} doesn't serve direct image URLs. Please use a hosting service.`;
+        setImageCheckError(errorMsg);
+        setIsImageVerified(false);
+        return false;
+      }
+    } catch {
+      // Handled above
+    }
+
+    // Extension Check
+    const validExtensions = [".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"];
+    const hasValidExtension = validExtensions.some((ext) =>
+      url.toLowerCase().split("?")[0].endsWith(ext),
+    );
+
+    if (!hasValidExtension) {
+      setImageCheckWarning(
+        "URL doesn't end with a known image extension. Make sure it serves a raw image file.",
+      );
+    } else {
+      setImageCheckWarning(null);
     }
 
     setIsCheckingImage(true);
@@ -116,7 +176,8 @@ export function EventSubmissionForm() {
 
       img.onerror = () => {
         setIsCheckingImage(false);
-        const errorMsg = "Could not load image. Please check the URL.";
+        const errorMsg =
+          "URL looks valid but the image couldn't load. Check the link is publicly accessible.";
         setImageCheckError(errorMsg);
         setIsImageVerified(false);
         setError("eventPosterUrl", {
@@ -240,7 +301,9 @@ export function EventSubmissionForm() {
           <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <Label htmlFor="eventName">Event Name *</Label>
+                <Label htmlFor="eventName" className="cursor-pointer">
+                  Event Name *
+                </Label>
                 <Input
                   id="eventName"
                   {...register("eventName")}
@@ -254,7 +317,9 @@ export function EventSubmissionForm() {
               </div>
 
               <div className="space-y-4">
-                <Label htmlFor="organizationName">Organization Name *</Label>
+                <Label htmlFor="organizationName" className="cursor-pointer">
+                  Organization Name *
+                </Label>
                 <Input
                   id="organizationName"
                   {...register("organizationName")}
@@ -270,7 +335,7 @@ export function EventSubmissionForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <Label htmlFor="startDateTime">
+                <Label htmlFor="startDateTime" className="cursor-pointer">
                   Start Date & Time * (IST, +5:30)
                 </Label>
                 <Controller
@@ -307,7 +372,7 @@ export function EventSubmissionForm() {
               </div>
 
               <div className="space-y-4">
-                <Label htmlFor="endDateTime">
+                <Label htmlFor="endDateTime" className="cursor-pointer">
                   End Date & Time * (IST, +5:30)
                 </Label>
                 <Controller
@@ -334,7 +399,9 @@ export function EventSubmissionForm() {
             </div>
 
             <div className="space-y-4">
-              <Label htmlFor="eventLocation">Event Location *</Label>
+              <Label htmlFor="eventLocation" className="cursor-pointer">
+                Event Location *
+              </Label>
               <Input
                 id="eventLocation"
                 {...register("eventLocation")}
@@ -348,7 +415,9 @@ export function EventSubmissionForm() {
             </div>
 
             <div className="space-y-4">
-              <Label htmlFor="eventDescription">Event Description *</Label>
+              <Label htmlFor="eventDescription" className="cursor-pointer">
+                Event Description *
+              </Label>
               <Textarea
                 id="eventDescription"
                 {...register("eventDescription")}
@@ -369,7 +438,9 @@ export function EventSubmissionForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <Label htmlFor="eventWebsite">Event Website</Label>
+                <Label htmlFor="eventWebsite" className="cursor-pointer">
+                  Event Website
+                </Label>
                 <Input
                   id="eventWebsite"
                   type="url"
@@ -384,7 +455,9 @@ export function EventSubmissionForm() {
               </div>
 
               <div className="space-y-4">
-                <Label htmlFor="registrationLink">Registration Link</Label>
+                <Label htmlFor="registrationLink" className="cursor-pointer">
+                  Registration Link
+                </Label>
                 <Input
                   id="registrationLink"
                   type="url"
@@ -400,7 +473,44 @@ export function EventSubmissionForm() {
             </div>
 
             <div className="space-y-4">
-              <Label htmlFor="eventPosterUrl">Event Poster URL</Label>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="eventPosterUrl" className="cursor-pointer">
+                  Event Poster URL
+                </Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      className="inline-flex h-4 w-4 items-center justify-center rounded-full text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer"
+                    >
+                      <Info className="h-3 w-3" />
+                      <span className="sr-only">Poster URL Information</span>
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-sm leading-none">
+                        About Event Poster URLs
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        A direct image URL points directly to an image file
+                        (e.g., ends in .jpg or .png).
+                      </p>
+                      <ul className="text-xs list-disc list-inside text-muted-foreground space-y-1">
+                        <li>
+                          Google Drive/Photos links are <strong>not</strong>{" "}
+                          supported.
+                        </li>
+                        <li>The link must be publicly accessible.</li>
+                        <li>
+                          Recommended tools: image2url.com, postimages.org,
+                          imgbb.com
+                        </li>
+                      </ul>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
               <div className="relative">
                 <Input
                   id="eventPosterUrl"
@@ -409,6 +519,7 @@ export function EventSubmissionForm() {
                     onBlur: (e) => validateImageUrl(e.target.value),
                     onChange: () => {
                       setIsImageVerified(false);
+                      setImageCheckWarning(null);
                       if (imageCheckError) {
                         setImageCheckError(null);
                         clearErrors("eventPosterUrl");
@@ -416,7 +527,19 @@ export function EventSubmissionForm() {
                     },
                   })}
                   placeholder="https://cdn.techfuture.org/posters/ai-summit-2026.png"
-                  className="pr-10"
+                  className={`pr-10 ${
+                    imageCheckError ||
+                    (
+                      errors.eventPosterUrl &&
+                        errors.eventPosterUrl.type !== "manual"
+                    )
+                      ? "border-destructive focus-visible:ring-destructive"
+                      : imageCheckWarning
+                        ? "border-yellow-500 focus-visible:ring-yellow-500"
+                        : isImageVerified
+                          ? "border-green-500 focus-visible:ring-green-500"
+                          : ""
+                  }`}
                 />
                 <div className="absolute right-3 top-2.5 flex items-center gap-2">
                   {isCheckingImage && (
@@ -430,19 +553,117 @@ export function EventSubmissionForm() {
                     )}
                   {!isCheckingImage &&
                     watch("eventPosterUrl") &&
-                    (imageCheckError || errors.eventPosterUrl) && (
+                    (imageCheckError ||
+                      (errors.eventPosterUrl &&
+                        errors.eventPosterUrl.type !== "manual")) && (
                       <X className="h-5 w-5 text-destructive" />
                     )}
                 </div>
               </div>
-              {errors.eventPosterUrl && (
+
+              {/* Validation Messages */}
+              {(errors.eventPosterUrl || imageCheckError) && (
                 <p className="text-destructive text-sm">
-                  {errors.eventPosterUrl.message}
+                  {imageCheckError || errors.eventPosterUrl?.message}
                 </p>
               )}
-              {!errors.eventPosterUrl && imageCheckError && (
-                <p className="text-destructive text-sm">{imageCheckError}</p>
+              {!imageCheckError && imageCheckWarning && (
+                <p className="text-yellow-600 dark:text-yellow-400 text-sm">
+                  {imageCheckWarning}
+                </p>
               )}
+              {!imageCheckError && !imageCheckWarning && isImageVerified && (
+                <p className="text-green-600 dark:text-green-400 text-sm">
+                  URL is valid! Image preview below.
+                </p>
+              )}
+
+              {/* Helper Text & Hosting Tools Toggle */}
+              <div className="space-y-2 mt-2">
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Must be a direct image URL (ending in .png, .jpg, etc.).
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setShowHelpPanel(!showHelpPanel)}
+                  className="text-xs text-primary hover:underline flex items-center gap-1 transition-all cursor-pointer"
+                >
+                  Need help? See free hosting tools
+                  <ChevronDown
+                    className={cn(
+                      "h-3 w-3 transition-transform duration-200",
+                      showHelpPanel && "rotate-180",
+                    )}
+                  />
+                </button>
+
+                {showHelpPanel && (
+                  <div className="p-3 bg-muted/40 rounded-md border border-border/50 space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Recommended Tools:
+                    </p>
+                    <div className="grid grid-cols-1 gap-2">
+                      <a
+                        href="https://image2url.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors group"
+                      >
+                        <ExternalLink className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        <span>image2url.com - Free image to URL converter</span>
+                      </a>
+                      <a
+                        href="https://postimages.org"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors group"
+                      >
+                        <ExternalLink className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        <span>
+                          postimages.org - Permanent free image hosting
+                        </span>
+                      </a>
+                      <a
+                        href="https://imgbb.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors group"
+                      >
+                        <ExternalLink className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        <span>imgbb.com - Simple, fast image hosting</span>
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Live Preview Section */}
+              {isImageVerified &&
+                watch("eventPosterUrl") &&
+                !imageCheckError && (
+                  <div className="pt-2 animate-in zoom-in-95 duration-300">
+                    <div className="relative border rounded-lg overflow-hidden bg-muted/30 aspect-video flex items-center justify-center group shadow-sm">
+                      <img
+                        src={watch("eventPosterUrl")}
+                        alt="Event poster preview"
+                        className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                        onError={() => {
+                          setIsImageVerified(false);
+                          const errorMsg =
+                            "URL looks valid but the image couldn't load. Check the link is publicly accessible.";
+                          setImageCheckError(errorMsg);
+                          setError("eventPosterUrl", {
+                            type: "manual",
+                            message: errorMsg,
+                          });
+                        }}
+                      />
+                      <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-md text-[10px] text-white px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                        Live Preview
+                      </div>
+                    </div>
+                  </div>
+                )}
             </div>
           </div>
 
@@ -481,7 +702,9 @@ export function EventSubmissionForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <Label htmlFor="submittedBy">Your Name *</Label>
+                <Label htmlFor="submittedBy" className="cursor-pointer">
+                  Your Name *
+                </Label>
                 <Input
                   id="submittedBy"
                   {...register("submittedBy")}
@@ -495,7 +718,9 @@ export function EventSubmissionForm() {
               </div>
 
               <div className="space-y-4">
-                <Label htmlFor="submittedEmail">Your Email *</Label>
+                <Label htmlFor="submittedEmail" className="cursor-pointer">
+                  Your Email *
+                </Label>
                 <Input
                   id="submittedEmail"
                   type="email"
