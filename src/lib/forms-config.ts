@@ -91,7 +91,7 @@ export const eventSubmissionSchema = z.object({
   submittedEmail: z.string().email("Please enter a valid email address."),
   emailConsentChecked: z
     .boolean()
-    .refine((val) => val === true, "You must consent to email communications."),
+    .refine((val) => val === true, "You must consent that all details are correct."),
   isEmailVerified: z.boolean(),
 });
 
