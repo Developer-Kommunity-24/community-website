@@ -698,7 +698,7 @@ export function EventSubmissionForm() {
                 htmlFor="emailConsentChecked"
                 className="text-sm leading-relaxed cursor-pointer"
               >
-                I consent that all the details provided are correct *
+                I certify that all details are correct *
               </Label>
             </div>
             {errors.emailConsentChecked && (
