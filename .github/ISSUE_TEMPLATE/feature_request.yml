@@ -82,4 +82,3 @@ body:
         - No, I just want to report it.
     validations:
       required: true
-

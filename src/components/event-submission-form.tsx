@@ -1,36 +1,39 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useEffect } from "react";
-import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { format } from "date-fns";
 import {
   Check,
-  X,
-  Loader2,
-  Info,
-  ExternalLink,
   ChevronDown,
+  ExternalLink,
+  Info,
+  Loader2,
+  X,
 } from "lucide-react";
-import { captureError, captureEvent } from "@/lib/posthog";
+import NextImage from "next/image";
+import { useEffect, useState } from "react";
+import { Controller, type SubmitHandler, useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { DateTimePicker } from "@/components/ui/date-time-picker";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
+
 import { submitFormData } from "@/lib/form-submission";
 import {
   type EventSubmissionFormValues,
   eventSubmissionSchema,
   eventTagOptions,
 } from "@/lib/forms-config";
-import { DateTimePicker } from "@/components/ui/date-time-picker";
+import { captureError, captureEvent } from "@/lib/posthog";
 import { cn } from "@/lib/utils";
 
 export function EventSubmissionForm() {
@@ -163,7 +166,9 @@ export function EventSubmissionForm() {
     setIsImageVerified(false);
 
     return new Promise<boolean>((resolve) => {
-      const img = new Image();
+      // use the global constructor so we don't accidentally reference the
+      // `Image` component imported from next/image above
+      const img = new window.Image();
       img.src = url;
 
       img.onload = () => {
@@ -643,8 +648,12 @@ export function EventSubmissionForm() {
                 !imageCheckError && (
                   <div className="pt-2 animate-in zoom-in-95 duration-300">
                     <div className="relative border rounded-lg overflow-hidden bg-muted/30 aspect-video flex items-center justify-center group shadow-sm">
-                      <img
-                        src={watch("eventPosterUrl")}
+                      {/* posterUrl is guaranteed to be truthy by the conditional
+                        above, so narrow the type for the Image component */}
+                      <NextImage
+                        src={watch("eventPosterUrl") as string}
+                        width={1080}
+                        height={1080}
                         alt="Event poster preview"
                         className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                         onError={() => {

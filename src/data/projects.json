@@ -135,5 +135,41 @@
       }
     ],
     "categories": ["Bot", "Tool"]
+  },
+  {
+    "id": "reclaimspace",
+    "title": "ReclaimSpace",
+    "description": "A CLI tool to reclaim disk space by finding and removing unnecessary development folders and files.",
+    "image": "/projects/reclaimspace.png",
+    "tags": ["Node.js", "CLI", "Disk Management", "File System"],
+    "github": "https://github.com/gaureshpai/reclaimspace",
+    "link": "https://gaureshpai.github.io/reclaimspace/",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "Gauresh Pai",
+        "company": "Open Source",
+        "role": "Creator"
+      }
+    ],
+    "categories": ["Tool"]
+  },
+  {
+    "id": "dkutils",
+    "title": "DKUtils",
+    "description": "Web-based utility platform offering multiple everyday tools in one place. Built with the MERN stack (MongoDB, Express.js, React.js, Node.js) and styled using TailwindCSS.",
+    "image": "/projects/dkutils.png",
+    "tags": ["MERN", "TailwindCSS", "JavaScript", "React.js", "Node.js"],
+    "github": "https://github.com/gaureshpai/dkutils",
+    "link": "https://dkutils.vercel.app/",
+    "contributors": [
+      {
+        "kind": "professional",
+        "name": "Gauresh Pai",
+        "company": "Open Source",
+        "role": "Creator"
+      }
+    ],
+    "categories": ["Web"]
   }
 ]

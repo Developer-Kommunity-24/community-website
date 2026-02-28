@@ -25,7 +25,7 @@ jobs:
             1. **Check for Duplicates**: Ensure this issue hasn't already been reported or addressed.  
             2. **Add Relevant Labels**: Use appropriate labels like `bug`, `enhancement`, or `documentation` to categorize the issue.  
             3. **Assign a Responsible Member**: Tag a team member to facilitate quick resolution.  
-            
+
             Happy coding! 😊
           pr-message: |
             🙌 Welcome @${{ github.actor }}!  
@@ -34,4 +34,4 @@ jobs:
 
             Your pull request will be reviewed soon. Please ensure it follows our **guidelines** and includes appropriate labels like `feature`, `fix`, or `refactor`.  
 
-            Together, let’s build something amazing! 🚀  
+            Together, let’s build something amazing! 🚀
