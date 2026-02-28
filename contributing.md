@@ -6,15 +6,15 @@ Welcome, developer! 🙌 Whether you're fixing a bug, improving UI, or updating 
 
 ## 📖 Table of Contents
 
-* [Code of Conduct](#code-of-conduct)
-* [Prerequisites & Setup](#prerequisites--setup)
-* [Development Guidelines](#development-guidelines)
-* [File Structure & Conventions](#file-structure--conventions)
-* [Contributing Workflow](#contributing-workflow)
-* [Commit & PR Guidelines](#commit--pr-guidelines)
-* [Ways to Contribute](#ways-to-contribute)
-* [Getting Help](#getting-help)
-* [Recognition](#recognition)
+- [Code of Conduct](#code-of-conduct)
+- [Prerequisites & Setup](#prerequisites--setup)
+- [Development Guidelines](#development-guidelines)
+- [File Structure & Conventions](#file-structure--conventions)
+- [Contributing Workflow](#contributing-workflow)
+- [Commit & PR Guidelines](#commit--pr-guidelines)
+- [Ways to Contribute](#ways-to-contribute)
+- [Getting Help](#getting-help)
+- [Recognition](#recognition)
 
 ---
 
@@ -29,10 +29,10 @@ Please report unacceptable behavior to [dk24consortium@gmail.com](mailto:dk24con
 
 ### Requirements
 
-* Node.js (v18+)
-* npm / yarn / pnpm
-* Git
-* Code editor (VS Code recommended)
+- Node.js (v18+)
+- npm / yarn / pnpm
+- Git
+- Code editor (VS Code recommended)
 
 ### Getting Started
 
@@ -57,10 +57,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### 🧠 Recommended VS Code Extensions
 
-* **ES7+ React/Redux/React-Native snippets**
-* **Tailwind CSS IntelliSense**
-* **TypeScript Importer**
-* **Biome**
+- **ES7+ React/Redux/React-Native snippets**
+- **Tailwind CSS IntelliSense**
+- **TypeScript Importer**
+- **Biome**
 
 ### 🌱 Environment Variables
 
@@ -77,22 +77,26 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 ### ✅ Must Follow
 
-* Use **TypeScript**
-* Avoid `any` unless absolutely necessary
-* Follow consistent naming conventions (`kebab-case` for files, `PascalCase` for components)
-* Modular, reusable components
-* Use **Tailwind CSS** classes instead of inline styles
+- Use **TypeScript**
+- Avoid `any` unless absolutely necessary
+- Follow consistent naming conventions (`kebab-case` for files, `PascalCase` for components)
+- Modular, reusable components
+- Use **Tailwind CSS** classes instead of inline styles
 
 ### ✅ Good Component Example
 
 ```tsx
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
   onClick?: () => void;
 }
 
-export function Button({ children, variant = 'primary', onClick }: ButtonProps) {
+export function Button({
+  children,
+  variant = "primary",
+  onClick,
+}: ButtonProps) {
   return (
     <button className={`btn btn-${variant}`} onClick={onClick}>
       {children}
@@ -120,9 +124,7 @@ export function Button(props: any) {
 ### ❌ Avoid Inline Styling
 
 ```tsx
-<div style={{ padding: '1rem', backgroundColor: '#fff' }}>
-  Hello
-</div>
+<div style={{ padding: "1rem", backgroundColor: "#fff" }}>Hello</div>
 ```
 
 ### 🔍 Testing Before Push
@@ -150,9 +152,9 @@ src/
 
 ### Naming Rules
 
-* Files: `event-card.tsx`
-* Interfaces: `EventCardProps`
-* Constants: `EVENT_STATUS`
+- Files: `event-card.tsx`
+- Interfaces: `EventCardProps`
+- Constants: `EVENT_STATUS`
 
 ---
 
@@ -163,16 +165,15 @@ src/
 ### ✅ Step-by-Step
 
 1. **Find or Create an Issue**
-
-   * Look for open issues: [Issues](https://github.com/Developer-Kommunity-24/community-website/issues)
-   * If it doesn’t exist, create a new one.
+   - Look for open issues: [Issues](https://github.com/Developer-Kommunity-24/community-website/issues)
+   - If it doesn’t exist, create a new one.
 
 2. **Ask to Be Assigned**
-
-   * Comment:
+   - Comment:
 
      > "Hey, I’d like to work on this. Can you assign it to me?"
-   * Wait until you’re assigned before starting.
+
+   - Wait until you’re assigned before starting.
 
 3. **Create a New Branch**
 
@@ -221,32 +222,32 @@ docs: update README setup section
 
 Make sure your PR includes:
 
-* Clear title and description
-* UI screenshots (if applicable)
-* Lint, type-check, and build passed
+- Clear title and description
+- UI screenshots (if applicable)
+- Lint, type-check, and build passed
 
 ---
 
 ## 🌟 Ways to Contribute
 
-* 🐛 Bug Fixes
-* ✨ New Features
-* 📚 Documentation
-* 🎨 Design / UI Polish
-* 🌍 Translations
+- 🐛 Bug Fixes
+- ✨ New Features
+- 📚 Documentation
+- 🎨 Design / UI Polish
+- 🌍 Translations
 
 ### 🚀 Adding a Project
-Have a project to showcase? See the [Adding Your Project](README.md#-adding-your-project) section in the README.
 
+Have a project to showcase? See the [Adding Your Project](README.md#-adding-your-project) section in the README.
 
 ---
 
 ## ❓ Getting Help
 
-* **GitHub Discussions**
-* **Issues tab**
-* **Email**: [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com)
-* **See README for social links**
+- **GitHub Discussions**
+- **Issues tab**
+- **Email**: [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com)
+- **See README for social links**
 
 ---
 
@@ -254,10 +255,10 @@ Have a project to showcase? See the [Adding Your Project](README.md#-adding-your
 
 You’ll be recognized via:
 
-* GitHub contributors graph
-* Community shout-outs
-* Acknowledgement in DK24 events
-* Featured on [dk24.org](https://dk24.org) (soon!)
+- GitHub contributors graph
+- Community shout-outs
+- Acknowledgement in DK24 events
+- Featured on [dk24.org](https://dk24.org) (soon!)
 
 ---
 
@@ -267,4 +268,4 @@ Every contribution counts – no matter how small.
 We’re building DK24 together. Glad to have you onboard!
 
 **Happy Contributing! 🚀**
-*Made with ❤️ by the DK24 Community*
+_Made with ❤️ by the DK24 Community_

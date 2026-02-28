@@ -4,10 +4,10 @@
 
 We actively support the following versions of the DK24 Community Website:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| Latest  | ✅ Yes             |
-| < Latest| ❌ No              |
+| Version  | Supported |
+| -------- | --------- |
+| Latest   | ✅ Yes    |
+| < Latest | ❌ No     |
 
 We recommend always using the latest version deployed on our main branch.
 
@@ -20,6 +20,7 @@ The DK24 community takes security seriously. We appreciate your efforts to respo
 **Please do NOT report security vulnerabilities through public GitHub issues.**
 
 Instead, please report security vulnerabilities to:
+
 - **Email**: dk24consortium@gmail.com
 - **Subject**: [SECURITY] Brief description of the issue
 
@@ -138,16 +139,19 @@ We will notify the community of security updates through:
 ## 📞 Contact Information
 
 ### Security Team
+
 - **Email**: dk24consortium@gmail.com
 - **PGP Key**: Available upon request
 
 ### General Contact
+
 - **Website**: [dk24.org](https://dk24.org)
 - **Email**: dk24consortium@gmail.com
 
 ## 🔒 Encryption
 
 For sensitive communications, we support:
+
 - **PGP encryption** (key available upon request)
 - **Signal** for real-time secure messaging
 - **ProtonMail** for encrypted email
@@ -165,5 +169,8 @@ This security policy may be updated from time to time. We will notify the commun
 
 **Thank you for helping keep DK24 secure! 🛡️**
 
-*The DK24 Security Team*
+_The DK24 Security Team_
+
+```
+
 ```

@@ -45,5 +45,5 @@ Appeals can be sent via email.
 
 Following these guidelines helps maintain a professional, scalable, and welcoming space for all contributors. Thank you for keeping DK24 awesome!
 
-*Last Updated: July 2025*
-*Contact: [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com)*
+_Last Updated: July 2025_
+_Contact: [dk24consortium@gmail.com](mailto:dk24consortium@gmail.com)_
