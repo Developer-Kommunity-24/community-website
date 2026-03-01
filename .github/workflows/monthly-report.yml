@@ -34,5 +34,5 @@ jobs:
           NEXT_PUBLIC_POSTHOG_HOST: https://app.posthog.com
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-          RECIPIENT_EMAIL: dk24consortium@gmail.com
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
         run: npm run report:monthly
