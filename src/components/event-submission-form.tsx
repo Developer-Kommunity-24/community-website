@@ -229,7 +229,22 @@ export function EventSubmissionForm() {
         isEmailVerified: false,
       };
 
-      await submitFormData("event", payload);
+      const result = await submitFormData("event", payload);
+
+      if (!result) {
+        setSubmitError("Failed to showcase event. Please try again.");
+
+        captureEvent("form_submitted", {
+          form_type: "event_submission",
+          success: false,
+          event_name: data.eventName,
+          organization: data.organizationName,
+          tags: data.eventTags,
+        });
+
+        return;
+      }
+
       setSubmitSuccess(true);
 
       // Track successful event submission
