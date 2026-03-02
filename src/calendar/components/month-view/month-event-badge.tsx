@@ -232,7 +232,7 @@ export function MonthEventBadge({
         {
           <>
             {event.highlight && ["first", "none"].includes(position) && (
-              <Star className="size-3 shrink-0 fill-yellow-400 text-yellow-500 absolute top-[-5px] left-[-4px]" />
+              <Star className="size-3 shrink-0 fill-yellow-400 text-yellow-500 absolute -top-1.25" />
             )}
             <p className="block items-center gap-1 font-semibold" ref={textRef}>
               {/* {eventCurrentDay && (
@@ -248,7 +248,7 @@ export function MonthEventBadge({
       {renderBadgeText && (
         <div
           className={cn(
-            "absolute inset-y-0 right-0 w-12 bg-gradient-to-l to-transparent",
+            "absolute inset-y-0 right-0 w-12 bg-linear-to-l to-transparent",
             position === "none" ? "rounded-md" : "",
             gradientFromClass,
           )}
