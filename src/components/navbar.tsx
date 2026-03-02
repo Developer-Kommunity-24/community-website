@@ -13,6 +13,8 @@ import { DiscordJoinBar } from "@/components/discord-join-bar";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setisVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
 
@@ -20,11 +22,18 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
+      const currentScrollY = window.scrollY;
+      //background blur trigger
+      setIsScrolled(currentScrollY > 10);
+      //detect scroll direction
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        //scrolling down
+        setisVisible(false);
       } else {
-        setIsScrolled(false);
+        //scrolling up
+        setisVisible(true);
       }
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -49,7 +58,8 @@ export default function Navbar() {
     <header
       ref={headerRef}
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-200",
+        "sticky top-0 z-50 w-full transition-all duration-300",
+        isVisible ? "translate-y-0" : "-translate-y-full",
         isScrolled
           ? "bg-background/80 backdrop-blur-md border-b"
           : "bg-transparent",
@@ -57,7 +67,7 @@ export default function Navbar() {
     >
       <DiscordJoinBar />
       <div className="container mx-auto px-4 max-w-7xl">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-12 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-green-500 to-green-400">
               {siteConfig.name}
