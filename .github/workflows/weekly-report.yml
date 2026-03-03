@@ -12,19 +12,16 @@ on:
 jobs:
   send-weekly-report:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [22, 24]
-    name: Weekly Report (Node ${{ matrix.node-version }})
+    name: Weekly Report
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies
