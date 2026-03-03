@@ -29,8 +29,8 @@ Please report unacceptable behavior to [dk24consortium@gmail.com](mailto:dk24con
 
 ### Requirements
 
-- Node.js (v18+)
-- npm / yarn / pnpm
+- Node.js v22 or v24 (LTS versions — avoid v23)
+- npm
 - Git
 - Code editor (VS Code recommended)
 

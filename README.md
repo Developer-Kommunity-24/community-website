@@ -50,8 +50,8 @@ DK24 operates on a unique **TEAM** structure that ensures sustainable growth and
 
 ### Prerequisites
 
-- **Node.js** 20.0 or later
-- **npm**, **yarn**, or **pnpm**
+- **Node.js** 22 or 24 (LTS versions — avoid 23)
+- **npm**
 - **Git** for version control
 
 ### Installation

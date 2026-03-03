@@ -4,6 +4,7 @@
   "version": "1.0.1",
   "private": true,
   "scripts": {
+    "preinstall": "node scripts/check-package-manager.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -66,6 +67,11 @@
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^13.0.0",
     "zod": "^3.25.67"
+  },
+  "packageManager": "npm@10.0.0",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0",
+    "npm": ">=10.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
