@@ -89,7 +89,7 @@ export default function Navbar() {
           isVisible ? "translate-y-0" : "-translate-y-full",
           isScrolled
             ? "bg-background/95 backdrop-blur-lg border-b shadow-sm"
-            : "bg-white/80 backdrop-blur-lg",
+            : "bg-background/80 backdrop-blur-lg",
         )}
       >
         <DiscordJoinBar />
