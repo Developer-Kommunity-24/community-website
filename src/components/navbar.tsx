@@ -12,39 +12,38 @@ import { DiscordJoinBar } from "@/components/discord-join-bar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setHasScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-
   const lastScrollY = useRef(0);
-  const ticking = useRef(false);
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement>(null);
-
+  const [headerHeight, setHeaderHeight] = useState(80);
+  const ticking = useRef(false);
   const toggleMenu = () => setIsOpen((prev) => !prev);
-
+  const updateHeight = useCallback(() => {
+    if (headerRef.current) {
+      setHeaderHeight(headerRef.current.offsetHeight);
+    }
+  }, []);
   const updateNavbar = useCallback(() => {
     const currentScrollY = window.scrollY;
-
-    setIsScrolled(currentScrollY > 10);
-
+    setHasScrolled(currentScrollY > 10);
     const scrollDelta = currentScrollY - lastScrollY.current;
     const significantScroll = Math.abs(scrollDelta) > 5;
-
     if (currentScrollY < 100) {
       setIsVisible(true);
     } else if (significantScroll) {
-      if (scrollDelta > 0) {
+      if (scrollDelta > 0 && currentScrollY > 50) {
         setIsVisible(false);
-      } else {
+      } else if (scrollDelta < 0) {
         setIsVisible(true);
       }
     }
-
     lastScrollY.current = currentScrollY;
     ticking.current = false;
   }, []);
-
   useEffect(() => {
+    updateHeight();
     const handleScroll = () => {
       if (!ticking.current) {
         window.requestAnimationFrame(updateNavbar);
@@ -52,16 +51,20 @@ export default function Navbar() {
       }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [updateNavbar]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: only run on pathname change
+    window.addEventListener("resize", updateHeight);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateHeight);
+    };
+  }, [updateNavbar, updateHeight]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset navbar state on route change
   useEffect(() => {
     setIsOpen(false);
+    setIsVisible(true);
+    lastScrollY.current = window.scrollY;
   }, [pathname]);
-
-  // lock body scroll when mobile menu is open
   useEffect(() => {
+    if (typeof window === "undefined") return;
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -79,28 +82,26 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
+      <header
         ref={headerRef}
-        initial={{ y: 0 }}
-        animate={{ y: isVisible ? 0 : -100 }}
-        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         className={cn(
-          "sticky top-0 left-0 right-0 z-50 w-full transition-all duration-200",
+          "fixed top-0 z-[100] w-full transition-all duration-300",
+          isVisible ? "translate-y-0" : "-translate-y-full",
           isScrolled
-            ? "bg-background/80 backdrop-blur-md border-b"
-            : "bg-transparent",
+            ? "bg-background/95 backdrop-blur-lg border-b shadow-sm"
+            : "bg-white/80 backdrop-blur-lg",
         )}
       >
         <DiscordJoinBar />
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="flex h-16 items-center justify-between ">
+        <div className="container mx-auto px-4 max-w-full">
+          <div className="flex h-20 items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
               <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-400">
                 {siteConfig.name}
               </span>
             </Link>
 
-            <nav className="hidden md:flex items-center space-x-6 ">
+            <nav className="hidden md:flex items-center space-x-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -118,82 +119,58 @@ export default function Navbar() {
             </nav>
 
             <div className="hidden md:flex items-center space-x-2">
-              <Button asChild className="cursor-pointer">
+              <Button asChild size="sm" className="cursor-pointer">
                 <Link href="/join">Join Us</Link>
               </Button>
-              <Button asChild variant={"outline"} className="cursor-pointer">
+              <Button
+                asChild
+                variant="outline"
+                size="sm"
+                className="cursor-pointer gap-2"
+              >
                 <Link href="/showcase-event">
-                  <CalendarPlus />
+                  <CalendarPlus className="h-4 w-4" />
+                  <span className="hidden lg:inline">Event</span>
                 </Link>
               </Button>
             </div>
 
-            <div className="flex md:hidden items-center space-x-4 ">
+            <div className="flex md:hidden items-center space-x-2 mr-4">
               <Button
                 className="cursor-pointer"
                 variant="ghost"
                 size="icon"
                 onClick={toggleMenu}
                 aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isOpen}
               >
                 {isOpen ? (
-                  <motion.div
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    className="md:hidden 
-                     "
-                  >
-                    <X className="h-6 w-6" />
-                  </motion.div>
+                  <X className="h-6 w-6" />
                 ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    className="md:hidden 
-                      "
-                  >
-                    <Menu className="h-6 w-6" />
-                  </motion.div>
+                  <Menu className="h-6 w-6" />
                 )}
               </Button>
             </div>
           </div>
         </div>
-      </motion.header>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Blurred backdrop */}
+        <AnimatePresence>
+          {isOpen && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
-            />
-
-            {/* Menu panel */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="fixed top-16 left-0 right-0 bg-background 
-               shadow-lg z-50 md:hidden "
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              className="md:hidden border-t bg-background/95 backdrop-blur-lg overflow-hidden"
             >
-              <div className="container mx-auto px-4 py-6">
+              <div className="container mx-auto px-4 py-4">
                 <nav className="flex flex-col space-y-1">
                   {navLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
                       className={cn(
-                        "text-sm font-medium transition-colors hover:text-primary p-4 rounded-md",
+                        "text-sm font-medium transition-colors hover:text-primary p-3 rounded-md",
                         pathname === link.href
                           ? "bg-muted text-primary"
                           : "text-muted-foreground",
@@ -202,22 +179,29 @@ export default function Navbar() {
                       {link.label}
                     </Link>
                   ))}
-                  <Button asChild className="w-full mt-2 cursor-pointer">
-                    <Link href="/join">Join Us</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="secondary"
-                    className="w-full mt-2 cursor-pointer"
-                  >
-                    <Link href="/showcase-event">Showcase Event</Link>
-                  </Button>
+                  <div className="flex flex-col gap-2 mt-4 pt-4 border-t">
+                    <Button asChild className="w-full cursor-pointer">
+                      <Link href="/join">Join Us</Link>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="secondary"
+                      className="w-full cursor-pointer gap-2"
+                    >
+                      <Link href="/showcase-event">
+                        <CalendarPlus className="h-4 w-4" />
+                        Showcase Event
+                      </Link>
+                    </Button>
+                  </div>
                 </nav>
               </div>
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </header>
+
+      <div style={{ height: `${headerHeight}px` }} className="block" />
     </>
   );
 }
