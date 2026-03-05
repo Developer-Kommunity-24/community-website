@@ -71,8 +71,10 @@ export const siteConfig = {
 
   social: {
     github: "https://github.com/Developer-Kommunity-24",
-    linkedin: "https://linkedin.com/company/dk24community",
+    linkedin: "https://www.linkedin.com/company/dk24-consortium",
     instagram: "https://instagram.com/dk24_consortium",
+    x: "https://x.com/dk24consortium",
+    discord: "https://discord.gg/65MJZ2eDNp",
     youtube:
       "https://www.youtube.com/playlist?list=PLpQlHw5SaxvBAt4SiO476Vh8lH5sHGLFO",
   },

@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { generatePageMetadata } from "@/lib/metadata";
+import { siteConfig } from "@/config/site";
+import { XLogo } from "@/components/x-icon";
 
 export const metadata = generatePageMetadata({
   title: "Join DK24",
@@ -167,7 +169,7 @@ export default function JoinUsPage() {
                   </h3>
                   <div className="flex flex-col gap-3">
                     <a
-                      href="https://www.linkedin.com/company/dk24-consortium"
+                      href={siteConfig.social.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 font-medium hover:underline"
@@ -176,7 +178,7 @@ export default function JoinUsPage() {
                       DK24-Consortium
                     </a>
                     <a
-                      href="https://www.youtube.com/playlist?list=PLpQlHw5SaxvBAt4SiO476Vh8lH5sHGLFO"
+                      href={siteConfig.social.youtube}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 font-medium hover:underline"
@@ -185,13 +187,22 @@ export default function JoinUsPage() {
                       DK24 Consortium
                     </a>
                     <a
-                      href="https://discord.gg/65MJZ2eDNp"
+                      href={siteConfig.social.discord}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 font-medium hover:underline"
                     >
                       <DiscordIcon className="w-5 h-5" />
                       Join our Discord
+                    </a>
+                    <a
+                      href={siteConfig.social.x}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 font-medium hover:underline"
+                    >
+                      <XLogo className="w-5 h-5" />
+                      DK24 Consortium
                     </a>
                   </div>
                 </div>
