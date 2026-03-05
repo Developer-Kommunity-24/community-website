@@ -14,7 +14,7 @@ export function DiscordJoinBar({ onDismiss }: DiscordJoinBarProps) {
   const [isVisible, setIsVisible] = useState(false);
   //side effect to check local storage for dismissal status on mount
   useEffect(() => {
-    const dismissed = localStorage.getItem("discord-join-bar-dismissed");
+    const dismissed = localStorage.getItem("discord-bar-dismissed");
     if (dismissed !== "true") {
       setIsVisible(true);
     }
@@ -54,7 +54,7 @@ export function DiscordJoinBar({ onDismiss }: DiscordJoinBarProps) {
         onClick={handleDimiss}
         variant="ghost"
         size="sm"
-        className="ml-2 text-primary-foreground/80 cursor-pointer  shrink-0"
+        className="ml-2 text-primary-foreground cursor-pointer  shrink-0"
       >
         <X size={16} />
       </Button>
