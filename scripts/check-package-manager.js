@@ -7,10 +7,10 @@ if (!userAgent) {
   process.exit(0);
 }
 
-if (!userAgent.startsWith("npm")) {
+if (!userAgent.startsWith("pnpm")) {
   console.error(
-    "\n\x1b[31m✗ Error: This project requires npm as the package manager.\x1b[0m",
+    "\n\x1b[31m✗ Error: This project requires pnpm as the package manager.\x1b[0m",
   );
-  console.error("\x1b[33m  Please use: npm install\x1b[0m\n");
+  console.error("\x1b[33m  Please use: pnpm install\x1b[0m\n");
   process.exit(1);
 }

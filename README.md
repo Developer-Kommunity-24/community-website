@@ -51,7 +51,7 @@ DK24 operates on a unique **TEAM** structure that ensures sustainable growth and
 ### Prerequisites
 
 - **Node.js** 22 or 24 (LTS versions — avoid 23)
-- **npm**
+- **pnpm** 10.x — install via `npm install -g pnpm@10.30.3` or see the [pnpm installation guide](https://pnpm.io/installation)
 - **Git** for version control
 
 ### Installation
@@ -59,7 +59,7 @@ DK24 operates on a unique **TEAM** structure that ensures sustainable growth and
 ```bash
 git clone https://github.com/Developer-Kommunity-24/community-website.git
 cd community-website
-npm install
+pnpm install
 ```
 
 ### Environment Setup
@@ -74,7 +74,7 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ### Run the Dev Server
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to see the project.
@@ -84,15 +84,15 @@ Visit [http://localhost:3000](http://localhost:3000) to see the project.
 ### Available Scripts
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run Biome lint
-npm run lint:fix     # Fix lint issues
-npm run format       # Check code format
-npm run format:write # Auto-format files
-npm run type-check   # Run TypeScript type checks
-EVENTS_SOURCE=calendar npm run dev # Use fake calendar events
+pnpm dev          # Start development server
+pnpm build        # Build for production
+pnpm start        # Start production server
+pnpm lint         # Run Biome lint
+pnpm lint:fix     # Fix lint issues
+pnpm format       # Check code format
+pnpm format:write # Auto-format files
+pnpm type-check   # Run TypeScript type checks
+EVENTS_SOURCE=calendar pnpm dev # Use fake calendar events
 ```
 
 ## 🧰 Tech Stack

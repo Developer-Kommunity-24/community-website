@@ -68,10 +68,10 @@
     "uuid": "^13.0.0",
     "zod": "^3.25.67"
   },
-  "packageManager": "npm@10.0.0",
+  "packageManager": "pnpm@10.30.3",
   "engines": {
     "node": "^22.0.0 || ^24.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": "10.30.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.6",
