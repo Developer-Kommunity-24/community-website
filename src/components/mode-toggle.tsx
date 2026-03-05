@@ -26,9 +26,9 @@ export function ModeToggle() {
       className="cursor-pointer"
     >
       {isDark ? (
-        <Moon className="h-[1.2rem] w-[1.2rem] transition-transform rotate-0 scale-100" />
-      ) : (
         <Sun className="h-[1.2rem] w-[1.2rem] transition-transform rotate-0 scale-100" />
+      ) : (
+        <Moon className="h-[1.2rem] w-[1.2rem] transition-transform rotate-0 scale-100" />
       )}
     </Button>
   );
