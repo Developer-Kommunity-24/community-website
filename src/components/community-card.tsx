@@ -26,27 +26,66 @@ export function CommunityCard({ community }: CommunityCardProps) {
         </div>
       </div>
       <CardContent className="px-6 pb-0">
-        <p className="text-muted-foreground mb-4">{community.description}</p>
-        <div className="space-y-2 pt-4">
-          <h4 className="text-sm font-semibold">Representatives:</h4>
-          <ul className="space-y-2">
-            {community.representatives.map((rep, index) => (
-              <li key={index} className="text-sm">
-                <span className="font-medium">{rep.name}</span> - {rep.role}
-                <div className="text-sm text-muted-foreground">{rep.email}</div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {community.description && (
+          <p className="text-muted-foreground mb-4">{community.description}</p>
+        )}
+        {((community.pocs?.length ?? 0) > 0 ||
+          (community.representatives?.length ?? 0) > 0) && (
+          <div className="space-y-6 pt-4">
+            {community.pocs && community.pocs.length > 0 && (
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold">POCs:</h4>
+                <ul className="space-y-2">
+                  {community.pocs.map((poc, index) => (
+                    <li key={index} className="text-sm">
+                      <span className="font-medium">{poc.name}</span>
+                      {poc.role && ` - ${poc.role}`}
+                      {poc.email && (
+                        <div className="text-sm text-muted-foreground">
+                          {poc.email}
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {community.representatives &&
+              community.representatives.length > 0 && (
+                <div className="space-y-2">
+                  <h4 className="text-sm font-semibold">Representatives:</h4>
+                  <ul className="space-y-2">
+                    {community.representatives.map((rep, index) => (
+                      <li key={index} className="text-sm">
+                        <span className="font-medium">{rep.name}</span>
+                        {rep.role && ` - ${rep.role}`}
+                        {rep.email && (
+                          <div className="text-sm text-muted-foreground">
+                            {rep.email}
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+          </div>
+        )}
       </CardContent>
-      <CardFooter className="p-6 mt-auto">
-        <Button variant="outline" className="w-full" asChild>
-          <a href={community.website} target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="h-4 w-4 mr-2" />
-            Visit Website
-          </a>
-        </Button>
-      </CardFooter>
+      {community.website && (
+        <CardFooter className="p-6 mt-auto">
+          <Button variant="outline" className="w-full" asChild>
+            <a
+              href={community.website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ExternalLink className="h-4 w-4 mr-2" />
+              Visit Website
+            </a>
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   );
 }
