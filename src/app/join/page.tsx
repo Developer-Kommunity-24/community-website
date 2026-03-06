@@ -193,7 +193,7 @@ export default function JoinUsPage() {
                       className="flex items-center gap-2 font-medium hover:underline"
                     >
                       <DiscordIcon className="w-5 h-5" />
-                      Join our Discord
+                      DK24 Consortium
                     </a>
                     <a
                       href={siteConfig.social.x}
