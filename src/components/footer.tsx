@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DiscordIcon } from "@/components/discord-icon";
+import { XLogo } from "./x-icon";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { ModeToggle } from "./mode-toggle";
@@ -88,24 +89,29 @@ export default function Footer() {
 
   const socials = [
     {
-      href: "https://www.linkedin.com/company/dk24-consortium",
+      href: siteConfig.social.linkedin,
       label: "LinkedIn",
       icon: Linkedin,
     },
     {
-      href: "https://discord.gg/65MJZ2eDNp",
+      href: siteConfig.social.discord,
       label: "Discord",
       icon: DiscordIcon,
     },
     {
-      href: "https://www.youtube.com/playlist?list=PLpQlHw5SaxvBAt4SiO476Vh8lH5sHGLFO",
+      href: siteConfig.social.youtube,
       label: "YouTube",
       icon: Youtube,
     },
     {
-      href: "https://instagram.com/dk24_consortium",
+      href: siteConfig.social.instagram,
       label: "Instagram",
       icon: Instagram,
+    },
+    {
+      href: siteConfig.social.x,
+      label: "X",
+      icon: XLogo,
     },
   ];
 

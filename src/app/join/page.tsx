@@ -1,4 +1,4 @@
-import { Linkedin, Youtube } from "lucide-react";
+import { Linkedin, Youtube, Instagram, Github } from "lucide-react";
 import { BackgroundPattern } from "@/components/background-pattern";
 import { DiscordIcon } from "@/components/discord-icon";
 import { JoinForm } from "@/components/join-form";
@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { generatePageMetadata } from "@/lib/metadata";
+import { siteConfig } from "@/config/site";
+import { XLogo } from "@/components/x-icon";
 
 export const metadata = generatePageMetadata({
   title: "Join DK24",
@@ -165,34 +167,50 @@ export default function JoinUsPage() {
                   <h3 className="text-xl font-semibold mb-4">
                     Connect With Us
                   </h3>
-                  <div className="flex flex-col gap-3">
-                    <a
-                      href="https://www.linkedin.com/company/dk24-consortium"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 font-medium hover:underline"
-                    >
-                      <Linkedin className="w-5 h-5" />
-                      DK24-Consortium
-                    </a>
-                    <a
-                      href="https://www.youtube.com/playlist?list=PLpQlHw5SaxvBAt4SiO476Vh8lH5sHGLFO"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 font-medium hover:underline"
-                    >
-                      <Youtube className="w-5 h-5" />
-                      DK24 Consortium
-                    </a>
-                    <a
-                      href="https://discord.gg/65MJZ2eDNp"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 font-medium hover:underline"
-                    >
-                      <DiscordIcon className="w-5 h-5" />
-                      Join our Discord
-                    </a>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[
+                      {
+                        name: "LinkedIn",
+                        icon: Linkedin,
+                        href: siteConfig.social.linkedin,
+                      },
+                      {
+                        name: "YouTube",
+                        icon: Youtube,
+                        href: siteConfig.social.youtube,
+                      },
+                      {
+                        name: "Discord",
+                        icon: DiscordIcon,
+                        href: siteConfig.social.discord,
+                      },
+                      {
+                        name: "X / Twitter",
+                        icon: XLogo,
+                        href: siteConfig.social.x,
+                      },
+                      {
+                        name: "Instagram",
+                        icon: Instagram,
+                        href: siteConfig.social.instagram,
+                      },
+                      {
+                        name: "GitHub",
+                        icon: Github,
+                        href: siteConfig.social.github,
+                      },
+                    ].map((social) => (
+                      <a
+                        key={social.name}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 font-medium hover:underline text-sm"
+                      >
+                        <social.icon className="w-5 h-5 shrink-0" />
+                        <span className="truncate">DK24 Consortium</span>
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>
