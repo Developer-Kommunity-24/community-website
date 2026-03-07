@@ -11,18 +11,19 @@ export type TEventColor =
 
 export interface CommunityRepresentative {
   name: string;
-  role: string;
-  email: string;
+  role?: string;
+  email?: string;
 }
 
 export interface Community {
   id: number;
   name: string;
   college: string;
-  description: string;
-  logo: string;
-  representatives: CommunityRepresentative[];
-  website: string;
+  description?: string;
+  logo?: string;
+  pocs?: CommunityRepresentative[];
+  representatives?: CommunityRepresentative[];
+  website?: string;
 }
 
 export interface Testimonial {
