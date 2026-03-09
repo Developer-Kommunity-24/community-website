@@ -1,18 +1,14 @@
-"use client"; //client component
+"use client";
 
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-
-//interface for props
-interface DiscordJoinBarProps {
+interface DiscordJoinBannerProps {
   onDismiss?: () => void;
 }
-
-export function DiscordJoinBar({ onDismiss }: DiscordJoinBarProps) {
-  //state mananagement for visibility of the bar
+export function DiscordJoinBar({ onDismiss }: DiscordJoinBannerProps) {
   const [isVisible, setIsVisible] = useState(false);
-  //side effect to check local storage for dismissal status on mount
+  // Hide the banner if the user has already dismissed it in the past
   useEffect(() => {
     const dismissed = localStorage.getItem("discord-bar-dismissed");
     if (dismissed !== "true") {
@@ -20,13 +16,12 @@ export function DiscordJoinBar({ onDismiss }: DiscordJoinBarProps) {
     }
   }, []);
 
-  //dismiss handler to hide the bar and set local storage flag
-  const handleDimiss = () => {
+  const handleDismiss = () => {
     setIsVisible(false);
     localStorage.setItem("discord-bar-dismissed", "true");
     onDismiss?.();
   };
-  //conditional render( early return) if the bar is not visible
+
   if (!isVisible) {
     return null;
   }
@@ -51,7 +46,7 @@ export function DiscordJoinBar({ onDismiss }: DiscordJoinBarProps) {
         </a>
       </Button>
       <Button
-        onClick={handleDimiss}
+        onClick={handleDismiss}
         variant="ghost"
         size="sm"
         className="ml-2 text-primary-foreground cursor-pointer  shrink-0"
