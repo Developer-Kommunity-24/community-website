@@ -152,7 +152,7 @@ export default function Navbar() {
             : "bg-background/80 backdrop-blur-lg",
         )}
       >
-        <div className="container mx-auto px-4 max-w-full">
+        <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex h-20 items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
               <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-400">
