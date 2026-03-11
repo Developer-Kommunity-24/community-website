@@ -58,12 +58,12 @@ export default function Footer() {
       { href: "/communities", label: "Member Communities" },
       { href: "/calendar", label: "Events" },
       { href: "/projects", label: "Projects" },
+      { href: "/join", label: "Join Us" },
     ],
     nav: [
-      { href: "#vision", label: "Vision" },
-      { href: "#team", label: "Team" },
-      { href: "#upcoming-events", label: "Upcoming Events" },
-      { href: "#testimonials", label: "Testimonials" },
+      { href: "/#vision", label: "Vision" },
+      { href: "/#team", label: "Team" },
+      { href: "/showcase-event", label: "Showcase Event" },
     ],
   };
 
