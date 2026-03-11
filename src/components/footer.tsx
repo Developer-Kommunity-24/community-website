@@ -276,7 +276,7 @@ export default function Footer() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               variant="ghost"
               size="sm"
-              className="group bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:border-emerald-200 dark:hover:border-emerald-700 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300 rounded-xl hover:scale-105 hover:cursor-pointer"
+              className="group bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border  rounded-xl  hover:cursor-pointer"
             >
               <ArrowUp className="h-4 w-4 mr-2" />
               Back to Top
