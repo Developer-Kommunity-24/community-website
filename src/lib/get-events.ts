@@ -208,7 +208,7 @@ export async function getFilteredEventsByDateRange(
   } else {
     // Current month: Show upcoming events only (if < 3, include past events)
     const upcoming = monthEvents
-      .filter((e) => new Date(e.startDateTime) >= now)
+      .filter((e) => new Date(e.endDateTime) >= now)
       .sort(
         (a, b) =>
           new Date(a.startDateTime).getTime() -
