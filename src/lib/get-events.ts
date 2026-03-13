@@ -219,7 +219,7 @@ export async function getFilteredEventsByDateRange(
       displayEvents = upcoming.slice(0, 3);
     } else {
       const past = monthEvents
-        .filter((e) => new Date(e.startDateTime) < now)
+        .filter((e) => new Date(e.endDateTime) < now)
         .sort(
           (a, b) =>
             new Date(b.startDateTime).getTime() -
