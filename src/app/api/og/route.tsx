@@ -164,8 +164,11 @@ export async function GET(request: NextRequest) {
         >
           {displayEvents.length > 0 ? (
             displayEvents.map((event) => {
-              const now = new Date(); // Define 'now' for use in rendering logic
-              const isEventPast = new Date(event.startDateTime) < now;
+              const now = new Date();
+              const startDate = new Date(event.startDateTime);
+              const endDate = new Date(event.endDateTime);
+              const isEventPast = now > endDate;
+              const isEventOngoing = now >= startDate && now <= endDate;
               const isDK24 = event.organizationName === "DK24";
 
               return (
@@ -337,7 +340,11 @@ export async function GET(request: NextRequest) {
                         textTransform: "uppercase",
                       }}
                     >
-                      {isEventPast ? "Completed" : "Upcoming"}
+                      {isEventPast
+                        ? "Completed"
+                        : isEventOngoing
+                          ? "Ongoing"
+                          : "Upcoming"}
                     </span>
                   </div>
                 </div>
