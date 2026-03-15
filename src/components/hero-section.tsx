@@ -5,11 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
+import { AntiGravityBackground } from "@/components/Antigravitybackground";
 
 export function HeroSection() {
   return (
-    <section className="container justify-center text-center flex mx-auto px-4 py-12 md:py-24 lg:py-32">
-      <div className="grid lg:grid-cols-2 max-w-7xl gap-8 items-center lg:gap-16">
+    <section className="relative container justify-center text-center flex mx-auto px-4 py-12 md:py-24 lg:py-32 overflow-hidden">
+      {/* Anti-gravity particle field — scoped only to this section */}
+      <AntiGravityBackground />
+
+      <div className="relative z-10 grid lg:grid-cols-2 max-w-7xl gap-8 items-center lg:gap-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -36,6 +40,7 @@ export function HeroSection() {
             </Button>
           </div>
         </motion.div>
+
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
