@@ -20,7 +20,7 @@ export function CommunityCard({ community }: CommunityCardProps) {
             className="object-contain"
           />
         </div>
-        <div>
+        <div className="text-center md:text-left">
           <h3 className="text-xl font-semibold">{community.name}</h3>
           <p className="text-sm text-muted-foreground">{community.college}</p>
         </div>
