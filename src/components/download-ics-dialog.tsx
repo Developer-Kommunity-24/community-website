@@ -53,7 +53,15 @@ export function DownloadIcsDialog({
         getEvents(currentDate, oneYearFromNow)
           .then((data) => {
             if (!isMounted) return;
-            setEvents(Array.isArray(data) ? (data as IEvent[]) : []);
+            setEvents(
+              Array.isArray(data)
+                ? (data as IEvent[]).sort(
+                    (a, b) =>
+                      new Date(a.startDateTime).getTime() -
+                      new Date(b.startDateTime).getTime(),
+                  )
+                : [],
+            );
           })
           .catch((error) => {
             if (!isMounted) return;
@@ -161,7 +169,7 @@ export function DownloadIcsDialog({
           month: "short",
           year: "numeric",
         });
-    return monthLabel ? `${event.title} — ${monthLabel}` : event.title;
+    return monthLabel ? `${event.title} - ${monthLabel}` : event.title;
   };
 
   const toggleEvent = (eventId: string) => {

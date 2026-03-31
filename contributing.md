@@ -29,8 +29,8 @@ Please report unacceptable behavior to [dk24consortium@gmail.com](mailto:dk24con
 
 ### Requirements
 
-- Node.js (v18+)
-- npm / yarn / pnpm
+- Node.js v22 or v24 (LTS versions — avoid v23)
+- pnpm 10.x — install via `npm install -g pnpm@10.30.3` or see the [pnpm installation guide](https://pnpm.io/installation)
 - Git
 - Code editor (VS Code recommended)
 
@@ -45,10 +45,10 @@ cd community-website
 git remote add upstream https://github.com/Developer-Kommunity-24/community-website.git
 
 # Install dependencies
-npm install
+pnpm install
 
 # Start the dev server
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -130,9 +130,9 @@ export function Button(props: any) {
 ### 🔍 Testing Before Push
 
 ```bash
-npm run lint         # Linting
-npm run type-check   # TypeScript checks
-npm run build        # Build test
+pnpm lint         # Linting
+pnpm type-check   # TypeScript checks
+pnpm build        # Build test
 ```
 
 ---
@@ -186,7 +186,7 @@ git checkout -b fix/your-bug
 4. **Code, Lint, Type Check, Build**
 
 ```bash
-npm run lint && npm run type-check && npm run build
+pnpm lint && pnpm type-check && pnpm build
 ```
 
 5. **Commit Your Work**
