@@ -62,7 +62,7 @@ export const communities: Community[] = [
     name: "FiniteLoop",
     college: "NMAMIT NITTE",
     description:
-      "A coding community focused on algorithmic problem solving, competitive programming, and building practical applications.",
+      "Finite Loop Club (FLC) is the premier coding club at NMAMIT, dedicated to realising and inspiring ideas. FLC provides opportunities to work with the latest trending tech stacks, access workshops, secure internships, engage in peer-to-peer learning, attend guest lectures by renowned experts, and collaborate on real-time projects. Our coding contests enhance analytical and problem-solving skills.",
     logo: "/community-logos/finiteloop.png",
     pocs: [
       {
@@ -80,6 +80,7 @@ export const communities: Community[] = [
       {
         name: "Nandan R Pai",
         role: "President",
+        email: "nnm22am033@nmamit.in",
       },
     ],
     website: "https://www.finiteloop.club",
@@ -89,7 +90,7 @@ export const communities: Community[] = [
     name: "The Sceptix Club",
     college: "St Joseph Engineering College",
     description:
-      "A technical club that organizes workshops, hackathons, and technical competitions to enhance student's technical skills.",
+      'The Sceptix Club is a free and open-source technology community established in 2022 at St. Joseph Engineering College (SJEC). Built on the philosophy of "Liberate the Mind," the club empowers students to think beyond conventional boundaries and transform ideas into impactful technological solutions. Operating across diverse domains including Web Development, Game Development, AI/ML, Mobile App Development, Blender, and multi-language programming, Sceptix fosters a culture of innovation, collaboration, and continuous learning. With a strong emphasis on open-source contribution and a hands-on, project-centric approach, the club provides students with industry-relevant experience and a platform to build production-level systems.',
     logo: "/community-logos/spectix.jpeg",
     pocs: [
       {
@@ -107,20 +108,22 @@ export const communities: Community[] = [
       {
         name: "Nithin",
         role: "Lead",
+        email: "nithinumeshanchan@gmail.com",
       },
       {
         name: "Shovin",
         role: "Co-Lead",
+        email: "23h46.shovin@sjec.ac.in",
       },
     ],
     website: "https://www.sceptix.in",
   },
   {
     id: 5,
-    name: "TechBots",
+    name: "TechBots-SIT",
     college: "Srinivas Institute of Technology",
     description:
-      "A student-driven robotics and technology club, part of the ECE department at Srinivas Institute of Technology that promotes innovation and hands-on learning through projects, workshops, and technical events.",
+      "TechBots robotics club dedicated to building innovative solutions through hands-on projects in Robotics, Electronics, IoT, Communication Systems, AI & ML, and Mechanical Design. We actively work with open-source platforms, fostering collaboration, continuous learning, and real-world problem solving. With a strong team of 50+ active members, TechBots is a growing community of passionate makers, developers, and innovators driven by technology and creativity.",
     logo: "/community-logos/techbots.png",
     pocs: [
       {
@@ -175,7 +178,7 @@ export const communities: Community[] = [
     name: "Embed Club",
     college: "PA College of Engineering",
     description:
-      "A student-led club that promotes learning and innovation in embedded systems and IoT through workshops, projects, and technical events.",
+      "Embed Club is a student-led community focused on integrating software and hardware through real-world projects in IoT, embedded systems, and blockchain. Previously led by Hisham (now in industry), it is currently headed by Darel Oliver Tauro and Rafaan. With ~20 active members, the club promotes hands-on learning, innovation, and industry-ready skills.",
     logo: "/community-logos/embedclub.svg",
     pocs: [
       {
@@ -231,7 +234,7 @@ export const communities: Community[] = [
     name: "Canara Open-Source Community",
     college: "Canara Engineering College, Benjanapadavu",
     description:
-      "CoRE (Center of Research Excellency) is a community of engineering students who are passionate about learning, growing, and exploring various fields of engineering. Our aim is to provide a platform for students to come together, share their ideas, and work on projects that challenge and inspire them.",
+      "Canara open-source community dedicated to sharing valuable resources and opportunities in tech! We're a group of enthusiasts passionate about Skills, tech events, free certification courses, internships, and workshops. Our goal is to create a collaborative space where members can share information, learn from each other, and grow together.",
     logo: "/community-logos/cosc.jpg",
     pocs: [
       {
