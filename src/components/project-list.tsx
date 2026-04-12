@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
 import { SearchX } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { ProjectCard } from "@/components/project-card";
-import { Card } from "@/components/ui/card";
 import { ProjectFilters } from "@/components/project-filters";
+import { Card } from "@/components/ui/card";
 import {
   Pagination,
   PaginationContent,

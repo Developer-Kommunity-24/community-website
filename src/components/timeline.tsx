@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
 import { format } from "date-fns";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { EventDetailsDialog } from "@/calendar/components/dialogs/event-details-dialog";
+import type { IEvent } from "@/calendar/interfaces";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { iconsMap } from "@/constants";
-import type { IEvent } from "@/calendar/interfaces";
-import { EventDetailsDialog } from "@/calendar/components/dialogs/event-details-dialog";
 
 interface TimelineProps {
   timelineEvents: IEvent[];

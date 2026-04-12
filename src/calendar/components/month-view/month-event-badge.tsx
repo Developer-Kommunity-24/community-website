@@ -1,15 +1,12 @@
 "use client";
+import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 import { endOfDay, isSameDay, parseISO, startOfDay } from "date-fns";
 import { Star } from "lucide-react";
-
-import { useCalendar } from "@/calendar/contexts/calendar-context";
-
-import { cn } from "@/lib/utils";
-
-import type { IEvent } from "@/calendar/interfaces";
-import type { VariantProps } from "class-variance-authority";
 import { type RefObject, useEffect, useRef } from "react";
+import { useCalendar } from "@/calendar/contexts/calendar-context";
+import type { IEvent } from "@/calendar/interfaces";
+import { cn } from "@/lib/utils";
 
 const eventBadgeVariants = cva(
   "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 whitespace-nowrap rounded-md border px-2 text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",

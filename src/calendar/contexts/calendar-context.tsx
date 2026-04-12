@@ -1,25 +1,24 @@
 "use client";
 
+import { endOfMonth, format, startOfMonth } from "date-fns";
+import { useRouter, useSearchParams } from "next/navigation";
+import type { Dispatch, SetStateAction } from "react";
 import {
   createContext,
-  useContext,
-  useState,
-  useEffect,
   useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
-import { format, startOfMonth, endOfMonth } from "date-fns";
-import { useRouter, useSearchParams } from "next/navigation";
-
 import { monthMap } from "@/calendar/helpers";
-import type { Dispatch, SetStateAction } from "react";
 import type { IEvent } from "@/calendar/interfaces";
 import type {
   TBadgeVariant,
   TVisibleHours,
   TWorkingHours,
 } from "@/calendar/types";
-import { EventDetailsDialog } from "../components/dialogs/event-details-dialog";
 import { useCalendarAnalytics } from "@/hooks/use-calendar-analytics";
+import { EventDetailsDialog } from "../components/dialogs/event-details-dialog";
 
 interface ICalendarContext {
   selectedDate: Date;

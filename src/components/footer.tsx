@@ -10,13 +10,12 @@ import {
   Youtube,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DiscordIcon } from "@/components/discord-icon";
-import { XLogo } from "./x-icon";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { ModeToggle } from "./mode-toggle";
+import { XLogo } from "./x-icon";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -25,7 +24,6 @@ const fadeInUp = {
 
 export default function Footer() {
   const [isVisible, setIsVisible] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     let triggered = false;
@@ -44,13 +42,6 @@ export default function Footer() {
     return () => observer.disconnect();
   }, []);
 
-  const handleNavClick = (href: string) => {
-    const element = document.querySelector(href);
-    element
-      ? element.scrollIntoView({ behavior: "smooth" })
-      : router.push(`/${href}`);
-  };
-
   const links = {
     quick: [
       { href: "/about", label: "About Us" },
@@ -60,10 +51,10 @@ export default function Footer() {
       { href: "/projects", label: "Projects" },
     ],
     nav: [
-      { href: "#vision", label: "Vision" },
-      { href: "#team", label: "Team" },
-      { href: "#upcoming-events", label: "Upcoming Events" },
-      { href: "#testimonials", label: "Testimonials" },
+      { href: "/#hero", label: "Home" },
+      { href: "/#vision", label: "Vision" },
+      { href: "/#team", label: "Team" },
+      { href: "/about#journey", label: "Journey" },
     ],
   };
 
@@ -152,11 +143,9 @@ export default function Footer() {
   const LinkSection = ({
     title,
     items,
-    isNav = false,
   }: {
     title: string;
     items: typeof links.quick;
-    isNav?: boolean;
   }) => (
     <div className="space-y-6">
       <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 relative">
@@ -166,28 +155,15 @@ export default function Footer() {
       <ul className="space-y-3">
         {items.map((link) => (
           <li key={link.href}>
-            {isNav ? (
-              <button
-                type="button"
-                onClick={() => handleNavClick(link.href)}
-                className="group flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300 cursor-pointer text-left"
-              >
-                <div className="w-1 h-1 rounded-full bg-slate-400 group-hover:bg-emerald-500 transition-colors" />
-                <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
-                  {link.label}
-                </span>
-              </button>
-            ) : (
-              <Link
-                href={link.href}
-                className="group flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300"
-              >
-                <div className="w-1 h-1 rounded-full bg-slate-400 group-hover:bg-emerald-500 transition-colors" />
-                <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
-                  {link.label}
-                </span>
-              </Link>
-            )}
+            <Link
+              href={link.href}
+              className="group flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300"
+            >
+              <div className="w-1 h-1 rounded-full bg-slate-400 group-hover:bg-emerald-500 transition-colors" />
+              <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+                {link.label}
+              </span>
+            </Link>
           </li>
         ))}
       </ul>
@@ -251,7 +227,7 @@ export default function Footer() {
           </motion.div>
 
           <motion.div variants={fadeInUp}>
-            <LinkSection title="Navigation" items={links.nav} isNav />
+            <LinkSection title="Navigation" items={links.nav} />
           </motion.div>
 
           <motion.div variants={fadeInUp}>

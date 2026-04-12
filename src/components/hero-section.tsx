@@ -8,7 +8,10 @@ import { siteConfig } from "@/config/site";
 
 export function HeroSection() {
   return (
-    <section className="container justify-center text-center flex mx-auto px-4 py-12 md:py-24 lg:py-32">
+    <section
+      id="hero"
+      className="container justify-center text-center flex mx-auto px-4 py-12 md:py-24 lg:py-32"
+    >
       <div className="grid lg:grid-cols-2 max-w-7xl gap-8 items-center lg:gap-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

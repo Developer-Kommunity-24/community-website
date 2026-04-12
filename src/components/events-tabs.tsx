@@ -1,12 +1,12 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { Calendar, Plus } from "lucide-react";
 import Link from "next/link";
-import { Plus, Calendar } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
+import { useSearchParams } from "next/navigation";
 import { ClientContainer } from "@/calendar/components/client-container";
 import { DownloadIcsDialog } from "@/components/download-ics-dialog";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCalendarAnalytics } from "@/hooks/use-calendar-analytics";
 
 export function EventsTabs() {

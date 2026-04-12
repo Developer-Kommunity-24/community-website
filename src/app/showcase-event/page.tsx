@@ -1,8 +1,8 @@
 import { BackgroundPattern } from "@/components/background-pattern";
 import { EventSubmissionForm } from "@/components/event-submission-form";
 import { PageHeader } from "@/components/page-header";
-import { generatePageMetadata } from "@/lib/metadata";
 import { ShowcasePageAnalytics } from "@/components/showcase-page-analytics";
+import { generatePageMetadata } from "@/lib/metadata";
 
 export const metadata = generatePageMetadata({
   title: "Submit Event",

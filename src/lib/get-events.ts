@@ -2,13 +2,13 @@
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { endOfMonth } from "date-fns";
 import { JWT } from "google-auth-library";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import type { EventSubmissionFormValues } from "@/lib/forms-config";
 import type { IEvent } from "@/calendar/interfaces";
-import type { TEventColor } from "@/types";
 import type { iconsMap } from "@/constants";
-import { endOfMonth } from "date-fns";
+import type { EventSubmissionFormValues } from "@/lib/forms-config";
+import type { TEventColor } from "@/types";
 
 const serviceAccountAuth = new JWT({
   email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,

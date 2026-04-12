@@ -119,7 +119,7 @@ export default async function AboutPage() {
             </div>
           </section>
 
-          <section>
+          <section id="journey">
             <h2 className="text-3xl font-bold mb-8">Our Journey</h2>
             <Timeline timelineEvents={timelineEvents} />
           </section>

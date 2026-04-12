@@ -4,11 +4,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CalendarPlus, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { DiscordJoinBar } from "@/components/discord-join-bar";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { DiscordJoinBar } from "@/components/discord-join-bar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -110,7 +110,6 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/structure", label: "Structure" },
     { href: "/communities", label: "Communities" },
     { href: "/calendar", label: "Calendar" },
     { href: "/projects", label: "Projects" },
@@ -131,7 +130,7 @@ export default function Navbar() {
       <div
         id="discord-join-bar"
         ref={discordBarRef}
-        className="fixed top-0 left-0 right-0 z-[100]"
+        className="fixed top-0 left-0 right-0 z-100"
       >
         <DiscordJoinBar onDismiss={updateDiscordHeight} />
       </div>
@@ -155,7 +154,7 @@ export default function Navbar() {
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex h-20 items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-green-400">
+              <span className="text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-green-500 to-green-400">
                 {siteConfig.name}
               </span>
             </Link>

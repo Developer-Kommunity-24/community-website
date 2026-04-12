@@ -11,7 +11,9 @@ import {
 import Image from "next/image";
 import * as React from "react";
 import { useState } from "react";
-
+import { CalendarContext } from "@/calendar/contexts/calendar-context";
+import type { IEvent } from "@/calendar/interfaces";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -21,19 +23,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn, sanitizeTag } from "@/lib/utils";
-
-import type { IEvent } from "@/calendar/interfaces";
-import { CalendarContext } from "@/calendar/contexts/calendar-context";
 
 interface IProps {
   event?: IEvent;
@@ -132,7 +130,7 @@ export function EventDetailsDialog({
                             <LinkIcon className="h-4 w-4" />
                           </Button>
                         </TooltipTrigger>
-                        <TooltipContent className="z-[200]">
+                        <TooltipContent className="z-200">
                           <p>Click to copy event link</p>
                         </TooltipContent>
                       </Tooltip>

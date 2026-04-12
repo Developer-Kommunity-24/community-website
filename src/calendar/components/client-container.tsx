@@ -1,13 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
 import { isSameDay, parseISO } from "date-fns";
-
-import { useCalendar } from "@/calendar/contexts/calendar-context";
+import { useMemo } from "react";
+import { CalendarAgendaView } from "@/calendar/components/agenda-view/calendar-agenda-view";
 
 import { CalendarHeader } from "@/calendar/components/header/calendar-header";
 import { CalendarMonthView } from "@/calendar/components/month-view/calendar-month-view";
-import { CalendarAgendaView } from "@/calendar/components/agenda-view/calendar-agenda-view";
+import { useCalendar } from "@/calendar/contexts/calendar-context";
 
 import type { TCalendarView } from "@/calendar/types";
 

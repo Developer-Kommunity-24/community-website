@@ -1,14 +1,14 @@
+import { formatDate } from "date-fns";
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { CalendarProvider } from "@/calendar/contexts/calendar-context";
+import { monthMap } from "@/calendar/helpers";
 import { BackgroundPattern } from "@/components/background-pattern";
+import { EventsLoadingSkeleton } from "@/components/events-loading-skeleton";
 import { EventsTabs } from "@/components/events-tabs";
 import { PageHeader } from "@/components/page-header";
-import { generatePageMetadata } from "@/lib/metadata";
-import { CalendarProvider } from "@/calendar/contexts/calendar-context";
-import { EventsLoadingSkeleton } from "@/components/events-loading-skeleton";
-import { monthMap } from "@/calendar/helpers";
 import { getEvents } from "@/lib/get-events";
-import { formatDate } from "date-fns";
+import { generatePageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
   searchParams,
