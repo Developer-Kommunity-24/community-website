@@ -98,7 +98,7 @@ export function EventSubmissionForm() {
       setValue("startDateTime", formatDateTimeLocal(start));
       setValue("endDateTime", formatDateTimeLocal(end));
     }
-  }, [getValues, setValue]);
+  }, [getValues, setValue, reset]);
 
   const selectedTags = watch("eventTags");
   const startDateTime = watch("startDateTime");
