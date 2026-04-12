@@ -1,7 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import type { Community } from "@/types";
 
 interface CommunityCardProps {
@@ -10,7 +10,8 @@ interface CommunityCardProps {
 
 export function CommunityCard({ community }: CommunityCardProps) {
   return (
-    <Card className="overflow-hidden">
+    <Card className="grid grid-rows-[auto_auto_auto_auto_auto] md:row-span-5 md:grid-rows-subgrid h-full overflow-hidden">
+      {/* Row 1: Header */}
       <div className="p-6 pb-2 flex flex-col md:flex-row gap-4 items-center">
         <div className="relative h-24 w-24 shrink-0">
           <Image
@@ -21,59 +22,68 @@ export function CommunityCard({ community }: CommunityCardProps) {
           />
         </div>
         <div className="text-center md:text-left">
-          <h3 className="text-xl font-semibold">{community.name}</h3>
+          <h3 className="text-xl font-semibold leading-tight">
+            {community.name}
+          </h3>
           <p className="text-sm text-muted-foreground">{community.college}</p>
         </div>
       </div>
-      <CardContent className="px-6 pb-0">
-        {community.description && (
-          <p className="text-muted-foreground mb-4">{community.description}</p>
-        )}
-        {((community.pocs?.length ?? 0) > 0 ||
-          (community.representatives?.length ?? 0) > 0) && (
-          <div className="space-y-6 pt-4">
-            {community.pocs && community.pocs.length > 0 && (
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold">POCs:</h4>
-                <ul className="space-y-2">
-                  {community.pocs.map((poc, index) => (
-                    <li key={index} className="text-sm">
-                      <span className="font-medium">{poc.name}</span>
-                      {poc.role && ` - ${poc.role}`}
-                      {poc.email && (
-                        <div className="text-sm text-muted-foreground">
-                          {poc.email}
-                        </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {community.representatives &&
-              community.representatives.length > 0 && (
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold">Representatives:</h4>
-                  <ul className="space-y-2">
-                    {community.representatives.map((rep, index) => (
-                      <li key={index} className="text-sm">
-                        <span className="font-medium">{rep.name}</span>
-                        {rep.role && ` - ${rep.role}`}
-                        {rep.email && (
-                          <div className="text-sm text-muted-foreground">
-                            {rep.email}
-                          </div>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+
+      {/* Row 2: Description */}
+      <div className="px-6 py-2">
+        <h4 className="text-sm font-semibold mb-2">Description</h4>
+        <div className="text-sm text-muted-foreground">
+          {community.description}
+        </div>
+      </div>
+
+      {/* Row 3: POCs */}
+      <div className="px-6 py-2">
+        <h4 className="text-sm font-semibold mb-2">POCs</h4>
+        <ul className="space-y-2">
+          {community.pocs?.map((poc, index) => (
+            <li key={index} className="text-sm">
+              <span className="font-medium">{poc.name}</span>
+              {poc.role && ` - ${poc.role}`}
+              {poc.email && (
+                <div className="text-xs text-muted-foreground">{poc.email}</div>
               )}
-          </div>
-        )}
-      </CardContent>
-      {community.website && (
-        <CardFooter className="p-6 mt-auto">
+            </li>
+          ))}
+          {(!community.pocs || community.pocs.length === 0) && (
+            <li className="text-sm text-muted-foreground italic">
+              No POCs listed
+            </li>
+          )}
+        </ul>
+      </div>
+
+      {/* Row 4: Representatives */}
+      <div className="px-6 py-2">
+        <h4 className="text-sm font-semibold mb-2">Representatives</h4>
+        <ul className="space-y-2">
+          {community.representatives?.map((rep, index) => (
+            <li key={index} className="text-sm">
+              <span className="font-medium">{rep.name}</span>
+              {rep.role && ` - ${rep.role}`}
+              {rep.email && (
+                <div className="text-xs text-muted-foreground">{rep.email}</div>
+              )}
+            </li>
+          ))}
+          {(!community.representatives ||
+            community.representatives.length === 0) && (
+            <li className="text-sm text-muted-foreground italic">
+              No representatives listed
+            </li>
+          )}
+        </ul>
+      </div>
+
+      {/* Row 5: Website */}
+      <div className="px-6 py-2">
+        <h4 className="text-sm font-semibold mb-2">Website</h4>
+        {community.website ? (
           <Button variant="outline" className="w-full" asChild>
             <a
               href={community.website}
@@ -84,8 +94,12 @@ export function CommunityCard({ community }: CommunityCardProps) {
               Visit Website
             </a>
           </Button>
-        </CardFooter>
-      )}
+        ) : (
+          <p className="text-sm text-muted-foreground italic">
+            No website available
+          </p>
+        )}
+      </div>
     </Card>
   );
 }
