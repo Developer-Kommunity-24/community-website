@@ -1,9 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Download } from "lucide-react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { CalendarContext } from "@/calendar/contexts/calendar-context";
+import type { IEvent } from "@/calendar/interfaces";
 import type { ButtonProps } from "@/components/ui/button";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -12,8 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Download } from "lucide-react";
-import type { IEvent } from "@/calendar/interfaces";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { buildICalendar } from "@/lib/export-ics";
 import { captureEvent } from "@/lib/posthog";
 
@@ -30,19 +31,51 @@ export function DownloadIcsDialog({
   variant = "outline",
   className,
 }: DownloadIcsDialogProps) {
+  const calendarContext = useContext(CalendarContext);
+  const hasCalendarContext = !!calendarContext;
   const [mode, setMode] = useState<"event" | "month">("event");
   const [isOpen, setIsOpen] = useState(false);
   const [events, setEvents] = useState<IEvent[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedEventIds, setSelectedEventIds] = useState<string[]>([]);
   const [selectedMonths, setSelectedMonths] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false); // Added loading state
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
+
+    if (hasCalendarContext) {
+      const updateEventsFromCache = () => {
+        const { eventsCache } = calendarContext;
+        const now = new Date();
+        const allCachedEvents: IEvent[] = Array.from(eventsCache.values())
+          .flat()
+          .filter((event) => new Date(event.endDateTime) >= now);
+        if (allCachedEvents.length > 0) {
+          setEvents(
+            allCachedEvents.sort(
+              (a, b) =>
+                new Date(a.startDateTime).getTime() -
+                new Date(b.startDateTime).getTime(),
+            ),
+          );
+        }
+      };
+
+      updateEventsFromCache();
+
+      const { eventsCache, fetchEventsForMonth } = calendarContext;
+      if (eventsCache.size === 0) {
+        setIsLoading(true);
+        const currentDate = new Date();
+        fetchEventsForMonth(currentDate).finally(() => setIsLoading(false));
+      }
+      return;
+    }
+
     let isMounted = true;
     setErrorMessage(null);
-    setIsLoading(true); // Set loading state to true
+    setIsLoading(true);
 
     const currentDate = new Date();
     const oneYearFromNow = new Date();
@@ -53,13 +86,16 @@ export function DownloadIcsDialog({
         getEvents(currentDate, oneYearFromNow)
           .then((data) => {
             if (!isMounted) return;
+            const now = new Date();
             setEvents(
               Array.isArray(data)
-                ? (data as IEvent[]).sort(
-                    (a, b) =>
-                      new Date(a.startDateTime).getTime() -
-                      new Date(b.startDateTime).getTime(),
-                  )
+                ? (data as IEvent[])
+                    .filter((event) => new Date(event.endDateTime) >= now)
+                    .sort(
+                      (a, b) =>
+                        new Date(a.startDateTime).getTime() -
+                        new Date(b.startDateTime).getTime(),
+                    )
                 : [],
             );
           })
@@ -83,7 +119,7 @@ export function DownloadIcsDialog({
     return () => {
       isMounted = false;
     };
-  }, [isOpen]);
+  }, [isOpen, calendarContext, hasCalendarContext]);
 
   const monthOptions = useMemo(() => {
     const buckets = new Map<
