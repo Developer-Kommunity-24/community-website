@@ -51,7 +51,7 @@ export function EventSubmissionForm() {
   const {
     handleSubmit,
     register,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitted },
     reset,
     trigger,
     watch,
@@ -98,7 +98,7 @@ export function EventSubmissionForm() {
       setValue("startDateTime", formatDateTimeLocal(start));
       setValue("endDateTime", formatDateTimeLocal(end));
     }
-  }, [getValues, setValue]);
+  }, [getValues, setValue, reset]);
 
   const selectedTags = watch("eventTags");
   const startDateTime = watch("startDateTime");
@@ -293,9 +293,29 @@ export function EventSubmissionForm() {
               getting published. If urgent, please email us.
             </p>
             <Button
-              onClick={() => {
+              onClick={async () => {
                 setSubmitSuccess(false);
-                reset();
+                setIsCheckingImage(false);
+                setImageCheckError(null);
+                setImageCheckWarning(null);
+                setIsImageVerified(false);
+                reset({
+                  eventName: "",
+                  organizationName: "",
+                  startDateTime: "",
+                  endDateTime: "",
+                  eventLocation: "",
+                  eventWebsite: "",
+                  registrationLink: "",
+                  eventDescription: "",
+                  eventPosterUrl: "",
+                  eventTags: [],
+                  submittedBy: "",
+                  submittedEmail: "",
+                  emailConsentChecked: false,
+                  isEmailVerified: false,
+                });
+                await trigger();
               }}
               variant="outline"
             >
@@ -795,7 +815,10 @@ export function EventSubmissionForm() {
           <Button
             type="submit"
             disabled={
-              isSubmitting || !isValid || isCheckingImage || !!imageCheckError
+              isSubmitting ||
+              (isSubmitted ? Object.keys(errors).length > 0 : !isValid) ||
+              isCheckingImage ||
+              !!imageCheckError
             }
             className="w-full pt-2"
           >
