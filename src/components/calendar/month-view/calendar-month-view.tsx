@@ -1,14 +1,13 @@
 import { useMemo } from "react";
-import { DayCell } from "@/calendar/components/month-view/day-cell";
-
-import { useCalendar } from "@/calendar/contexts/calendar-context";
+import { useCalendar } from "@/components/calendar/contexts/calendar-context";
+import { DayCell } from "@/components/calendar/month-view/day-cell";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   calculateMonthEventPositions,
   getCalendarCells,
-} from "@/calendar/helpers";
-import type { IEvent } from "@/calendar/interfaces";
-import { Card, CardContent } from "@/components/ui/card";
+} from "@/lib/calendar-helpers";
 import { cn } from "@/lib/utils";
+import type { IEvent } from "@/types";
 
 interface IProps {
   singleDayEvents: IEvent[];

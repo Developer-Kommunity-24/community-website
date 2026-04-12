@@ -3,12 +3,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo } from "react";
 
-import { useCalendar } from "@/calendar/contexts/calendar-context";
-import { getEventsCount, navigateDate, rangeText } from "@/calendar/helpers";
-import type { IEvent } from "@/calendar/interfaces";
-import type { TCalendarView } from "@/calendar/types";
+import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  getEventsCount,
+  navigateDate,
+  rangeText,
+} from "@/lib/calendar-helpers";
+import type { IEvent, TCalendarView } from "@/types";
 
 interface IProps {
   view: TCalendarView;

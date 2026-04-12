@@ -2,8 +2,7 @@
 
 import { Download } from "lucide-react";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { CalendarContext } from "@/calendar/contexts/calendar-context";
-import type { IEvent } from "@/calendar/interfaces";
+import { CalendarContext } from "@/components/calendar/contexts/calendar-context";
 import type { ButtonProps } from "@/components/ui/button";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +16,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { buildICalendar } from "@/lib/export-ics";
 import { captureEvent } from "@/lib/posthog";
+import type { IEvent } from "@/types";
 
 interface DownloadIcsDialogProps {
   buttonLabel?: string;

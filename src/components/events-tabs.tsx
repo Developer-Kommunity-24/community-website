@@ -3,7 +3,7 @@
 import { Calendar, Plus } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ClientContainer } from "@/calendar/components/client-container";
+import { ClientContainer } from "@/components/calendar/client-container";
 import { DownloadIcsDialog } from "@/components/download-ics-dialog";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";

@@ -1,10 +1,10 @@
 "use client";
 import { isToday, startOfDay } from "date-fns";
 import { useMemo, useRef } from "react";
-import { MonthEventBadge } from "@/calendar/components/month-view/month-event-badge";
-import { getMonthCellEvents } from "@/calendar/helpers";
-import type { ICalendarCell, IEvent } from "@/calendar/interfaces";
+import { MonthEventBadge } from "@/components/calendar/month-view/month-event-badge";
+import { getMonthCellEvents } from "@/lib/calendar-helpers";
 import { cn } from "@/lib/utils";
+import type { ICalendarCell, IEvent } from "@/types";
 
 interface IProps {
   cell: ICalendarCell;
@@ -67,7 +67,6 @@ export function DayCell({ cell, events, eventPositions }: IProps) {
             >
               {event && (
                 <MonthEventBadge
-                  // className="w-full"
                   badgeContainerRef={badgeContainerRef}
                   event={event}
                   cellDate={startOfDay(date)}

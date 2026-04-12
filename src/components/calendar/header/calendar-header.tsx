@@ -2,11 +2,10 @@
 
 import { Calendar, Plus } from "lucide-react";
 import Link from "next/link";
-import { DateNavigator } from "@/calendar/components/header/date-navigator";
-import type { IEvent } from "@/calendar/interfaces";
-import type { TCalendarView } from "@/calendar/types";
+import { DateNavigator } from "@/components/calendar/header/date-navigator";
 import { DownloadIcsDialog } from "@/components/download-ics-dialog";
 import { Button } from "@/components/ui/button";
+import type { IEvent, TCalendarView } from "@/types";
 
 interface IProps {
   view: TCalendarView;

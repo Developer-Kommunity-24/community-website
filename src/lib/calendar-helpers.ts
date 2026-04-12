@@ -25,15 +25,13 @@ import {
   subWeeks,
   subYears,
 } from "date-fns";
-
-import type { ICalendarCell, IEvent } from "@/calendar/interfaces";
 import type {
+  ICalendarCell,
+  IEvent,
   TCalendarView,
   TVisibleHours,
   TWorkingHours,
-} from "@/calendar/types";
-
-// ================ Header helper functions ================ //
+} from "@/types";
 
 export function rangeText(view: TCalendarView, date: Date) {
   const formatString = "MMM d";
@@ -100,8 +98,6 @@ export function getEventsCount(
     compareFns[view](new Date(event.startDateTime), date),
   ).length;
 }
-
-// ================ Week and day view helper functions ================ //
 
 export function getCurrentEvents(events: IEvent[]) {
   const now = new Date();
@@ -206,8 +202,6 @@ export function getVisibleHours(
 
   return { hours, earliestEventHour, latestEventHour };
 }
-
-// ================ Month view helper functions ================ //
 
 export function getCalendarCells(selectedDate: Date): ICalendarCell[] {
   const currentYear = selectedDate.getFullYear();
