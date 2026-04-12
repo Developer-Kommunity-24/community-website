@@ -37,6 +37,8 @@ interface ICalendarContext {
   fetchError: string | null;
   hoveredEventId: string | null;
   setHoveredEventId: (id: string | null) => void;
+  eventsCache: Map<string, IEvent[]>;
+  fetchEventsForMonth: (date: Date) => Promise<void>;
 }
 
 export const CalendarContext = createContext({} as ICalendarContext);
@@ -210,6 +212,8 @@ export function CalendarProvider({
         fetchError,
         hoveredEventId,
         setHoveredEventId,
+        eventsCache,
+        fetchEventsForMonth,
       }}
     >
       {children}
