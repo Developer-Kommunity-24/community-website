@@ -55,7 +55,7 @@ export const communities: Community[] = [
         email: "aboobakkar@ajiet.edu.in",
       },
     ],
-    website: "https://www.ajiet.edu.in/student-clubs.php",
+    // website: "https://www.ajiet.edu.in/student-clubs.php",
   },
   {
     id: 3,
