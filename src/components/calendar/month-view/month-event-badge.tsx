@@ -4,16 +4,15 @@ import { cva } from "class-variance-authority";
 import { endOfDay, isSameDay, parseISO, startOfDay } from "date-fns";
 import { Star } from "lucide-react";
 import { type RefObject, useEffect, useRef } from "react";
-import { useCalendar } from "@/calendar/contexts/calendar-context";
-import type { IEvent } from "@/calendar/interfaces";
+import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { cn } from "@/lib/utils";
+import type { IEvent } from "@/types";
 
 const eventBadgeVariants = cva(
   "mx-1 flex size-auto h-6.5 select-none items-center justify-between gap-1.5 whitespace-nowrap rounded-md border px-2 text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer",
   {
     variants: {
       color: {
-        // Colored and mixed variants
         blue: "border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300 [&_.event-dot]:fill-blue-600",
         green:
           "border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950 dark:text-green-300 [&_.event-dot]:fill-green-600",
@@ -26,7 +25,6 @@ const eventBadgeVariants = cva(
           "border-orange-200 bg-orange-50 text-orange-700 dark:border-orange-800 dark:bg-orange-950 dark:text-orange-300 [&_.event-dot]:fill-orange-600",
         gray: "border-neutral-200 bg-muted/30 text-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 [&_.event-dot]:fill-neutral-600",
 
-        // Dot variants
         "blue-dot":
           "bg-neutral-50 dark:bg-neutral-900 [&_.event-dot]:fill-blue-600",
         "green-dot":
@@ -57,6 +55,14 @@ const eventBadgeVariants = cva(
   },
 );
 
+function daysBetween(dateStr1: Date, dateStr2: Date) {
+  const d1 = new Date(dateStr1);
+  const d2 = new Date(dateStr2);
+  return Math.floor(
+    Math.abs((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24)),
+  );
+}
+
 interface IProps
   extends Omit<
     VariantProps<typeof eventBadgeVariants>,
@@ -81,8 +87,9 @@ export function MonthEventBadge({
   position: propPosition,
 }: IProps) {
   const textRef = useRef<HTMLParagraphElement | null>(null);
+  const itemStart = startOfDay(parseISO(event.startDateTime));
+  const itemEnd = endOfDay(parseISO(event.endDateTime));
 
-  // biome-ignore lint: useExhaustiveDependencies
   useEffect(() => {
     const badgeContainer = badgeContainerRef.current;
     const text = textRef.current;
@@ -95,18 +102,13 @@ export function MonthEventBadge({
         daysBetween(itemStart, itemEnd) - daysBetween(cellDate, itemEnd);
       const isSunday = Boolean(cellDate.getDay());
 
-      // How the formula works:
-      // 13 -> margin+padding+border of the first event badge
-      // - cellIndex is used because each extra day cell adds a border of 1px
-      // isSunday is used because the previous day does not have border (saturday day cell does not have border on right).
-      // There might be rare cases which may break this formula, hopefully it won't.
       text.style.transform = `translateX(${-btnWidth * cellIndex + (cellIndex > 0 ? 13 - cellIndex + (isSunday ? 2 : 0) : 0)}px)`;
     });
 
     observer.observe(badgeContainer);
 
     return () => observer.disconnect();
-  }, []);
+  }, [badgeContainerRef, cellDate, itemStart, itemEnd]);
 
   const {
     badgeVariant,
@@ -114,8 +116,6 @@ export function MonthEventBadge({
     setHoveredEventId,
     setSelectedEventId,
   } = useCalendar();
-  const itemStart = startOfDay(parseISO(event.startDateTime));
-  const itemEnd = endOfDay(parseISO(event.endDateTime));
 
   if (cellDate < itemStart || cellDate > itemEnd) return null;
 
@@ -133,14 +133,6 @@ export function MonthEventBadge({
     position = "last";
   } else {
     position = "middle";
-  }
-
-  function daysBetween(dateStr1: Date, dateStr2: Date) {
-    const d1 = new Date(dateStr1);
-    const d2 = new Date(dateStr2);
-    return Math.floor(
-      Math.abs((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24)),
-    );
   }
 
   const renderBadgeText = ["last", "none"].includes(position);
@@ -193,11 +185,9 @@ export function MonthEventBadge({
   }
 
   return (
-    // biome-ignore lint/a11y/useSemanticElements: The text ellipsis is not working with button element
-    <div
+    <button
+      type="button"
       id="BadgeButton"
-      role="button"
-      tabIndex={0}
       className={cn(
         eventBadgeClasses,
         "relative pr-0",
@@ -232,11 +222,6 @@ export function MonthEventBadge({
               <Star className="size-3 shrink-0 fill-yellow-400 text-yellow-500 absolute -top-1.25" />
             )}
             <p className="block items-center gap-1 font-semibold" ref={textRef}>
-              {/* {eventCurrentDay && (
-                <span className="text-xs">
-                  Day {eventCurrentDay} of {eventTotalDays} •{" "}
-                </span>
-              )} */}
               {event.title}
             </p>
           </>
@@ -251,6 +236,6 @@ export function MonthEventBadge({
           )}
         />
       )}
-    </div>
+    </button>
   );
 }

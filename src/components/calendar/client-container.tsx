@@ -2,13 +2,12 @@
 
 import { isSameDay, parseISO } from "date-fns";
 import { useMemo } from "react";
-import { CalendarAgendaView } from "@/calendar/components/agenda-view/calendar-agenda-view";
+import { CalendarAgendaView } from "@/components/calendar/agenda-view/calendar-agenda-view";
+import { useCalendar } from "@/components/calendar/contexts/calendar-context";
+import { CalendarHeader } from "@/components/calendar/header/calendar-header";
+import { CalendarMonthView } from "@/components/calendar/month-view/calendar-month-view";
 
-import { CalendarHeader } from "@/calendar/components/header/calendar-header";
-import { CalendarMonthView } from "@/calendar/components/month-view/calendar-month-view";
-import { useCalendar } from "@/calendar/contexts/calendar-context";
-
-import type { TCalendarView } from "@/calendar/types";
+import type { TCalendarView } from "@/types";
 
 interface IProps {
   view: TCalendarView;

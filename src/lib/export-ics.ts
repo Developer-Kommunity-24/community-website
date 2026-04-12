@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import type { IEvent } from "@/calendar/interfaces";
+import type { IEvent } from "@/types";
 
 // Add type declarations for 'uuid'
 declare module "uuid";

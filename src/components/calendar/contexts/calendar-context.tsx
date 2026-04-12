@@ -10,15 +10,15 @@ import {
   useEffect,
   useState,
 } from "react";
-import { monthMap } from "@/calendar/helpers";
-import type { IEvent } from "@/calendar/interfaces";
+import { EventDetailsDialog } from "@/components/calendar/dialogs/event-details-dialog";
+import { useCalendarAnalytics } from "@/hooks/use-calendar-analytics";
+import { monthMap } from "@/lib/calendar-helpers";
 import type {
+  IEvent,
   TBadgeVariant,
   TVisibleHours,
   TWorkingHours,
-} from "@/calendar/types";
-import { useCalendarAnalytics } from "@/hooks/use-calendar-analytics";
-import { EventDetailsDialog } from "../components/dialogs/event-details-dialog";
+} from "@/types";
 
 interface ICalendarContext {
   selectedDate: Date;
@@ -80,11 +80,9 @@ export function CalendarProvider({
   const [fetchErrors, setFetchErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
 
-  // Get current month key and events for analytics
   const currentMonthKey = format(selectedDate, "yyyy-MM");
   const currentMonthEvents = eventsCache.get(currentMonthKey) || [];
 
-  // Initialize calendar analytics
   const { trackEventClick } = useCalendarAnalytics({
     currentMonth: selectedDate.getMonth() + 1,
     currentYear: selectedDate.getFullYear(),
@@ -122,7 +120,6 @@ export function CalendarProvider({
     router.replace(`${window.location.pathname}${query}`);
   }, [selectedEventId, router.replace, searchParams.entries]);
 
-  // Track event clicks when event is selected
   useEffect(() => {
     if (selectedEventId) {
       const event = currentMonthEvents.find((e) => e.id === selectedEventId);
@@ -177,14 +174,13 @@ export function CalendarProvider({
     fetchEventsForMonth(selectedDate);
   }, [selectedDate, fetchEventsForMonth]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: This effect is for pre-fetching events for the next and previous months
   useEffect(() => {
     const tempDate = new Date(selectedDate);
     tempDate.setMonth(tempDate.getMonth() + 1);
     fetchEventsForMonth(tempDate);
     tempDate.setMonth(tempDate.getMonth() - 2);
     fetchEventsForMonth(tempDate);
-  }, []);
+  }, [fetchEventsForMonth, selectedDate]);
 
   const handleSelectDate = (date: Date | undefined) => {
     if (!date) return;

@@ -11,8 +11,7 @@ import {
 import Image from "next/image";
 import * as React from "react";
 import { useState } from "react";
-import { CalendarContext } from "@/calendar/contexts/calendar-context";
-import type { IEvent } from "@/calendar/interfaces";
+import { CalendarContext } from "@/components/calendar/contexts/calendar-context";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,6 +31,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn, sanitizeTag } from "@/lib/utils";
+import type { IEvent } from "@/types";
 
 interface IProps {
   event?: IEvent;
@@ -83,15 +83,12 @@ export function EventDetailsDialog({
         className="p-4 max-h-[90vh] max-w-[90vw] md:max-w-7xl flex flex-col gap-4"
       >
         <div className="grid flex-1 overflow-auto w-full grid-cols-1 md:grid-cols-5 gap-6 p-4">
-          {/* Left Side: Image */}
           {event.posterUrl && (
             <div className="relative h-64 w-full bg-muted/30 overflow-hidden md:col-span-2 md:h-full flex items-center justify-center p-4 rounded-lg">
-              {/* Blurred Background */}
               <div
                 className="absolute inset-0 bg-cover bg-center blur-2xl opacity-50 dark:opacity-30 scale-110"
                 style={{ backgroundImage: `url(${event.posterUrl})` }}
               />
-              {/* Main Image: center vertically and horizontally */}
               <div className="relative z-10 w-full h-full flex items-center justify-center">
                 <Image
                   src={event.posterUrl}
@@ -104,7 +101,6 @@ export function EventDetailsDialog({
             </div>
           )}
 
-          {/* Right Side: Details */}
           <div
             className={cn(
               "flex flex-col h-full bg-background gap-4",
@@ -160,7 +156,6 @@ export function EventDetailsDialog({
 
             <ScrollArea className="flex-1 pr-4 -mr-4">
               <div className="space-y-6">
-                {/* Event Tags */}
                 {event.tags && event.tags.length > 0 && (
                   <div className="space-y-3">
                     <h4 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
@@ -180,7 +175,6 @@ export function EventDetailsDialog({
                   </div>
                 )}
 
-                {/* Date & Time */}
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-muted-foreground">
@@ -216,7 +210,6 @@ export function EventDetailsDialog({
                   </div>
                 </div>
 
-                {/* Location */}
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <MapPin className="size-5" />
@@ -227,7 +220,6 @@ export function EventDetailsDialog({
                   <p className="font-medium text-lg">{event.location}</p>
                 </div>
 
-                {/* Description */}
                 <DialogDescription asChild>
                   <div className="space-y-3">
                     <h4 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-2">
