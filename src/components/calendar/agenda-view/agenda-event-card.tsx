@@ -1,6 +1,6 @@
 "use client";
 
-import { format, parseISO } from "date-fns";
+import { format, isSameDay, isSameMonth, parseISO } from "date-fns";
 import { Clock, MapPin } from "lucide-react";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { Badge } from "@/components/ui/badge";
@@ -14,18 +14,29 @@ interface IProps {
 }
 
 export function AgendaEventCard({ event, className }: IProps) {
-  const { setSelectedEventId } = useCalendar();
-  const startDate = parseISO(event.startDateTime);
-  const endDate = parseISO(event.endDateTime);
+  const { setSelectedEventId, selectedDate } = useCalendar();
+  const eventStart = parseISO(event.startDateTime);
+  const eventEnd = parseISO(event.endDateTime);
 
-  const startMonth = format(startDate, "MMM");
-  const startDay = format(startDate, "d");
-  const endDay = format(endDate, "d");
-  const isSameMonth = startDate.getMonth() === endDate.getMonth();
-  const dateRange =
-    startDate.toDateString() === endDate.toDateString()
-      ? startDay
-      : `${startDay}-${isSameMonth ? endDay : format(endDate, "MMM d")}`;
+  // Determine if dates are in the currently viewed month
+  const isSameMonthStart = isSameMonth(eventStart, selectedDate);
+  const isSameMonthEnd = isSameMonth(eventEnd, selectedDate);
+
+  // Format start and end strings based on whether they are in the viewed month
+  const startStr = isSameMonthStart
+    ? format(eventStart, "d")
+    : format(eventStart, "MMM d");
+  const endStr = isSameMonthEnd
+    ? format(eventEnd, "d")
+    : format(eventEnd, "MMM d");
+
+  const isSameDayEvent = isSameDay(eventStart, eventEnd);
+  const dateRange = isSameDayEvent
+    ? format(eventStart, "d")
+    : `${startStr}-${endStr}`;
+
+  // Use the viewed month for the top badge to maintain agenda context
+  const startMonth = format(selectedDate, "MMM");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -50,7 +61,12 @@ export function AgendaEventCard({ event, className }: IProps) {
             <span className="flex h-6 w-full items-center justify-center bg-primary text-center text-xs font-semibold text-primary-foreground">
               {startMonth}
             </span>
-            <span className="flex w-full items-center justify-center text-xl font-bold text-foreground p-2">
+            <span
+              className={cn(
+                "flex w-full items-center justify-center font-bold text-foreground p-2",
+                dateRange.length > 5 ? "text-xs px-1" : "text-xl",
+              )}
+            >
               {dateRange}
             </span>
           </div>
@@ -97,7 +113,7 @@ export function AgendaEventCard({ event, className }: IProps) {
           <div className="mt-4 flex items-center justify-end gap-1.5 text-sm font-medium text-primary sm:mt-0 sm:flex-col sm:items-end sm:justify-start sm:gap-0">
             <Clock className="size-4 sm:hidden" />
             <span className="whitespace-nowrap">
-              {format(startDate, "h:mm a")}
+              {format(eventStart, "h:mm a")}
             </span>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { CalendarAgendaView } from "@/components/calendar/agenda-view/calendar-a
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
 import { CalendarHeader } from "@/components/calendar/header/calendar-header";
 import { CalendarMonthView } from "@/components/calendar/month-view/calendar-month-view";
+import { getMonthGridRows } from "@/lib/calendar-helpers";
 
 import type { TCalendarView } from "@/types";
 
@@ -57,6 +58,8 @@ export function ClientContainer({ view, hideHeader = false }: IProps) {
     return !isSameDay(startDate, endDate);
   });
 
+  const numRows = useMemo(() => getMonthGridRows(selectedDate), [selectedDate]);
+
   return (
     <div className="overflow-hidden rounded-xl border h-full">
       {!hideHeader && <CalendarHeader view={view} events={filteredEvents} />}
@@ -71,6 +74,7 @@ export function ClientContainer({ view, hideHeader = false }: IProps) {
         <CalendarAgendaView
           singleDayEvents={singleDayEvents}
           multiDayEvents={multiDayEvents}
+          maxVisibleEvents={numRows}
         />
       )}
     </div>

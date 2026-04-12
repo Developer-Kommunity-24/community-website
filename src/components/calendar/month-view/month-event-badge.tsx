@@ -1,7 +1,14 @@
 "use client";
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
-import { endOfDay, isSameDay, parseISO, startOfDay } from "date-fns";
+import {
+  differenceInCalendarDays,
+  endOfDay,
+  isSameDay,
+  parseISO,
+  startOfDay,
+  startOfMonth,
+} from "date-fns";
 import { Star } from "lucide-react";
 import { type RefObject, useEffect, useRef } from "react";
 import { useCalendar } from "@/components/calendar/contexts/calendar-context";
@@ -55,14 +62,6 @@ const eventBadgeVariants = cva(
   },
 );
 
-function daysBetween(dateStr1: Date, dateStr2: Date) {
-  const d1 = new Date(dateStr1);
-  const d2 = new Date(dateStr2);
-  return Math.floor(
-    Math.abs((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24)),
-  );
-}
-
 interface IProps
   extends Omit<
     VariantProps<typeof eventBadgeVariants>,
@@ -86,9 +85,13 @@ export function MonthEventBadge({
   className,
   position: propPosition,
 }: IProps) {
+  const { selectedDate } = useCalendar();
   const textRef = useRef<HTMLParagraphElement | null>(null);
   const itemStart = startOfDay(parseISO(event.startDateTime));
   const itemEnd = endOfDay(parseISO(event.endDateTime));
+
+  const monthStart = startOfMonth(selectedDate);
+  const effectiveStart = itemStart < monthStart ? monthStart : itemStart;
 
   useEffect(() => {
     const badgeContainer = badgeContainerRef.current;
@@ -98,8 +101,7 @@ export function MonthEventBadge({
 
     const observer = new ResizeObserver(() => {
       const btnWidth = badgeContainer.offsetWidth;
-      const cellIndex =
-        daysBetween(itemStart, itemEnd) - daysBetween(cellDate, itemEnd);
+      const cellIndex = differenceInCalendarDays(cellDate, effectiveStart);
       const isSunday = Boolean(cellDate.getDay());
 
       text.style.transform = `translateX(${-btnWidth * cellIndex + (cellIndex > 0 ? 13 - cellIndex + (isSunday ? 2 : 0) : 0)}px)`;
@@ -108,7 +110,7 @@ export function MonthEventBadge({
     observer.observe(badgeContainer);
 
     return () => observer.disconnect();
-  }, [badgeContainerRef, cellDate, itemStart, itemEnd]);
+  }, [badgeContainerRef, cellDate, effectiveStart]);
 
   const {
     badgeVariant,
@@ -127,7 +129,10 @@ export function MonthEventBadge({
     position = "none";
   } else if (isSameDay(itemStart, itemEnd)) {
     position = "none";
-  } else if (isSameDay(cellDate, itemStart)) {
+  } else if (
+    isSameDay(cellDate, itemStart) ||
+    (isSameDay(cellDate, monthStart) && itemStart < monthStart)
+  ) {
     position = "first";
   } else if (isSameDay(cellDate, itemEnd)) {
     position = "last";

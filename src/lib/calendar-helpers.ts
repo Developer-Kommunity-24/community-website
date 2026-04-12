@@ -94,9 +94,26 @@ export function getEventsCount(
     month: isSameMonth,
   };
 
-  return events.filter((event) =>
-    compareFns[view](new Date(event.startDateTime), date),
-  ).length;
+  return events.filter((event) => {
+    const eventStart = new Date(event.startDateTime);
+    const eventEnd = new Date(event.endDateTime);
+
+    if (view === "month" || view === "agenda") {
+      const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
+      const monthEnd = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0,
+        23,
+        59,
+        59,
+        999,
+      );
+      return eventStart <= monthEnd && eventEnd >= monthStart;
+    }
+
+    return compareFns[view](eventStart, date);
+  }).length;
 }
 
 export function getCurrentEvents(events: IEvent[]) {
@@ -243,6 +260,21 @@ export function getCalendarCells(selectedDate: Date): ICalendarCell[] {
   );
 
   return [...prevMonthCells, ...currentMonthCells, ...nextMonthCells];
+}
+
+export function getMonthGridRows(selectedDate: Date): number {
+  const firstDayOfMonth = new Date(
+    selectedDate.getFullYear(),
+    selectedDate.getMonth(),
+    1,
+  ).getDay();
+  const daysInMonth = new Date(
+    selectedDate.getFullYear(),
+    selectedDate.getMonth() + 1,
+    0,
+  ).getDate();
+  const totalCells = firstDayOfMonth + daysInMonth;
+  return Math.ceil(totalCells / 7);
 }
 
 export function calculateMonthEventPositions(

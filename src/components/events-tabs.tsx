@@ -3,6 +3,7 @@
 import { Calendar, Plus } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { ClientContainer } from "@/components/calendar/client-container";
 import { DownloadIcsDialog } from "@/components/download-ics-dialog";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,21 @@ export function EventsTabs() {
     autoTrackPageView: false,
     autoTrackMonthChange: false,
   });
+
+  const monthRef = useRef<HTMLDivElement>(null);
+  const [monthHeight, setMonthHeight] = useState<number | undefined>();
+
+  useEffect(() => {
+    if (monthRef.current) {
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          setMonthHeight(entry.contentRect.height);
+        }
+      });
+      resizeObserver.observe(monthRef.current);
+      return () => resizeObserver.disconnect();
+    }
+  }, []);
 
   const handleViewChange = (view: string) => {
     if (view === "month" || view === "agenda") {
@@ -68,11 +84,14 @@ export function EventsTabs() {
         </div>
 
         {/* Desktop View: Side-by-Side */}
-        <div className="hidden lg:flex lg:gap-6 items-stretch">
-          <div className="lg:w-1/2">
+        <div className="hidden lg:flex lg:gap-6 items-start">
+          <div
+            className="lg:w-1/2"
+            style={monthHeight ? { height: monthHeight } : undefined}
+          >
             <ClientContainer view="agenda" hideHeader={true} />
           </div>
-          <div className="lg:w-1/2">
+          <div className="lg:w-1/2" ref={monthRef}>
             <ClientContainer view="month" />
           </div>
         </div>

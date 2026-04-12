@@ -1,4 +1,4 @@
-import { isSameMonth, parseISO } from "date-fns";
+import { endOfMonth, parseISO, startOfMonth } from "date-fns";
 import { CalendarX2 } from "lucide-react";
 import { useMemo } from "react";
 import { AgendaEventCard } from "@/components/calendar/agenda-view/agenda-event-card";
@@ -9,30 +9,46 @@ import type { IEvent } from "@/types";
 interface IProps {
   singleDayEvents: IEvent[];
   multiDayEvents: IEvent[];
+  maxVisibleEvents?: number;
 }
 
 export function CalendarAgendaView({
   singleDayEvents,
   multiDayEvents,
+  maxVisibleEvents = 5,
 }: IProps) {
   const { selectedDate } = useCalendar();
 
   const eventsForMonth = useMemo(() => {
     const allEvents = [...singleDayEvents, ...multiDayEvents];
+    const monthStart = startOfMonth(selectedDate);
+    const monthEnd = endOfMonth(selectedDate);
 
     return allEvents
       .filter((event) => {
-        const eventDate = parseISO(event.startDateTime);
-        return isSameMonth(eventDate, selectedDate);
+        const eventStart = parseISO(event.startDateTime);
+        const eventEnd = parseISO(event.endDateTime);
+        return (
+          (eventStart >= monthStart && eventStart <= monthEnd) ||
+          (eventEnd >= monthStart && eventEnd <= monthEnd) ||
+          (eventStart <= monthStart && eventEnd >= monthEnd)
+        );
       })
       .sort((a, b) => {
-        return (
-          new Date(a.startDateTime).getTime() -
-          new Date(b.startDateTime).getTime()
-        );
+        const aStart = parseISO(a.startDateTime);
+        const bStart = parseISO(b.startDateTime);
+
+        // Use effective start date for sorting (clamped to month start)
+        const aEffectiveStart = aStart < monthStart ? monthStart : aStart;
+        const bEffectiveStart = bStart < monthStart ? monthStart : bStart;
+
+        const diff = aEffectiveStart.getTime() - bEffectiveStart.getTime();
+        if (diff !== 0) return diff;
+
+        // If they start at the same time (e.g. both are ongoing), sort by original start
+        return aStart.getTime() - bStart.getTime();
       });
   }, [singleDayEvents, multiDayEvents, selectedDate]);
-
   const { isLoading, fetchError } = useCalendar();
 
   if (isLoading) {
@@ -76,17 +92,39 @@ export function CalendarAgendaView({
     );
   }
 
-  return (
-    <div className="h-full">
-      <ScrollArea className="h-full" type="always">
-        <div className="flex flex-col p-4">
+  const visibleEvents = eventsForMonth.slice(0, maxVisibleEvents);
+  const additionalEvents = eventsForMonth.slice(maxVisibleEvents);
+  const hasMoreThanVisible = additionalEvents.length > 0;
+  const hasEvents = eventsForMonth.length > 0;
+
+  const eventContent = (
+    <div className="flex flex-col p-4">
+      <div className="space-y-4">
+        {visibleEvents.map((event) => (
+          <AgendaEventCard key={event.id} event={event} />
+        ))}
+      </div>
+      {hasMoreThanVisible ? (
+        <div className="pt-4">
           <div className="space-y-4">
-            {eventsForMonth.map((event) => (
+            {additionalEvents.map((event) => (
               <AgendaEventCard key={event.id} event={event} />
             ))}
           </div>
         </div>
-      </ScrollArea>
+      ) : null}
+    </div>
+  );
+
+  return (
+    <div className="h-full overflow-hidden">
+      {hasEvents ? (
+        <ScrollArea className="h-full" type="always">
+          {eventContent}
+        </ScrollArea>
+      ) : (
+        eventContent
+      )}
     </div>
   );
 }
