@@ -2,8 +2,8 @@ import { BackgroundPattern } from "@/components/background-pattern";
 import { HeroSection } from "@/components/hero-section";
 import { TeamModelSection } from "@/components/team-model-section";
 import { VisionSection } from "@/components/vision-section";
-import { generatePageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/config/site";
+import { generatePageMetadata } from "@/lib/metadata";
 
 export const metadata = generatePageMetadata({
   title: `${siteConfig.name} - ${siteConfig.tagline}`,

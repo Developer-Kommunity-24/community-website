@@ -10,6 +10,7 @@
     "start": "next start",
     "format": "biome format",
     "format:write": "biome format --write",
+    "check": "biome check --write .",
     "lint": "biome lint",
     "lint:write": "biome lint --write",
     "type-check": "tsc --noEmit",

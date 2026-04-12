@@ -1,6 +1,3 @@
-import ProjectData from "@/data/projects.json" with { type: "json" };
-import { ProjectSchema } from "@/types/project";
-
 import {
   Calendar,
   Code,
@@ -10,6 +7,8 @@ import {
   Trophy,
   Users,
 } from "lucide-react";
+import ProjectData from "@/data/projects.json" with { type: "json" };
+import { ProjectSchema } from "@/types/project";
 
 export const iconsMap = {
   calendar: Calendar,

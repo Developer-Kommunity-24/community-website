@@ -2,13 +2,11 @@
 
 import { format, parseISO } from "date-fns";
 import { Clock, MapPin } from "lucide-react";
-
+import { useCalendar } from "@/calendar/contexts/calendar-context";
+import type { IEvent } from "@/calendar/interfaces";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-
-import type { IEvent } from "@/calendar/interfaces";
 import { cn, sanitizeTag } from "@/lib/utils";
-import { useCalendar } from "@/calendar/contexts/calendar-context";
 
 interface IProps {
   event: IEvent;

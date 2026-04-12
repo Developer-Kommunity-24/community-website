@@ -1,4 +1,4 @@
-import { Linkedin, Youtube, Instagram, Github } from "lucide-react";
+import { Github, Instagram, Linkedin, Youtube } from "lucide-react";
 import { BackgroundPattern } from "@/components/background-pattern";
 import { DiscordIcon } from "@/components/discord-icon";
 import { JoinForm } from "@/components/join-form";
@@ -11,9 +11,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { generatePageMetadata } from "@/lib/metadata";
-import { siteConfig } from "@/config/site";
 import { XLogo } from "@/components/x-icon";
+import { siteConfig } from "@/config/site";
+import { generatePageMetadata } from "@/lib/metadata";
 
 export const metadata = generatePageMetadata({
   title: "Join DK24",
