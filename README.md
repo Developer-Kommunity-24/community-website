@@ -67,8 +67,14 @@ pnpm install
 Create a `.env.local` file in the root directory:
 
 ```env
-# Add your environment variables here
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# PostHog OpenTelemetry logs
+NEXT_PUBLIC_POSTHOG_KEY=phc_xxxxxxxxxxxxxxxxx
+# Optional: use the EU endpoint if your project is in EU
+# POSTHOG_OTEL_LOGS_ENDPOINT=https://eu.i.posthog.com/i/v1/logs
+# Optional: override OTEL service name
+# OTEL_SERVICE_NAME=dk24-community-website
 ```
 
 ### Run the Dev Server
@@ -78,6 +84,24 @@ pnpm dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000) to see the project.
+
+### OpenTelemetry Log Usage (PostHog Exporter)
+
+Use the helper in server-side code (route handlers, server actions) and flush after response:
+
+```ts
+import { after } from "next/server";
+import { emitServerLog, flushOtelLogs } from "@/lib/otel-logger";
+
+emitServerLog({
+  body: "Join form submitted",
+  attributes: { route: "/join", method: "POST" },
+});
+
+after(async () => {
+  await flushOtelLogs();
+});
+```
 
 ## 🛠️ Development
 

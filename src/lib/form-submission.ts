@@ -4,6 +4,8 @@ import type {
   EventSubmissionFormValues,
   IndividualFormValues,
 } from "@/lib/forms-config";
+import { SeverityNumber } from "@opentelemetry/api-logs";
+import { emitServerLog, flushOtelLogs } from "@/lib/otel-logger";
 
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 
@@ -98,9 +100,29 @@ export async function submitFormData(
       }
     }
 
+    emitServerLog({
+      body: "Form submission webhook sent",
+      severityNumber: SeverityNumber.INFO,
+      attributes: {
+        formType: name,
+        success: true,
+      },
+    });
+    await flushOtelLogs();
+
     return true;
   } catch (error) {
     console.error("Error submitting to Google Sheet:", error);
+    emitServerLog({
+      body: "Form submission failed",
+      severityNumber: SeverityNumber.ERROR,
+      attributes: {
+        formType: name,
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+      },
+    });
+    await flushOtelLogs();
     return false;
   }
 }
