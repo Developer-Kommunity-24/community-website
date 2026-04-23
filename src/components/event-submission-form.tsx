@@ -147,19 +147,9 @@ export function EventSubmissionForm() {
       // Handled above
     }
 
-    // Extension Check
-    const validExtensions = [".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"];
-    const hasValidExtension = validExtensions.some((ext) =>
-      url.toLowerCase().split("?")[0].endsWith(ext),
-    );
-
-    if (!hasValidExtension) {
-      setImageCheckWarning(
-        "URL doesn't end with a known image extension. Make sure it serves a raw image file.",
-      );
-    } else {
-      setImageCheckWarning(null);
-    }
+    // We validate by actually loading the image URL below,
+    // so extension-based checks are intentionally skipped.
+    setImageCheckWarning(null);
 
     setIsCheckingImage(true);
     setImageCheckError(null);
