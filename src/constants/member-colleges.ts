@@ -178,7 +178,7 @@ export const communities: Community[] = [
     name: "Embed Club",
     college: "PA College of Engineering",
     description:
-      "Embed Club is a student-led community focused on integrating software and hardware through real-world projects in IoT, embedded systems, and blockchain. Previously led by Hisham (now in industry), it is currently headed by Darel Oliver Tauro and Rafaan. With ~20 active members, the club promotes hands-on learning, innovation, and industry-ready skills.",
+      "Embed Club is a student-led community focused on integrating software and hardware through real-world projects in IoT, embedded systems, and blockchain. Previously led by Hisham (now in industry), it is currently headed by Darel Oliver Tauro and Rafan Ahamad Sheik. With ~20 active members, the club promotes hands-on learning, innovation, and industry-ready skills.",
     logo: "/community-logos/embedclub.svg",
     pocs: [
       {
