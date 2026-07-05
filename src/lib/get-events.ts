@@ -6,7 +6,7 @@ import { endOfMonth } from "date-fns";
 import type { IEvent } from "@/types";
 
 const localEventsPath = path.join(process.cwd(), "src/data/local-events.json");
-const calendarApiUrl = process.env.CALENDAR_API_URL;
+const backendUrl = process.env.BACKEND_URL;
 
 async function readLocalEvents(): Promise<IEvent[]> {
   try {
@@ -49,14 +49,14 @@ export async function getEvents(
     return filterEventsByRange(localEvents, startDate, endDate);
   }
 
-  if (!calendarApiUrl) {
-    console.warn("getEvents: Missing CALENDAR_API_URL configuration.");
+  if (!backendUrl) {
+    console.warn("getEvents: Missing BACKEND_URL configuration.");
     return [];
   }
 
   try {
-    const response = await fetch(calendarApiUrl, {
-      next: { revalidate: 300 },
+    const response = await fetch(`${backendUrl}/api/events`, {
+      next: { revalidate: 300, tags: ["calendar"] },
     });
 
     if (!response.ok) {
