@@ -68,6 +68,9 @@ Create a `.env.local` file in the root directory:
 
 ```env
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+BACKEND_URL=http://localhost:8080
+BACKEND_SECRET_KEY=replace-me
+REVALIDATION_SECRET=replace-me
 
 # PostHog OpenTelemetry logs
 NEXT_PUBLIC_POSTHOG_KEY=phc_xxxxxxxxxxxxxxxxx

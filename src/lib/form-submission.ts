@@ -1,10 +1,10 @@
 "use server";
+import { SeverityNumber } from "@opentelemetry/api-logs";
 import type {
   CollegeFormValues,
   EventSubmissionFormValues,
   IndividualFormValues,
 } from "@/lib/forms-config";
-import { SeverityNumber } from "@opentelemetry/api-logs";
 import { emitServerLog, flushOtelLogs } from "@/lib/otel-logger";
 
 const BACKEND_URL = process.env.BACKEND_URL;
