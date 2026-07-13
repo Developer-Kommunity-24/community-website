@@ -3,24 +3,10 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { endOfMonth } from "date-fns";
-import { JWT } from "google-auth-library";
-import { GoogleSpreadsheet } from "google-spreadsheet";
-import type { iconsMap } from "@/constants";
-import type { EventSubmissionFormValues } from "@/lib/forms-config";
-import type { IEvent, TEventColor } from "@/types";
-
-const serviceAccountAuth = new JWT({
-  email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-  key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-  scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-});
-
-const doc = new GoogleSpreadsheet(
-  process.env.GOOGLE_SHEET_ID ?? "",
-  serviceAccountAuth,
-);
+import type { IEvent } from "@/types";
 
 const localEventsPath = path.join(process.cwd(), "src/data/local-events.json");
+const backendUrl = process.env.BACKEND_URL;
 
 async function readLocalEvents(): Promise<IEvent[]> {
   try {
@@ -63,80 +49,25 @@ export async function getEvents(
     return filterEventsByRange(localEvents, startDate, endDate);
   }
 
-  if (
-    !process.env.GOOGLE_SHEET_ID ||
-    !process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ||
-    !process.env.GOOGLE_PRIVATE_KEY
-  ) {
-    console.warn("getEvents: Missing Google Sheets configuration.");
+  if (!backendUrl) {
+    console.warn("getEvents: Missing BACKEND_URL configuration.");
     return [];
   }
 
   try {
-    await doc.loadInfo();
-    const sheet = doc.sheetsByIndex[3];
-    if (!sheet) throw new Error("Sheet not found");
+    const response = await fetch(`${backendUrl}/api/events`, {
+      next: { revalidate: 300, tags: ["calendar"] },
+    });
 
-    const rows = await sheet.getRows();
-    const res: IEvent[] = rows
-      .map((row): IEvent | null => {
-        const eventData =
-          row.toObject() as unknown as EventSubmissionFormValues & {
-            ID: string;
-          };
-        const isDK24 = eventData.organizationName === "DK24";
+    if (!response.ok) {
+      throw new Error(`Calendar API request failed with ${response.status}`);
+    }
 
-        const startDateTime = new Date(eventData.startDateTime);
-        const endDateTime = new Date(eventData.endDateTime);
-
-        if (
-          Number.isNaN(startDateTime.getTime()) ||
-          Number.isNaN(endDateTime.getTime())
-        ) {
-          return null;
-        }
-
-        return {
-          id: eventData.ID,
-          title: eventData.eventName,
-          startDateTime: startDateTime.toISOString(),
-          endDateTime: endDateTime.toISOString(),
-          time: eventData.startDateTime.split("T")[1]?.substring(0, 5) || "",
-          location: eventData.eventLocation,
-          description: eventData.eventDescription,
-          registrationLink: eventData.registrationLink || "",
-          joinLink: eventData.eventWebsite || "",
-          icon: "calendar" as keyof typeof iconsMap,
-          highlight: isDK24,
-          youtubeLink: "",
-          color: (isDK24 ? "green" : "gray") as TEventColor,
-          organizationName: eventData.organizationName,
-          posterUrl: eventData.eventPosterUrl,
-          tags: (() => {
-            const raw = eventData.eventTags as unknown;
-            if (Array.isArray(raw)) return raw as string[];
-            if (typeof raw === "string") {
-              let s = (raw as string).trim();
-              if (s.startsWith("[") && s.endsWith("]")) {
-                s = s.slice(1, -1);
-              }
-              return s
-                .split(",")
-                .map((t: string) => t.replace(/^['"]|['"]$/g, "").trim())
-                .filter(Boolean) as string[];
-            }
-            return [];
-          })(),
-        };
-      })
-      .filter((event): event is IEvent => event !== null);
-
-    return filterEventsByRange(res, startDate, endDate);
+    const data = (await response.json()) as { events?: IEvent[] };
+    const events = Array.isArray(data.events) ? data.events : [];
+    return filterEventsByRange(events, startDate, endDate);
   } catch (error) {
-    console.error(
-      "getEvents: Failed to load events from Google Sheets.",
-      error,
-    );
+    console.error("getEvents: Failed to load events from Calendar API.", error);
     return [];
   }
 }

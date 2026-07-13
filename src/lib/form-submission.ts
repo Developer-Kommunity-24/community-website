@@ -1,21 +1,21 @@
 "use server";
+import { SeverityNumber } from "@opentelemetry/api-logs";
 import type {
   CollegeFormValues,
   EventSubmissionFormValues,
   IndividualFormValues,
 } from "@/lib/forms-config";
-import { SeverityNumber } from "@opentelemetry/api-logs";
 import { emitServerLog, flushOtelLogs } from "@/lib/otel-logger";
 
-const WEBHOOK_URL = process.env.WEBHOOK_URL;
+const BACKEND_URL = process.env.BACKEND_URL;
 
 export async function submitFormData(
   name: "individual" | "community" | "event",
   data: IndividualFormValues | CollegeFormValues | EventSubmissionFormValues,
 ) {
   try {
-    if (!WEBHOOK_URL || !process.env.WEBHOOK_SECRET_KEY)
-      throw new Error("WEBHOOK_URL not set");
+    if (!BACKEND_URL || !process.env.BACKEND_SECRET_KEY)
+      throw new Error("BACKEND_URL not set");
     // if (!doc) throw new Error("Doc not found!");
     // await doc.loadInfo();
 
@@ -44,11 +44,11 @@ export async function submitFormData(
       //     "──────────────────────────────",
       // };
 
-      const res = await fetch(`${WEBHOOK_URL}new-applicant`, {
+      const res = await fetch(`${BACKEND_URL}/api/new-applicant`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Secret-Key": process.env.WEBHOOK_SECRET_KEY,
+          "X-Secret-Key": process.env.BACKEND_SECRET_KEY,
         },
         body: JSON.stringify(data),
       });
@@ -73,11 +73,11 @@ export async function submitFormData(
       //     "──────────────────────────────",
       // };
 
-      const res = await fetch(`${WEBHOOK_URL}new-college-applicant`, {
+      const res = await fetch(`${BACKEND_URL}/api/new-college-applicant`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Secret-Key": process.env.WEBHOOK_SECRET_KEY,
+          "X-Secret-Key": process.env.BACKEND_SECRET_KEY,
         },
         body: JSON.stringify(data),
       });
@@ -86,11 +86,11 @@ export async function submitFormData(
         throw new Error("Error submitting to webhook");
       }
     } else if (name === "event") {
-      const res = await fetch(`${WEBHOOK_URL}new-event`, {
+      const res = await fetch(`${BACKEND_URL}/api/new-event`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Secret-Key": process.env.WEBHOOK_SECRET_KEY,
+          "X-Secret-Key": process.env.BACKEND_SECRET_KEY,
         },
         body: JSON.stringify(data),
       });

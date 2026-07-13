@@ -68,7 +68,9 @@ Create a `.env.local` file in the root directory:
 
 ```env
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-# Add other environment variables as needed
+BACKEND_URL=http://localhost:8080
+BACKEND_SECRET_KEY=replace-me
+REVALIDATION_SECRET=replace-me
 ```
 
 ---
