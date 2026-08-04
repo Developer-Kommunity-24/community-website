@@ -43,6 +43,11 @@ export const communities: Community[] = [
         email: "aboobakkar@ajiet.edu.in",
       },
       {
+        name: "Jizel Prince D'Souza",
+        role: "Core Member",
+        email: "jizelprince@gmail.com",
+      },
+      {
         name: "Muaz Ismail Mohammed",
         role: "Core Member",
         email: "6muazx@gmail.com",
@@ -55,7 +60,7 @@ export const communities: Community[] = [
         email: "aboobakkar@ajiet.edu.in",
       },
     ],
-    // website: "https://www.ajiet.edu.in/student-clubs.php",
+    website: "https://www.devnation.club",
   },
   {
     id: 3,
