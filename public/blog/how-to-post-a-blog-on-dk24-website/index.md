@@ -1,3 +1,17 @@
+---
+title: "How to publish a blog on dk24.org"
+description: "This blog explains how to publish a blog on DK24 website"
+date: "2026-08-29"
+author: "Kushal M"
+authorImage: "author.png"
+authorDesignation: "GDGoC SCEM Organizer ’25"
+coverImage: "cover.jpeg"
+readingTime: "3 min read"
+tags: ["meta blog", "how-to"]
+---
+
+This blog contains the exact contents of [BLOG.md](https://github.com/Developer-Kommunity-24/community-website/blob/main/BLOG.md)
+
 # ✍️ Blog
 
 This document explains **how to add a blog post** to the community by creating a valid post folder under [`public/blog/`](./public/blog/).

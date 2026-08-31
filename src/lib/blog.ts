@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { remark } from "remark";
+import remarkGfm from "remark-gfm";
 import remarkHtml from "remark-html";
 import PinnedBlogsData from "@/data/pinned-blogs.json" with { type: "json" };
 import {
@@ -38,14 +39,46 @@ async function loadPost(slug: string): Promise<BlogPost> {
     );
   }
 
-  const processed = await remark().use(remarkHtml).process(content);
+  const processed = await remark()
+    .use(remarkGfm)
+    .use(remarkHtml, { sanitize: false })
+    .process(content);
+
+  let html = processed.toString();
+
+  // Rewrite relative links pointing to source files/directories to absolute GitHub paths
+  html = html.replace(/href="(\.\.?\/[^"]+)"/g, (match, href) => {
+    if (
+      href.startsWith("./src/") ||
+      href.startsWith("./public/") ||
+      href.startsWith("./components/") ||
+      href.startsWith("./data/") ||
+      href.endsWith(".ts") ||
+      href.endsWith(".tsx") ||
+      href.endsWith(".json") ||
+      href.endsWith(".md")
+    ) {
+      const cleanPath = href.replace(/^\.\//, "");
+      return `href="https://github.com/Developer-Kommunity-24/community-website/blob/main/${cleanPath}"`;
+    }
+    return match;
+  });
+
+  // Replace GitHub-style alerts in blockquotes with styled containers
+  html = html.replace(
+    /<blockquote>\s*<p>\[!(NOTE|IMPORTANT|WARNING|TIP|CAUTION)\](?:\s|<br\s*\/?>)*/gi,
+    (_match, type) => {
+      const lowerType = type.toLowerCase();
+      return `<blockquote class="alert-callout alert-${lowerType}"><p>`;
+    },
+  );
 
   return {
     ...parsed.data,
     slug,
     authorImage: `/blog/${slug}/${parsed.data.authorImage}`,
     coverImage: `/blog/${slug}/${parsed.data.coverImage}`,
-    contentHtml: processed.toString(),
+    contentHtml: html,
   };
 }
 

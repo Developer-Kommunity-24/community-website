@@ -140,3 +140,85 @@
   --primary: oklch(0.7 0.15 260);
   --primary-foreground: oklch(0.1 0.05 260);
 }
+
+/* GitHub-style Markdown Alerts */
+.prose .alert-callout {
+  border-left-width: 4px !important;
+  padding: 1rem 1.25rem !important;
+  margin: 1.5rem 0 !important;
+  border-radius: 0.375rem !important;
+  font-style: normal !important;
+  background-color: rgba(120, 120, 120, 0.05) !important;
+}
+
+.prose .alert-callout p {
+  font-style: normal !important;
+}
+
+/* Remove default Tailwind Typography blockquote quotation marks for callouts */
+.prose .alert-callout::before,
+.prose .alert-callout::after,
+.prose .alert-callout p::before,
+.prose .alert-callout p::after {
+  content: none !important;
+}
+
+.prose .alert-callout > p:first-of-type::before {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Note style */
+.prose .alert-callout.alert-note {
+  border-left-color: #3b82f6 !important;
+  background-color: rgba(59, 130, 246, 0.05) !important;
+}
+.dark .prose .alert-callout.alert-note {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+.prose .alert-callout.alert-note > p:first-of-type::before {
+  content: "ℹ️  Note";
+  color: #3b82f6;
+}
+
+/* Important style */
+.prose .alert-callout.alert-important {
+  border-left-color: #8b5cf6 !important;
+  background-color: rgba(139, 92, 246, 0.05) !important;
+}
+.dark .prose .alert-callout.alert-important {
+  background-color: rgba(139, 92, 246, 0.15) !important;
+}
+.prose .alert-callout.alert-important > p:first-of-type::before {
+  content: "⚠️  Important";
+  color: #8b5cf6;
+}
+
+/* Remove default backticks from inline code in Tailwind Typography */
+.prose code::before,
+.prose code::after {
+  content: "" !important;
+}
+
+/* Style inline code elements */
+.prose :not(pre) > code {
+  background-color: var(--muted) !important;
+  border: 1px solid var(--border) !important;
+  padding: 0.125rem 0.25rem !important;
+  border-radius: 0.375rem !important;
+  font-weight: 500 !important;
+  font-size: 0.875em !important;
+  color: var(--foreground) !important;
+}
+
+/* Style preformatted code blocks to wrap long lines and prevent horizontal cutting */
+.prose pre {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-x: auto !important;
+}
