@@ -184,25 +184,35 @@ export const communities: Community[] = [
     name: "Embed Club",
     college: "PA College of Engineering",
     description:
-      "Embed Club is a student-led community focused on integrating software and hardware through real-world projects in IoT, embedded systems, and blockchain. Previously led by Hisham (now in industry), it is currently headed by Darel Oliver Tauro and Rafan Ahamad Sheik. With ~20 active members, the club promotes hands-on learning, innovation, and industry-ready skills.",
+      "Embed Club is a student-driven technical community focused on hands-on learning, innovation, and real-world problem solving across hardware, software, AI, automation, robotics, IoT, and emerging technologies. Through projects, workshops, competitions, research, and peer-to-peer learning, the club encourages students to explore, build, collaborate, and develop industry-relevant skills.",
     logo: "/community-logos/embedclub.svg",
     pocs: [
       {
         name: "Rafan Ahamad Sheik",
-        role: "Joint Secretary",
-        email: "rafan79200@gmail.com",
+        role: "President",
+        email: "rafanahamads@gmail.com",
+      },
+      {
+        name: "Fizan Feroz",
+        role: "Vice President",
+        email: "fizanfaznaferoz2@gmail.com",
       },
       {
         name: "Darel Oliver Tauro",
-        role: "Member",
+        role: "Core Member",
         email: "taurodarel@gmail.com",
       },
     ],
     representatives: [
       {
-        name: "K Mohammad Hisham",
+        name: "Rafan Ahamad Sheik",
         role: "President",
-        email: "hishammohd313@gmail.com",
+        email: "rafanahamads@gmail.com",
+      },
+      {
+        name: "Darel Oliver Tauro",
+        role: "CoreMember",
+        email: "taurodarel@gmail.com",
       },
     ],
     website: "https://www.embedclub.org/",
@@ -256,7 +266,7 @@ export const communities: Community[] = [
       {
         name: "Praveeksha Moolya",
         role: "Core member",
-        email: "praveekshamoolya23@gmail.com"
+        email: "praveekshamoolya23@gmail.com",
       },
     ],
     representatives: [
