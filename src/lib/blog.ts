@@ -6,12 +6,15 @@ import remarkGfm from "remark-gfm";
 import remarkHtml from "remark-html";
 import PinnedBlogsData from "@/data/pinned-blogs.json" with { type: "json" };
 import {
+  AuthorSchema,
+  type BlogAuthor,
   BlogFrontmatterSchema,
   type BlogPost,
   PinnedBlogsSchema,
 } from "@/types/blog";
 
 const BLOG_DIR = path.join(process.cwd(), "public/blog");
+const AUTHORS_DIR = path.join(process.cwd(), "public/authors");
 
 async function getSlugs(): Promise<string[]> {
   try {
@@ -27,6 +30,36 @@ async function getSlugs(): Promise<string[]> {
   }
 }
 
+async function loadAuthor(slug: string): Promise<BlogAuthor> {
+  const filePath = path.join(AUTHORS_DIR, slug, "index.json");
+  let raw: string;
+  try {
+    raw = await fs.readFile(filePath, "utf-8");
+  } catch {
+    throw new Error(
+      `Author "public/authors/${slug}" not found - create one with a name, optional designation, and image, then reference it from the blog's frontmatter "author" field.`,
+    );
+  }
+
+  let manifest: unknown;
+  try {
+    manifest = JSON.parse(raw);
+  } catch {
+    throw new Error(
+      `Invalid JSON in public/authors/${slug}/index.json - fix the manifest and try again.`,
+    );
+  }
+
+  const parsed = AuthorSchema.safeParse(manifest);
+  if (!parsed.success) {
+    throw new Error(
+      `Invalid author manifest in public/authors/${slug}/index.json: ${parsed.error.message}`,
+    );
+  }
+
+  return parsed.data;
+}
+
 async function loadPost(slug: string): Promise<BlogPost> {
   const filePath = path.join(BLOG_DIR, slug, "index.md");
   const raw = await fs.readFile(filePath, "utf-8");
@@ -38,6 +71,8 @@ async function loadPost(slug: string): Promise<BlogPost> {
       `Invalid frontmatter in public/blog/${slug}/index.md: ${parsed.error.message}`,
     );
   }
+
+  const author = await loadAuthor(parsed.data.author);
 
   const processed = await remark()
     .use(remarkGfm)
@@ -76,8 +111,11 @@ async function loadPost(slug: string): Promise<BlogPost> {
   return {
     ...parsed.data,
     slug,
-    authorImage: `/blog/${slug}/${parsed.data.authorImage}`,
+    author: author.name,
+    authorDesignation: author.designation,
+    authorImage: `/authors/${parsed.data.author}/${author.image}`,
     coverImage: `/blog/${slug}/${parsed.data.coverImage}`,
+    tags: parsed.data.tags ?? [],
     contentHtml: html,
   };
 }
