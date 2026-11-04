@@ -164,7 +164,7 @@
 }
 
 .prose .alert-callout > p:first-of-type::before {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   font-weight: 600;
   margin-bottom: 0.5rem;
