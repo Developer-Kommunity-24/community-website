@@ -182,7 +182,7 @@
   background-color: rgba(59, 130, 246, 0.15) !important;
 }
 .prose .alert-callout.alert-note > p:first-of-type::before {
-  content: "ℹ️  Note";
+  content: "ℹ️  Note" !important;
   color: #3b82f6;
 }
 
@@ -195,7 +195,7 @@
   background-color: rgba(139, 92, 246, 0.15) !important;
 }
 .prose .alert-callout.alert-important > p:first-of-type::before {
-  content: "⚠️  Important";
+  content: "⚠️  Important" !important;
   color: #8b5cf6;
 }
 
