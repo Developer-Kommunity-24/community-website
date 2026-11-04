@@ -26,6 +26,9 @@
     ],
     "!(package-lock).json": [
       "biome format --write"
+    ],
+    "*.{png,jpg,jpeg,webp}": [
+      "node scripts/compress-images.js"
     ]
   },
   "dependencies": {
