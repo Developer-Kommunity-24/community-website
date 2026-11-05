@@ -64,7 +64,14 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### 🌱 Environment Variables
 
-Create a `.env.local` file in the root directory:
+**Auto Setup:**
+- Run `pnpm dev` to auto-generate `.env.local`
+- Creates defaults and random secrets automatically
+- Won't overwrite existing `.env.local`
+
+**Manual Setup:**
+- Create `.env.local` in root directory
+- Add these values:
 
 ```env
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -72,8 +79,6 @@ BACKEND_URL=http://localhost:8080
 BACKEND_SECRET_KEY=replace-me
 REVALIDATION_SECRET=replace-me
 ```
-
----
 
 ## 🛠️ Development Guidelines
 
