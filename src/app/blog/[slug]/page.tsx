@@ -76,8 +76,12 @@ export default async function BlogPostPage({
         <div className="flex flex-col">
           <span className="inline-flex items-center gap-2 text-sm font-medium">
             <span>{post.author}</span>
-            <span className="leading-none">&bull;</span>
-            <span>{post.authorDesignation}</span>
+            {post.authorDesignation && (
+              <>
+                <span className="leading-none">&bull;</span>
+                <span>{post.authorDesignation}</span>
+              </>
+            )}
           </span>
           <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
             <span>{format(new Date(post.date), "MMM d, yyyy")}</span>

@@ -16,7 +16,7 @@ export const metadata = baseMetadata;
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
         <PostHogProvider>
           <ThemeProvider
             attribute="class"
