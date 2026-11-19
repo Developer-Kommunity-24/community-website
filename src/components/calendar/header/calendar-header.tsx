@@ -6,7 +6,7 @@ import { DateNavigator } from "@/components/calendar/header/date-navigator";
 import { DownloadIcsDialog } from "@/components/download-ics-dialog";
 import { Button } from "@/components/ui/button";
 import type { IEvent, TCalendarView } from "@/types";
-
+import { SubscribeCalendarDialog } from "@/components/subscribe-calendar-dialog";
 interface IProps {
   view: TCalendarView;
   events: IEvent[];
@@ -22,7 +22,8 @@ export function CalendarHeader({ view, events }: IProps) {
 
       <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
         <div className="hidden w-full items-center gap-2 lg:flex">
-          <DownloadIcsDialog size="default" className="w-full sm:w-auto h-12" />
+          <DownloadIcsDialog buttonLabel="ICS" size="sm" className="h-12" />
+          <SubscribeCalendarDialog size="default" className="h-12" />
         </div>
 
         <Link href="/showcase-event">

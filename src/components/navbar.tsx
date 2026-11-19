@@ -9,7 +9,6 @@ import { DiscordJoinBar } from "@/components/discord-join-bar";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { SubscribeCalendarDialog } from "@/components/subscribe-calendar-dialog";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -182,12 +181,12 @@ export default function Navbar() {
               <Button asChild size="sm" className="cursor-pointer">
                 <Link href="/join">Join Us</Link>
               </Button>
-              <SubscribeCalendarDialog size="sm" />
+
               <Button
                 asChild
-                variant="outline"
                 size="sm"
-                className="cursor-pointer gap-2"
+                variant="secondary"
+                className="cursor-pointer"
               >
                 <Link href="/showcase-event">
                   <CalendarPlus className="h-4 w-4" />
@@ -244,10 +243,7 @@ export default function Navbar() {
                     <Button asChild className="w-full cursor-pointer">
                       <Link href="/join">Join Us</Link>
                     </Button>
-                    <SubscribeCalendarDialog
-                      size="default"
-                      className="w-full"
-                    />
+
                     <Button
                       asChild
                       variant="secondary"

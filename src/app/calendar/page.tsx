@@ -85,6 +85,7 @@ export default async function CalendarPage({
     <BackgroundPattern variant="default">
       <div className="container mx-auto px-4 py-12 max-w-7xl">
         <PageHeader title="Discover the events happening in Mangalore." />
+
         <Suspense fallback={<EventsLoadingSkeleton />}>
           <CalendarProvider
             initialDate={initialDate}
