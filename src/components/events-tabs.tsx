@@ -9,7 +9,7 @@ import { DownloadIcsDialog } from "@/components/download-ics-dialog";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCalendarAnalytics } from "@/hooks/use-calendar-analytics";
-
+import { SubscribeCalendarDialog } from "@/components/subscribe-calendar-dialog";
 export function EventsTabs() {
   const searchParams = useSearchParams();
   const defaultTab = searchParams.get("tab") === "past" ? "past" : "upcoming";
@@ -66,6 +66,7 @@ export function EventsTabs() {
                   size="sm"
                   className="h-10"
                 />
+                <SubscribeCalendarDialog size="sm" className="h-10" />
                 <Link href="/showcase-event">
                   <Button size="sm" className="h-10">
                     <Plus className="h-4 w-4 mr-1" />
@@ -86,12 +87,12 @@ export function EventsTabs() {
         {/* Desktop View: Side-by-Side */}
         <div className="hidden lg:flex lg:gap-6 items-start">
           <div
-            className="lg:w-1/2"
+            className="lg:w-5/12"
             style={monthHeight ? { height: monthHeight } : undefined}
           >
             <ClientContainer view="agenda" hideHeader={true} />
           </div>
-          <div className="lg:w-1/2" ref={monthRef}>
+          <div className="lg:w-7/12" ref={monthRef}>
             <ClientContainer view="month" />
           </div>
         </div>

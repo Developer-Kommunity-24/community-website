@@ -181,11 +181,12 @@ export default function Navbar() {
               <Button asChild size="sm" className="cursor-pointer">
                 <Link href="/join">Join Us</Link>
               </Button>
+
               <Button
                 asChild
-                variant="outline"
                 size="sm"
-                className="cursor-pointer gap-2"
+                variant="secondary"
+                className="cursor-pointer"
               >
                 <Link href="/showcase-event">
                   <CalendarPlus className="h-4 w-4" />
@@ -242,6 +243,7 @@ export default function Navbar() {
                     <Button asChild className="w-full cursor-pointer">
                       <Link href="/join">Join Us</Link>
                     </Button>
+
                     <Button
                       asChild
                       variant="secondary"
