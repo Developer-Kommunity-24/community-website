@@ -116,10 +116,23 @@ export function SubscribeCalendarDialog({
               <h3 className="font-semibold">Calendar Subscription</h3>
             </div>
 
-            <p className="text-sm text-muted-foreground">
-              Add DK24 events to Google Calendar, Apple Calendar, or Outlook.
-            </p>
-
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p>Subscribe to DK24 events in your calendar:</p>
+              <ol className="list-decimal space-y-1 pl-5">
+                <li>Copy the calendar feed URL using the copy button.</li>
+                <li>
+                  Click <strong>Go to Google Calendar</strong>.
+                </li>
+                <li>
+                  Paste the copied feed URL and click{" "}
+                  <strong>Add calendar</strong>.
+                </li>
+              </ol>
+              <p>
+                If you use another calendar application, paste the URL into its
+                calendar subscription option.
+              </p>
+            </div>
             <div className="flex gap-2">
               <div className="min-w-0 flex-1 break-all rounded-md border bg-muted p-3 text-xs">
                 {feedUrl || "Loading feed URL..."}
@@ -162,7 +175,7 @@ export function SubscribeCalendarDialog({
               }
             >
               <CalendarPlus className="mr-2 h-4 w-4" />
-              Add to Google Calendar
+              Go to Google Calendar
             </Button>
           </div>
 
