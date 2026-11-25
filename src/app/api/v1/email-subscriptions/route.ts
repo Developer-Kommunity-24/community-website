@@ -8,8 +8,8 @@ const subscribeSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const apiUrl = process.env.DKBOT_API_URL;
-  const apiSecret = process.env.DKBOT_API_SECRET;
+  const apiUrl = process.env.BACKEND_URL;
+const apiSecret = process.env.BACKEND_SECRET_KEY;
 
   if (!apiUrl || !apiSecret) {
     return NextResponse.json(
