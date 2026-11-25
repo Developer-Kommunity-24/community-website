@@ -111,14 +111,14 @@ export const communities: Community[] = [
     ],
     representatives: [
       {
-        name: "Nithin",
+        name: "Shaan Jonathan D'Souza",
         role: "Lead",
-        email: "nithinumeshanchan@gmail.com",
+        email: "sjonathandsouza@gmail.com",
       },
       {
-        name: "Shovin",
+        name: "Shravan G Kulal",
         role: "Co-Lead",
-        email: "23h46.shovin@sjec.ac.in",
+        email: "shravangkulal@gmail.com",
       },
     ],
     website: "https://www.sceptix.in",
